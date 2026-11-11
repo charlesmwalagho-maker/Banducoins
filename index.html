@@ -1,31 +1,52 @@
-<html>
-<head>
-  <title>BanduCoins - Buy Coins</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body{font-family:sans-serif; max-width:400px; margin:50px auto; padding:20px; text-align:center; background:#111; color:white}
-    input, button{width:100%; padding:14px; margin:10px 0; border-radius:8px; border:none; font-size:16px}
-    button{background:#00A651; color:white; font-weight:bold; cursor:pointer}
-    .box{background:#1a1a1a; padding:20px; border-radius:12px}
-  </style>
-</head>
-<body>
-  <div class="box">
-    <h1>💰 BanduCoins</h1>
-    <p>Get 450 Coins</p>
-    <p><b>Selected: 50 KES</b></p>
-    <input id="phone" type="tel" placeholder="Phone: 254708374149" value="254708374149">
-    <button onclick="pay()">Pay with M-Pesa 📱</button>
-    <div id="status"></div>
+<!-- BANDUCOINS PACKAGES -->
+<div style="text-align:center; margin: 20px 0;">
+  <p style="font-weight:bold; font-size:18px;">Choose Amount</p>
+
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; max-width:320px; margin:0 auto;">
+    <button onclick="selectAmount(20, this)" class="amount-btn" style="padding:15px; border:2px solid #22c55e; border-radius:12px; background:white; font-size:18px; font-weight:bold; cursor:pointer;">20 KES</button>
+    <button onclick="selectAmount(30, this)" class="amount-btn" style="padding:15px; border:2px solid #22c55e; border-radius:12px; background:white; font-size:18px; font-weight:bold; cursor:pointer;">30 KES</button>
+    <button onclick="selectAmount(50, this)" class="amount-btn" style="padding:15px; border:2px solid #22c55e; border-radius:12px; background:white; font-size:18px; font-weight:bold; cursor:pointer;">50 KES</button>
+    <button onclick="selectAmount(100, this)" class="amount-btn" style="padding:15px; border:2px solid #22c55e; border-radius:12px; background:white; font-size:18px; font-weight:bold; cursor:pointer;">100 KES</button>
   </div>
-  <script>
-    async function pay() {
-      const phone = document.getElementById('phone').value;
-      document.getElementById('status').innerHTML = 'Sending STK Push...';
-      const res = await fetch('/.netlify/functions/stkpush', {method: 'POST', body: JSON.stringify({phone, amount: 50}), headers: {'Content-Type': 'application/json'}});
-      const data = await res.json();
-      document.getElementById('status').innerHTML = data.message;
-    }
-  </script>
-</body>
-</html>
+
+  <p id="selected-text" style="margin-top:12px; color:#555;">Selected: <b>50 KES</b> = 50 BanduCoins</p>
+
+  <input type="tel" id="phone" placeholder="2547XXXXXXXX" style="width:100%; max-width:320px; padding:14px; margin-top:10px; border-radius:10px; border:1px solid #ccc; font-size:16px; text-align:center;" />
+
+  <br><br>
+  <button onclick="payNow()" style="width:100%; max-width:320px; padding:16px; background:#22c55e; color:white; border:none; border-radius:12px; font-size:18px; font-weight:bold; cursor:pointer;">PAY WITH M-PESA</button>
+  <p id="pay-message"></p>
+</div>
+
+<script>
+let selectedAmount = 50;
+
+function selectAmount(amount, btn) {
+  selectedAmount = amount;
+  document.querySelectorAll('.amount-btn').forEach(b => {
+    b.style.background = 'white';
+    b.style.color = 'black';
+  });
+  btn.style.background = '#22c55e';
+  btn.style.color = 'white';
+  document.getElementById('selected-text').innerHTML = `Selected: <b>${amount} KES</b> = ${amount} BanduCoins`;
+}
+
+async function payNow() {
+  const phone = document.getElementById('phone').value.trim();
+  const msg = document.getElementById('pay-message');
+  if (!phone) { msg.innerText = 'Enter phone number first'; return; }
+  msg.innerText = 'Sending STK push...';
+  try {
+    const res = await fetch('/.netlify/functions/stkpush', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ phone, amount: selectedAmount })
+    });
+    const data = await res.json();
+    msg.innerText = data.message || 'Check your phone';
+  } catch (e) {
+    msg.innerText = 'Failed. Try again.';
+  }
+}
+</script>
