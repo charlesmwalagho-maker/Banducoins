@@ -1,89 +1,60 @@
+const axios = require('axios');
+
 exports.handler = async (event) => {
-  if (event.httpMethod !== 'POST') {
-    return { statusCode: 405, body: JSON.stringify({ success: false, message: 'Only POST allowed' }) };
-  }
   try {
     const { phone, amount } = JSON.parse(event.body || '{}');
-    if (!phone || !amount) return { statusCode: 400, body: JSON.stringify({ success: false, message: 'Phone and amount required' }) };
 
-    let cleanPhone = phone.toString().trim().replace(/\s/g, '');
-    if (cleanPhone.startsWith('0')) cleanPhone = '254' + cleanPhone.slice(1);
-    if (cleanPhone.startsWith('+')) cleanPhone = cleanPhone.slice(1);
-
-    const consumerKey = process.env.DARAJA_CONSUMER_KEY;
-    const consumerSecret = process.env.DARAJA_CONSUMER_SECRET;
-    const passkey = process.env.DARAJA_PASSKEY;
-    const shortcode = '174379';
-    const baseUrl = 'https://sandbox.safaricom.co.ke';
-
-    const auth = Buffer.from(consumerKey + ':' + consumerSecret).toString('base64');
-    const tokenRes = await fetch(baseUrl + '/oauth/v1/generate?grant_type=client_credentials', { headers: { Authorization: 'Basic ' + auth } });
-    const tokenData = await tokenRes.json();
-    const token = tokenData.access_token;
-    if (!token) {
-      return { statusCode: 500, body: JSON.stringify({ success: false, message: 'Failed to get token: ' + (tokenData.errorMessage || 'Check your Consumer Key/Secret in Netlify') }) };
+    if (!phone || !amount) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ success: false, message: 'Phone and amount are required' })
+      };
     }
 
-    const now = new Date();
-    const timestamp = now.getFullYear().toString() + String(now.getMonth() + 1).padStart(2, '0') + String(now.getDate()).padStart(2, '0') + String(now.getHours()).padStart(2, '0') + String(now.getMinutes()).padStart(2, '0') + String(now.getSeconds()).padStart(2, '0');
-    const password = Buffer.from(shortcode + passkey + timestamp).toString('base64');
+    const cleanPhone = phone.replace(/^0/, '254').replace(/[^0-9]/g, '');
+    const shortcode = process.env.MPESA_SHORTCODE;
+    const passkey = process.env.MPESA_PASSKEY;
+    const consumerKey = process.env.MPESA_CONSUMER_KEY;
+    const consumerSecret = process.env.MPESA_CONSUMER_SECRET;
 
-    const stkRes = await fetch(baseUrl + '/mpesa/stkpush/v1/processrequest', {
-      method: 'POST',
-      headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ BusinessShortCode: shortcode, Password: password, Timestamp: timestamp, TransactionType: 'CustomerPayBillOnline', Amount: amount, PartyA: cleanPhone, PartyB: shortcode, PhoneNumber: cleanPhone, CallBackURL: 'https://banducoinsite.netlify.app/.netlify/functions/callback', AccountReference: 'BanduCoins', TransactionDesc: 'Buy BanduCoins' })
+    // 1. Get Access Token
+    const auth = Buffer.from(`${consumerKey}:${consumerSecret}`).toString('base64');
+    const tokenRes = await axios.get('https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials', {
+      headers: { Authorization: `Basic ${auth}` }
     });
-    const stkData = await stkRes.json();
-    if (stkData.ResponseCode === '0' || stkData.ResponseCode === 0) {
-      return { statusCode: 200, body: JSON.stringify({ success: true, message: 'STK Sent! Check your phone' }) };
-    } else {
-      return { statusCode: 400, body: JSON.stringify({ success: false, message: stkData.ResponseDescription || stkData.errorMessage || 'STK failed' }) };
-    }
-  } catch (err) {
-    return { statusCode: 500, body: JSON.stringify({ success: false, message: err.message }) };
-  }
-};exports.handler = async (event) => {
-  if (event.httpMethod !== 'POST') {
-    return { statusCode: 405, body: JSON.stringify({ success: false, message: 'Only POST allowed' }) };
-  }
-  try {
-    const { phone, amount } = JSON.parse(event.body || '{}');
-    if (!phone || !amount) return { statusCode: 400, body: JSON.stringify({ success: false, message: 'Phone and amount required' }) };
+    const token = tokenRes.data.access_token;
 
-    let cleanPhone = phone.toString().trim().replace(/\s/g, '');
-    if (cleanPhone.startsWith('0')) cleanPhone = '254' + cleanPhone.slice(1);
-    if (cleanPhone.startsWith('+')) cleanPhone = cleanPhone.slice(1);
+    // 2. Create Password
+    const timestamp = new Date().toISOString().replace(/[^0-9]/g, '').slice(0, 14);
+    const password = Buffer.from(`${shortcode}${passkey}${timestamp}`).toString('base64');
 
-    const consumerKey = process.env.DARAJA_CONSUMER_KEY;
-    const consumerSecret = process.env.DARAJA_CONSUMER_SECRET;
-    const passkey = process.env.DARAJA_PASSKEY;
-    const shortcode = '174379';
-    const baseUrl = 'https://sandbox.safaricom.co.ke';
-
-    const auth = Buffer.from(consumerKey + ':' + consumerSecret).toString('base64');
-    const tokenRes = await fetch(baseUrl + '/oauth/v1/generate?grant_type=client_credentials', { headers: { Authorization: 'Basic ' + auth } });
-    const tokenData = await tokenRes.json();
-    const token = tokenData.access_token;
-    if (!token) {
-      return { statusCode: 500, body: JSON.stringify({ success: false, message: 'Failed to get token: ' + (tokenData.errorMessage || 'Check your Consumer Key/Secret in Netlify') }) };
-    }
-
-    const now = new Date();
-    const timestamp = now.getFullYear().toString() + String(now.getMonth() + 1).padStart(2, '0') + String(now.getDate()).padStart(2, '0') + String(now.getHours()).padStart(2, '0') + String(now.getMinutes()).padStart(2, '0') + String(now.getSeconds()).padStart(2, '0');
-    const password = Buffer.from(shortcode + passkey + timestamp).toString('base64');
-
-    const stkRes = await fetch(baseUrl + '/mpesa/stkpush/v1/processrequest', {
-      method: 'POST',
-      headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ BusinessShortCode: shortcode, Password: password, Timestamp: timestamp, TransactionType: 'CustomerPayBillOnline', Amount: amount, PartyA: cleanPhone, PartyB: shortcode, PhoneNumber: cleanPhone, CallBackURL: 'https://banducoinsite.netlify.app/.netlify/functions/callback', AccountReference: 'BanduCoins', TransactionDesc: 'Buy BanduCoins' })
+    // 3. Send STK Push
+    const stkRes = await axios.post('https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest', {
+      BusinessShortCode: shortcode,
+      Password: password,
+      Timestamp: timestamp,
+      TransactionType: 'CustomerPayBillOnline',
+      Amount: Number(amount),
+      PartyA: cleanPhone,
+      PartyB: shortcode,
+      PhoneNumber: cleanPhone,
+      CallBackURL: 'https://banducoinsite.netlify.app/.netlify/functions/callback',
+      AccountReference: 'BanduCoins',
+      TransactionDesc: 'BanduCoins Buy'
+    }, {
+      headers: { Authorization: `Bearer ${token}` }
     });
-    const stkData = await stkRes.json();
-    if (stkData.ResponseCode === '0' || stkData.ResponseCode === 0) {
-      return { statusCode: 200, body: JSON.stringify({ success: true, message: 'STK Sent! Check your phone' }) };
-    } else {
-      return { statusCode: 400, body: JSON.stringify({ success: false, message: stkData.ResponseDescription || stkData.errorMessage || 'STK failed' }) };
-    }
-  } catch (err) {
-    return { statusCode: 500, body: JSON.stringify({ success: false, message: err.message }) };
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ success: true, message: 'STK push sent! Check your phone and enter PIN.', data: stkRes.data })
+    };
+
+  } catch (error) {
+    console.log(error.response?.data || error.message);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ success: false, message: error.response?.data?.errorMessage || 'STK push failed. Try again.' })
+    };
   }
 };
