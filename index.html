@@ -1,0 +1,31 @@
+<html>
+<head>
+  <title>BanduCoins - Buy Coins</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body{font-family:sans-serif; max-width:400px; margin:50px auto; padding:20px; text-align:center; background:#111; color:white}
+    input, button{width:100%; padding:14px; margin:10px 0; border-radius:8px; border:none; font-size:16px}
+    button{background:#00A651; color:white; font-weight:bold; cursor:pointer}
+    .box{background:#1a1a1a; padding:20px; border-radius:12px}
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>💰 BanduCoins</h1>
+    <p>Get 450 Coins</p>
+    <p><b>Selected: 50 KES</b></p>
+    <input id="phone" type="tel" placeholder="Phone: 254708374149" value="254708374149">
+    <button onclick="pay()">Pay with M-Pesa 📱</button>
+    <div id="status"></div>
+  </div>
+  <script>
+    async function pay() {
+      const phone = document.getElementById('phone').value;
+      document.getElementById('status').innerHTML = 'Sending STK Push...';
+      const res = await fetch('/.netlify/functions/stkpush', {method: 'POST', body: JSON.stringify({phone, amount: 50}), headers: {'Content-Type': 'application/json'}});
+      const data = await res.json();
+      document.getElementById('status').innerHTML = data.message;
+    }
+  </script>
+</body>
+</html>
