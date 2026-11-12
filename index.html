@@ -1,87 +1,156 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>BanduCoins - Buy Coins</title>
+<html><head><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>BanduCoins</title>
 <style>
-body{font-family:Arial;background:#0f0f0f;color:white;padding:15px;text-align:center}
-h1{color:#ffd700;margin:5px}
-.card{background:#1e1e1e;border:2px solid #333;border-radius:15px;padding:15px;margin:12px 0;cursor:pointer}
-.card.selected{border-color:#ffd700;background:#2a2500}
-.price{font-size:28px;font-weight:bold;color:#00e676}
-.coins{font-size:18px}
-input,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;border:none;font-size:16px}
-button{background:#00e676;color:black;font-weight:bold;padding:15px;width:100%;border:none;border-radius:12px;font-size:18px}
-.paybox{background:#fff;color:black;border-radius:15px;padding:15px;margin-top:15px;display:none;text-align:left}
-.paybox b{font-size:20px}
-.copy{background:#eee;padding:8px;border-radius:8px;text-align:center}
-</style>
-</head>
-<body>
+*{box-sizing:border-box} body{margin:0;font-family:Arial;background:#000;color:#fff}
+.screen{display:none;padding:16px;min-height:100vh} .screen.active{display:block}
+.logo{font-size:42px;font-weight:900;color:#ffd700;text-align:center;margin-top:30px} .logo span{font-size:20px;color:#fff;display:block;letter-spacing:3px}
+input,select{width:100%;padding:14px;margin:8px 0;border-radius:12px;border:1px solid #333;background:#111;color:#fff;font-size:16px}
+.btn{width:100%;padding:15px;border:none;border-radius:12px;font-weight:900;font-size:16px;margin-top:10px;cursor:pointer}
+.btn-gold{background:#ffd700;color:#000} .btn-green{background:#00e676;color:#000} .btn-blue{background:#00cfff;color:#000}
+.small{color:#aaa;font-size:13px;text-align:center;margin-top:10px} .small b{color:#00cfff;cursor:pointer}
+.topbar{display:flex;justify-content:space-between;align-items:center;background:#111;padding:12px;border-radius:12px}
+.coin{color:#ffd700;font-weight:900;font-size:20px}
+.card{background:#111;border:1px solid #222;border-radius:16px;padding:14px;margin:12px 0}
+.price{border:2px solid #ffd700;background:#1a1500}
+.video{height:380px;background:#222;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:60px;position:relative;overflow:hidden}
+.video-lock{position:absolute;inset:0;background:rgba(0,0,0,.7);display:flex;flex-direction:column;align-items:center;justify-content:center}
+.bottomnav{position:fixed;bottom:0;left:0;right:0;background:#111;display:flex;justify-content:space-around;padding:12px 0;border-top:1px solid #222}
+.bottomnav div{text-align:center;font-size:12px;cursor:pointer} .bottomnav div b{font-size:20px;display:block}
+.chip{display:inline-block;padding:8px 14px;background:#222;border-radius:20px;margin:4px;cursor:pointer} .chip.active{background:#ffd700;color:#000}
+</style></head><body>
 
-<h1>🪙 BanduCoins</h1>
-<p>Cheap & Fast Game Coins - Pay with M-PESA Pochi</p>
-
-<div class="card" onclick="select(this,20,450)">
-  <div class="coins">450 Coins</div>
-  <div class="price">KSH 20</div>
-  <div>Best for starters</div>
+<!-- LOGIN -->
+<div id="loginScreen" class="screen active">
+  <div class="logo">🪙 BanduCoins<span>GAME COINS SHOP + VIDEOS</span></div>
+  <h3 style="text-align:center">Login</h3>
+  <input id="loginPhone" placeholder="Phone e.g. 0720...">
+  <input id="loginPass" type="password" placeholder="Password">
+  <button class="btn btn-gold" onclick="doLogin()">LOGIN</button>
+  <p class="small">No account? <b onclick="show('signupScreen')">Sign Up</b></p>
+  <p id="loginMsg" class="small"></p>
 </div>
 
-<div class="card" onclick="select(this,30,600)">
-  <div class="coins">600 Coins</div>
-  <div class="price">KSH 30</div>
-  <div>Most Popular</div>
+<!-- SIGNUP -->
+<div id="signupScreen" class="screen">
+  <div class="logo">🪙 BanduCoins</div>
+  <h3 style="text-align:center">Create Account</h3>
+  <input id="suPhone" placeholder="Phone 07...">
+  <input id="suName" placeholder="Game Name e.g. Wizzy">
+  <input id="suPass" type="password" placeholder="Create Password">
+  <input id="suPass2" type="password" placeholder="Confirm Password">
+  <select id="suAge"><option value="kids">Under Age / Kids - Cartoons Only</option><option value="adult">Above Age / Adult - Random Videos</option></select>
+  <button class="btn btn-green" onclick="doSignup()">CREATE ACCOUNT</button>
+  <p class="small">Have account? <b onclick="show('loginScreen')">Login</b></p>
+  <p id="suMsg" class="small"></p>
 </div>
 
-<div class="card" onclick="select(this,50,1500)">
-  <div class="coins">1500 Coins ⭐ BEST VALUE</div>
-  <div class="price">KSH 50</div>
-  <div>Save more!</div>
+<!-- HOME -->
+<div id="homeScreen" class="screen">
+  <div class="topbar"><div><b id="homeName">Wizzy</b><div class="small" style="text-align:left;margin:0" id="homeAge">Adult</div></div><div class="coin">🪙 <span id="balance">0</span></div><button style="background:#ffd700;border:none;padding:10px 14px;border-radius:10px;font-weight:900" onclick="show('buyScreen')">Buy Banducoins</button></div>
+  <div style="display:flex;gap:10px;margin-top:12px"><button class="btn btn-blue" style="flex:1" onclick="show('watchScreen')">▶ Watch Videos -1 coin</button><button class="btn btn-gold" style="flex:1" onclick="show('uploadScreen')">⬆ Upload -5 coins</button></div>
+  <div class="card"><b>👤 Profile</b><p>Avatar 🧑 • <span id="profileName">Wizzy</span></p><p>Followers: 0 • Likes: 0</p><button class="btn btn-blue" onclick="alert('Go Live coming soon')">🔴 Go Live</button><button class="btn btn-gold" onclick="show('uploadScreen')">Post Story</button></div>
+  <div class="card"><b>📹 My Posts</b><p>Prices: 12k views • 10k likes • 1k shares - demo</p></div>
+  <p class="small">Your balance updates live after you buy / watch / upload</p>
+  <div style="height:70px"></div>
 </div>
 
-<input id="gamename" placeholder="Your Game Name / Username">
-<input id="phone" placeholder="Your Phone Number e.g. 0720...">
+<!-- BUY -->
+<div id="buyScreen" class="screen">
+  <h2>💰 Buy BanduCoins</h2>
+  <div class="card price" onclick="selectPrice(20,450)"><h3>KSH 20 = 450 Coins</h3></div>
+  <div class="card" onclick="selectPrice(30,600)"><h3>KSH 30 = 600 Coins</h3></div>
+  <div class="card price" style="border-color:#00e676" onclick="selectPrice(50,1500)"><h3>KSH 50 = 1500 Coins ⭐ BEST VALUE</h3></div>
+  <div class="card"><b>How to pay (Pochi):</b><p>1. M-PESA -> Send Money -> <b>0720832769</b> Name: Banducoins</p><p>2. Send <b id="selectedPrice">KSH 20</b></p><p>3. Paste M-PESA code below</p><input id="mpesaCode" placeholder="M-PESA Code e.g. UKCEN..."><button class="btn btn-green" onclick="submitBuy()">I HAVE PAID - SEND CODE</button><p class="small">Admin will approve, coins appear in your wallet. For demo, admin uses admin.html</p></div>
+  <button class="btn" style="background:#222;color:#fff" onclick="show('homeScreen')">← Back Home</button>
+</div>
 
-<button onclick="showPay()">Continue to Pay →</button>
+<!-- WATCH -->
+<div id="watchScreen" class="screen">
+  <h2>▶ Watch - 1 Coin Per Video</h2>
+  <div id="cats"><span class="chip active" onclick="filterCat(this,'all')">All</span><span class="chip" onclick="filterCat(this,'kids')">Kids</span><span class="chip" onclick="filterCat(this,'sports')">Sports</span><span class="chip" onclick="filterCat(this,'music')">Music</span><span class="chip" onclick="filterCat(this,'news')">News</span><span class="chip" onclick="filterCat(this,'movies')">Movies</span></div>
+  <div id="feed"></div>
+  <button class="btn" style="background:#222;color:#fff" onclick="show('homeScreen')">← Home</button>
+  <div style="height:70px"></div>
+</div>
 
-<div id="pay" class="paybox">
-  <h2>Pay Now - Step 1</h2>
-  <p>1. Go to <b>M-PESA > Send Money</b></p>
-  <p>2. Send to:</p>
-  <div class="copy"><b>0720832769</b><br> Name: Banducoins</div>
-  <p>3. Amount: <b id="amt">KSH 20</b> - <span id="camt">450 Coins</span></p>
-  <p>4. Enter your M-PESA PIN</p>
-  <hr>
-  <h2>Step 2 - Confirm</h2>
-  <input id="mpesacode" placeholder="Paste M-PESA Code e.g. QK7X...">
-  <button onclick="confirmOrder()" style="background:#ffd700">I HAVE PAID ✅</button>
-  <p id="done" style="color:green;font-weight:bold"></p>
-  <p style="font-size:13px">After you tap I HAVE PAID, we check your code and send your coins in game. Usually in 2-5 mins.</p>
+<!-- UPLOAD -->
+<div id="uploadScreen" class="screen">
+  <h2>⬆ Upload Video - 5 Coins</h2>
+  <div class="card"><p>Balance: 🪙 <span class="bal">0</span></p><input id="vidTitle" placeholder="Video title"><input type="file" accept="video/*"><button class="btn btn-gold" onclick="doUpload()">UPLOAD - CHARGE 5 COINS</button><p id="upMsg" class="small"></p></div>
+  <button class="btn" style="background:#222;color:#fff" onclick="show('homeScreen')">← Home</button>
+</div>
+
+<!-- INBOX -->
+<div id="inboxScreen" class="screen">
+  <h2>💬 Inbox - Send 1 Coin, Receive FREE</h2>
+  <div class="card"><input id="toPhone" placeholder="Friend Phone 07..."><input id="msgText" placeholder="Type message..."><button class="btn btn-blue" onclick="sendSMS()">SEND - 1 COIN</button><p id="inboxMsg" class="small"></p></div>
+  <div class="card"><b>Messages (demo)</b><p>Wizzy: Hi 👋</p><p>You: Hello, 1 coin sent</p></div>
+  <button class="btn" style="background:#222;color:#fff" onclick="show('homeScreen')">← Home</button>
+</div>
+
+<div class="bottomnav" id="nav" style="display:none">
+  <div onclick="show('homeScreen')"><b>🏠</b>Home</div><div onclick="show('watchScreen')"><b>▶</b>Watch</div><div onclick="show('uploadScreen')"><b>➕</b>Post</div><div onclick="show('inboxScreen')"><b>💬</b>Inbox</div><div onclick="show('buyScreen')"><b>🪙</b>Buy</div>
 </div>
 
 <script>
-let amount=20, coins=450;
-function select(el,a,c){
-  document.querySelectorAll('.card').forEach(x=>x.classList.remove('selected'));
-  el.classList.add('selected');
-  amount=a; coins=c;
-  document.getElementById('amt').innerText='KSH '+a;
-  document.getElementById('camt').innerText=c+' Coins';
+let myPhone='', myName='', myAge='adult', selectedAmount=20, selectedCoins=450;
+const videos=[
+ {id:'v1',title:'Funny Cartoon',cat:'kids',emoji:'🎬'},
+ {id:'v2',title:'Football Skills',cat:'sports',emoji:'⚽'},
+ {id:'v3',title:'New Music Hit',cat:'music',emoji:'🎵'},
+ {id:'v4',title:'Breaking News',cat:'news',emoji:'📰'},
+ {id:'v5',title:'Movie Clip',cat:'movies',emoji:'🎥'},
+];
+function show(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); if(id!=='loginScreen' && id!=='signupScreen') document.getElementById('nav').style.display='flex'; window.scrollTo(0,0); refreshBalance(); }
+async function doSignup(){
+  if(document.getElementById('suPass').value !== document.getElementById('suPass2').value) return alert('Passwords do not match');
+  let body={phone:document.getElementById('suPhone').value, gameName:document.getElementById('suName').value, password:document.getElementById('suPass').value, ageGroup:document.getElementById('suAge').value};
+  let r=await fetch('/.netlify/functions/signup',{method:'POST',body:JSON.stringify(body)}); let d=await r.json();
+  if(!d.success) return document.getElementById('suMsg').innerText=d.error;
+  alert('Account created! Login now'); show('loginScreen');
 }
-function showPay(){
-  if(!document.getElementById('gamename').value){alert('Enter your Game Name first');return;}
-  document.getElementById('pay').style.display='block';
-  window.scrollTo(0,document.body.scrollHeight);
+async function doLogin(){
+  let body={phone:document.getElementById('loginPhone').value, password:document.getElementById('loginPass').value};
+  let r=await fetch('/.netlify/functions/login',{method:'POST',body:JSON.stringify(body)}); let d=await r.json();
+  if(!d.success) return document.getElementById('loginMsg').innerText=d.error;
+  myPhone=body.phone; myName=d.gameName; myAge=d.ageGroup;
+  document.getElementById('homeName').innerText=myName; document.getElementById('profileName').innerText=myName; document.getElementById('homeAge').innerText=myAge==='kids'?'Kids - Cartoons Only':'Adult - Random';
+  renderFeed(); show('homeScreen');
 }
-function confirmOrder(){
-  let code=document.getElementById('mpesacode').value;
-  let name=document.getElementById('gamename').value;
-  if(!code){alert('Paste your M-PESA Code');return;}
-  document.getElementById('done').innerText='✅ Order Received! '+coins+' Coins for '+name+'. Code: '+code+' - We are checking payment now.';
-  let msg='NEW BANDUCOINS ORDER%0AName: '+name+'%0ACoins: '+coins+'%0AAmount: KSH '+amount+'%0ACode: '+code;
-  window.open('https://wa.me/254720832769?text='+msg,'_blank');
+async function refreshBalance(){
+  if(!myPhone) return;
+  let r=await fetch('/.netlify/functions/get-balance?phone='+myPhone); let d=await r.json();
+  document.getElementById('balance').innerText=d.coins; document.querySelectorAll('.bal').forEach(e=>e.innerText=d.coins);
 }
-</script>
-</body>
-</html>
+function selectPrice(a,c){ selectedAmount=a; selectedCoins=c; document.getElementById('selectedPrice').innerText='KSH '+a+' = '+c+' Coins'; alert('Selected KSH '+a+' = '+c+' coins. Now send money to 0720832769 then paste code.'); }
+async function submitBuy(){ let code=document.getElementById('mpesaCode').value; if(!code) return alert('Paste M-PESA code'); alert('Code '+code+' sent for approval! Admin will approve in admin.html and your '+selectedCoins+' coins will appear. Tell admin your phone '+myPhone+' and code '+code); }
+function renderFeed(){
+  let feed=document.getElementById('feed'); feed.innerHTML='';
+  videos.filter(v=> myAge==='kids' ? v.cat==='kids' : true).forEach(v=>{
+    feed.innerHTML+=`<div class="card"><b>${v.title}</b> • ${v.cat}<div class="video">${v.emoji}<div class="video-lock"><p>🔒 Watch = 1 Coin</p><button class="btn btn-gold" style="width:200px" onclick="watchVideo('${v.id}')">WATCH -1 COIN</button><button class="btn btn-blue" style="width:200px" onclick="shareVideo('${v.id}')">SHARE -1 COIN</button></div></div></div>`;
+  });
+}
+async function watchVideo(id){
+  let r=await fetch('/.netlify/functions/spend',{method:'POST',body:JSON.stringify({phone:myPhone,action:'watch',videoId:id})}); let d=await r.json();
+  if(!d.success) return alert(d.error+' Buy more coins!');
+  alert('Playing video! Balance now: '+d.balance); refreshBalance();
+}
+async function shareVideo(id){
+  let r=await fetch('/.netlify/functions/spend',{method:'POST',body:JSON.stringify({phone:myPhone,action:'share',videoId:id})}); let d=await r.json();
+  if(!d.success) return alert(d.error);
+  alert('Shared! -1 coin. Balance: '+d.balance); refreshBalance();
+}
+async function doUpload(){
+  let r=await fetch('/.netlify/functions/spend',{method:'POST',body:JSON.stringify({phone:myPhone,action:'upload'})}); let d=await r.json();
+  if(!d.success) return document.getElementById('upMsg').innerText=d.error;
+  document.getElementById('upMsg').innerText='Uploaded! -5 coins. Balance: '+d.balance; refreshBalance();
+}
+async function sendSMS(){
+  let to=document.getElementById('toPhone').value; let msg=document.getElementById('msgText').value;
+  let r=await fetch('/.netlify/functions/spend',{method:'POST',body:JSON.stringify({phone:myPhone,action:'send_sms',toPhone:to})}); let d=await r.json();
+  if(!d.success) return document.getElementById('inboxMsg').innerText=d.error;
+  document.getElementById('inboxMsg').innerText='Sent to '+to+' -1 coin. Receiver pays 0. Balance: '+d.balance; refreshBalance();
+}
+function filterCat(el,cat){ document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active')); el.classList.add('active'); alert('Filter: '+cat+' (demo - feed filters by age for kids)'); }
+</script></body></html>
