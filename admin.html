@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin - Banducoins</title>
+<style>
+body{font-family:sans-serif;background:#0f172a;color:white;padding:20px;max-width:500px;margin:auto}
+input,button{width:100%;padding:14px;margin:8px 0;border-radius:10px;border:none;font-size:16px;box-sizing:border-box}
+input{background:#1e293b;color:white}
+button{background:#22c55e;color:white;font-weight:bold}
+.card{background:#1e293b;padding:16px;border-radius:12px;margin-top:10px}
+</style>
+</head>
+<body>
+<h2>🛡️ Banducoins Admin</h2>
+<p>Approve after you confirm M-Pesa received.</p>
+<input id="phone" placeholder="Player Phone e.g. 0712345678">
+<input id="coins" type="number" placeholder="Coins to add e.g. 100">
+<input id="adminPass" type="password" placeholder="Admin password">
+<button onclick="approve()">Approve & Add Coins</button>
+<div id="msg"></div>
+<script>
+async function approve(){
+  const phone = document.getElementById('phone').value;
+  const coins = document.getElementById('coins').value;
+  const adminPass = document.getElementById('adminPass').value;
+  document.getElementById('msg').innerHTML = 'Approving...';
+  const res = await fetch('/.netlify/functions/approve', {
+    method: 'POST',
+    body: JSON.stringify({ phone, coins: Number(coins), adminPass })
+  });
+  const data = await res.json();
+  if(data.success){
+    document.getElementById('msg').innerHTML = '<div class="card">✅ Approved! New balance: '+data.newBalance+' coins</div>';
+  } else {
+    document.getElementById('msg').innerHTML = '<div class="card">❌ '+ (data.error || 'Failed') +'</div>';
+  }
+}
+</script>
+</body>
+</html>
