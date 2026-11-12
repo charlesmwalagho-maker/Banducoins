@@ -10,27 +10,24 @@ input,button{width:100%;padding:13px;margin:8px 0;border-radius:10px;border:none
 input{background:#0f172a;color:white;border:1px solid #334155}
 button{background:#22c55e;color:white;font-weight:bold;cursor:pointer}
 button.secondary{background:#3b82f6}
-button.gold{background:#f59e0b;color:black}
 button.red{background:#ef4444}
 .hidden{display:none}
 .item{background:#0f172a;padding:12px;border-radius:10px;margin:8px 0;display:flex;justify-content:space-between;align-items:center}
+.pochi{background:#fef3c7;color:black;padding:12px;border-radius:10px;font-weight:bold;font-size:18px}
 </style>
 </head>
 <body>
 <h1>🪙 Banducoins</h1>
 
-<!-- AUTH -->
 <div id="authCard" class="card">
 <h2>Login / Sign Up</h2>
 <input id="phone" placeholder="Phone e.g 0712345678">
-<input id="gameName" placeholder="Game Name">
 <input id="password" type="password" placeholder="Password">
 <button onclick="doSignup()">Sign Up</button>
 <button class="secondary" onclick="doLogin()">Login</button>
 <p id="authMsg"></p>
 </div>
 
-<!-- MAIN -->
 <div id="mainCard" class="card hidden">
 <h2 id="welcome"></h2>
 <h1>🪙 <span id="bal">0</span> Coins</h1>
@@ -40,11 +37,12 @@ button.red{background:#ef4444}
 <button class="red" onclick="logout()">Logout</button>
 </div>
 
-<!-- BUY -->
 <div id="buyCard" class="card hidden">
 <h2>Buy Coins</h2>
-<p>1. Send to M-PESA: <b>YOUR TILL HERE</b></p>
-<p>2. Screenshot & send code to admin on WhatsApp</p>
+<p>1. Send money to Pochi La Biashara:</p>
+<div class="pochi">📱 0720832769</div>
+<p>2. Copy your M-PESA code, paste below</p>
+<p>3. Send screenshot to admin on WhatsApp</p>
 <input id="mpesaCode" placeholder="e.g QK123ABC...">
 <input id="buyAmount" type="number" placeholder="Amount in Ksh e.g 100">
 <button onclick="submitBuy()">I Have Paid</button>
@@ -52,7 +50,6 @@ button.red{background:#ef4444}
 <p id="buyMsg"></p>
 </div>
 
-<!-- SHOP -->
 <div id="shopCard" class="card hidden">
 <h2>Shop - Spend Coins</h2>
 <div class="item"><span>⚡ 100 Coins - Boost</span><button onclick="buyItem('Boost',100)">Buy</button></div>
@@ -63,24 +60,32 @@ button.red{background:#ef4444}
 
 <script>
 let currentPhone = localStorage.getItem('phone') || '';
-
 async function doSignup(){
-  const phone = document.getElementById('phone').value;
-  const gameName = document.getElementById('gameName').value;
-  const password = document.getElementById('password').value;
-  const res = await fetch('/.netlify/functions/signup',{method:'POST',body:JSON.stringify({phone,gameName,password})});
+  const phone = document.getElementById('phone').value.trim();
+  const password = document.getElementById('password').value.trim();
+  if(!phone || !password){ document.getElementById('authMsg').innerText = 'Fill Phone AND Password'; return; }
+  document.getElementById('authMsg').innerText = 'Creating account...';
+  const res = await fetch('/.netlify/functions/signup',{method:'POST',body:JSON.stringify({phone,password,gameName:'Player'})});
   const data = await res.json();
-  document.getElementById('authMsg').innerText = data.error || 'Account created! Now tap Login';
+  if(data.error){ document.getElementById('authMsg').innerText = data.error; return; }
+  currentPhone = phone;
+  localStorage.setItem('phone', phone);
+  localStorage.setItem('savedPass', password);
+  showMain(phone, 0);
+  document.getElementById('authMsg').innerText = '';
 }
 async function doLogin(){
-  const phone = document.getElementById('phone').value;
-  const password = document.getElementById('password').value;
+  const phone = document.getElementById('phone').value.trim();
+  const password = document.getElementById('password').value.trim() || localStorage.getItem('savedPass') || '';
+  if(!phone || !password){ document.getElementById('authMsg').innerText = 'Enter Phone and Password'; return; }
+  document.getElementById('authMsg').innerText = 'Logging in...';
   const res = await fetch('/.netlify/functions/login',{method:'POST',body:JSON.stringify({phone,password})});
   const data = await res.json();
   if(data.error){ document.getElementById('authMsg').innerText = data.error; return; }
   currentPhone = phone;
   localStorage.setItem('phone', phone);
-  showMain(data.gameName, data.coins ?? data.balance ?? 0);
+  localStorage.setItem('savedPass', password);
+  showMain(data.gameName || phone, data.coins ?? data.balance ?? 0);
 }
 function showMain(name, coins){
   document.getElementById('authCard').classList.add('hidden');
@@ -101,7 +106,8 @@ function hideBuy(){ document.getElementById('buyCard').classList.add('hidden'); 
 async function submitBuy(){
   const code = document.getElementById('mpesaCode').value;
   const amount = document.getElementById('buyAmount').value;
-  document.getElementById('buyMsg').innerText = 'Request noted! Code: ' + code + ' Amount: ' + amount + '. Send screenshot to admin, he will approve in admin.html';
+  if(!code || !amount){ document.getElementById('buyMsg').innerText = 'Paste M-PESA Code and Amount'; return; }
+  document.getElementById('buyMsg').innerText = 'Request noted! Code: ' + code + ' Amount: Ksh ' + amount + '. Send screenshot to 0720832769, admin will approve.';
 }
 async function buyItem(item, cost){
   const res = await fetch('/.netlify/functions/spend',{method:'POST',body:JSON.stringify({phone:currentPhone, amount:cost, item})});
@@ -110,8 +116,8 @@ async function buyItem(item, cost){
   document.getElementById('shopMsg').innerText = 'You bought ' + item + '!';
   document.getElementById('bal').innerText = data.newBalance ?? data.balance ?? data.coins;
 }
-function logout(){ localStorage.removeItem('phone'); location.reload(); }
-if(currentPhone){ document.getElementById('phone').value = currentPhone; }
+function logout(){ localStorage.removeItem('phone'); localStorage.removeItem('savedPass'); location.reload(); }
+if(currentPhone){ document.getElementById('phone').value = currentPhone; const sp = localStorage.getItem('savedPass'); if(sp) document.getElementById('password').value = sp; }
 </script>
 </body>
 </html>
