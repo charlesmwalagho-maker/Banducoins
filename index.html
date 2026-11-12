@@ -1,52 +1,87 @@
-<!-- BANDUCOINS PACKAGES -->
-<div style="text-align:center; margin: 20px 0;">
-  <p style="font-weight:bold; font-size:18px;">Choose Amount</p>
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BanduCoins - Buy Coins</title>
+<style>
+body{font-family:Arial;background:#0f0f0f;color:white;padding:15px;text-align:center}
+h1{color:#ffd700;margin:5px}
+.card{background:#1e1e1e;border:2px solid #333;border-radius:15px;padding:15px;margin:12px 0;cursor:pointer}
+.card.selected{border-color:#ffd700;background:#2a2500}
+.price{font-size:28px;font-weight:bold;color:#00e676}
+.coins{font-size:18px}
+input,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;border:none;font-size:16px}
+button{background:#00e676;color:black;font-weight:bold;padding:15px;width:100%;border:none;border-radius:12px;font-size:18px}
+.paybox{background:#fff;color:black;border-radius:15px;padding:15px;margin-top:15px;display:none;text-align:left}
+.paybox b{font-size:20px}
+.copy{background:#eee;padding:8px;border-radius:8px;text-align:center}
+</style>
+</head>
+<body>
 
-  <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; max-width:320px; margin:0 auto;">
-    <button onclick="selectAmount(20, this)" class="amount-btn" style="padding:15px; border:2px solid #22c55e; border-radius:12px; background:white; font-size:18px; font-weight:bold; cursor:pointer;">20 KES</button>
-    <button onclick="selectAmount(30, this)" class="amount-btn" style="padding:15px; border:2px solid #22c55e; border-radius:12px; background:white; font-size:18px; font-weight:bold; cursor:pointer;">30 KES</button>
-    <button onclick="selectAmount(50, this)" class="amount-btn" style="padding:15px; border:2px solid #22c55e; border-radius:12px; background:white; font-size:18px; font-weight:bold; cursor:pointer;">50 KES</button>
-    <button onclick="selectAmount(100, this)" class="amount-btn" style="padding:15px; border:2px solid #22c55e; border-radius:12px; background:white; font-size:18px; font-weight:bold; cursor:pointer;">100 KES</button>
-  </div>
+<h1>🪙 BanduCoins</h1>
+<p>Cheap & Fast Game Coins - Pay with M-PESA Pochi</p>
 
-  <p id="selected-text" style="margin-top:12px; color:#555;">Selected: <b>50 KES</b> = 50 BanduCoins</p>
+<div class="card" onclick="select(this,20,450)">
+  <div class="coins">450 Coins</div>
+  <div class="price">KSH 20</div>
+  <div>Best for starters</div>
+</div>
 
-  <input type="tel" id="phone" placeholder="2547XXXXXXXX" style="width:100%; max-width:320px; padding:14px; margin-top:10px; border-radius:10px; border:1px solid #ccc; font-size:16px; text-align:center;" />
+<div class="card" onclick="select(this,30,600)">
+  <div class="coins">600 Coins</div>
+  <div class="price">KSH 30</div>
+  <div>Most Popular</div>
+</div>
 
-  <br><br>
-  <button onclick="payNow()" style="width:100%; max-width:320px; padding:16px; background:#22c55e; color:white; border:none; border-radius:12px; font-size:18px; font-weight:bold; cursor:pointer;">PAY WITH M-PESA</button>
-  <p id="pay-message"></p>
+<div class="card" onclick="select(this,50,1500)">
+  <div class="coins">1500 Coins ⭐ BEST VALUE</div>
+  <div class="price">KSH 50</div>
+  <div>Save more!</div>
+</div>
+
+<input id="gamename" placeholder="Your Game Name / Username">
+<input id="phone" placeholder="Your Phone Number e.g. 0720...">
+
+<button onclick="showPay()">Continue to Pay →</button>
+
+<div id="pay" class="paybox">
+  <h2>Pay Now - Step 1</h2>
+  <p>1. Go to <b>M-PESA > Send Money</b></p>
+  <p>2. Send to:</p>
+  <div class="copy"><b>0720832769</b><br> Name: Banducoins</div>
+  <p>3. Amount: <b id="amt">KSH 20</b> - <span id="camt">450 Coins</span></p>
+  <p>4. Enter your M-PESA PIN</p>
+  <hr>
+  <h2>Step 2 - Confirm</h2>
+  <input id="mpesacode" placeholder="Paste M-PESA Code e.g. QK7X...">
+  <button onclick="confirmOrder()" style="background:#ffd700">I HAVE PAID ✅</button>
+  <p id="done" style="color:green;font-weight:bold"></p>
+  <p style="font-size:13px">After you tap I HAVE PAID, we check your code and send your coins in game. Usually in 2-5 mins.</p>
 </div>
 
 <script>
-let selectedAmount = 50;
-
-function selectAmount(amount, btn) {
-  selectedAmount = amount;
-  document.querySelectorAll('.amount-btn').forEach(b => {
-    b.style.background = 'white';
-    b.style.color = 'black';
-  });
-  btn.style.background = '#22c55e';
-  btn.style.color = 'white';
-  document.getElementById('selected-text').innerHTML = `Selected: <b>${amount} KES</b> = ${amount} BanduCoins`;
+let amount=20, coins=450;
+function select(el,a,c){
+  document.querySelectorAll('.card').forEach(x=>x.classList.remove('selected'));
+  el.classList.add('selected');
+  amount=a; coins=c;
+  document.getElementById('amt').innerText='KSH '+a;
+  document.getElementById('camt').innerText=c+' Coins';
 }
-
-async function payNow() {
-  const phone = document.getElementById('phone').value.trim();
-  const msg = document.getElementById('pay-message');
-  if (!phone) { msg.innerText = 'Enter phone number first'; return; }
-  msg.innerText = 'Sending STK push...';
-  try {
-    const res = await fetch('/.netlify/functions/stkpush', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ phone, amount: selectedAmount })
-    });
-    const data = await res.json();
-    msg.innerText = data.message || 'Check your phone';
-  } catch (e) {
-    msg.innerText = 'Failed. Try again.';
-  }
+function showPay(){
+  if(!document.getElementById('gamename').value){alert('Enter your Game Name first');return;}
+  document.getElementById('pay').style.display='block';
+  window.scrollTo(0,document.body.scrollHeight);
+}
+function confirmOrder(){
+  let code=document.getElementById('mpesacode').value;
+  let name=document.getElementById('gamename').value;
+  if(!code){alert('Paste your M-PESA Code');return;}
+  document.getElementById('done').innerText='✅ Order Received! '+coins+' Coins for '+name+'. Code: '+code+' - We are checking payment now.';
+  let msg='NEW BANDUCOINS ORDER%0AName: '+name+'%0ACoins: '+coins+'%0AAmount: KSH '+amount+'%0ACode: '+code;
+  window.open('https://wa.me/254720832769?text='+msg,'_blank');
 }
 </script>
+</body>
+</html>
