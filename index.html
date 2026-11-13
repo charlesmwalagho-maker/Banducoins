@@ -26,6 +26,7 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 .user-row{display:flex;gap:10px;align-items:center;padding:10px;border:1px solid #222;border-radius:12px;margin-bottom:8px}
 .comment{font-size:13px;padding:6px 10px;background:#1a1a1a;border-radius:10px;margin-top:6px}
 .err{color:#ff6b6b}.ok{color:#a3e635}
+#debugBox{background:#3a0000;border:2px solid red;border-radius:12px;padding:12px;margin-top:10px;display:none;font-size:15px;font-weight:800}
 </style>
 </head>
 <body>
@@ -33,24 +34,26 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <div class="wrap">
 <div id="authCard" class="card">
 <h2 style="text-align:center">Welcome to BANDUCOINS</h2>
-<p style="color:#888;text-align:center;font-size:13px">One phone = One account. Password protected. Auto-login saved.<br>Your phone is your job. Earn today, eat today.</p>
-<input id="phone" placeholder="Phone e.g 0798486530" type="tel">
-<input id="password" placeholder="Password: 4-9 chars, letters + numbers e.g Wizzy123" type="password">
+<p style="color:#888;text-align:center;font-size:13px">One phone = One account. Password protected.<br>Your phone is your job. Earn today, eat today.</p>
+<div id="debugBox"></div>
+<input id="phone" placeholder="Phone e.g 0720832769" type="tel">
+<input id="password" placeholder="Password: 4-9 chars, letters + numbers e.g Bobu123" type="password">
 <input id="password2" placeholder="Confirm Password" type="password">
-<input id="username" placeholder="Name e.g Wizzy">
-<input id="refInput" placeholder="Referral Code (OPTIONAL - leave empty if you don't have)">
-<button class="btn gold" id="createBtn">CREATE ACCOUNT - GET 100 COINS FREE</button>
-<button class="btn dark" id="loginBtn">LOGIN</button>
+<input id="username" placeholder="Name e.g Bobu">
+<input id="refInput" placeholder="Referral Code (OPTIONAL - leave empty)">
+<button class="btn gold" onclick="doCreate()">CREATE ACCOUNT - GET 100 COINS FREE</button>
+<button class="btn dark" onclick="doLogin()">LOGIN</button>
+<button class="btn dark" onclick="resetApp()" style="background:#5a1010">⚠️ RESET APP - Clear old stuck account & try fresh</button>
 <p id="authMsg" style="text-align:center;color:#888"></p>
-<p style="color:#888;font-size:12px;text-align:center">Password: 4-9 chars, must have letters AND numbers.<br>Create = 100 FREE. Refer a friend = +100. Share video alone = 0.<br>Referral is NOT a must.</p>
+<p style="color:#888;font-size:12px;text-align:center">Password: 4-9 chars, must have letters AND numbers.<br>Create = 100 FREE. Referral is NOT a must.</p>
 </div>
 <div id="main" class="hidden">
 <div class="tabs">
-<button id="tProfile" class="active">👤 PROFILE</button>
-<button id="tSpend">🪙 SPEND</button>
-<button id="tLive">🔴 LIVE</button>
-<button id="tEarn">💰 EARN</button>
-<button id="tCoins">🪙 BUY COINS</button>
+<button id="tProfile" class="active" onclick="showTab('profile')">👤 PROFILE</button>
+<button id="tSpend" onclick="showTab('spend')">🪙 SPEND</button>
+<button id="tLive" onclick="showTab('live')">🔴 LIVE</button>
+<button id="tEarn" onclick="showTab('earn')">💰 EARN</button>
+<button id="tCoins" onclick="showTab('coins')">🪙 BUY COINS</button>
 </div>
 <div id="tab-profile">
 <div class="card">
@@ -59,7 +62,240 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <div><h2 id="displayName">@user</h2><p id="userPhone" style="color:#888"></p><p style="color:#888;font-size:13px"><span id="postCount">0</span> Posts • My Code: <b id="myCodeShow" style="color:#facc15"></b></p></div>
 </div>
 <button class="btn dark" onclick="document.getElementById('avatarInput').click()">📸 PUT MY PROFILE PICTURE</button>
-<p style="color:#888;font-size:12px;text-align:center">This picture shows when people search for you.</p>
 <p style="color:#a3e635;font-size:12px;margin-top:10px">MY BALANCE COINS - SAVED</p>
 <div class="big"><span id="balance">0</span> COINS</div>
-<p style="color:#a3e635">💰 Earncoins:
+<p style="color:#a3e635">💰 Earncoins: <span id="earnBal">0</span> (80% yours, 20% keeps app alive)</p>
+<p style="color:#888;font-size:12px">Livecoins: <span id="liveBal">0</span> hrs</p>
+<button class="btn gold" onclick="showTab('coins')">+ BUY COINS</button>
+<button class="btn green" onclick="showTab('live')">🔴 GO LIVE</button>
+</div>
+<div class="card">
+<p style="color:#a3e635;font-size:12px">POST PICTURE OR VIDEO - 5 COINS</p>
+<textarea id="caption" rows="2" placeholder="Write something..."></textarea>
+<select id="category"><option value="Short Videos">Category: Short Videos</option><option>Sports</option><option>Comedy</option><option>Music</option><option>Kids</option><option>Cartoons</option></select>
+<select id="musicSel"><option>🎵 Background Music - FREE - No Music</option><option>Afrobeat - Party</option><option>Gospel - Hope</option><option>Bongo - Love</option><option>Gengetone - Street</option></select>
+<select id="filterSel"><option>Filter: Basic - FREE - Normal</option><option>Filter: Basic - FREE - Black & White</option><option>Filter: Basic - FREE - Bright</option><option>Filter: Premium - 5 Coins - Beauty Glow ✨</option><option>Filter: Premium - 10 Coins - Trending 🔥</option><option>Filter: Premium - 20 Coins - VIP Golden 👑</option></select>
+<input type="file" id="postFile" accept="image/*,video/*">
+<button class="btn green" onclick="doPost()">📤 POST NOW - 5 COINS + FILTER</button>
+<p id="postMsg" style="text-align:center;color:#888"></p>
+</div>
+<div class="card"><p style="color:#a3e635;font-size:12px">MY POSTS</p><div id="myPosts"></div></div>
+<button class="btn dark" onclick="doLogout()">LOGOUT</button>
+</div>
+<div id="tab-spend" class="hidden">
+<div class="card">
+<h3>🪙 SPEND - Watch, Like, Comment, Share, Gift</h3>
+<input id="searchInput" placeholder="🔍 Search users... e.g Bobu" oninput="doSearch(this.value)">
+<div id="searchResults"></div>
+<p style="color:#a3e635;font-size:12px;margin-top:10px">CHOOSE CATEGORY</p>
+<div>
+<button class="chip active" data-cat="All" onclick="setCat(this,'All')">All</button>
+<button class="chip" data-cat="Sports" onclick="setCat(this,'Sports')">⚽ Sports</button>
+<button class="chip" data-cat="Comedy" onclick="setCat(this,'Comedy')">😂 Comedy</button>
+<button class="chip" data-cat="Short Videos" onclick="setCat(this,'Short Videos')">🎬 Short Videos</button>
+<button class="chip" data-cat="Music" onclick="setCat(this,'Music')">🎵 Music</button>
+<button class="chip" data-cat="Kids" onclick="setCat(this,'Kids')">🧒 Kids</button>
+<button class="chip" data-cat="Cartoons" onclick="setCat(this,'Cartoons')">🎭 Cartoons</button>
+</div>
+</div>
+<div id="feedList"></div>
+</div>
+<div id="tab-live" class="hidden">
+<div class="card">
+<h3>🔴 LIVE - LIVECOINS in Ksh - M-PESA ONLY</h3>
+<p style="color:#888;font-size:13px">Creator AND Viewer must pay to enter LIVE. Pesapal PAUSED.</p>
+<p>Your Livecoins: <b id="liveBal2">0</b> hrs</p>
+<input id="livePayPhone" type="tel" readonly style="background:#1a1a1a">
+<input id="livePin" type="password" placeholder="Enter M-PESA PIN only" maxlength="4">
+<button class="btn dark" onclick="buyLive(50,3)">🔴 Ksh 50 = 3 Hrs LIVE</button>
+<button class="btn dark" onclick="buyLive(100,6)">🔴 Ksh 100 = 6 Hrs LIVE</button>
+<button class="btn gold" onclick="buyLive(200,24)">🔴 Ksh 200 = 24 Hrs LIVE - BEST</button>
+<p id="liveMsg" style="text-align:center;color:#888"></p>
+<button class="btn green" onclick="goLive()">▶ GO LIVE NOW</button>
+<button class="btn dark" onclick="watchLive()">👀 WATCH CELEBRITY LIVE</button>
+</div>
+<div class="card">
+<h3>🎁 GIFTS IN LIVE</h3>
+<p style="color:#888;font-size:12px">Cheapest gift = 10 coins. Receiver 80% • App 20%.</p>
+<button class="btn dark small" onclick="sendGift('Heart to Friend',10)">❤️ Heart 10</button>
+<button class="btn dark small" onclick="sendGift('Clap to Friend',20)">👏 Clap 20</button>
+<button class="btn dark small" onclick="sendGift('Star to Friend',30)">⭐ Star 30</button>
+<button class="btn gold small" onclick="sendGift('Rose to Owner',50)">🌹 Rose 50</button>
+<button class="btn gold small" onclick="sendGift('Crown to Owner',100)">👑 Crown 100</button>
+<button class="btn gold small" onclick="sendGift('Diamond to Owner',500)">💎 Diamond 500</button>
+<button class="btn gold small" onclick="sendGift('Lion to Owner',1000)">🦁 Lion 1000</button>
+<p id="giftMsg" style="color:#888;font-size:13px"></p>
+<button class="btn dark" onclick="simulateReceive()">🎁 TEST: I Received a Lion (Get 800 Earncoins)</button>
+</div>
+</div>
+<div id="tab-earn" class="hidden">
+<div class="card">
+<h3>💰 EARNCOINS WALLET</h3>
+<div class="big"><span id="earnBal2">0</span> Earncoins</div>
+<p style="color:#888;font-size:12px">Min Withdraw: 1,000 • Max: 500,000</p>
+<input id="withdrawPhone" placeholder="M-PESA Phone for Withdraw">
+<input id="withdrawAmt" type="number" placeholder="Amount e.g 1000">
+<input id="withdrawPin" type="password" placeholder="Enter M-PESA PIN" maxlength="4">
+<button class="btn green" onclick="withdraw()">WITHDRAW TO MY PHONE 📱</button>
+<p id="withdrawMsg" style="text-align:center;color:#888"></p>
+</div>
+<div class="card">
+<h3>👥 REFER & EARN</h3>
+<p>Your Code: <b id="myCodeShow2" style="color:#facc15"></b></p>
+<p style="color:#888;font-size:13px">Friend signs up with your code = you get +100. Referral NOT a must.</p>
+<button class="btn dark" onclick="copyRef()">COPY REFERRAL LINK</button>
+<p id="refMsg" style="color:#888"></p>
+</div>
+</div>
+<div id="tab-coins" class="hidden">
+<div class="card">
+<h3>BUY BANDUCOINS - ONLY COINS, NO BUNDLES</h3>
+<p>Balance: <b id="balance2">0</b> Coins</p>
+<input id="payPhone" type="tel" readonly style="background:#1a1a1a">
+<input id="mpesaPin" type="password" placeholder="Enter M-PESA PIN only" maxlength="4">
+<button class="btn dark" onclick="buyCoins(450,20)">🪙 450 Coins - 20 KSh</button>
+<button class="btn dark" onclick="buyCoins(600,30)">🪙 600 Coins - 30 KSh</button>
+<button class="btn dark" onclick="buyCoins(1000,50)">🪙 1000 Coins - 50 KSh</button>
+<button class="btn dark" onclick="buyCoins(2500,100)">🪙 2500 Coins - 100 KSh</button>
+<p id="payMsg" style="text-align:center;color:#888">Number saved automatically. You only put PIN.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="bottom" id="bottomNav" style="display:none">
+<button id="bProfile" class="active" onclick="showTab('profile')">👤<br>PROFILE</button>
+<button id="bSpend" onclick="showTab('spend')">🪙<br>SPEND</button>
+<button id="bLive" onclick="showTab('live')">🔴<br>LIVE</button>
+<button id="bEarn" onclick="showTab('earn')">💰<br>EARN</button>
+<button id="bCoins" onclick="showTab('coins')">🪙<br>BUY</button>
+</div>
+<script>
+function get(k,d){ try{ var v=localStorage.getItem(k); return v===null?d:v; }catch(e){ return d; } }
+function set(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+function normPhone(p){ p=(p||"").trim().replace(/\s/g,''); if(p.startsWith('+254')) p='0'+p.slice(4); if(p.startsWith('254')) p='0'+p.slice(3); return p; }
+function showErr(t){ var b=document.getElementById("debugBox"); b.style.display="block"; b.innerHTML="❌ "+t; document.getElementById("authMsg").innerHTML='<span class="err">'+t+'</span>'; }
+function showOk(t){ var b=document.getElementById("debugBox"); b.style.display="block"; b.style.background="#003a00"; b.style.borderColor="#a3e635"; b.innerHTML="✅ "+t; }
+function checkPassword(p){
+  if(!p) return "Enter password";
+  if(p.length<4) return "Password must be 4 or more. Example: Bobu123";
+  if(p.length>=10) return "Password must be LESS than 10. Max 9. Example: Bobu123 (7 chars)";
+  if(!/[A-Za-z]/.test(p)) return "Password must have LETTERS + NUMBERS. Example: Bobu123 - yours has only numbers";
+  if(!/[0-9]/.test(p)) return "Password must have LETTERS + NUMBERS. Example: Bobu123 - yours has only letters";
+  return "";
+}
+function resetApp(){ if(confirm("RESET? This clears old stuck account on THIS phone only. Then you can create fresh.")){ localStorage.clear(); location.reload(); } }
+var coins = parseInt(get("bandu_coins","0"))||0;
+var earnCoins = parseInt(get("bandu_earn","0"))||0;
+var liveHrs = parseInt(get("bandu_live","0"))||0;
+var myPosts = []; try{ myPosts = JSON.parse(get("bandu_posts","[]")); }catch(e){ myPosts=[]; }
+var users = []; try{ users = JSON.parse(get("bandu_users","[]")); }catch(e){ users=[]; }
+var currentUser = get("bandu_phone",""), userName = get("bandu_name","@user"), avatarUrl = get("bandu_avatar",""), myCode = get("bandu_mycode","");
+var currentCat = "All", currentSearch = "";
+function saveAll(){
+  set("bandu_coins", String(coins)); set("bandu_earn", String(earnCoins)); set("bandu_live", String(liveHrs));
+  set("bandu_posts", JSON.stringify(myPosts)); set("bandu_users", JSON.stringify(users));
+  if(currentUser) set("bandu_phone", currentUser);
+  if(userName) set("bandu_name", userName);
+  if(avatarUrl) set("bandu_avatar", avatarUrl);
+  if(myCode) set("bandu_mycode", myCode);
+  var u = users.find(function(x){ return x.phone===currentUser; });
+  if(u){ u.coins=coins; u.earn=earnCoins; u.liveHrs=liveHrs; u.avatar=avatarUrl; u.name=userName; u.code=myCode; set("bandu_users", JSON.stringify(users)); }
+  updateUI();
+}
+function avatarHTML(name, url, cls){ if(url) return '<span class="'+(cls||'avatar-sm')+'"><img src="'+url+'"></span>'; return '<span class="'+(cls||'avatar-sm')+'">👤</span>'; }
+function updateUI(){
+  var e=function(id){return document.getElementById(id)}; if(!e("balance")) return;
+  e("balance").innerText=coins; e("balTop").innerText=coins; e("earnTop").innerText=earnCoins; e("balance2").innerText=coins;
+  e("displayName").innerText=userName; e("userPhone").innerText=currentUser; e("postCount").innerText=myPosts.length;
+  e("payPhone").value=currentUser; e("livePayPhone").value=currentUser;
+  e("earnBal").innerText=earnCoins; e("earnBal2").innerText=earnCoins; e("liveBal").innerText=liveHrs; e("liveBal2").innerText=liveHrs;
+  e("myCodeShow").innerText=myCode||""; e("myCodeShow2").innerText=myCode||"";
+  renderPosts(); renderFeed();
+}
+function showTab(name){
+  ["profile","spend","live","earn","coins"].forEach(function(t){ document.getElementById("tab-"+t).classList.toggle("hidden", t!==name); });
+  ["tProfile","tSpend","tLive","tEarn","tCoins"].forEach(function(id){ document.getElementById(id).classList.remove("active"); });
+  var map={profile:"tProfile",spend:"tSpend",live:"tLive",earn:"tEarn",coins:"tCoins"}; if(document.getElementById(map[name])) document.getElementById(map[name]).classList.add("active");
+  ["bProfile","bSpend","bLive","bEarn","bCoins"].forEach(function(id){ document.getElementById(id).classList.remove("active"); });
+  var bmap={profile:"bProfile",spend:"bSpend",live:"bLive",earn:"bEarn",coins:"bCoins"}; if(document.getElementById(bmap[name])) document.getElementById(bmap[name]).classList.add("active");
+}
+function openMain(){ document.getElementById("authCard").classList.add("hidden"); document.getElementById("main").classList.remove("hidden"); document.getElementById("bottomNav").style.display="flex"; updateUI(); }
+function doCreate(){
+  try{
+    var phoneRaw=document.getElementById("phone").value.trim();
+    var pass=document.getElementById("password").value.trim();
+    var pass2=document.getElementById("password2").value.trim();
+    var name=document.getElementById("username").value.trim();
+    var ref=document.getElementById("refInput").value.trim();
+    if(!phoneRaw){ showErr("Enter phone number e.g 0720832769"); return; }
+    var phone=normPhone(phoneRaw);
+    if(phone.length!==10||!phone.startsWith("07")){ showErr("Phone must be 079... / 072... - 10 digits starting with 07. You typed: "+phone); return; }
+    var pwErr=checkPassword(pass);
+    if(pwErr){ showErr(pwErr); return; }
+    if(pass!==pass2){ showErr("Passwords do not match! Type SAME password in both boxes."); return; }
+    if(!name){ showErr("Enter your Name e.g Bobu"); return; }
+    var exists=users.find(function(u){ return normPhone(u.phone)===phone; });
+    if(exists){
+      if(exists.pass===pass){ currentUser=exists.phone; userName=exists.name; avatarUrl=exists.avatar||""; myCode=exists.code||""; coins=exists.coins||0; earnCoins=exists.earn||0; liveHrs=exists.liveHrs||0; set("bandu_logged_in","1"); saveAll(); showOk("You already have an account! Logged you in. Welcome back "+userName); setTimeout(openMain,500); return; }
+      else{ showErr("This number "+phone+" already has an account! Press LOGIN with its password, or press RESET and use different number."); return; }
+    }
+    var code='BANDU-'+name.toUpperCase().replace(/[^A-Z0-9]/g,'')+'-'+Math.floor(100+Math.random()*900);
+    currentUser=phone; userName=name; myCode=code; coins=100; earnCoins=0; liveHrs=0; avatarUrl="";
+    if(ref){
+      var refUser=users.find(function(u){ return u.code===ref; });
+      if(refUser){ refUser.coins=(refUser.coins||0)+100; coins=200; showOk("Welcome "+name+"! You used referral. You got 100+100=200 coins!"); }
+      else{ showOk("Welcome "+name+"! Account created. You got 100 coins FREE. Referral code not found."); }
+    } else { showOk("Welcome "+name+"! Account created WITHOUT referral code. You got 100 coins FREE. Your code: "+code); }
+    users.push({phone:phone,name:userName,avatar:"",pass:pass,code:code,coins:coins,earn:0,liveHrs:0});
+    set("bandu_logged_in","1"); saveAll(); setTimeout(openMain,600);
+  }catch(err){ showErr("App error: "+err.message); }
+}
+function doLogin(){
+  var phoneRaw=document.getElementById("phone").value.trim(); var pass=document.getElementById("password").value.trim();
+  if(!phoneRaw||!pass){ showErr("Enter phone and password to LOGIN"); return; }
+  var phone=normPhone(phoneRaw); var found=users.find(function(u){ return normPhone(u.phone)===phone; });
+  if(!found){ showErr("No account with this number. Press CREATE ACCOUNT first."); return; }
+  if(found.pass!==pass){ showErr("Wrong password for this number!"); return; }
+  currentUser=found.phone; userName=found.name; avatarUrl=found.avatar||""; myCode=found.code||""; coins=found.coins||0; earnCoins=found.earn||0; liveHrs=found.liveHrs||0;
+  set("bandu_logged_in","1"); saveAll(); showOk("Logged in! Welcome back "+userName); setTimeout(openMain,400);
+}
+function doLogout(){ if(confirm("Logout? Your coins stay SAVED.")){ set("bandu_logged_in","0"); location.reload(); } }
+function buyCoins(c, amt){ var pin=document.getElementById("mpesaPin").value.trim(); if(!pin||pin.length<4){ document.getElementById("payMsg").innerText="Enter M-PESA PIN (4 digits)"; return; } if(!confirm("Pay "+amt+" KSh from "+currentUser+" for "+c+" Coins?")) return; coins+=c; document.getElementById("mpesaPin").value=""; saveAll(); document.getElementById("payMsg").innerText="✅ "+c+" Coins added! Balance: "+coins; showTab("profile"); }
+function buyLive(ksh, hrs){ var pin=document.getElementById("livePin").value.trim(); if(!pin||pin.length<4){ document.getElementById("liveMsg").innerText="Enter M-PESA PIN (4 digits) to pay Ksh "+ksh; return; } if(!confirm("Pay Ksh "+ksh+" from "+currentUser+" for "+hrs+" Hrs LIVECOINS?")) return; liveHrs+=hrs; document.getElementById("livePin").value=""; saveAll(); document.getElementById("liveMsg").innerText="✅ Paid Ksh "+ksh+"! You now have "+liveHrs+" hrs Livecoins."; }
+function goLive(){ if(liveHrs<=0){ alert("Need Livecoins. Pay Ksh 50=3hrs, 100=6hrs, 200=24hrs."); showTab("live"); return; } liveHrs--; saveAll(); alert("You are LIVE! "+liveHrs+" hrs left. You earn 80%."); }
+function watchLive(){ if(liveHrs<=0){ alert("To watch LIVE, pay Ksh 50/100/200 with M-PESA."); showTab("live"); return; } alert("You entered Celebrity LIVE!"); }
+function sendGift(name, price){ if(coins<price){ alert("Not enough coins."); return; } coins-=price; var rec=Math.floor(price*0.8); document.getElementById("giftMsg").innerText="Sent "+name+" "+price+" coins. Receiver gets "+rec+" Earncoins (80%). Your coins: "+coins; saveAll(); }
+function simulateReceive(){ earnCoins+=800; saveAll(); document.getElementById("giftMsg").innerText="TEST: Lion 1000 received. You got 800 Earncoins. Total: "+earnCoins; }
+function withdraw(){ var amt=parseInt(document.getElementById("withdrawAmt").value); var ph=document.getElementById("withdrawPhone").value.trim(); var pin=document.getElementById("withdrawPin").value.trim(); if(!amt||!ph){ document.getElementById("withdrawMsg").innerText="Enter phone and amount"; return; } if(!pin||pin.length<4){ document.getElementById("withdrawMsg").innerText="Enter M-PESA PIN"; return; } if(amt<1000){ document.getElementById("withdrawMsg").innerText="Min is 1,000 so you can eat same day."; return; } if(amt>500000){ document.getElementById("withdrawMsg").innerText="Max is 500,000"; return; } if(amt>earnCoins){ document.getElementById("withdrawMsg").innerText="You have only "+earnCoins+" Earncoins."; return; } earnCoins-=amt; saveAll(); document.getElementById("withdrawMsg").innerText="SUCCESS! "+amt+" Earncoins sent to "+ph+" via M-PESA."; }
+function copyRef(){ document.getElementById("refMsg").innerText="Your link: https://banducoinnet.netlify.app/?ref="+myCode; }
+function setCat(btn,cat){ document.querySelectorAll(".chip").forEach(function(x){ x.classList.remove("active"); }); btn.classList.add("active"); currentCat=cat; renderFeed(); }
+function doSearch(v){ currentSearch=v.trim(); var res=document.getElementById("searchResults"); if(!currentSearch){ res.innerHTML=""; renderFeed(); return; } var found=users.filter(function(u){ return u.name.toLowerCase().includes(currentSearch.toLowerCase())||u.phone.includes(currentSearch); }); if(!found.length) res.innerHTML='<p style="color:#888;font-size:13px">No user found</p>'; else res.innerHTML=found.map(function(u){ return '<div class="user-row">'+avatarHTML(u.name,u.avatar)+'<div><b>'+u.name+'</b><br><span style="color:#888;font-size:12px">'+u.phone+'</span></div></div>'; }).join(""); renderFeed(); }
+function renderPosts(){ var el=document.getElementById("myPosts"); el.innerHTML=myPosts.map(function(p,i){ return postHTML(p,i); }).join("")||'<p style="color:#888;text-align:center">No posts yet</p>'; }
+function renderFeed(){ var el=document.getElementById("feedList"); var list=myPosts.slice(); if(currentCat!=="All") list=list.filter(function(p){ return (p.category||"Short Videos")===currentCat; }); if(currentSearch) list=list.filter(function(p){ return (p.user||"").toLowerCase().includes(currentSearch.toLowerCase()); }); if(!list.length){ el.innerHTML='<p style="color:#888;text-align:center">No posts in this category / search.</p>'; return; } el.innerHTML=list.map(function(p){ var idx=myPosts.indexOf(p); return postHTML(p,idx); }).join(""); }
+function postHTML(p,idx){
+  var liked=p.liked?"❤️":"🤍"; var isMine=normPhone(p.phone||"")===normPhone(currentUser);
+  var media=p.type==="image"?'<img src="'+p.url+'">':'<video controls src="'+p.url+'"></video>';
+  var comments=(p.comments||[]).map(function(c){ return '<div class="comment"><b>'+c.user+'</b>: '+c.text+'</div>'; }).join("");
+  return '<div class="post"><div class="post-body">'+avatarHTML(p.user,p.avatar)+' <b>'+p.user+'</b> <span style="color:#888;font-size:12px">• '+(p.category||"Short Videos")+' • '+p.time+'</span><p>'+(p.caption||"")+'</p></div>'+media+'<div class="post-body"><button class="btn dark small" onclick="likePost('+idx+')">'+liked+' Like ('+(p.likes||0)+')</button><button class="btn dark small" onclick="sharePost('+idx+')">🔗 Share ('+(p.shares||0)+')</button><button class="btn dark small" onclick="downloadPost('+idx+')">⬇️ Download</button><button class="btn gold small" onclick="giftToPost('+idx+',10)">🎁 Gift 10</button><button class="btn gold small" onclick="giftToPost('+idx+',50)">🎁 Gift 50</button>'+(isMine?'<button class="btn dark small" style="background:#5a1010" onclick="deletePost('+idx+')">🗑️ Delete</button>':'')+'<div style="margin-top:8px"><input id="cmt_'+idx+'" placeholder="Write comment..."><button class="btn gold small" onclick="addComment('+idx+')">💬 Comment</button></div><div>'+comments+'</div></div></div>';
+}
+function giftToPost(i,price){ if(coins<price){ alert("Not enough coins"); return; } coins-=price; var rec=Math.floor(price*0.8); var p=myPosts[i]; if(p&&normPhone(p.phone)===normPhone(currentUser)){ earnCoins+=rec; alert("You gifted own post "+price+". You earned "+rec+" Earncoins."); } else { alert("Gifted "+price+" to "+(p?p.user:"creator")+". They get "+rec+" Earncoins."); } saveAll(); }
+function likePost(i){ var p=myPosts[i]; if(!p) return; if(p.liked){ p.liked=false; p.likes=(p.likes||1)-1; } else { p.liked=true; p.likes=(p.likes||0)+1; } saveAll(); }
+function sharePost(i){ var p=myPosts[i]; p.shares=(p.shares||0)+1; saveAll(); var text="Check this on BANDUCOINS by "+p.user+": "+(p.caption||""); if(navigator.share){ navigator.share({title:"BANDUCOINS",text:text,url:location.href}).catch(function(){}); } else { alert("Link copied:\n"+text); } }
+function downloadPost(i){ var p=myPosts[i]; var a=document.createElement("a"); a.href=p.url; a.download="banducoins_"+Date.now(); document.body.appendChild(a); a.click(); a.remove(); alert("✅ Download started"); }
+function deletePost(i){ if(!confirm("Delete this post?")) return; myPosts.splice(i,1); saveAll(); alert("✅ Deleted"); }
+function addComment(i){ var inp=document.getElementById("cmt_"+i); if(!inp) return; var txt=inp.value.trim(); if(!txt) return; var p=myPosts[i]; if(!p.comments) p.comments=[]; p.comments.push({user:userName,text:txt}); inp.value=""; saveAll(); }
+function doPost(){
+  var f=document.getElementById("postFile").files[0]; if(!f){ document.getElementById("postMsg").innerText="First choose a picture or video"; return; }
+  var filterText=document.getElementById("filterSel").value; var filterCost=0; if(filterText.includes("5 Coins")) filterCost=5; if(filterText.includes("10 Coins")) filterCost=10; if(filterText.includes("20 Coins")) filterCost=20;
+  var totalCost=5+filterCost; if(coins<totalCost){ document.getElementById("postMsg").innerText="Need "+totalCost+" coins. Balance: "+coins; return; }
+  var r=new FileReader(); r.onload=function(){ var type=f.type.indexOf("video")>=0?"video":"image"; if(type==="video"&&f.size>4000000){ document.getElementById("postMsg").innerText="Video too big. Under 4MB."; return; } coins-=totalCost; myPosts.unshift({url:r.result,type:type,caption:document.getElementById("caption").value,user:userName,phone:currentUser,avatar:avatarUrl,category:document.getElementById("category").value,music:document.getElementById("musicSel").value,filter:filterText,likes:0,shares:0,liked:false,comments:[],time:new Date().toLocaleString()}); document.getElementById("postMsg").innerText="✅ Posted! Deducted "+totalCost+" coins. Balance: "+coins; document.getElementById("caption").value=""; saveAll(); showTab("spend"); }; r.readAsDataURL(f);
+}
+document.getElementById("avatarInput").addEventListener("change", function(e){ var f=e.target.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(){ avatarUrl=r.result; var u=users.find(function(x){ return x.phone===currentUser; }); if(u) u.avatar=avatarUrl; saveAll(); alert("✅ Profile picture saved!"); }; r.readAsDataURL(f); });
+try{
+  var logged=get("bandu_logged_in","0"); var savedPhone=get("bandu_phone","");
+  if(savedPhone&&logged==="1"){ currentUser=savedPhone; userName=get("bandu_name","@user"); avatarUrl=get("bandu_avatar",""); myCode=get("bandu_mycode",""); var u=users.find(function(x){ return normPhone(x.phone)===normPhone(savedPhone); }); if(u){ coins=u.coins||coins; earnCoins=u.earn||earnCoins; liveHrs=u.liveHrs||liveHrs; } openMain(); }
+  else if(savedPhone){ document.getElementById("phone").value=savedPhone; }
+}catch(e){}
+</script>
+</body>
+  </html>
