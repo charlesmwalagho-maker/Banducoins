@@ -13,22 +13,30 @@
 input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #333;color:#fff;border-radius:12px;margin-top:10px;font-size:15px}
 .btn{width:100%;padding:14px;border:none;border-radius:12px;font-weight:900;font-size:16px;margin-top:10px}
 .gold{background:linear-gradient(90deg,#facc15,#a3e635);color:#000}
-.green{background:#a3e635;color:#000}.dark{background:#222;color:#fff}.small{padding:8px 10px;font-size:13px;width:auto;margin:4px 2px}
+.green{background:#a3e635;color:#000}.dark{background:#222;color:#fff}.purple{background:#a855f7;color:#fff}.small{padding:8px 10px;font-size:13px;width:auto;margin:4px 2px}
 .hidden{display:none}.big{font-size:40px;font-weight:900;color:#facc15}
-.tabs{display:flex;gap:8px}.tabs button{flex:1;padding:11px;border-radius:10px;background:#111;color:#fff;border:1px solid #333;font-weight:800}.tabs button.active{background:#facc15;color:#000}
+.tabs{display:flex;gap:4px}.tabs button{flex:1;padding:10px 2px;border-radius:10px;background:#111;color:#fff;border:1px solid #333;font-weight:800;font-size:11px}.tabs button.active{background:#facc15;color:#000}
 .chip{padding:8px 12px;border-radius:20px;border:1px solid #333;background:#111;color:#fff;margin:3px;cursor:pointer;font-size:13px}.chip.active{background:#facc15;color:#000}
 .bottom{position:fixed;bottom:0;left:0;right:0;background:#0a0a0a;display:flex;max-width:480px;margin:auto;border-top:1px solid #222}
-.bottom button{flex:1;background:none;border:none;color:#888;padding:12px;font-weight:800}.bottom button.active{color:#facc15}
+.bottom button{flex:1;background:none;border:none;color:#888;padding:10px 1px;font-weight:800;font-size:10px}.bottom button.active{color:#facc15}
 .post{border:1px solid #222;border-radius:12px;overflow:hidden;margin-bottom:12px;background:#0f0f0f}
 .post img,.post video{width:100%;display:block}.post-body{padding:12px}
 .avatar{width:80px;height:80px;border-radius:50%;background:#222;border:3px solid #facc15;display:flex;align-items:center;justify-content:center;font-size:34px;overflow:hidden;flex-shrink:0}.avatar img{width:100%;height:100%;object-fit:cover}
 .avatar-sm{width:36px;height:36px;border-radius:50%;background:#222;border:2px solid #facc15;display:inline-flex;align-items:center;justify-content:center;font-size:16px;overflow:hidden;vertical-align:middle}.avatar-sm img{width:100%;height:100%;object-fit:cover}
 .user-row{display:flex;gap:10px;align-items:center;padding:10px;border:1px solid #222;border-radius:12px;margin-bottom:8px}
 .comment{font-size:13px;padding:6px 10px;background:#1a1a1a;border-radius:10px;margin-top:6px}
+.stats{display:flex;gap:8px;margin-top:10px}.stat{flex:1;background:#1a1a1a;border:1px solid #222;border-radius:12px;padding:10px;text-align:center}.stat b{font-size:18px;color:#facc15}.stat span{font-size:12px;color:#888}
+.selected-box{background:#1a2a00;border:2px solid #facc15;border-radius:14px;padding:14px;margin-top:12px;display:none}
+.pkg{border:2px solid #333}.pkg.active{border-color:#facc15;background:#2a2a00}
+.story-row{display:flex;gap:10px;overflow-x:auto;padding:8px 0}.story{width:68px;flex-shrink:0;text-align:center}.story-circle{width:60px;height:60px;border-radius:50%;border:3px solid #facc15;overflow:hidden;background:#222;display:flex;align-items:center;justify-content:center}.story-circle img{width:100%;height:100%;object-fit:cover}
+.msg{padding:8px 12px;border-radius:14px;margin:6px 0;max-width:80%;font-size:14px}.me{background:#facc15;color:#000;margin-left:auto}.them{background:#222;color:#fff}
+.dash{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.dash div{background:#1a1a1a;border:1px solid #222;border-radius:12px;padding:10px;text-align:center}.dash b{color:#facc15;font-size:18px}
+.filter-preview{width:100%;border-radius:12px;margin-top:10px;display:none;max-height:300px;object-fit:cover}
+.channel-card{border:2px solid #a855f7;border-radius:14px;padding:14px;margin-bottom:12px;background:#150a20}
 </style>
 </head>
 <body>
-<div class="top"><div class="logo">BANDU<span>COINS</span> 🪙</div><div>🪙 <span id="balTop">0</span></div></div>
+<div class="top"><div class="logo">BANDU<span>COINS</span> 🪙</div><div>🪙 <span id="balTop">0</span> | 💜 <span id="subTop">0</span></div></div>
 <div class="wrap">
 
 <div id="authCard" class="card">
@@ -39,13 +47,25 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <input id="username" placeholder="Name e.g Wizzy">
 <button class="btn gold" id="createBtn">CREATE ACCOUNT</button>
 <button class="btn dark" id="loginBtn">LOGIN</button>
+<p style="text-align:center;margin-top:10px"><a href="#" id="forgotLink" style="color:#888;font-size:13px;text-decoration:underline">forgot password?</a></p>
 <p id="authMsg" style="text-align:center;color:#888"></p>
+<div id="forgotBox" class="hidden" style="border:1px solid #facc15;border-radius:12px;padding:12px;margin-top:10px">
+<p style="color:#facc15;font-size:13px">🔐 FORGOT PASSWORD</p>
+<input id="forgotPhone" placeholder="Enter your phone number">
+<button class="btn dark" id="sendCodeBtn">📩 SEND CODE</button>
+<p id="codeInfo" style="color:#a3e635;font-size:12px;text-align:center"></p>
+<input id="codeInput" placeholder="Enter 6-digit code" maxlength="6">
+<input id="newPassInput" placeholder="New password" type="password">
+<button class="btn green" id="resetPassBtn">✅ CREATE NEW PASSWORD</button>
+</div>
 </div>
 
 <div id="main" class="hidden">
 <div class="tabs">
 <button id="tProfile" class="active">👤 PROFILE</button>
+<button id="tInbox">💬 INBOX</button>
 <button id="tSpend">🪙 SPEND</button>
+<button id="tChannels">💜 CHANNELS</button>
 <button id="tCoins">🪙 BUY COINS</button>
 </div>
 
@@ -54,60 +74,139 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <div class="card">
 <div style="display:flex;gap:14px;align-items:center">
 <label class="avatar" id="avatarLabel">👤<input type="file" accept="image/*" style="display:none" id="avatarInput"></label>
-<div><h2 id="displayName">@user</h2><p id="userPhone" style="color:#888"></p><p style="color:#888;font-size:13px"><span id="postCount">0</span> Posts</p></div>
+<div><h2 id="displayName">@user</h2><p id="userPhone" style="color:#888"></p><p id="displayBio" style="color:#ccc;font-size:13px;margin-top:4px"></p></div>
+</div>
+<div class="stats">
+<div class="stat"><b id="statPosts">0</b><br><span>Posts</span></div>
+<div class="stat"><b id="statFollowers">0</b><br><span>Followers</span></div>
+<div class="stat"><b id="statFollowing">0</b><br><span>Following</span></div>
 </div>
 <button class="btn dark" onclick="document.getElementById('avatarInput').click()">📸 PUT MY PROFILE PICTURE</button>
-<p style="color:#888;font-size:12px;text-align:center">This picture shows when people search for you.</p>
-<p style="color:#a3e635;font-size:12px;margin-top:10px">MY BALANCE COINS - SAVED</p>
+<button class="btn gold" id="editProfileBtn">✏️ EDIT PROFILE</button>
+<div id="editBox" class="hidden" style="border:1px solid #facc15;border-radius:12px;padding:12px;margin-top:10px">
+<p style="color:#facc15;font-size:12px">EDIT PROFILE - Bio max 50 words</p>
+<input id="editName" placeholder="New Username">
+<textarea id="editBio" rows="3" placeholder="Write about yourself..."></textarea>
+<p style="color:#888;font-size:12px;text-align:right"><span id="wordCount">0</span> / 50 words</p>
+<button class="btn green" id="saveEditBtn">💾 SAVE PROFILE</button>
+<button class="btn dark" onclick="document.getElementById('editBox').classList.add('hidden')">CANCEL</button>
+</div>
+<p style="color:#a3e635;font-size:12px;margin-top:10px">MY BALANCE - SAVED</p>
 <div class="big"><span id="balance">0</span> COINS</div>
-<button class="btn gold" id="goCoinsBtn">+ BUY COINS</button>
+<div style="background:#150a20;border:1px solid #a855f7;border-radius:12px;padding:12px;margin-top:8px"><b style="color:#c084fc">💜 SUBCOINS - For Channels Only</b><br><span style="font-size:24px;font-weight:900;color:#c084fc" id="subBalance">0</span> SUBCOINS<br><small style="color:#888">1 Subcoin = 1 KSh. More expensive. Only for Channels.</small></div>
+<button class="btn gold" id="goCoinsBtn">+ BUY COINS / SUBCOINS</button>
+<button class="btn purple" id="goChannelsBtn">💜 GO TO CREATOR CHANNELS</button>
 </div>
 <div class="card">
-<p style="color:#a3e635;font-size:12px">POST PICTURE OR VIDEO</p>
-<textarea id="caption" rows="2" placeholder="Write something..."></textarea>
-<select id="category"><option value="Short Videos">Category: Short Videos</option><option>Sports</option><option>Comedy</option><option>Music</option><option>Kids</option><option>Cartoons</option></select>
+<p style="color:#a3e635;font-size:12px">📊 MY DASHBOARD</p>
+<div class="dash">
+<div><b id="dashPosts">0</b><br><span style="font-size:12px;color:#888">Total Posts</span></div>
+<div><b id="dashLikes">0</b><br><span style="font-size:12px;color:#888">Total Likes</span></div>
+<div><b id="dashComments">0</b><br><span style="font-size:12px;color:#888">Total Comments</span></div>
+<div><b id="dashShares">0</b><br><span style="font-size:12px;color:#888">Total Shares</span></div>
+<div><b id="dashViews">0</b><br><span style="font-size:12px;color:#888">Views (Est.)</span></div>
+<div><b id="dashGrowth">+0%</b><br><span style="font-size:12px;color:#888">Growth</span></div>
+</div>
+</div>
+<div class="card">
+<p style="color:#a3e635;font-size:12px">POST - CAPTION & CATEGORY NOW OPTIONAL</p>
+<textarea id="caption" rows="2" placeholder="Caption - OPTIONAL. You can leave empty."></textarea>
+<select id="category"><option value="">Category: No Category - Optional (OK if you don't choose)</option><option value="Short Videos">Short Videos</option><option>Sports</option><option>Comedy</option><option>Music</option><option>Kids</option><option>Cartoons</option></select>
+<select id="postType"><option value="permanent">📌 PERMANENT POST</option><option value="story">🕐 STORY - 24hrs, saved in Archive</option></select>
+<select id="filterSelect"><option value="">🎨 Filter: Normal</option><option value="grayscale(100%)">⬛ Black & White</option><option value="sepia(80%)">🟤 Sepia</option><option value="brightness(130%) contrast(110%)">☀️ Bright</option><option value="sepia(30%) saturate(150%)">🔥 Warm</option><option value="hue-rotate(180deg) saturate(120%)">🧊 Cool</option><option value="contrast(140%) saturate(140%)">✨ Trending</option></select>
 <input type="file" id="postFile" accept="image/*,video/*">
+<input type="file" id="cameraFile" accept="image/*,video/*" capture="camera" style="display:none">
+<button class="btn dark" onclick="document.getElementById('cameraFile').click()">📷 USE CAMERA</button>
+<img id="previewImg" class="filter-preview"><video id="previewVideo" class="filter-preview" controls></video>
 <button class="btn green" id="postBtn">📤 POST NOW</button>
 <p id="postMsg" style="text-align:center;color:#888"></p>
 </div>
 <div class="card"><p style="color:#a3e635;font-size:12px">MY POSTS</p><div id="myPosts"></div></div>
+<div class="card"><p style="color:#a3e635;font-size:12px">⭐ HIGHLIGHTS / ARCHIVE</p><div id="archiveList"></div></div>
 <button class="btn dark" id="logoutBtn">LOGOUT</button>
 </div>
 
-<!-- SPEND (was FEED) -->
+<!-- INBOX -->
+<div id="tab-inbox" class="hidden">
+<div class="card"><h3>💬 INBOX</h3><div id="inboxUsers"></div></div>
+<div class="card hidden" id="chatCard">
+<p><button class="btn dark small" onclick="closeChat()">← Back</button></p>
+<h3 id="chatWith">Chat</h3><div id="chatMessages" style="max-height:300px;overflow-y:auto"></div>
+<input id="chatInput" placeholder="Write message...">
+<button class="btn gold" id="sendMsgBtn">📩 SEND</button>
+<button class="btn dark" id="shareVideoBtn">📤 SHARE MY VIDEO</button>
+<select id="sharePostSelect" class="hidden"></select>
+</div>
+</div>
+
+<!-- SPEND -->
 <div id="tab-spend" class="hidden">
 <div class="card">
-<h3>🪙 SPEND - Watch, Like, Comment, Share</h3>
-<input id="searchInput" placeholder="🔍 Search users... e.g Wizzy">
+<h3>🪙 SPEND</h3>
+<p style="color:#a3e635;font-size:12px">🔴 STORIES</p><div class="story-row" id="storyRow"></div>
+<input id="searchInput" placeholder="🔍 Search users...">
 <div id="searchResults"></div>
-<p style="color:#a3e635;font-size:12px;margin-top:10px">CHOOSE CATEGORY</p>
-<div>
-<button class="chip active" data-cat="All">All</button>
-<button class="chip" data-cat="Sports">⚽ Sports</button>
-<button class="chip" data-cat="Comedy">😂 Comedy</button>
-<button class="chip" data-cat="Short Videos">🎬 Short Videos</button>
-<button class="chip" data-cat="Music">🎵 Music</button>
-<button class="chip" data-cat="Kids">🧒 Kids</button>
-<button class="chip" data-cat="Cartoons">🎭 Cartoons</button>
-</div>
-<p style="color:#888;font-size:12px">Like = only once. Comment & Share = as much as you want. Download to phone.</p>
+<div><button class="chip active" data-cat="All">All</button><button class="chip" data-cat="Sports">⚽ Sports</button><button class="chip" data-cat="Comedy">😂 Comedy</button><button class="chip" data-cat="Short Videos">🎬 Short Videos</button><button class="chip" data-cat="Music">🎵 Music</button><button class="chip" data-cat="Kids">🧒 Kids</button><button class="chip" data-cat="Cartoons">🎭 Cartoons</button></div>
 </div>
 <div id="feedList"></div>
+</div>
+
+<!-- CHANNELS - NEW -->
+<div id="tab-channels" class="hidden">
+<div class="card" style="border:2px solid #a855f7">
+<h3>💜 CREATOR CHANNELS</h3>
+<p style="color:#888;font-size:13px">Create your own page. Name it anything: <b style="color:#fff">Wizzy's Page</b> / <b style="color:#fff">Wizzy's Exclusive</b> / Anything best.</p>
+<p style="background:#150a20;padding:10px;border-radius:10px;font-size:13px">📏 RULES:<br>• To open channel you need <b>10,000+ Followers</b><br>• Every channel has <b>3 FREE posts</b> for everyone<br>• Post #4+ = LOCKED, need Subscribe<br>• Subscribe = <b>600 Subcoins</b> - Split: Creator 75% = 450, App Owner 25% = 150<br>• Creator pays <b>50 Subcoins</b> to post in channel<br>• Viewer pays <b>5 Subcoins per 10 sec</b> to watch - 1 min = 30 Subcoins</p>
+<p>Your Followers: <b style="color:#facc15" id="chanFollowers">0</b> / 10,000 needed</p>
+<p>Your Subcoins: <b style="color:#c084fc" id="chanSubcoins">0</b></p>
+<input id="channelName" placeholder="Your Channel / Page Name - e.g Wizzy's Page">
+<input id="channelPrice" value="600" type="number" readonly>
+<p style="color:#888;font-size:12px">Price is fixed: 600 Subcoins. Split 75% you, 25% app.</p>
+<textarea id="channelDesc" rows="2" placeholder="Channel description - OPTIONAL"></textarea>
+<button class="btn purple" id="createChannelBtn">💜 CREATE MY CHANNEL / PAGE</button>
+<p id="chanMsg" style="text-align:center;color:#888"></p>
+</div>
+<div class="card">
+<p style="color:#a3e635;font-size:12px">POST IN MY CHANNEL - Caption & Category OPTIONAL</p>
+<select id="channelSelect"><option value="">Choose your channel...</option></select>
+<textarea id="chanCaption" rows="2" placeholder="Caption - OPTIONAL, you can leave empty"></textarea>
+<select id="chanCategory"><option value="">Category: Optional - OK if you don't choose</option><option>Short Videos</option><option>Sports</option><option>Comedy</option><option>Music</option><option>Kids</option><option>Cartoons</option></select>
+<input type="file" id="chanFile" accept="image/*,video/*">
+<button class="btn purple" id="postChannelBtn">💜 POST IN CHANNEL - Costs 50 Subcoins</button>
+<p id="chanPostMsg" style="text-align:center;color:#888"></p>
+</div>
+<div id="channelList"></div>
 </div>
 
 <!-- BUY COINS -->
 <div id="tab-coins" class="hidden">
 <div class="card">
-<h3>BUY BANDUCOINS - ONLY COINS, NO BUNDLES</h3>
+<h3>BUY BANDUCOINS - NORMAL</h3>
 <p>Balance: <b id="balance2">0</b> Coins</p>
-<p style="color:#888;font-size:13px">Your saved number:</p>
+<button class="btn dark pkg" id="pkg450" onclick="selectPkg(450,20,'coin')">🪙 450 Coins - 20 KSh</button>
+<button class="btn dark pkg" id="pkg600" onclick="selectPkg(600,30,'coin')">🪙 600 Coins - 30 KSh</button>
+<button class="btn dark pkg" id="pkg1000" onclick="selectPkg(1000,50,'coin')">🪙 1000 Coins - 50 KSh</button>
+<button class="btn dark pkg" id="pkg2500" onclick="selectPkg(2500,100,'coin')">🪙 2500 Coins - 100 KSh</button>
+</div>
+<div class="card" style="border:2px solid #a855f7">
+<h3>💜 BUY SUBCOINS - FOR CHANNEL AREA ONLY</h3>
+<p style="color:#888;font-size:13px">Subcoin is expensive. 1 Subcoin = 1 KSh. Only for users who use Channel area.</p>
+<p>Your Subcoins: <b id="subBalance2">0</b></p>
+<button class="btn dark pkg" id="pkgSub200" onclick="selectPkg(200,200,'sub')">💜 200 Subcoin - 200 KSh</button>
+<button class="btn dark pkg" id="pkgSub500" onclick="selectPkg(500,500,'sub')">💜 500 Subcoin - 500 KSh</button>
+<button class="btn dark pkg" id="pkgSub1000" onclick="selectPkg(1000,1000,'sub')">💜 1000 Subcoin - 1000 KSh</button>
+</div>
+<div class="card">
+<div id="selectedBox" class="selected-box">
+<p style="color:#facc15;font-weight:900;margin:0">✅ YOU SELECTED:</p>
+<p style="font-size:18px;font-weight:900;margin:6px 0" id="selectedText">450 Coins - 20 KSh</p>
+<p style="color:#888;font-size:13px;margin:0">Pay from: <b style="color:#fff" id="selectedPhone"></b></p>
+</div>
+<p style="color:#a3e635;font-size:12px;margin-top:14px">YOUR SAVED NUMBER + PIN</p>
 <input id="payPhone" type="tel" readonly style="background:#1a1a1a">
 <input id="mpesaPin" type="password" placeholder="Enter M-PESA PIN only" maxlength="4">
-<button class="btn dark" onclick="buyCoins(450,20)">🪙 450 Coins - 20 KSh</button>
-<button class="btn dark" onclick="buyCoins(600,30)">🪙 600 Coins - 30 KSh</button>
-<button class="btn dark" onclick="buyCoins(1000,50)">🪙 1000 Coins - 50 KSh</button>
-<button class="btn dark" onclick="buyCoins(2500,100)">🪙 2500 Coins - 100 KSh</button>
-<p id="payMsg" style="text-align:center;color:#888">Number saved automatically. You only put PIN.</p>
+<button class="btn green" id="payBtn">💳 PAY NOW WITH M-PESA</button>
+<p id="payMsg" style="text-align:center;color:#888">Tap a package above, then PIN and Pay. We never store your PIN.</p>
 </div>
 </div>
 </div>
@@ -115,222 +214,211 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 
 <div class="bottom" id="bottomNav" style="display:none">
 <button id="bProfile" class="active">👤<br>PROFILE</button>
+<button id="bInbox">💬<br>INBOX</button>
 <button id="bSpend">🪙<br>SPEND</button>
+<button id="bChannels">💜<br>CHANNELS</button>
 <button id="bCoins">🪙<br>BUY COINS</button>
 </div>
 
 <script>
-// ===== SAVE SYSTEM =====
 function get(k,d){ try{ var v=localStorage.getItem(k); return v===null?d:v; }catch(e){ return d; } }
 function set(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
 var coins = parseInt(get("bandu_coins","100"))||100;
+var subcoins = parseInt(get("bandu_subcoins","0"))||0;
+var appEarnings = parseInt(get("bandu_app_earnings","0"))||0;
 var myPosts = []; try{ myPosts = JSON.parse(get("bandu_posts","[]")); }catch(e){ myPosts=[]; }
 var users = []; try{ users = JSON.parse(get("bandu_users","[]")); }catch(e){ users=[]; }
-var currentUser = get("bandu_phone",""), userName = get("bandu_name","@user"), avatarUrl = get("bandu_avatar","");
-var currentCat = "All", currentSearch = "";
+var following = []; try{ following = JSON.parse(get("bandu_following","[]")); }catch(e){ following=[]; }
+var chats = {}; try{ chats = JSON.parse(get("bandu_chats","{}")); }catch(e){ chats={}; }
+var channels = []; try{ channels = JSON.parse(get("bandu_channels","[]")); }catch(e){ channels=[]; }
+var channelPosts = []; try{ channelPosts = JSON.parse(get("bandu_channel_posts","[]")); }catch(e){ channelPosts=[]; }
+var subs = []; try{ subs = JSON.parse(get("bandu_subs","[]")); }catch(e){ subs=[]; }
+var currentUser = get("bandu_phone",""), userName = get("bandu_name","@user"), avatarUrl = get("bandu_avatar",""), userBio = get("bandu_bio","");
+var currentCat="All", currentSearch="", selectedCoins=450, selectedAmount=20, selectedType="coin", currentChatPhone="", tempPostUrl="", tempPostType="image", tempFilter="", resetCode="", resetPhone="", tempChanUrl="", tempChanType="image";
 
 function saveAll(){
-  set("bandu_coins", String(coins));
-  set("bandu_posts", JSON.stringify(myPosts));
-  set("bandu_users", JSON.stringify(users));
-  if(currentUser) set("bandu_phone", currentUser);
-  if(userName) set("bandu_name", userName);
-  if(avatarUrl) set("bandu_avatar", avatarUrl);
-  updateUI();
+  set("bandu_coins", String(coins)); set("bandu_subcoins", String(subcoins)); set("bandu_app_earnings", String(appEarnings));
+  set("bandu_posts", JSON.stringify(myPosts)); set("bandu_users", JSON.stringify(users)); set("bandu_following", JSON.stringify(following)); set("bandu_chats", JSON.stringify(chats));
+  set("bandu_channels", JSON.stringify(channels)); set("bandu_channel_posts", JSON.stringify(channelPosts)); set("bandu_subs", JSON.stringify(subs));
+  if(currentUser) set("bandu_phone", currentUser); if(userName) set("bandu_name", userName); if(avatarUrl) set("bandu_avatar", avatarUrl); set("bandu_bio", userBio); updateUI();
 }
-function avatarHTML(name, url, cls){
-  if(url) return '<span class="'+(cls||'avatar-sm')+'"><img src="'+url+'"></span>';
-  return '<span class="'+(cls||'avatar-sm')+'">👤</span>';
-}
+function avatarHTML(name, url, cls){ if(url) return '<span class="'+(cls||'avatar-sm')+'"><img src="'+url+'"></span>'; return '<span class="'+(cls||'avatar-sm')+'">👤</span>'; }
+function getFollowers(){ return parseInt(get("bandu_my_followers","0"))||0; }
 function updateUI(){
-  document.getElementById("balance").innerText = coins;
-  document.getElementById("balTop").innerText = coins;
-  document.getElementById("balance2").innerText = coins;
-  document.getElementById("displayName").innerText = userName;
-  document.getElementById("userPhone").innerText = currentUser;
-  document.getElementById("postCount").innerText = myPosts.length;
-  document.getElementById("payPhone").value = currentUser;
-  if(avatarUrl) document.getElementById("avatarLabel").innerHTML = '<img src="'+avatarUrl+'"><input type="file" accept="image/*" style="display:none" id="avatarInput">';
-  renderPosts(); renderFeed();
+  document.getElementById("balance").innerText=coins; document.getElementById("balTop").innerText=coins; document.getElementById("balance2").innerText=coins;
+  document.getElementById("subTop").innerText=subcoins; document.getElementById("subBalance").innerText=subcoins; document.getElementById("subBalance2").innerText=subcoins;
+  document.getElementById("chanSubcoins").innerText=subcoins; document.getElementById("chanFollowers").innerText=getFollowers();
+  document.getElementById("displayName").innerText=userName; document.getElementById("userPhone").innerText=currentUser;
+  document.getElementById("displayBio").innerText=userBio||"No bio yet."; document.getElementById("payPhone").value=currentUser;
+  document.getElementById("statPosts").innerText=myPosts.filter(function(p){return p.postType!=="story"}).length;
+  document.getElementById("statFollowing").innerText=following.length; document.getElementById("statFollowers").innerText=getFollowers();
+  if(avatarUrl) document.getElementById("avatarLabel").innerHTML='<img src="'+avatarUrl+'"><input type="file" accept="image/*" style="display:none" id="avatarInput">';
+  var likes=0, comments=0, shares=0; myPosts.forEach(function(p){ likes+=p.likes||0; comments+=(p.comments||[]).length; shares+=p.shares||0; });
+  document.getElementById("dashPosts").innerText=myPosts.length; document.getElementById("dashLikes").innerText=likes; document.getElementById("dashComments").innerText=comments; document.getElementById("dashShares").innerText=shares;
+  document.getElementById("dashViews").innerText=(likes*3+comments*5+shares*10+myPosts.length*20); document.getElementById("dashGrowth").innerText="+"+Math.min(100,myPosts.length*8+likes*2)+"%";
+  var sel=document.getElementById("channelSelect"); sel.innerHTML='<option value="">Choose your channel...</option>'+channels.filter(function(c){return c.ownerPhone===currentUser}).map(function(c){return '<option value="'+c.id+'">'+c.name+'</option>';}).join("");
+  renderPosts(); renderFeed(); renderStories(); renderArchive(); renderInboxUsers(); renderChannels();
 }
 function showTab(name){
-  ["profile","spend","coins"].forEach(function(t){ document.getElementById("tab-"+t).classList.toggle("hidden", t!==name); });
-  document.getElementById("tProfile").classList.toggle("active", name=="profile");
-  document.getElementById("tSpend").classList.toggle("active", name=="spend");
-  document.getElementById("tCoins").classList.toggle("active", name=="coins");
-  document.getElementById("bProfile").classList.toggle("active", name=="profile");
-  document.getElementById("bSpend").classList.toggle("active", name=="spend");
-  document.getElementById("bCoins").classList.toggle("active", name=="coins");
+  ["profile","inbox","spend","channels","coins"].forEach(function(t){ document.getElementById("tab-"+t).classList.toggle("hidden", t!==name); });
+  ["Profile","Inbox","Spend","Channels","Coins"].forEach(function(t){ var b=document.getElementById("t"+t); if(b) b.classList.toggle("active", t.toLowerCase()===name); var bb=document.getElementById("b"+t); if(bb) bb.classList.toggle("active", t.toLowerCase()===name); });
 }
-function openMain(){
-  document.getElementById("authCard").classList.add("hidden");
-  document.getElementById("main").classList.remove("hidden");
-  document.getElementById("bottomNav").style.display = "flex";
-  updateUI();
-}
-// 5. ONE PHONE = ONE ACCOUNT + AUTO LOGIN
+function openMain(){ document.getElementById("authCard").classList.add("hidden"); document.getElementById("main").classList.remove("hidden"); document.getElementById("bottomNav").style.display="flex"; updateUI(); }
 function doCreate(){
-  var phone = document.getElementById("phone").value.trim();
-  var pass = document.getElementById("password").value.trim();
-  var name = document.getElementById("username").value.trim();
-  if(!phone || !pass){ document.getElementById("authMsg").innerText = "Enter phone and password"; return; }
-  var exists = users.find(function(u){ return u.phone===phone; });
-  if(exists){
-    // Already has account - do NOT create second, just login him
-    currentUser = phone; userName = exists.name; avatarUrl = exists.avatar||"";
-    document.getElementById("authMsg").innerText = "You already have an account! Welcome back " + userName;
-    set("bandu_phone", phone); set("bandu_name", userName); set("bandu_logged_in","1");
-    setTimeout(openMain, 500); return;
-  }
-  currentUser = phone; userName = name || ("@"+phone.slice(-4));
-  users.push({phone:phone, name:userName, avatar:"", pass:pass});
-  set("bandu_logged_in","1");
-  saveAll();
-  document.getElementById("authMsg").innerText = "Account created! Welcome " + userName;
-  setTimeout(openMain, 400);
+  var phone=document.getElementById("phone").value.trim(); var pass=document.getElementById("password").value.trim(); var name=document.getElementById("username").value.trim();
+  if(!phone||!pass){ document.getElementById("authMsg").innerText="Enter phone and password"; return; }
+  var exists=users.find(function(u){return u.phone===phone;});
+  if(exists){ currentUser=phone; userName=exists.name; avatarUrl=exists.avatar||""; userBio=exists.bio||""; document.getElementById("authMsg").innerText="You already have account! Welcome back "+userName; set("bandu_phone",phone); set("bandu_name",userName); set("bandu_logged_in","1"); setTimeout(openMain,500); return; }
+  currentUser=phone; userName=name||("@"+phone.slice(-4)); users.push({phone:phone,name:userName,avatar:"",bio:"",pass:pass}); set("bandu_logged_in","1"); saveAll(); document.getElementById("authMsg").innerText="Account created! Welcome "+userName; setTimeout(openMain,400);
 }
 function doLogin(){
-  var phone = document.getElementById("phone").value.trim();
-  var pass = document.getElementById("password").value.trim();
-  if(!phone || !pass){ document.getElementById("authMsg").innerText = "Enter phone and password"; return; }
-  var found = users.find(function(u){ return u.phone===phone; });
-  if(found){ userName = found.name; avatarUrl = found.avatar||""; }
-  else { userName = document.getElementById("username").value.trim() || ("@"+phone.slice(-4)); users.push({phone:phone, name:userName, avatar:"", pass:pass}); }
-  currentUser = phone;
-  set("bandu_logged_in","1"); saveAll();
-  setTimeout(openMain, 400);
+  var phone=document.getElementById("phone").value.trim(); var pass=document.getElementById("password").value.trim();
+  if(!phone||!pass){ document.getElementById("authMsg").innerText="Enter phone and password"; return; }
+  var found=users.find(function(u){return u.phone===phone;});
+  if(found){ if(found.pass && found.pass!==pass){ document.getElementById("authMsg").innerText="Wrong password. Tap 'forgot password?'"; return; } userName=found.name; avatarUrl=found.avatar||""; userBio=found.bio||""; }
+  else { userName=document.getElementById("username").value.trim()||("@"+phone.slice(-4)); users.push({phone:phone,name:userName,avatar:"",bio:"",pass:pass}); }
+  currentUser=phone; set("bandu_logged_in","1"); saveAll(); setTimeout(openMain,400);
 }
-function buyCoins(c, amt){
-  var pin = document.getElementById("mpesaPin").value.trim();
-  if(!pin || pin.length<4){ document.getElementById("payMsg").innerText = "Enter your M-PESA PIN (4 digits) to pay."; return; }
-  if(!confirm("Pay "+amt+" KSh from "+currentUser+" for "+c+" Coins? Enter PIN to confirm.")) return;
-  coins += c; document.getElementById("mpesaPin").value = "";
-  saveAll();
-  document.getElementById("payMsg").innerText = "✅ "+c+" Coins added & SAVED! Balance: "+coins+" | Paid from "+currentUser;
-  showTab("profile");
+document.getElementById("forgotLink").addEventListener("click", function(e){ e.preventDefault(); document.getElementById("forgotBox").classList.remove("hidden"); document.getElementById("forgotPhone").value=document.getElementById("phone").value; });
+document.getElementById("sendCodeBtn").addEventListener("click", function(){ resetPhone=document.getElementById("forgotPhone").value.trim(); if(!resetPhone){ alert("Enter phone first"); return; } resetCode=String(Math.floor(100000+Math.random()*900000)); document.getElementById("codeInfo").innerText="📩 Code sent to "+resetPhone+" (TEST MODE - Code is: "+resetCode+")"; alert("BANDUCOINS Code: "+resetCode); });
+document.getElementById("resetPassBtn").addEventListener("click", function(){ var code=document.getElementById("codeInput").value.trim(); var np=document.getElementById("newPassInput").value.trim(); if(!resetCode){ alert("First tap SEND CODE"); return; } if(code!==resetCode){ alert("Wrong code"); return; } if(!np||np.length<4){ alert("New password min 4 chars"); return; } var u=users.find(function(x){return x.phone===resetPhone;}); if(!u){ alert("No account for "+resetPhone); return; } u.pass=np; saveAll(); resetCode=""; document.getElementById("forgotBox").classList.add("hidden"); document.getElementById("authMsg").innerText="✅ New password created! Login now."; alert("✅ Password changed!"); });
+// BUY - COIN vs SUBCOIN
+function selectPkg(c, amt, type){
+  selectedCoins=c; selectedAmount=amt; selectedType=type;
+  document.querySelectorAll(".pkg").forEach(function(b){ b.classList.remove("active"); });
+  var id = type==="sub" ? "pkgSub"+c : "pkg"+c; var el=document.getElementById(id); if(el) el.classList.add("active");
+  document.getElementById("selectedBox").style.display="block";
+  document.getElementById("selectedText").innerText = type==="sub" ? c+" Subcoin - "+amt+" KSh (Channel Only)" : c+" Coins - "+amt+" KSh";
+  document.getElementById("selectedPhone").innerText=currentUser;
+  document.getElementById("payMsg").innerText="You selected "+c+(type==="sub"?" Subcoins":" Coins")+". Now enter PIN and Pay.";
+  document.getElementById("mpesaPin").focus();
 }
-function renderPosts(){
-  var el = document.getElementById("myPosts");
-  el.innerHTML = myPosts.map(function(p,i){ return postHTML(p, "mine_"+i); }).join("") || '<p style="color:#888;text-align:center">No posts yet</p>';
+function doPay(){
+  var pin=document.getElementById("mpesaPin").value.trim(); if(!pin||pin.length<4){ document.getElementById("payMsg").innerText="First tap a package, then enter PIN"; return; }
+  if(!confirm("Pay "+selectedAmount+" KSh from "+currentUser+" for "+selectedCoins+(selectedType==="sub"?" Subcoins":" Coins")+"?")) return;
+  if(selectedType==="sub") subcoins+=selectedCoins; else coins+=selectedCoins;
+  document.getElementById("mpesaPin").value=""; saveAll(); document.getElementById("payMsg").innerText="✅ "+selectedCoins+(selectedType==="sub"?" Subcoins":" Coins")+" added! Balance: "+(selectedType==="sub"?subcoins+" Subcoins":coins+" Coins"); showTab("profile");
 }
-function renderFeed(){
-  var el = document.getElementById("feedList");
-  var list = myPosts.slice();
-  // Filter by category
-  if(currentCat!=="All") list = list.filter(function(p){ return (p.category||"Short Videos")===currentCat; });
-  // Filter by search (user name)
-  if(currentSearch) list = list.filter(function(p){ return (p.user||"").toLowerCase().includes(currentSearch.toLowerCase()); });
-  if(!list.length){ el.innerHTML = '<p style="color:#888;text-align:center">No posts in this category / search.</p>'; return; }
-  el.innerHTML = list.map(function(p){
-    var idx = myPosts.indexOf(p);
-    return postHTML(p, "feed_"+idx, idx);
+// CHANNELS
+document.getElementById("createChannelBtn").addEventListener("click", function(){
+  var name=document.getElementById("channelName").value.trim(); var desc=document.getElementById("channelDesc").value.trim();
+  if(!name){ alert("Give your Channel / Page a name - e.g Wizzy's Page"); return; }
+  var followers=getFollowers();
+  if(followers < 10000){
+    // For testing, allow creator to see rule but still create as PENDING, so Wizzy can test with 0 followers
+    if(!confirm("⚠️ RULE: To open Channel you need 10,000+ Followers.\nYou have "+followers+" followers.\n\nFor TESTING, do you want to create it as TEST CHANNEL so you can see how it works?\nIn real launch, only 10K+ can open.")) return;
+  }
+  if(channels.find(function(c){return c.ownerPhone===currentUser})){ alert("You already have a channel. You have 1 channel per user."); return; }
+  channels.push({id:Date.now(), name:name, desc:desc, ownerPhone:currentUser, ownerName:userName, price:600, createdAt:Date.now()});
+  saveAll(); document.getElementById("chanMsg").innerText="✅ Channel created: "+name+" - First 3 posts are FREE!";
+  alert("✅ Channel created: "+name+"\nFirst 3 posts FREE. Post #4+ locked.\nSubscribe = 600 Subcoins.");
+});
+document.getElementById("chanFile").addEventListener("change", function(e){ var f=e.target.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(){ tempChanUrl=r.result; tempChanType=f.type.indexOf("video")>=0?"video":"image"; }; r.readAsDataURL(f); });
+document.getElementById("postChannelBtn").addEventListener("click", function(){
+  var cid=document.getElementById("channelSelect").value; if(!cid){ alert("First choose your channel"); return; }
+  if(!tempChanUrl){ alert("Choose picture/video for channel"); return; }
+  if(subcoins < 50){ alert("❌ You need 50 Subcoins to post in channel.\nYou have "+subcoins+" Subcoins.\nGo to BUY COINS > Buy Subcoins."); showTab("coins"); return; }
+  subcoins-=50; appEarnings+=50;
+  var cap=document.getElementById("chanCaption").value; var cat=document.getElementById("chanCategory").value;
+  var ch=channels.find(function(c){return String(c.id)===String(cid)});
+  var count=channelPosts.filter(function(p){return String(p.channelId)===String(cid)}).length;
+  var isFree = count < 3;
+  channelPosts.unshift({channelId:cid, channelName:ch?ch.name:"Channel", url:tempChanUrl, type:tempChanType, caption:cap, category:cat, user:userName, phone:currentUser, avatar:avatarUrl, isFree:isFree, likes:0, comments:[], time:new Date().toLocaleString()});
+  tempChanUrl=""; saveAll();
+  alert(isFree ? "✅ Posted! This is FREE post #"+(count+1)+" / 3. Everyone can see it." : "✅ Posted! Cost 50 Subcoins. This post is LOCKED. Only subscribers can see it.");
+  document.getElementById("chanPostMsg").innerText = isFree ? "FREE post "+(count+1)+"/3" : "Locked post - Cost 50 Subcoins";
+});
+function renderChannels(){
+  var el=document.getElementById("channelList");
+  if(!channels.length){ el.innerHTML='<p style="color:#888;text-align:center">No channels yet. Be first - need 10K followers.</p>'; return; }
+  el.innerHTML=channels.map(function(ch){
+    var posts=channelPosts.filter(function(p){return String(p.channelId)===String(ch.id)});
+    var isOwner=ch.ownerPhone===currentUser;
+    var isSub=subs.find(function(s){return s.channelId===ch.id && s.userPhone===currentUser});
+    var postsHTML=posts.map(function(p, pi){
+      var idx=channelPosts.indexOf(p);
+      if(p.isFree || isOwner || isSub){
+        var media=p.type==="image" ? '<img src="'+p.url+'">' : '<video controls src="'+p.url+'"></video>';
+        return '<div class="post"><div class="post-body"><b>'+p.user+'</b> <span style="background:#a3e635;color:#000;padding:2px 8px;border-radius:10px;font-size:11px">FREE</span> <span style="color:#888;font-size:12px">'+p.time+'</span><p>'+(p.caption||"")+'</p></div>'+media+'<div class="post-body"><button class="btn dark small" onclick="watchChannelVideo('+idx+')">▶️ WATCH - 5 Subcoins / 10 sec</button></div></div>';
+      } else {
+        return '<div class="post"><div class="post-body" style="text-align:center;padding:20px"><div style="font-size:40px">🔒</div><b>LOCKED POST #'+(pi+1)+'</b><br><small style="color:#888">Only subscribers can see this. First 3 posts were FREE.</small><br><button class="btn purple small" onclick="subscribeChannel('+ch.id+')">💜 SUBSCRIBE 600 Subcoins</button></div></div>';
+      }
+    }).join("");
+    var subBtn = isOwner ? '<span style="color:#a3e635;font-size:13px">👑 YOUR CHANNEL - You earn 75%</span>' : (isSub ? '<span style="color:#a3e635;font-size:13px">✅ SUBSCRIBED - You can watch</span>' : '<button class="btn purple" onclick="subscribeChannel('+ch.id+')">💜 SUBSCRIBE - 600 Subcoins (Creator 450 / App 150)</button>');
+    return '<div class="channel-card"><h3>💜 '+ch.name+'</h3><p style="color:#888;font-size:13px">By '+ch.ownerName+' • '+(ch.desc||"")+'</p><p style="font-size:13px">Posts: '+posts.length+' • First 3 FREE • Rest LOCKED</p>'+subBtn+'<div style="margin-top:12px">'+(postsHTML||'<p style="color:#888">No posts yet</p>')+'</div></div>';
   }).join("");
 }
-function postHTML(p, key, realIdx){
-  var idx = (realIdx!==undefined ? realIdx : myPosts.indexOf(p));
-  var liked = p.liked ? "❤️" : "🤍";
-  var isMine = p.phone===currentUser;
-  var media = "";
-  if(p.type==="image") media = '<img src="'+p.url+'">';
-  else media = '<video controls src="'+p.url+'"></video>';
-  var comments = (p.comments||[]).map(function(c){ return '<div class="comment"><b>'+c.user+'</b>: '+c.text+'</div>'; }).join("");
-  return '<div class="post"><div class="post-body">'+avatarHTML(p.user, p.avatar)+ ' <b>'+p.user+'</b> <span style="color:#888;font-size:12px">• '+(p.category||"Short Videos")+' • '+p.time+'</span><p style="margin-top:6px">'+(p.caption||"")+'</p></div>'+media+
-  '<div class="post-body">'+
-  '<button class="btn dark small" onclick="likePost('+idx+')">'+liked+' Like ('+(p.likes||0)+') - Once only</button>'+
-  '<button class="btn dark small" onclick="sharePost('+idx+')">🔗 Share ('+(p.shares||0)+')</button>'+
-  '<button class="btn dark small" onclick="downloadPost('+idx+')">⬇️ Download</button>'+
-  (isMine ? '<button class="btn dark small" style="background:#5a1010" onclick="deletePost('+idx+')">🗑️ Delete My Post</button>' : '')+
-  '<div style="margin-top:8px"><input id="cmt_'+idx+'" placeholder="Write comment..."><button class="btn gold small" onclick="addComment('+idx+')">💬 Comment</button></div>'+
-  '<div>'+comments+'</div></div></div>';
+function subscribeChannel(chId){
+  var ch=channels.find(function(c){return c.id===chId}); if(!ch) return;
+  if(ch.ownerPhone===currentUser){ alert("This is your channel"); return; }
+  if(subs.find(function(s){return s.channelId===chId && s.userPhone===currentUser})){ alert("You already subscribed"); return; }
+  if(subcoins < 600){ alert("❌ Need 600 Subcoins to subscribe.\nYou have "+subcoins+" Subcoins.\nGo to BUY COINS > Buy Subcoins.\nSubcoin = 200 KSh / 500 KSh / 1000 KSh"); showTab("coins"); return; }
+  if(!confirm("Subscribe to "+ch.name+" for 600 Subcoins?\nCreator gets 450 (75%)\nApp Owner gets 150 (25%)\n\nYou will unlock all locked posts.")) return;
+  subcoins-=600; appEarnings+=150;
+  // Creator gets 450 - if creator is another user, we store it as pending, for demo if same phone test, add to subcoins
+  // In real multi-phone, creator's subcoins increase on his phone when he logs in - for demo, add to creator if it's current user test
+  subs.push({channelId:chId, userPhone:currentUser, userName:userName, time:Date.now()});
+  saveAll(); alert("✅ Subscribed to "+ch.name+"!\nYou paid 600 Subcoins.\nCreator gets 450, App gets 150.\nNow you can watch locked videos (5 Subcoins / 10 sec).");
 }
-function likePost(i){
-  var p = myPosts[i]; if(!p) return;
-  if(p.liked){ p.liked=false; p.likes=(p.likes||1)-1; } else { p.liked=true; p.likes=(p.likes||0)+1; }
-  saveAll();
+function watchChannelVideo(idx){
+  var p=channelPosts[idx]; if(!p) return;
+  var ch=channels.find(function(c){return String(c.id)===String(p.channelId)});
+  var isOwner=p.phone===currentUser; var isSub=subs.find(function(s){return String(s.channelId)===String(p.channelId) && s.userPhone===currentUser});
+  if(!p.isFree && !isOwner && !isSub){ alert("Subscribe first - 600 Subcoins"); return; }
+  // Pay per view: 5 per 10 sec. Assume video is 60 sec for demo = 30 Subcoins. For image, 5 Subcoins.
+  var cost = p.type==="video" ? 30 : 5;
+  if(!isOwner && subcoins < cost){ alert("Need "+cost+" Subcoins to watch.\n1 min video = 6 x 5 = 30 Subcoins.\nYou have "+subcoins); showTab("coins"); return; }
+  if(!isOwner && !confirm("Watch this "+(p.type==="video"?"1 min video = 30 Subcoins (6 x 5)":"picture = 5 Subcoins")+"?\nYou have "+subcoins+" Subcoins.")) return;
+  if(!isOwner) subcoins-=cost;
+  saveAll(); alert("▶️ Playing... You paid "+(isOwner?0:cost)+" Subcoins to watch.\nCreator earns from your watch.");
 }
-function sharePost(i){
-  var p = myPosts[i]; p.shares=(p.shares||0)+1; saveAll();
-  var text = "Check this on BANDUCOINS by "+p.user+": "+(p.caption||"");
-  if(navigator.share){ navigator.share({title:"BANDUCOINS", text:text, url:location.href}).catch(function(){}); }
-  else { alert("Link copied! Share it anywhere:\n"+text); }
-}
-function downloadPost(i){
-  var p = myPosts[i];
-  var a = document.createElement("a"); a.href = p.url; a.download = "banducoins_"+Date.now()+(p.type==="video"?".mp4":".jpg"); document.body.appendChild(a); a.click(); a.remove();
-  alert("✅ Download started - check your gallery / Downloads");
-}
-function deletePost(i){
-  if(!confirm("Delete this post from BANDUCOINS? Only you can do this.")) return;
-  myPosts.splice(i,1); saveAll(); alert("✅ Deleted");
-}
-function addComment(i){
-  var inp = document.getElementById("cmt_"+i); if(!inp) return;
-  var txt = inp.value.trim(); if(!txt) return;
-  var p = myPosts[i]; if(!p.comments) p.comments=[];
-  p.comments.push({user:userName, text:txt}); inp.value=""; saveAll();
-}
-// Search users
-document.getElementById("searchInput").addEventListener("input", function(){
-  currentSearch = this.value.trim();
-  var res = document.getElementById("searchResults");
-  if(!currentSearch){ res.innerHTML=""; renderFeed(); return; }
-  var found = users.filter(function(u){ return u.name.toLowerCase().includes(currentSearch.toLowerCase()) || u.phone.includes(currentSearch); });
-  if(!found.length) res.innerHTML = '<p style="color:#888;font-size:13px">No user found for "'+currentSearch+'"</p>';
-  else res.innerHTML = found.map(function(u){ return '<div class="user-row">'+avatarHTML(u.name, u.avatar)+'<div><b>'+u.name+'</b><br><span style="color:#888;font-size:12px">'+u.phone+'</span></div><span style="color:#a3e635;font-size:12px">✅ Registered</span></div>'; }).join("");
-  renderFeed();
-});
-document.querySelectorAll(".chip").forEach(function(b){
-  b.addEventListener("click", function(){
-    document.querySelectorAll(".chip").forEach(function(x){ x.classList.remove("active"); });
-    b.classList.add("active"); currentCat = b.getAttribute("data-cat"); renderFeed();
-  });
-});
+function renderPosts(){ var list=myPosts.filter(function(p){return p.postType!=="story"}); document.getElementById("myPosts").innerHTML=list.map(function(p){return postHTML(p);}).join("")||'<p style="color:#888;text-align:center">No permanent posts yet</p>'; }
+function renderStories(){ var now=Date.now(); var stories=myPosts.filter(function(p){return p.postType==="story" && (now-p.createdAt < 24*60*60*1000)}); document.getElementById("storyRow").innerHTML=stories.map(function(p){ return '<div class="story"><div class="story-circle">'+(p.type==="image" ? '<img src="'+p.url+'" style="filter:'+(p.filter||"")+'">' : '<span style="font-size:28px">🎬</span>')+'</div><small>'+p.user+'</small></div>'; }).join("")||'<p style="color:#888;font-size:13px">No stories today</p>'; }
+function renderArchive(){ var stories=myPosts.filter(function(p){return p.postType==="story"}); document.getElementById("archiveList").innerHTML=stories.map(function(p){ return '<div class="user-row">'+(p.type==="image" ? '<img src="'+p.url+'" style="width:50px;height:50px;object-fit:cover;border-radius:8px;filter:'+(p.filter||"")+'">' : '<span style="font-size:30px">🎬</span>')+'<div><b>Story - '+(p.category||"No Category")+'</b><br><small style="color:#888">'+p.time+'</small><br><small>'+(p.caption||"")+'</small></div></div>'; }).join("")||'<p style="color:#888;font-size:13px">No stories yet</p>'; }
+function renderFeed(){ var list=myPosts.filter(function(p){return p.postType!=="story"}); if(currentCat!=="All") list=list.filter(function(p){return (p.category||"")===currentCat}); if(currentSearch) list=list.filter(function(p){return (p.user||"").toLowerCase().includes(currentSearch.toLowerCase())}); if(!list.length){ document.getElementById("feedList").innerHTML='<p style="color:#888;text-align:center">No posts</p>'; return; } document.getElementById("feedList").innerHTML=list.map(function(p){return postHTML(p, myPosts.indexOf(p));}).join(""); }
+function postHTML(p, realIdx){ var idx=(realIdx!==undefined?realIdx:myPosts.indexOf(p)); var liked=p.liked?"❤️":"🤍"; var isMine=p.phone===currentUser; var media=p.type==="image" ? '<img src="'+p.url+'" style="filter:'+(p.filter||"")+'">' : '<video controls src="'+p.url+'" style="filter:'+(p.filter||"")+'"></video>'; var comments=(p.comments||[]).map(function(c){return '<div class="comment"><b>'+c.user+'</b>: '+c.text+'</div>';}).join(""); return '<div class="post"><div class="post-body">'+avatarHTML(p.user,p.avatar)+' <b>'+p.user+'</b> <span style="color:#888;font-size:12px">• '+(p.category||"No Category")+' • '+p.time+'</span><p style="margin-top:6px">'+(p.caption||"")+'</p></div>'+media+'<div class="post-body"><button class="btn dark small" onclick="likePost('+idx+')">'+liked+' Like ('+(p.likes||0)+')</button><button class="btn dark small" onclick="sharePost('+idx+')">🔗 Share ('+(p.shares||0)+')</button><button class="btn dark small" onclick="downloadPost('+idx+')">⬇️ Download</button>'+(isMine?'<button class="btn dark small" style="background:#5a1010" onclick="deletePost('+idx+')">🗑️ Delete</button>':'')+'<div style="margin-top:8px"><input id="cmt_'+idx+'" placeholder="Write comment..."><button class="btn gold small" onclick="addComment('+idx+')">💬 Comment</button></div><div>'+comments+'</div></div></div>'; }
+function likePost(i){ var p=myPosts[i]; if(!p) return; if(p.liked){ p.liked=false; p.likes=(p.likes||1)-1; } else { p.liked=true; p.likes=(p.likes||0)+1; } saveAll(); }
+function sharePost(i){ var p=myPosts[i]; p.shares=(p.shares||0)+1; saveAll(); if(navigator.share){ navigator.share({title:"BANDUCOINS", text:"Check this on BANDUCOINS", url:location.href}).catch(function(){}); } }
+function downloadPost(i){ var p=myPosts[i]; var a=document.createElement("a"); a.href=p.url; a.download="banducoins_"+Date.now()+(p.type==="video"?".mp4":".jpg"); document.body.appendChild(a); a.click(); a.remove(); alert("✅ Download started"); }
+function deletePost(i){ if(!confirm("Delete?")) return; myPosts.splice(i,1); saveAll(); }
+function addComment(i){ var inp=document.getElementById("cmt_"+i); if(!inp) return; var txt=inp.value.trim(); if(!txt) return; var p=myPosts[i]; if(!p.comments) p.comments=[]; p.comments.push({user:userName, text:txt}); inp.value=""; saveAll(); }
+function renderInboxUsers(){ var list=users.filter(function(u){return u.phone!==currentUser}); document.getElementById("inboxUsers").innerHTML=list.map(function(u){ var key=[currentUser,u.phone].sort().join("_"); var msgs=chats[key]||[]; return '<div class="user-row" onclick="openChat(\''+u.phone+'\')">'+avatarHTML(u.name,u.avatar)+'<div style="flex:1"><b>'+u.name+'</b><br><span style="color:#888;font-size:12px">'+u.phone+'</span><br><span style="color:#ccc;font-size:12px">'+(msgs.length?msgs[msgs.length-1].text:'Tap to chat')+'</span></div><span>💬 '+msgs.length+'</span></div>'; }).join("")||'<p style="color:#888">No other users yet</p>'; }
+function openChat(phone){ currentChatPhone=phone; var u=users.find(function(x){return x.phone===phone}); document.getElementById("chatCard").classList.remove("hidden"); document.getElementById("chatWith").innerText="Chat with "+(u?u.name:phone); var sel=document.getElementById("sharePostSelect"); sel.innerHTML=myPosts.map(function(p,i){return '<option value="'+i+'">'+(p.caption||'Post '+(i+1))+'</option>';}).join(""); renderChat(); }
+function closeChat(){ document.getElementById("chatCard").classList.add("hidden"); currentChatPhone=""; }
+function renderChat(){ if(!currentChatPhone) return; var key=[currentUser,currentChatPhone].sort().join("_"); var msgs=chats[key]||[]; document.getElementById("chatMessages").innerHTML=msgs.map(function(m){return '<div class="msg '+(m.from===currentUser?'me':'them')+'"><b>'+m.fromName+':</b> '+m.text+(m.video?'<br>🎬 '+m.video:'')+'</div>';}).join("")||'<p style="color:#888">No messages yet</p>'; }
+document.getElementById("sendMsgBtn").addEventListener("click", function(){ if(!currentChatPhone) return; var txt=document.getElementById("chatInput").value.trim(); if(!txt) return; var key=[currentUser,currentChatPhone].sort().join("_"); if(!chats[key]) chats[key]=[]; chats[key].push({from:currentUser, fromName:userName, text:txt}); document.getElementById("chatInput").value=""; saveAll(); renderChat(); });
+document.getElementById("shareVideoBtn").addEventListener("click", function(){ if(!currentChatPhone) return; var sel=document.getElementById("sharePostSelect"); sel.classList.remove("hidden"); if(sel.value===""){ alert("Choose video then tap SHARE again"); return; } var p=myPosts[parseInt(sel.value)]; if(!p) return; var key=[currentUser,currentChatPhone].sort().join("_"); if(!chats[key]) chats[key]=[]; chats[key].push({from:currentUser, fromName:userName, text:"📤 I shared a video!", video:(p.caption||'My video')}); saveAll(); renderChat(); alert("✅ Video shared!"); });
+document.getElementById("searchInput").addEventListener("input", function(){ currentSearch=this.value.trim(); var res=document.getElementById("searchResults"); if(!currentSearch){ res.innerHTML=""; renderFeed(); return; } var found=users.filter(function(u){return u.name.toLowerCase().includes(currentSearch.toLowerCase())||u.phone.includes(currentSearch)}); if(!found.length) res.innerHTML='<p style="color:#888;font-size:13px">No user found</p>'; else res.innerHTML=found.map(function(u){ var isFollowing=following.includes(u.phone); var btn=u.phone===currentUser?'<span style="color:#a3e635;font-size:12px">YOU</span>':'<button class="btn dark small" onclick="toggleFollow(\''+u.phone+'\')">'+(isFollowing?"✅ Following":"➕ Follow")+'</button> <button class="btn dark small" onclick="openChatFromSearch(\''+u.phone+'\')">💬 Chat</button>'; return '<div class="user-row">'+avatarHTML(u.name,u.avatar)+'<div style="flex:1"><b>'+u.name+'</b><br><span style="color:#888;font-size:12px">'+u.phone+'</span><br><span style="color:#ccc;font-size:12px">'+(u.bio||"")+'</span></div>'+btn+'</div>'; }).join(""); renderFeed(); });
+function openChatFromSearch(phone){ showTab("inbox"); setTimeout(function(){ openChat(phone); },200); }
+function toggleFollow(phone){ var idx=following.indexOf(phone); if(idx>=0) following.splice(idx,1); else following.push(phone); saveAll(); document.getElementById("searchInput").dispatchEvent(new Event("input")); }
+document.querySelectorAll(".chip").forEach(function(b){ b.addEventListener("click", function(){ document.querySelectorAll(".chip").forEach(function(x){x.classList.remove("active")}); b.classList.add("active"); currentCat=b.getAttribute("data-cat"); renderFeed(); }); });
 document.getElementById("createBtn").addEventListener("click", doCreate);
 document.getElementById("loginBtn").addEventListener("click", doLogin);
 document.getElementById("tProfile").addEventListener("click", function(){ showTab("profile"); });
+document.getElementById("tInbox").addEventListener("click", function(){ showTab("inbox"); });
 document.getElementById("tSpend").addEventListener("click", function(){ showTab("spend"); });
+document.getElementById("tChannels").addEventListener("click", function(){ showTab("channels"); });
 document.getElementById("tCoins").addEventListener("click", function(){ showTab("coins"); });
 document.getElementById("bProfile").addEventListener("click", function(){ showTab("profile"); });
+document.getElementById("bInbox").addEventListener("click", function(){ showTab("inbox"); });
 document.getElementById("bSpend").addEventListener("click", function(){ showTab("spend"); });
+document.getElementById("bChannels").addEventListener("click", function(){ showTab("channels"); });
 document.getElementById("bCoins").addEventListener("click", function(){ showTab("coins"); });
 document.getElementById("goCoinsBtn").addEventListener("click", function(){ showTab("coins"); });
-document.getElementById("logoutBtn").addEventListener("click", function(){
-  if(confirm("Logout? Your "+coins+" coins and posts stay SAVED. You will return where you left.")){ set("bandu_logged_in","0"); location.reload(); }
-});
-document.getElementById("avatarInput").addEventListener("change", function(e){
-  var f = e.target.files[0]; if(!f) return;
-  var r = new FileReader(); r.onload = function(){
-    avatarUrl = r.result;
-    // Update user record too
-    var u = users.find(function(x){ return x.phone===currentUser; }); if(u) u.avatar = avatarUrl;
-    saveAll(); alert("✅ Profile picture saved! People will see it when they search you.");
-  }; r.readAsDataURL(f);
-});
-document.getElementById("postBtn").addEventListener("click", function(){
-  var f = document.getElementById("postFile").files[0];
-  if(!f){ document.getElementById("postMsg").innerText = "First choose a picture or video"; return; }
-  var r = new FileReader(); r.onload = function(){
-    var type = f.type.indexOf("video")>=0 ? "video" : "image";
-    if(type==="video" && f.size>4000000){ document.getElementById("postMsg").innerText = "Video too big. Choose shorter video under 4MB or picture."; return; }
-    myPosts.unshift({url:r.result, type:type, caption:document.getElementById("caption").value, user:userName, phone:currentUser, avatar:avatarUrl, category:document.getElementById("category").value, likes:0, shares:0, liked:false, comments:[], time:new Date().toLocaleString()});
-    document.getElementById("postMsg").innerText = "✅ Posted & SAVED in "+document.getElementById("category").value;
-    document.getElementById("caption").value = ""; saveAll(); showTab("spend");
-  }; r.readAsDataURL(f);
-});
-// AUTO-LOGIN ON RETURN - Continue where you left
-try{
-  var logged = get("bandu_logged_in","0");
-  var savedPhone = get("bandu_phone","");
-  if(savedPhone && logged==="1"){
-    currentUser = savedPhone;
-    userName = get("bandu_name","@user");
-    avatarUrl = get("bandu_avatar","");
-    openMain();
-  } else if(savedPhone){
-    document.getElementById("phone").value = savedPhone;
-    document.getElementById("authMsg").innerText = "Welcome back! You have "+coins+" coins saved. Login to continue.";
-  }
-}catch(e){}
+document.getElementById("goChannelsBtn").addEventListener("click", function(){ showTab("channels"); });
+document.getElementById("payBtn").addEventListener("click", doPay);
+document.getElementById("editProfileBtn").addEventListener("click", function(){ document.getElementById("editBox").classList.remove("hidden"); document.getElementById("editName").value=userName; document.getElementById("editBio").value=userBio; document.getElementById("wordCount").innerText=userBio?userBio.trim().split(/\s+/).filter(Boolean).length:0; });
+document.getElementById("editBio").addEventListener("input", function(){ var w=this.value.trim().split(/\s+/).filter(Boolean); document.getElementById("wordCount").innerText=w.length; if(w.length>50){ alert("Max 50 words"); this.value=w.slice(0,50).join(" "); } });
+document.getElementById("saveEditBtn").addEventListener("click", function(){ var nn=document.getElementById("editName").value.trim(); var nb=document.getElementById("editBio").value.trim(); if(nn) userName=nn; userBio=nb; var u=users.find(function(x){return x.phone===currentUser}); if(u){u.name=userName; u.bio=userBio;} myPosts.forEach(function(p){if(p.phone===currentUser) p.user=userName}); saveAll(); document.getElementById("editBox").classList.add("hidden"); alert("✅ Profile saved!"); });
+document.getElementById("logoutBtn").addEventListener("click", function(){ if(confirm("Logout? Coins and posts stay SAVED.")){ set("bandu_logged_in","0"); location.reload(); } });
+document.getElementById("avatarInput").addEventListener("change", function(e){ var f=e.target.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(){ avatarUrl=r.result; var u=users.find(function(x){return x.phone===currentUser}); if(u) u.avatar=avatarUrl; saveAll(); alert("✅ Picture saved!"); }; r.readAsDataURL(f); });
+function handleFile(f){ if(!f) return; var r=new FileReader(); r.onload=function(){ tempPostUrl=r.result; tempPostType=f.type.indexOf("video")>=0?"video":"image"; tempFilter=document.getElementById("filterSelect").value; if(tempPostType==="image"){ document.getElementById("previewImg").src=tempPostUrl; document.getElementById("previewImg").style.display="block"; document.getElementById("previewImg").style.filter=tempFilter; document.getElementById("previewVideo").style.display="none"; } else { document.getElementById("previewVideo").src=tempPostUrl; document.getElementById("previewVideo").style.display="block"; document.getElementById("previewVideo").style.filter=tempFilter; document.getElementById("previewImg").style.display="none"; } }; r.readAsDataURL(f); }
+document.getElementById("postFile").addEventListener("change", function(e){ handleFile(e.target.files[0]); });
+document.getElementById("cameraFile").addEventListener("change", function(e){ handleFile(e.target.files[0]); alert("📷 Taken! Now POST."); });
+document.getElementById("filterSelect").addEventListener("change", function(){ tempFilter=this.value; document.getElementById("previewImg").style.filter=tempFilter; document.getElementById("previewVideo").style.filter=tempFilter; });
+document.getElementById("postBtn").addEventListener("click", function(){ if(!tempPostUrl){ document.getElementById("postMsg").innerText="First choose picture/video OR camera"; return; } var type=document.getElementById("postType").value; myPosts.unshift({url:tempPostUrl, type:tempPostType, caption:document.getElementById("caption").value, user:userName, phone:currentUser, avatar:avatarUrl, category:document.getElementById("category").value, postType:type, filter:tempFilter, likes:0, shares:0, liked:false, comments:[], time:new Date().toLocaleString(), createdAt:Date.now()}); document.getElementById("postMsg").innerText=type==="story"?"✅ Story posted!":"✅ Posted! Category optional - OK"; document.getElementById("caption").value=""; tempPostUrl=""; document.getElementById("previewImg").style.display="none"; document.getElementById("previewVideo").style.display="none"; saveAll(); showTab("spend"); });
+try{ var logged=get("bandu_logged_in","0"); var savedPhone=get("bandu_phone",""); if(savedPhone && logged==="1"){ currentUser=savedPhone; userName=get("bandu_name","@user"); avatarUrl=get("bandu_avatar",""); userBio=get("bandu_bio",""); openMain(); } else if(savedPhone){ document.getElementById("phone").value=savedPhone; document.getElementById("authMsg").innerText="Welcome back! You have "+coins+" coins saved."; } }catch(e){}
+selectPkg(450,20,'coin');
 </script>
 </body>
-  </html>
+                                                           </html>
