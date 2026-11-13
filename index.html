@@ -1,92 +1,298 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>BANDUCOINS - M-PESA Livecoins</title>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BANDUCOINS</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:system-ui;background:#0b0b12;color:#fff}
-header{padding:16px;background:#111126;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0}
-.logo{font-weight:900;font-size:22px}.logo span{color:#ffd700}
-.card{background:#1a1a2e;border:1px solid #2a2a4a;border-radius:16px;padding:16px;margin:12px}
-button{border:0;border-radius:12px;padding:12px 16px;font-weight:800;cursor:pointer;width:100%;margin-top:8px}
-.gold{background:#ffd700;color:#000}.purple{background:#7b2ff7;color:#fff}.green{background:#00c853;color:#fff}.outline{background:transparent;border:1px solid #fff;color:#fff}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.pill{background:#252545;padding:10px;border-radius:12px;text-align:center}
-input,select{width:100%;padding:12px;border-radius:10px;border:1px solid #333;background:#111;color:#fff;margin-top:8px}
-.small{font-size:13px;opacity:.8}.big{font-size:28px;font-weight:900}
-.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);padding:20px;z-index:99}
-.modal .box{background:#1a1a2e;border-radius:16px;padding:20px;margin-top:40px}
-.mpesa{background:#4CAF50;color:#fff}
-</style></head><body>
-<header><div class="logo">BANDU<span>COINS</span></div><div>🇰🇪 M-PESA • Coins Only</div></header>
+*{box-sizing:border-box;font-family:Arial}body{background:#050505;color:#fff;margin:0}
+.top{padding:14px;display:flex;justify-content:space-between;background:#0a0a0a}
+.logo{font-weight:900;font-size:20px}.logo span{color:#a3e635}
+.wrap{max-width:480px;margin:auto;padding:14px;padding-bottom:95px}
+.card{background:#111;border:1px solid #333;border-radius:16px;padding:16px;margin-bottom:14px}
+input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #333;color:#fff;border-radius:12px;margin-top:10px;font-size:15px}
+.btn{width:100%;padding:14px;border:none;border-radius:12px;font-weight:900;font-size:16px;margin-top:10px}
+.gold{background:linear-gradient(90deg,#facc15,#a3e635);color:#000}
+.green{background:#a3e635;color:#000}.dark{background:#222;color:#fff}.small{padding:8px 10px;font-size:13px;width:auto;margin:4px 2px}
+.hidden{display:none}.big{font-size:40px;font-weight:900;color:#facc15}
+.tabs{display:flex;gap:8px;flex-wrap:wrap}.tabs button{flex:1;padding:11px;border-radius:10px;background:#111;color:#fff;border:1px solid #333;font-weight:800;min-width:80px}.tabs button.active{background:#facc15;color:#000}
+.chip{padding:8px 12px;border-radius:20px;border:1px solid #333;background:#111;color:#fff;margin:3px;cursor:pointer;font-size:13px}.chip.active{background:#facc15;color:#000}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:#0a0a0a;display:flex;max-width:480px;margin:auto;border-top:1px solid #222}
+.bottom button{flex:1;background:none;border:none;color:#888;padding:12px;font-weight:800}.bottom button.active{color:#facc15}
+.post{border:1px solid #222;border-radius:12px;overflow:hidden;margin-bottom:12px;background:#0f0f0f}
+.post img,.post video{width:100%;display:block}.post-body{padding:12px}
+.avatar{width:80px;height:80px;border-radius:50%;background:#222;border:3px solid #facc15;display:flex;align-items:center;justify-content:center;font-size:34px;overflow:hidden;flex-shrink:0}.avatar img{width:100%;height:100%;object-fit:cover}
+.avatar-sm{width:36px;height:36px;border-radius:50%;background:#222;border:2px solid #facc15;display:inline-flex;align-items:center;justify-content:center;font-size:16px;overflow:hidden;vertical-align:middle}.avatar-sm img{width:100%;height:100%;object-fit:cover}
+.user-row{display:flex;gap:10px;align-items:center;padding:10px;border:1px solid #222;border-radius:12px;margin-bottom:8px}
+.comment{font-size:13px;padding:6px 10px;background:#1a1a1a;border-radius:10px;margin-top:6px}
+.err{color:#ff6b6b}.ok{color:#a3e635}
+</style>
+</head>
+<body>
+<div class="top"><div class="logo">BANDU<span>COINS</span> 🪙</div><div>🪙 <span id="balTop">0</span> | 💰 <span id="earnTop">0</span></div></div>
+<div class="wrap">
 
+<div id="authCard" class="card">
+<h2 style="text-align:center">Welcome to BANDUCOINS</h2>
+<p style="color:#888;text-align:center;font-size:13px">One phone = One account. Password protected. Auto-login saved.<br>Your phone is your job. Earn today, eat today.</p>
+<input id="phone" placeholder="Phone e.g 0798486530" type="tel">
+<input id="password" placeholder="Password - at least 4 characters" type="password">
+<input id="password2" placeholder="Confirm Password (for Create only)" type="password">
+<input id="username" placeholder="Name e.g Wizzy">
+<input id="refInput" placeholder="Referral Code (optional) e.g BANDU-WIZZY-123">
+<button class="btn gold" id="createBtn">CREATE ACCOUNT - GET 100 COINS FREE</button>
+<button class="btn dark" id="loginBtn">LOGIN</button>
+<p id="authMsg" style="text-align:center;color:#888"></p>
+<p style="color:#888;font-size:12px;text-align:center">Create = 100 FREE. Refer a friend who signs up = +100. Share video alone = 0.</p>
+</div>
+
+<div id="main" class="hidden">
+<div class="tabs">
+<button id="tProfile" class="active">👤 PROFILE</button>
+<button id="tSpend">🪙 SPEND</button>
+<button id="tLive">🔴 LIVE</button>
+<button id="tEarn">💰 EARN</button>
+<button id="tCoins">🪙 BUY COINS</button>
+</div>
+
+<!-- PROFILE -->
+<div id="tab-profile">
 <div class="card">
-<h2>Welcome ❤️ Jobless Can Earn</h2>
-<p class="small">Your phone is your job. Earn today, eat today.</p>
-<div class="grid">
-<div class="pill"><div>Coins</div><div class="big" id="coins">100</div><div class="small">100 FREE on Sign Up</div></div>
-<div class="pill"><div>Earncoins 💰</div><div class="big" id="earn">0</div><div class="small">You get 80% • App keeps 20%</div></div>
+<div style="display:flex;gap:14px;align-items:center">
+<label class="avatar" id="avatarLabel">👤<input type="file" accept="image/*" style="display:none" id="avatarInput"></label>
+<div><h2 id="displayName">@user</h2><p id="userPhone" style="color:#888"></p><p style="color:#888;font-size:13px"><span id="postCount">0</span> Posts • My Code: <b id="myCodeShow" style="color:#facc15"></b></p></div>
 </div>
-<input id="name" placeholder="Your Name"><input id="phone" placeholder="Your M-PESA Phone e.g. 0712345678"><input id="ref" placeholder="Referral Code (optional)">
-<button class="gold" onclick="signup()">SIGN UP - GET 100 COINS FREE</button>
-<p class="small" id="signupMsg">Refer a friend who signs up = +100 coins. Share video alone = 0 coins.</p>
+<button class="btn dark" onclick="document.getElementById('avatarInput').click()">📸 PUT MY PROFILE PICTURE</button>
+<p style="color:#888;font-size:12px;text-align:center">This picture shows when people search for you.</p>
+<p style="color:#a3e635;font-size:12px;margin-top:10px">MY BALANCE COINS - SAVED</p>
+<div class="big"><span id="balance">0</span> COINS</div>
+<p style="color:#a3e635">💰 Earncoins: <span id="earnBal">0</span> (80% yours, 20% keeps app alive)</p>
+<p style="color:#888;font-size:12px">Livecoins: <span id="liveBal">0</span> hrs • Referral: Share your code, friend signs up = you get +100</p>
+<button class="btn gold" id="goCoinsBtn">+ BUY COINS</button>
+<button class="btn green" id="goLiveBtn2">🔴 GO LIVE</button>
 </div>
-
 <div class="card">
-<h3>🔴 LIVECOINS - Pay with M-PESA</h3>
-<p class="small">Creator AND Viewer must pay to enter LIVE. Pesapal PAUSED. M-PESA ONLY.</p>
-<div class="grid">
-<div class="pill"><b>Ksh 50</b><br>3 Hrs LIVE<br><button class="purple" onclick="openMpesa(50,3)">Pay Ksh 50 with M-PESA</button></div>
-<div class="pill"><b>Ksh 100</b><br>6 Hrs LIVE<br><button class="purple" onclick="openMpesa(100,6)">Pay Ksh 100 with M-PESA</button></div>
+<p style="color:#a3e635;font-size:12px">POST PICTURE OR VIDEO - 5 COINS</p>
+<textarea id="caption" rows="2" placeholder="Write something..."></textarea>
+<select id="category"><option value="Short Videos">Category: Short Videos</option><option>Sports</option><option>Comedy</option><option>Music</option><option>Kids</option><option>Cartoons</option></select>
+<select id="musicSel"><option>🎵 Background Music - FREE - No Music</option><option>Afrobeat - Party</option><option>Gospel - Hope</option><option>Bongo - Love</option><option>Gengetone - Street</option></select>
+<select id="filterSel"><option>Filter: Basic - FREE - Normal</option><option>Filter: Basic - FREE - Black & White</option><option>Filter: Basic - FREE - Bright</option><option>Filter: Premium - 5 Coins - Beauty Glow ✨</option><option>Filter: Premium - 10 Coins - Trending 🔥</option><option>Filter: Premium - 20 Coins - VIP Golden 👑</option></select>
+<input type="file" id="postFile" accept="image/*,video/*">
+<button class="btn green" id="postBtn">📤 POST NOW - 5 COINS + FILTER</button>
+<p id="postMsg" style="text-align:center;color:#888"></p>
 </div>
-<div class="pill" style="margin-top:10px"><b>Ksh 200 - BEST - 24 Hrs</b><br><button class="gold" onclick="openMpesa(200,24)">Pay Ksh 200 with M-PESA</button></div>
-<p class="small" id="liveMsg">Livecoins balance: 0 hrs</p>
-<button class="green" onclick="goLive()">▶ GO LIVE NOW</button>
-<button class="outline" onclick="watchLive()">👀 WATCH CELEBRITY LIVE - Needs Livecoins</button>
-</div>
-
-<div class="card"><h3>🎬 Upload Video - 5 Coins</h3>
-<input type="file" accept="video/*">
-<select id="music"><option>🎵 Background Music - FREE</option><option>Afrobeat - Party</option><option>Gospel - Hope</option><option>Bongo - Love</option><option>Gengetone - Street</option></select>
-<select id="filter"><option>Filter: Basic - FREE - Normal</option><option>Filter: Basic - FREE - Black & White</option><option>Filter: Premium - 5 Coins - Beauty Glow</option><option>Filter: Premium - 10 Coins - Trending</option><option>Filter: Premium - 20 Coins - VIP Golden</option></select>
-<button class="gold" onclick="upload()">UPLOAD - 5 Coins</button><p class="small" id="uploadMsg"></p></div>
-
-<div class="card"><h3>🎁 Gifts - Cheapest 10 Coins</h3>
-<p class="small">To Friend (Cheap):</p>
-<div class="grid"><button class="outline" onclick="gift('Heart',10)">❤️ Heart 10</button><button class="outline" onclick="gift('Clap',20)">👏 Clap 20</button></div>
-<p class="small">To LIVE Owner (Expensive - Everyone Sees You):</p>
-<div class="grid"><button class="gold" onclick="gift('Rose',50)">🌹 Rose 50</button><button class="gold" onclick="gift('Crown',100)">👑 Crown 100</button></div>
-<div class="grid"><button class="gold" onclick="gift('Diamond',500)">💎 Diamond 500</button><button class="gold" onclick="gift('Lion',1000)">🦁 Lion 1000</button></div>
-<p class="small" id="giftMsg"></p>
-<button class="outline" onclick="simulateReceive()">🎁 Simulate: I Received a Gift (Test Earncoins)</button>
+<div class="card"><p style="color:#a3e635;font-size:12px">MY POSTS</p><div id="myPosts"></div></div>
+<button class="btn dark" id="logoutBtn">LOGOUT</button>
 </div>
 
-<div class="card"><h3>💰 Earncoins - Withdraw to Phone</h3>
-<p class="small">Min 1,000 • Max 500,000 • Withdraw to M-PESA phone</p><div class="big" id="earn2">0 Earncoins</div>
-<input id="withdrawPhone" placeholder="M-PESA Phone for Withdraw"><input id="withdrawAmt" type="number" placeholder="Amount e.g. 1000">
-<button class="green" onclick="withdraw()">WITHDRAW TO MY PHONE 📱</button><p class="small" id="withdrawMsg"></p></div>
+<!-- SPEND -->
+<div id="tab-spend" class="hidden">
+<div class="card">
+<h3>🪙 SPEND - Watch, Like, Comment, Share, Gift</h3>
+<input id="searchInput" placeholder="🔍 Search users... e.g Wizzy">
+<div id="searchResults"></div>
+<p style="color:#a3e635;font-size:12px;margin-top:10px">CHOOSE CATEGORY</p>
+<div>
+<button class="chip active" data-cat="All">All</button>
+<button class="chip" data-cat="Sports">⚽ Sports</button>
+<button class="chip" data-cat="Comedy">😂 Comedy</button>
+<button class="chip" data-cat="Short Videos">🎬 Short Videos</button>
+<button class="chip" data-cat="Music">🎵 Music</button>
+<button class="chip" data-cat="Kids">🧒 Kids</button>
+<button class="chip" data-cat="Cartoons">🎭 Cartoons</button>
+</div>
+<p style="color:#888;font-size:12px">Like = only once. Comment & Share = as much as you want. Download to phone. Gift = cheapest 10 coins.</p>
+</div>
+<div id="feedList"></div>
+</div>
 
-<div id="mpesaModal" class="modal"><div class="box">
-<h2 style="color:#4CAF50">M-PESA STK PUSH</h2>
-<p id="mpesaText"></p>
-<input id="mpesaPhone" placeholder="Enter M-PESA Number e.g. 0712345678">
-<p class="small">You will receive a prompt on your phone: Enter your M-PESA PIN to complete payment. Do NOT share your PIN with anyone.</p>
-<button class="mpesa" onclick="confirmMpesa()">SEND STK PUSH - PAY NOW</button>
-<button class="outline" onclick="closeMpesa()">Cancel</button>
-<p class="small" id="mpesaStatus"></p>
-</div></div>
+<!-- LIVE -->
+<div id="tab-live" class="hidden">
+<div class="card">
+<h3>🔴 LIVE - LIVECOINS in Ksh - M-PESA ONLY</h3>
+<p style="color:#888;font-size:13px">Creator AND Viewer must pay to enter LIVE. No free watching. Pesapal PAUSED.</p>
+<p>Your Livecoins: <b id="liveBal2">0</b> hrs</p>
+<input id="livePayPhone" type="tel" readonly style="background:#1a1a1a">
+<input id="livePin" type="password" placeholder="Enter M-PESA PIN only" maxlength="4">
+<button class="btn dark" onclick="buyLive(50,3)">🔴 Ksh 50 = 3 Hrs LIVE</button>
+<button class="btn dark" onclick="buyLive(100,6)">🔴 Ksh 100 = 6 Hrs LIVE</button>
+<button class="btn gold" onclick="buyLive(200,24)">🔴 Ksh 200 = 24 Hrs LIVE - BEST</button>
+<p id="liveMsg" style="text-align:center;color:#888"></p>
+<button class="btn green" onclick="goLive()">▶ GO LIVE NOW</button>
+<button class="btn dark" onclick="watchLive()">👀 WATCH CELEBRITY LIVE</button>
+</div>
+<div class="card">
+<h3>🎁 GIFTS IN LIVE</h3>
+<p style="color:#888;font-size:12px">Cheapest gift = 10 coins. Gift goes to Earncoins. Receiver 80% • App 20%.</p>
+<p><b>To Fellow Viewer (Cheap):</b></p>
+<button class="btn dark small" onclick="sendGift('Heart to Friend',10)">❤️ Heart 10</button>
+<button class="btn dark small" onclick="sendGift('Clap to Friend',20)">👏 Clap 20</button>
+<button class="btn dark small" onclick="sendGift('Star to Friend',30)">⭐ Star 30</button>
+<p><b>To LIVE Owner / Celebrity (Expensive - Everyone Sees You):</b></p>
+<button class="btn gold small" onclick="sendGift('Rose to Owner',50)">🌹 Rose 50</button>
+<button class="btn gold small" onclick="sendGift('Crown to Owner',100)">👑 Crown 100</button>
+<button class="btn gold small" onclick="sendGift('Diamond to Owner',500)">💎 Diamond 500</button>
+<button class="btn gold small" onclick="sendGift('Lion to Owner',1000)">🦁 Lion 1000</button>
+<p id="giftMsg" style="color:#888;font-size:13px"></p>
+<button class="btn dark" onclick="simulateReceive()">🎁 TEST: I Received a Lion (Get 800 Earncoins)</button>
+</div>
+</div>
 
-<div class="card"><p class="small">❌ NO Boost • ❌ NO Bundles • 🛑 Pesapal PAUSED • ✅ M-PESA ONLY • ✅ 80% Creator / 20% App • banducoinnet.netlify.app</p></div>
+<!-- EARN -->
+<div id="tab-earn" class="hidden">
+<div class="card">
+<h3>💰 EARNCOINS WALLET - For Jobless People</h3>
+<p style="color:#888;font-size:13px">Earncoins = money you EARNED from gifts. Normal Coins = money you SPEND. Only Earncoins can be withdrawn.</p>
+<div class="big"><span id="earnBal2">0</span> Earncoins</div>
+<p style="color:#888;font-size:12px">Min Withdraw: 1,000 (so you can eat same day) • Max: 500,000</p>
+<input id="withdrawPhone" placeholder="M-PESA Phone for Withdraw - e.g 0712345678">
+<input id="withdrawAmt" type="number" placeholder="Amount e.g 1000">
+<input id="withdrawPin" type="password" placeholder="Enter M-PESA PIN" maxlength="4">
+<button class="btn green" onclick="withdraw()">WITHDRAW TO MY PHONE 📱</button>
+<p id="withdrawMsg" style="text-align:center;color:#888"></p>
+</div>
+<div class="card">
+<h3>👥 REFER & EARN</h3>
+<p>Your Code: <b id="myCodeShow2" style="color:#facc15"></b></p>
+<p style="color:#888;font-size:13px">When your friend creates account with your code, you get +100 coins. Sharing video alone = 0.</p>
+<button class="btn dark" onclick="copyRef()">COPY REFERRAL LINK</button>
+<p id="refMsg" style="color:#888"></p>
+</div>
+</div>
+
+<!-- BUY COINS -->
+<div id="tab-coins" class="hidden">
+<div class="card">
+<h3>BUY BANDUCOINS - ONLY COINS, NO BUNDLES</h3>
+<p>Balance: <b id="balance2">0</b> Coins</p>
+<p style="color:#888;font-size:13px">Your saved number:</p>
+<input id="payPhone" type="tel" readonly style="background:#1a1a1a">
+<input id="mpesaPin" type="password" placeholder="Enter M-PESA PIN only" maxlength="4">
+<button class="btn dark" onclick="buyCoins(450,20)">🪙 450 Coins - 20 KSh</button>
+<button class="btn dark" onclick="buyCoins(600,30)">🪙 600 Coins - 30 KSh</button>
+<button class="btn dark" onclick="buyCoins(1000,50)">🪙 1000 Coins - 50 KSh</button>
+<button class="btn dark" onclick="buyCoins(2500,100)">🪙 2500 Coins - 100 KSh</button>
+<p id="payMsg" style="text-align:center;color:#888">Number saved automatically. You only put PIN.</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="bottom" id="bottomNav" style="display:none">
+<button id="bProfile" class="active">👤<br>PROFILE</button>
+<button id="bSpend">🪙<br>SPEND</button>
+<button id="bLive">🔴<br>LIVE</button>
+<button id="bEarn">💰<br>EARN</button>
+<button id="bCoins">🪙<br>BUY</button>
+</div>
 
 <script>
-let coins=100, earn=0, liveHrs=0, pendingKsh=0, pendingHrs=0;
-function update(){document.getElementById('coins').innerText=coins;document.getElementById('earn').innerText=earn;document.getElementById('earn2').innerText=earn+' Earncoins';document.getElementById('liveMsg').innerText='Livecoins balance: '+liveHrs+' hrs';}
-function signup(){let n=document.getElementById('name').value||'Friend';let r=document.getElementById('ref').value;coins=100; if(r){coins+=100;document.getElementById('signupMsg').innerText='Welcome '+n+'! Referral used. You got 100+100=200 coins!';} else document.getElementById('signupMsg').innerText='Welcome '+n+'! You got 100 coins FREE. Refer friend = +100.';update();}
-function openMpesa(ksh,hrs){pendingKsh=ksh;pendingHrs=hrs;document.getElementById('mpesaText').innerText='You are paying Ksh '+ksh+' for '+hrs+' Hrs LIVECOINS. This will give you access to GO LIVE and WATCH LIVE.';document.getElementById('mpesaPhone').value=document.getElementById('phone').value||'';document.getElementById('mpesaStatus').innerText='';document.getElementById('mpesaModal').style.display='block';}
-function closeMpesa(){document.getElementById('mpesaModal').style.display='none';}
-function confirmMpesa(){let ph=document.getElementById('mpesaPhone').value; if(ph.length<10){document.getElementById('mpesaStatus').innerText='Enter valid M-PESA number e.g. 0712345678';return;} document.getElementById('mpesaStatus').innerText='Sending STK Push to '+ph+'... Check your phone, enter M-PESA PIN...'; setTimeout(()=>{document.getElementById('mpesaStatus').innerText='✅ Payment Received! Ksh '+pendingKsh+' confirmed from '+ph+'.'; liveHrs+=pendingHrs; update(); setTimeout(()=>{closeMpesa(); alert('SUCCESS! You now have '+liveHrs+' hrs Livecoins. You can GO LIVE or WATCH LIVE now.');},800);},2500);}
-function goLive(){if(liveHrs<=0){alert('Need Livecoins. Pay Ksh 50/100/200 with M-PESA first.');return;} liveHrs--; alert('You are LIVE! 🔴 '+liveHrs+' hrs left. People can gift you, you earn 80%.');update();}
-function watchLive(){if(liveHrs<=0){alert('To watch celebrity LIVE, pay Ksh 50=3hrs, 100=6hrs, 200=24hrs with M-PESA.');return;} alert('You entered Celebrity LIVE! Send gift to be noticed.');}
-function upload(){if(coins<5){alert('Need 5 coins');return;} coins-=5; document.getElementById('uploadMsg').innerText='Uploaded! -5 coins. Music FREE playing. Balance: '+coins; update();}
-function gift(name,price){if(coins<price){alert('Not enough coins');return;} coins-=price; let rec=Math.floor(price*0.8); let own=price-rec; document.getElementById('giftMsg').innerText='Sent '+name+' '+price+' coins. Receiver gets '+rec+' Earncoins (80%). App keeps '+own+' (20%). Your coins: '+coins; update();}
-function simulateReceive(){earn+=800; document.getElementById('giftMsg').innerText='TEST: Someone sent you a Lion 1000 coins. You got 800 Earncoins. App got 200. Total Earncoins: '+earn; update();}
-function withdraw(){let amt=parseInt(document.getElementById('withdrawAmt').value);let ph=document.getElementById('withdrawPhone').value; if(!amt||!ph){alert('Enter phone and amount');return;} if(amt<1000){document.getElementById('withdrawMsg').innerText='Min is 1,000 so you can eat same day.';return;} if(amt>500000){document.getElementById('withdrawMsg').innerText='Max is 500,000 per withdraw.';return;} if(amt>earn){document.getElementById('withdrawMsg').innerText='You have only '+earn+' Earncoins. Go LIVE, get gifts, refer friends.';return;} earn-=amt; document.getElementById('withdrawMsg').innerText='SUCCESS! '+amt+' Earncoins sent to '+ph+' via M-PESA. Go buy food ❤️'; update();}
-update();
-</script></body></html>
+function get(k,d){ try{ var v=localStorage.getItem(k); return v===null?d:v; }catch(e){ return d; } }
+function set(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+function normPhone(p){ p=(p||"").trim().replace(/\s/g,''); if(p.startsWith('+254')) p='0'+p.slice(4); if(p.startsWith('254')) p='0'+p.slice(3); return p; }
+var coins = parseInt(get("bandu_coins","0"))||0;
+var earnCoins = parseInt(get("bandu_earn","0"))||0;
+var liveHrs = parseInt(get("bandu_live","0"))||0;
+var myPosts = []; try{ myPosts = JSON.parse(get("bandu_posts","[]")); }catch(e){ myPosts=[]; }
+var users = []; try{ users = JSON.parse(get("bandu_users","[]")); }catch(e){ users=[]; }
+var currentUser = get("bandu_phone",""), userName = get("bandu_name","@user"), avatarUrl = get("bandu_avatar",""), myCode = get("bandu_mycode","");
+var currentCat = "All", currentSearch = "";
+function saveAll(){
+  set("bandu_coins", String(coins)); set("bandu_earn", String(earnCoins)); set("bandu_live", String(liveHrs));
+  set("bandu_posts", JSON.stringify(myPosts)); set("bandu_users", JSON.stringify(users));
+  if(currentUser) set("bandu_phone", currentUser);
+  if(userName) set("bandu_name", userName);
+  if(avatarUrl) set("bandu_avatar", avatarUrl);
+  if(myCode) set("bandu_mycode", myCode);
+  // save to user record too
+  var u = users.find(function(x){ return x.phone===currentUser; });
+  if(u){ u.coins=coins; u.earn=earnCoins; u.liveHrs=liveHrs; u.avatar=avatarUrl; u.name=userName; u.code=myCode; set("bandu_users", JSON.stringify(users)); }
+  updateUI();
+}
+function avatarHTML(name, url, cls){
+  if(url) return '<span class="'+(cls||'avatar-sm')+'"><img src="'+url+'"></span>';
+  return '<span class="'+(cls||'avatar-sm')+'">👤</span>';
+}
+function updateUI(){
+  document.getElementById("balance").innerText = coins;
+  document.getElementById("balTop").innerText = coins;
+  document.getElementById("earnTop").innerText = earnCoins;
+  document.getElementById("balance2").innerText = coins;
+  document.getElementById("displayName").innerText = userName;
+  document.getElementById("userPhone").innerText = currentUser;
+  document.getElementById("postCount").innerText = myPosts.length;
+  document.getElementById("payPhone").value = currentUser;
+  document.getElementById("livePayPhone").value = currentUser;
+  document.getElementById("earnBal").innerText = earnCoins;
+  document.getElementById("earnBal2").innerText = earnCoins;
+  document.getElementById("liveBal").innerText = liveHrs;
+  document.getElementById("liveBal2").innerText = liveHrs;
+  document.getElementById("myCodeShow").innerText = myCode||"";
+  document.getElementById("myCodeShow2").innerText = myCode||"";
+  if(avatarUrl) document.getElementById("avatarLabel").innerHTML = '<img src="'+avatarUrl+'"><input type="file" accept="image/*" style="display:none" id="avatarInput">';
+  renderPosts(); renderFeed();
+}
+function showTab(name){
+  ["profile","spend","live","earn","coins"].forEach(function(t){ document.getElementById("tab-"+t).classList.toggle("hidden", t!==name); });
+  ["tProfile","tSpend","tLive","tEarn","tCoins"].forEach(function(id){ document.getElementById(id).classList.remove("active"); });
+  var map={profile:"tProfile",spend:"tSpend",live:"tLive",earn:"tEarn",coins:"tCoins"}; document.getElementById(map[name]).classList.add("active");
+  ["bProfile","bSpend","bLive","bEarn","bCoins"].forEach(function(id){ document.getElementById(id).classList.remove("active"); });
+  var bmap={profile:"bProfile",spend:"bSpend",live:"bLive",earn:"bEarn",coins:"bCoins"}; document.getElementById(bmap[name]).classList.add("active");
+}
+function openMain(){
+  document.getElementById("authCard").classList.add("hidden");
+  document.getElementById("main").classList.remove("hidden");
+  document.getElementById("bottomNav").style.display = "flex";
+  updateUI();
+}
+// ONE PHONE = ONE ACCOUNT + PASSWORD CHECK - FIXED
+function doCreate(){
+  var phoneRaw = document.getElementById("phone").value.trim();
+  var pass = document.getElementById("password").value.trim();
+  var pass2 = document.getElementById("password2").value.trim();
+  var name = document.getElementById("username").value.trim();
+  var ref = document.getElementById("refInput").value.trim();
+  var msg = document.getElementById("authMsg");
+  if(!phoneRaw || !pass){ msg.innerHTML='<span class="err">Enter phone and password</span>'; return; }
+  if(pass.length<4){ msg.innerHTML='<span class="err">Password must be at least 4 characters</span>'; return; }
+  if(pass!==pass2){ msg.innerHTML='<span class="err">Passwords do not match! Check Confirm Password</span>'; return; }
+  if(!name){ msg.innerHTML='<span class="err">Enter your Name</span>'; return; }
+  var phone = normPhone(phoneRaw);
+  if(phone.length!==10 || !phone.startsWith("07")){ msg.innerHTML='<span class="err">Phone must be like 0712345678 - 10 digits starting with 07</span>'; return; }
+  var exists = users.find(function(u){ return normPhone(u.phone)===phone; });
+  if(exists){ msg.innerHTML='<span class="err">❌ This number '+phone+' already has an account! No other number can create account with same number. Please LOGIN with your password.</span>'; return; }
+  var code = 'BANDU-'+name.toUpperCase().replace(/[^A-Z0-9]/g,'')+'-'+Math.floor(100+Math.random()*900);
+  currentUser = phone; userName = name; myCode = code; coins = 100; earnCoins = 0; liveHrs = 0; avatarUrl = "";
+  // Referral bonus
+  if(ref){
+    var refUser = users.find(function(u){ return u.code===ref; });
+    if(refUser){ refUser.coins = (refUser.coins||0)+100; coins = 200; msg.innerHTML='<span class="ok">Welcome '+name+'! You used referral code. You got 100+100=200 coins! Referrer also got +100.</span>'; }
+    else { msg.innerHTML='<span class="ok">Welcome '+name+'! Account created. You got 100 coins FREE. Referral code not found.</span>'; }
+  } else { msg.innerHTML='<span class="ok">Welcome '+name+'! Account created. You got 100 coins FREE. Your code: '+code+'</span>'; }
+  users.push({phone:phone, name:userName, avatar:"", pass:pass, code:code, coins:coins, earn:0, liveHrs:0});
+  set("bandu_logged_in","1"); saveAll(); setTimeout(openMain, 500);
+}
+function doLogin(){
+  var phoneRaw = document.getElementById("phone").value.trim();
+  var pass = document.getElementById("password").value.trim();
+  var msg = document.getElementById("authMsg");
+  if(!phoneRaw || !pass){ msg.innerHTML='<span class="err">Enter phone and password to LOGIN</span>'; return; }
+  var phone = normPhone(phoneRaw);
+  var found = users.find(function(u){ return normPhone(u.phone)===phone; });
+  if(!found){ msg.innerHTML='<span class="err">No account with this number. Please CREATE ACCOUNT first.</span>'; return; }
+  if(found.pass!==pass){ msg.innerHTML='<span class="err">Wrong password for this number!</span>'; return; }
+  currentUser = found.phone; userName = found.name; avatarUrl = found.avatar||""; myCode = found.code||""; coins = found.coins||0; earnCoins = found.earn||0; liveHrs = found.liveHrs||0;
+  set("bandu_logged_in","1"); saveAll();
+  msg.innerHTML='<span class="ok">Logged in! Welcome back '+userName+'</span>'; setTimeout(openMain, 400);
+}
+function buyCoins(c, amt){
+  var pin = document.getElementById("mpesaPin").value.trim();
+  if(!pin || pin.length<4){ document.getElementById("payMsg").innerText = "Enter your M-PESA PIN (4 digits) to pay."; return; }
+  if(!confirm("Pay "+amt+" KSh from "+currentUser+" for "+c+" Coins?")) return;
+  coins += c; document.getElementById("mpesaPin").value = ""; saveAll();
+  document.getElementById("payMsg").innerText = "✅ "+c+" Coins added & SAVED! Balance: "+coins+" | Paid from "+currentUser;
+  showTab("profile");
+}
+function buyLive(ksh, hrs){
+  var pin = document.getElementById("livePin").value.trim();
+  if(!pin || pin
