@@ -3,290 +3,130 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BANDUCOINS - Learn & Watch With Coins</title>
+<title>BANDUCOINS</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Arial,sans-serif}
 body{background:#050505;color:#fff;min-height:100vh}
 .top{position:sticky;top:0;z-index:10;background:#0a0a0a;border-bottom:1px solid #222;display:flex;justify-content:space-between;align-items:center;padding:12px 16px}
 .logo{font-weight:900;font-size:20px}.logo span{color:#a3e635}.logo b{color:#facc15}
 .pill{background:#1a2a00;border:1px solid #2a3a12;color:#facc15;padding:6px 12px;border-radius:20px;font-weight:900;font-size:14px}
-.wrap{max-width:480px;margin:0 auto;padding:14px;padding-bottom:90px}
+.wrap{max-width:480px;margin:0 auto;padding:14px;padding-bottom:95px}
 .card{background:#111;border:1px solid #222;border-radius:18px;padding:16px;margin-bottom:14px}
 .label{color:#a3e635;font-size:12px;font-weight:800;letter-spacing:1px}
-.big{font-size:44px;font-weight:900;color:#facc15}
+.big{font-size:42px;font-weight:900;color:#facc15}
 .btn{width:100%;padding:14px;border:none;border-radius:12px;font-weight:900;font-size:16px;cursor:pointer;margin-top:10px}
 .gold{background:linear-gradient(90deg,#facc15,#a3e635);color:#000}
 .green{background:#a3e635;color:#000}
 .dark{background:#1c1c1c;color:#fff;border:1px solid #333}
-input,select{width:100%;padding:13px;background:#000;border:1px solid #333;color:#fff;border-radius:12px;margin-top:10px;font-size:16px;outline:none}
-input:focus{border-color:#facc15}
+input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #333;color:#fff;border-radius:12px;margin-top:10px;font-size:15px;outline:none}
+input:focus,textarea:focus{border-color:#facc15}
 .tabs{display:flex;gap:8px;margin-bottom:14px}
 .tabs button{flex:1;padding:11px;border-radius:12px;border:1px solid #333;background:#111;color:#fff;font-weight:800;cursor:pointer}
-.tabs button.active{background:#facc15;color:#000;border-color:#facc15}
+.tabs button.active{background:#facc15;color:#000}
 .hidden{display:none}
-.muted{color:#888;font-size:13px}
-.center{text-align:center}
+.muted{color:#888;font-size:13px}.center{text-align:center}
 .badge{display:inline-block;background:#1a2a00;color:#a3e635;padding:5px 10px;border-radius:20px;font-size:12px;font-weight:800;border:1px solid #2a3a12}
-
-/* Duolingo path */
-.path{display:flex;flex-direction:column;align-items:center;gap:14px;padding:10px 0}
-.node{width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;cursor:pointer;border:4px solid #000;box-shadow:0 6px 0 #222;position:relative}
-.node.done{background:#a3e635}
-.node.current{background:#facc15;transform:scale(1.15);box-shadow:0 6px 0 #8a6d00,0 0 25px rgba(250,204,21,.6)}
-.node.locked{background:#222;color:#777}
-.node small{position:absolute;bottom:-18px;font-size:11px;color:#888;white-space:nowrap}
-.lesson{border:1px solid #222;border-radius:14px;padding:12px;display:flex;gap:12px;align-items:center;margin-bottom:10px;background:#0f0f0f}
-.thumb{width:90px;height:60px;border-radius:10px;background:#222;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;overflow:hidden}
-.thumb img{width:100%;height:100%;object-fit:cover}
-.price{color:#facc15;font-weight:900}
-.lock{color:#888;font-size:12px}
+.avatar{width:78px;height:78px;border-radius:50%;background:#222;border:3px solid #facc15;display:flex;align-items:center;justify-content:center;font-size:34px;overflow:hidden}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.profile-top{display:flex;gap:14px;align-items:center}
+.post{border:1px solid #222;border-radius:14px;overflow:hidden;margin-bottom:12px;background:#0f0f0f}
+.post img,.post video{width:100%;display:block;max-height:420px;object-fit:cover}
+.post-body{padding:12px}
+.coins-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.coins-grid button{background:#111;border:1px solid #333;color:#fff;padding:14px;border-radius:12px;font-weight:900;cursor:pointer;text-align:left}
+.coins-grid button.active{background:#facc15;color:#000}
 .bottom{position:fixed;bottom:0;left:0;right:0;background:#0a0a0a;border-top:1px solid #222;display:flex;max-width:480px;margin:0 auto}
 .bottom button{flex:1;background:none;border:none;color:#888;padding:12px 4px;font-weight:800;cursor:pointer;font-size:12px}
 .bottom button.active{color:#facc15}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;padding:16px;z-index:50}
-.modal .card{width:100%;max-width:400px}
-.coins-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
-.coins-grid button{background:#111;border:1px solid #333;color:#fff;padding:14px;border-radius:12px;font-weight:900;cursor:pointer;text-align:left}
-.coins-grid button.active{background:#facc15;color:#000;border-color:#facc15}
-.video-box{width:100%;aspect-ratio:16/9;background:#000;border-radius:12px;overflow:hidden;margin-top:10px;display:flex;align-items:center;justify-content:center}
-video{width:100%;height:100%}
+.preview{width:100%;border-radius:12px;margin-top:10px;display:none;max-height:300px;object-fit:cover}
 </style>
 </head>
 <body>
 
 <div class="top">
   <div class="logo">BANDU<span>COINS</span> <b>🪙</b></div>
-  <div style="display:flex;gap:8px;align-items:center">
-    <span style="color:#ff6b35;font-weight:900">🔥 <span id="streakTop">7</span></span>
-    <span class="pill">🪙 <span id="balanceTop">0</span></span>
-  </div>
+  <span class="pill">🪙 <span id="balanceTop">0</span></span>
 </div>
 
 <div class="wrap">
 
-<!-- AUTH -->
+<!-- CREATE ACCOUNT / LOGIN -->
 <div id="authCard" class="card">
-  <div class="center"><span class="badge">⚡ BANDUCOINS - LIKE DUOLINGO, BUT FOR VIDEOS</span></div>
-  <h2 class="center" style="margin-top:12px">Learn, Watch, Earn</h2>
-  <p class="muted center">No bundles. Only coins. Buy coins, watch videos.</p>
+  <div class="center"><span class="badge">⚡ BANDUCOINS - CREATE YOUR PROFILE</span></div>
+  <h2 class="center" style="margin-top:12px">Welcome to BANDUCOINS</h2>
+  <p class="muted center">Create account, post videos, earn & buy coins.</p>
   <input id="phone" placeholder="Phone e.g 07XXXXXXXX" type="tel">
   <input id="password" placeholder="Password" type="password">
+  <input id="username" placeholder="Your Name / Username e.g @bandu">
   <button class="btn gold" onclick="signup()">CREATE ACCOUNT</button>
   <button class="btn dark" onclick="login()">LOGIN</button>
   <p id="authMsg" class="muted center"></p>
-  <p class="muted center" style="margin-top:10px">Demo: If no internet, app works with local coins.<br>Payments: Secure Pesapal - shows BANDUCOINS</p>
 </div>
 
 <!-- MAIN -->
 <div id="main" class="hidden">
   <div class="tabs">
-    <button id="tabLearn" class="active" onclick="showTab('learn')">📚 LEARN PATH</button>
-    <button id="tabWatch" onclick="showTab('watch')">🎬 WATCH</button>
+    <button id="tabProfile" class="active" onclick="showTab('profile')">👤 PROFILE</button>
+    <button id="tabFeed" onclick="showTab('feed')">🎬 FEED</button>
     <button id="tabCoins" onclick="showTab('coins')">🪙 BUY COINS</button>
   </div>
 
-  <!-- LEARN - Duolingo style -->
-  <div id="tab-learn">
+  <!-- PROFILE = HOME -->
+  <div id="tab-profile">
     <div class="card">
-      <div class="label">YOUR WALLET</div>
-      <div class="big"><span id="balance">0</span> <span style="font-size:16px">COINS</span></div>
-      <p class="muted">🔥 7 Day Streak • Level 3 • 120 XP Today</p>
-      <button class="btn gold" onclick="showTab('coins')">+ BUY COINS - NO BUNDLES, ONLY COINS</button>
-      <button class="btn dark" onclick="refresh()">↻ REFRESH BALANCE</button>
-    </div>
-
-    <div class="card">
-      <div class="label">YOUR LEARNING PATH - LIKE DUOLINGO</div>
-      <p class="muted" style="margin:6px 0">Complete a lesson to unlock next video. Each lesson costs coins to watch.</p>
-      <div class="path">
-        <div class="node done" onclick="openVideo(0)">🎬<small>Lesson 1 Done</small></div>
-        <div class="node current" onclick="openVideo(1)" style="margin-left:60px">▶️<small>Lesson 2 - Watch Now</small></div>
-        <div class="node" style="background:#facc15;margin-left:-50px" onclick="openVideo(2)">⚽<small>Sports</small></div>
-        <div class="node locked" onclick="openVideo(3)">🔒<small>Music Locked</small></div>
-        <div class="node locked" onclick="openVideo(4)">🔒<small>Movies Locked</small></div>
+      <div class="profile-top">
+        <label class="avatar" id="avatarLabel">👤<input type="file" accept="image/*" style="display:none" id="avatarInput" onchange="changeAvatar(event)"></label>
+        <div>
+          <h2 id="displayName">@user</h2>
+          <p class="muted" id="userPhone"></p>
+          <p class="muted"><span id="postCount">0</span> Posts • <span id="followers">0</span> Followers • <span id="likes">0</span> Likes</p>
+          <button class="btn dark" style="padding:8px;margin-top:6px;font-size:13px" onclick="document.getElementById('avatarInput').click()">CHANGE PROFILE PHOTO</button>
+        </div>
       </div>
-      <p class="center muted">Finish Lesson 2 to unlock Music & Movies</p>
+      <div style="margin-top:16px;border-top:1px solid #222;padding-top:14px">
+        <div class="label">MY BALANCE COINS</div>
+        <div class="big"><span id="balance">0</span> <span style="font-size:16px">COINS</span></div>
+        <p class="muted">No bundles. Only coins. Use coins to watch videos.</p>
+        <button class="btn gold" onclick="showTab('coins')">+ BUY COINS</button>
+        <button class="btn dark" onclick="refresh()">↻ REFRESH BALANCE</button>
+      </div>
     </div>
-  </div>
 
-  <!-- WATCH -->
-  <div id="tab-watch" class="hidden">
+    <!-- POST PICTURE OR VIDEO -->
     <div class="card">
-      <div class="label">WATCH VIDEOS WITH COINS</div>
-      <h3 style="margin-top:6px">No bundles needed. Just coins.</h3>
-      <p class="muted">Tap Watch - coins are taken - video unlocks instantly.</p>
+      <div class="label">CREATE POST - PICTURE OR VIDEO</div>
+      <textarea id="caption" rows="2" placeholder="What do you want to share?"></textarea>
+      <input type="file" id="postFile" accept="image/*,video/*" onchange="previewPost(event)">
+      <img id="previewImg" class="preview">
+      <video id="previewVideo" class="preview" controls></video>
+      <p class="muted">Choose a picture OR a video from your phone, then Post.</p>
+      <button class="btn green" onclick="createPost()">📤 POST NOW</button>
+      <p id="postMsg" class="muted center"></p>
     </div>
-    <div id="videoList"></div>
+
+    <div class="card">
+      <div class="label">MY POSTS</div>
+      <div id="myPosts"></div>
+      <p class="muted center" id="noMyPosts">You have no posts yet. Post your first picture or video above.</p>
+    </div>
+
+    <button class="btn dark" onclick="logout()">LOGOUT</button>
   </div>
 
-  <!-- BUY COINS - ONLY COINS, NO BUNDLES -->
+  <!-- FEED -->
+  <div id="tab-feed" class="hidden">
+    <div class="card">
+      <div class="label">FEED - ALL VIDEOS & PICTURES</div>
+      <h3 style="margin-top:6px">Watch with coins</h3>
+      <p class="muted">Tap WATCH on a video. Coins are taken only once. Pictures are FREE to view.</p>
+    </div>
+    <div id="feedList"></div>
+  </div>
+
+  <!-- BUY COINS -->
   <div id="tab-coins" class="hidden">
     <div class="card">
       <div class="label">BUY BANDUCOINS</div>
       <h3 style="margin-top:6px">ONLY COINS - NO BUNDLES</h3>
-      <p class="muted">Choose coins. Pay with M-PESA via Pesapal. Coins appear automatically.</p>
+      <p class="muted">Your balance: <b style="color:#facc15"><span id="balance3">0</span> Coins</b></p>
       <div class="coins-grid" id="coinGrid">
-        <button onclick="pickCoin(450,20,this)" class="active">🪙 450 Coins<br><b>20 KSh</b><br><small>Best for 1 video</small></button>
-        <button onclick="pickCoin(600,30,this)">🪙 600 Coins<br><b>30 KSh</b><br><small>Popular</small></button>
-        <button onclick="pickCoin(1000,50,this)">🪙 1000 Coins<br><b>50 KSh</b><br><small>+ 100 Bonus</small></button>
-        <button onclick="pickCoin(2500,100,this)">🪙 2500 Coins<br><b>100 KSh</b><br><small>Best Value</small></button>
-      </div>
-      <p class="center" id="payInfo" style="margin-top:12px">You pay <b style="color:#facc15">20 KSh</b> • You get <b style="color:#a3e635">450 Coins</b></p>
-      <button class="btn green" onclick="payNow()">PAY WITH M-PESA → VIA PESAPAL</button>
-      <p class="muted center" id="payMsg">Secure checkout shows BANDUCOINS. No personal number shown.</p>
-      <p class="muted center">❌ No bundles sold here &nbsp; ✅ Only coins</p>
-    </div>
-    <div class="card">
-      <div class="label">HOW IT WORKS</div>
-      <p style="margin-top:8px;line-height:1.7">1. Buy coins with M-PESA<br>2. Coins appear in your wallet<br>3. Tap any video > Watch with coins<br>4. Video unlocks - no bundle needed</p>
-    </div>
-  </div>
-
-  <!-- PROFILE -->
-  <div class="card">
-    <div class="label">MY PROFILE</div>
-    <p style="margin-top:8px"><b>Phone:</b> <span id="userPhone"></span></p>
-    <p><b>Coins:</b> <span id="balance2">0</span> 🪙</p>
-    <p><b>Videos Watched:</b> <span id="watchedCount">0</span></p>
-    <button class="btn dark" onclick="logout()">LOGOUT</button>
-  </div>
-</div>
-</div>
-
-<!-- VIDEO MODAL -->
-<div id="videoModal" class="modal hidden">
-  <div class="card">
-    <h3 id="vTitle">Video</h3>
-    <p class="muted" id="vDesc"></p>
-    <div class="video-box" id="vBox"><span style="font-size:40px">🎬</span></div>
-    <p id="vCost" class="center" style="margin-top:10px;font-weight:900;color:#facc15"></p>
-    <button class="btn gold" id="watchBtn" onclick="watchVideo()">WATCH WITH COINS</button>
-    <button class="btn dark" onclick="closeVideo()">CLOSE</button>
-    <p id="vMsg" class="muted center"></p>
-  </div>
-</div>
-
-<div class="bottom">
-  <button class="active" onclick="showTab('learn')">🏠<br>LEARN</button>
-  <button onclick="showTab('watch')">🎬<br>WATCH</button>
-  <button onclick="showTab('coins')">🪙<br>BUY COINS</button>
-  <button onclick="document.getElementById('main').scrollIntoView()">👤<br>PROFILE</button>
-</div>
-
-<script>
-const VIDEOS=[
- {title:"Lesson 1: Funny Cartoons for Kids",cat:"Kids",cost:50,emoji:"🧒",desc:"Safe cartoons. 2 mins. Perfect for kids.",src:"https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"},
- {title:"Lesson 2: Football Highlights - Sports",cat:"Sports",cost:80,emoji:"⚽",desc:"Best goals this week. Watch with coins.",src:"https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"},
- {title:"Lesson 3: New Music Video",cat:"Music",cost:100,emoji:"🎵",desc:"Trending Kenyan music video.",src:"https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"},
- {title:"Lesson 4: Breaking News Today",cat:"News",cost:60,emoji:"📰",desc:"Top news in 3 minutes.",src:"https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"},
- {title:"Lesson 5: Movie Trailer - Action",cat:"Movies",cost:150,emoji:"🎬",desc:"New action movie trailer. Unlock with coins.",src:"https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"},
-];
-let currentUser=localStorage.getItem('bandu_phone')||'';
-let coins=parseInt(localStorage.getItem('bandu_coins')||'0');
-let watched=JSON.parse(localStorage.getItem('bandu_watched')||'[]');
-let selectedCoins=450, selectedAmount=20, currentVideo=null;
-
-function save(){ localStorage.setItem('bandu_coins',coins); localStorage.setItem('bandu_watched',JSON.stringify(watched)); updateUI(); }
-function updateUI(){
-  document.getElementById('balance').textContent=coins;
-  document.getElementById('balanceTop').textContent=coins;
-  document.getElementById('balance2').textContent=coins;
-  document.getElementById('watchedCount').textContent=watched.length;
-  document.getElementById('userPhone').textContent=currentUser;
-  renderVideos();
-}
-function renderVideos(){
-  const el=document.getElementById('videoList');
-  el.innerHTML=VIDEOS.map((v,i)=>{
-    const isWatched=watched.includes(i);
-    return `<div class="lesson"><div class="thumb">S{v.emoji}</div><div style="flex:1"><b>S{v.title}</b><br><span class="muted">S{v.cat} • S{v.desc}</span><br><span class="price">S{isWatched?'✅ UNLOCKED - Watch Free':v.cost+' Coins to Watch'}</span></div><button class="btn gold" style="width:auto;padding:10px 16px;margin:0" onclick="openVideo(S{i})">S{isWatched?'PLAY':'WATCH'}</button></div>`;
-  }).join('');
-}
-function showTab(name){
-  ['learn','watch','coins'].forEach(t=>{
-    document.getElementById('tab-'+t).classList.toggle('hidden',t!==name);
-    document.getElementById('tab'+t.charAt(0).toUpperCase()+t.slice(1)).classList.toggle('active',t===name);
-  });
-  document.querySelectorAll('.bottom button').forEach((b,i)=>{ b.classList.toggle('active', (name==='learn'&&i===0)||(name==='watch'&&i===1)||(name==='coins'&&i===2)); });
-}
-function showMain(){
-  document.getElementById('authCard').classList.add('hidden');
-  document.getElementById('main').classList.remove('hidden');
-  updateUI(); refresh();
-}
-if(currentUser) showMain();
-async function signup(){
-  const phone=document.getElementById('phone').value.trim(), pass=document.getElementById('password').value.trim();
-  if(!phone||!pass) return document.getElementById('authMsg').textContent='Enter phone and password';
-  document.getElementById('authMsg').textContent='Creating...';
-  try{
-    const r=await fetch('/.netlify/functions/signup',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone,password:pass})});
-    const d=await r.json(); if(d.success||d.ok||r.ok){ localStorage.setItem('bandu_phone',phone); currentUser=phone; coins=100; save(); showMain(); } else { localStorage.setItem('bandu_phone',phone); currentUser=phone; coins=100; save(); showMain(); }
-  }catch(e){ localStorage.setItem('bandu_phone',phone); currentUser=phone; coins=100; save(); showMain(); }
-}
-async function login(){
-  const phone=document.getElementById('phone').value.trim(), pass=document.getElementById('password').value.trim();
-  if(!phone||!pass) return document.getElementById('authMsg').textContent='Enter phone and password';
-  document.getElementById('authMsg').textContent='Logging in...';
-  try{
-    const r=await fetch('/.netlify/functions/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone,password:pass})});
-    const d=await r.json(); if(d.success||d.ok||r.ok){ localStorage.setItem('bandu_phone',phone); currentUser=phone; showMain(); } else { localStorage.setItem('bandu_phone',phone); currentUser=phone; showMain(); }
-  }catch(e){ localStorage.setItem('bandu_phone',phone); currentUser=phone; showMain(); }
-}
-async function refresh(){
-  if(!currentUser) return;
-  try{ const r=await fetch('/.netlify/functions/balance?phone='+encodeURIComponent(currentUser)); const d=await r.json(); if(d.balance!==undefined){ coins=d.balance; save(); } }catch(e){}
-}
-function logout(){ localStorage.removeItem('bandu_phone'); location.reload(); }
-function pickCoin(c,amt,el){
-  selectedCoins=c; selectedAmount=amt;
-  document.querySelectorAll('#coinGrid button').forEach(b=>b.classList.remove('active')); if(el) el.classList.add('active');
-  document.getElementById('payInfo').innerHTML=`You pay <b style="color:#facc15">S{amt} KSh</b> • You get <b style="color:#a3e635">S{c} Coins</b>`;
-}
-async function payNow(){
-  document.getElementById('payMsg').textContent='Connecting to Pesapal secure checkout...';
-  try{
-    const r=await fetch('/.netlify/functions/create-payment',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:currentUser,amount:selectedAmount,coins:selectedCoins})});
-    const d=await r.json();
-    if(d.redirect_url||d.url||d.payment_url){ window.location.href=d.redirect_url||d.url||d.payment_url; }
-    else{
-      // DEMO MODE until Pesapal keys are connected - so you can test now
-      if(confirm(`DEMO: Pay S{selectedAmount} KSh for S{selectedCoins} Coins via Pesapal?\nTap OK to add coins for testing.`)){ coins+=selectedCoins; save(); document.getElementById('payMsg').textContent=`✅ S{selectedCoins} Coins added! Balance: S{coins}`; showTab('watch'); }
-      else document.getElementById('payMsg').textContent='Payment cancelled.';
-    }
-  }catch(e){
-    if(confirm(`DEMO: Pay S{selectedAmount} KSh for S{selectedCoins} Coins? Tap OK to test.`)){ coins+=selectedCoins; save(); document.getElementById('payMsg').textContent=`✅ S{selectedCoins} Coins added!`; }
-  }
-}
-function openVideo(i){
-  currentVideo=i; const v=VIDEOS[i];
-  document.getElementById('vTitle').textContent=v.emoji+' '+v.title;
-  document.getElementById('vDesc').textContent=v.desc+' | Category: '+v.cat;
-  document.getElementById('vCost').textContent=watched.includes(i)?'✅ Already unlocked - Watch free':'Cost: '+v.cost+' Coins • Your balance: '+coins+' Coins';
-  document.getElementById('watchBtn').textContent=watched.includes(i)?'▶️ PLAY NOW':'WATCH WITH '+v.cost+' COINS';
-  document.getElementById('vBox').innerHTML='<span style="font-size:40px">'+v.emoji+'</span>';
-  document.getElementById('vMsg').textContent='';
-  document.getElementById('videoModal').classList.remove('hidden');
-}
-function watchVideo(){
-  const v=VIDEOS[currentVideo];
-  if(watched.includes(currentVideo)){
-    document.getElementById('vBox').innerHTML=`<video controls autoplay src="S{v.src}"></video>`;
-    document.getElementById('vMsg').textContent='Enjoy! No coins taken - already unlocked.';
-    return;
-  }
-  if(coins < v.cost){ document.getElementById('vMsg').textContent=`❌ Not enough coins. You have S{coins}, need S{v.cost}. Go to BUY COINS.`; return; }
-  if(!confirm(`Watch "S{v.title}" for S{v.cost} Coins?`)) return;
-  coins-=v.cost; watched.push(currentVideo); save();
-  document.getElementById('vBox').innerHTML=`<video controls autoplay src="S{v.src}"></video>`;
-  document.getElementById('vCost').textContent='✅ Unlocked! Remaining: '+coins+' Coins';
-  document.getElementById('watchBtn').textContent='▶️ PLAYING...';
-  document.getElementById('vMsg').textContent='Video unlocked! You used coins only - no bundles needed.';
-  // Try to save to server
-  fetch('/.netlify/functions/spend-coins',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:currentUser,video:currentVideo,cost:v.cost})}).catch(()=>{});
-}
-function closeVideo(){ document.getElementById('videoModal').classList.add('hidden'); document.getElementById('vBox').innerHTML=''; }
-renderVideos();
-</script>
-</body>
-</html>
