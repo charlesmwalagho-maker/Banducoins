@@ -1,5 +1,5 @@
 // netlify/functions/pesapal.js
-// Corrected - no keys hardcoded, all from Netlify Env Variables
+// Fixed - uses only Netlify Env Variables, no hardcoded values
 
 exports.handler = async (event) => {
   const headers = {
@@ -18,14 +18,19 @@ exports.handler = async (event) => {
   }
 
   try {
-    const { amount, description, email, phone, firstName, lastName } = JSON.parse(event.body || "{}");
+    const body = JSON.parse(event.body || "{}");
+    const amount = body.amount;
+    const description = body.description;
+    const email = body.email;
+    const phone = body.phone;
+    const firstName = body.firstName;
+    const lastName = body.lastName;
 
     if (!amount) {
       return { statusCode: 400, headers, body: JSON.stringify({ error: "Amount is required" }) };
     }
 
-    // 1. Read from Netlify Environment Variables - NOT hardcoded
-    const ENV = process.env.PESAPAL_ENV || "sandbox";
+    const ENV = process.env.PESAPAL_ENV;
     const CONSUMER_KEY = process.env.PESAPAL_CONSUMER_KEY;
     const CONSUMER_SECRET = process.env.PESAPAL_CONSUMER_SECRET;
     const IPN_ID = process.env.PESAPAL_IPN_ID || "";
@@ -34,13 +39,11 @@ exports.handler = async (event) => {
       return { statusCode: 500, headers, body: JSON.stringify({ error: "Pesapal keys missing in Netlify" }) };
     }
 
-    // 2. Pick base URL based on ENV
     const isLive = ENV === "live";
     const BASE_URL = isLive
       ? "https://pay.pesapal.com/pesapalv3"
       : "https://cybqa.pesapal.com/pesapalv3";
 
-    // 3. Get Auth Token
     const authRes = await fetch(`${BASE_URL}/api/Auth/RequestToken`, {
       method: "POST",
       headers: { "Content-Type": "application/json", Accept: "application/json" },
@@ -56,9 +59,8 @@ exports.handler = async (event) => {
     }
     const token = authData.token;
 
-    // 4. Create Order
     const orderId = "ORDER-" + Date.now() + "-" + Math.floor(Math.random() * 1000);
-    const siteUrl = process.env.URL || "https://your-site.netlify.app";
+    const siteUrl = process.env.URL || "https://banducoinnet.netlify.app";
 
     const orderRes = await fetch(`${BASE_URL}/api/Transactions/SubmitOrderRequest`, {
       method: "POST",
