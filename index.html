@@ -30,59 +30,26 @@ input,textarea,select{width:100%;padding:12px;background:#000;border:1px solid #
 <body>
 <div class="top"><div class="logo">BANDU<span>COINS</span> 🪙</div><div>🪙 <span id="balTop">0</span> | 💰 <span id="earnTop">0</span> | 💜 <span id="subTop">0</span></div></div>
 <div class="wrap">
-
-<!-- AUTH -->
 <div id="authCard" class="card">
 <h2 style="text-align:center">Welcome to BANDUCOINS</h2>
 <p style="color:#888;text-align:center;font-size:12px">One phone = One account. Auto-login saved.<br>Your phone is your job. Earn today, eat today.</p>
 <input id="phone" placeholder="Phone e.g 0798486530" type="tel">
 <input id="password" placeholder="Password - at least 4 characters" type="password">
-<input id="password2" placeholder="Confirm Password (Create only)" type="password">
+<input id="password2" placeholder="Confirm Password (Create only) - type SAME password" type="password">
 <input id="username" placeholder="Name e.g Wizzy">
 <input id="refInput" placeholder="Referral Code (optional) e.g BANDU-WIZZY-123">
 <button class="btn gold" id="createBtn">CREATE ACCOUNT - GET 100 COINS FREE</button>
 <button class="btn dark" id="loginBtn">LOGIN</button>
 <p style="text-align:center"><a href="#" onclick="forgotPass();return false" style="color:#888;font-size:12px">forgot password?</a></p>
-<p id="authMsg" style="text-align:center;color:#888;font-size:13px"></p>
+<p id="authMsg" style="text-align:center;color:#fff;background:#333;padding:10px;border-radius:10px;display:none"></p>
 <p style="color:#888;font-size:11px;text-align:center">Create = 100 FREE. Refer a friend who signs up = +100. Share video alone = 0.<br>We Never Store M-PESA PIN. Only phone + receipt.</p>
 </div>
-
 <div id="main" class="hidden">
 <div class="tabs">
 <button id="tProfile" class="active">👤 PROFILE</button><button id="tInbox">💬 INBOX</button><button id="tSpend">🪙 SPEND</button><button id="tChannels">💜 CHANNELS</button><button id="tCoins">🪙 BUY COINS</button>
 </div>
-
-<!-- PROFILE -->
 <div id="tab-profile">
 <div class="card">
 <div style="display:flex;gap:12px;align-items:center">
 <label class="avatar" id="avatarLabel">👤<input type="file" accept="image/*" style="display:none" id="avatarInput"></label>
-<div><h2 id="displayName" style="margin:0">@user</h2><p id="userPhone" style="color:#888;margin:2px 0"></p><p id="userBioShow" style="color:#ccc;font-size:13px;margin:2px 0">No bio yet.</p><p style="color:#888;font-size:12px;margin:2px 0">My Code: <b id="myCodeShow" style="color:#facc15"></b></p></div>
-</div>
-<div class="stat" style="margin-top:10px"><div><b id="statPosts">0</b><br><span style="font-size:11px;color:#888">Posts</span></div><div><b id="statFollowers">0</b><br><span style="font-size:11px;color:#888">Followers</span></div><div><b id="statFollowing">0</b><br><span style="font-size:11px;color:#888">Following</span></div></div>
-<button class="btn dark" onclick="document.getElementById('avatarInput').click()">📸 PUT MY PROFILE PICTURE</button>
-<button class="btn gold" onclick="editProfile()">✏️ EDIT PROFILE</button>
-<p style="color:#a3e635;font-size:11px;margin-top:8px">MY BALANCE - SAVED</p>
-<div class="big"><span id="balance">0</span> COINS</div>
-<div style="background:#1a0a2a;border:1px solid #c084fc;border-radius:12px;padding:10px;margin-top:8px">💜 SUBCOINS - For Channels Only<br><b><span id="subBal">0</span> SUBCOINS</b><br><span style="font-size:11px;color:#888">1 Subcoin = 1 KSh. More expensive. Only for Channels.</span></div>
-<p style="color:#a3e635">💰 Earncoins: <span id="earnBal">0</span> (80% yours, 20% keeps app alive) | 🔴 Livecoins: <span id="liveBal">0</span> hrs</p>
-<button class="btn gold" onclick="showTab('coins')">+ BUY COINS / SUBCOINS</button>
-<button class="btn purple" onclick="showTab('channels')">💜 GO TO CREATOR CHANNELS</button>
-<button class="btn green" onclick="showTab('live')">🔴 GO LIVE</button>
-</div>
-
-<div class="card"><p style="color:#a3e635;font-size:11px">📊 MY DASHBOARD</p><div class="stat"><div><b id="dPosts">0</b><br><span style="font-size:11px">Total Posts</span></div><div><b id="dLikes">0</b><br><span style="font-size:11px">Total Likes</span></div></div><div class="stat" style="margin-top:6px"><div><b id="dComments">0</b><br><span style="font-size:11px">Total Comments</span></div><div><b id="dShares">0</b><br><span style="font-size:11px">Total Shares</span></div></div><p style="font-size:12px;color:#888">Views: <span id="dViews">0</span> | Growth: <span id="dGrowth">0%</span></p></div>
-
-<div class="card">
-<p style="color:#a3e635;font-size:11px">POST PICTURE OR VIDEO - 5 COINS</p>
-<textarea id="caption" rows="2" placeholder="Write something..."></textarea>
-<select id="postType"><option value="permanent">Permanent Post - Stays forever</option><option value="story">Story Post - 24hrs, then Archive</option><option value="private">Private Post - Only Me / Friends</option></select>
-<select id="category"><option value="Short Videos">Category: Short Videos</option><option>Sports</option><option>Comedy</option><option>Music</option><option>Kids</option><option>Cartoons</option></select>
-<select id="musicSel"><option>🎵 Background Music - FREE - No Music</option><option>Afrobeat - Party</option><option>Gospel - Hope</option><option>Bongo - Love</option><option>Gengetone - Street</option></select>
-<select id="filterSel"><option>Filter: Basic - FREE - Normal</option><option>Filter: Basic - FREE - Black & White</option><option>Filter: Basic - FREE - Sepia</option><option>Filter: Basic - FREE - Bright</option><option>Filter: Basic - FREE - Warm</option><option>Filter: Basic - FREE - Cool</option><option>Filter: Basic - FREE - Trending</option><option>Filter: Premium - 5 Coins - Beauty Glow ✨</option><option>Filter: Premium - 10 Coins - Trending 🔥</option><option>Filter: Premium - 20 Coins - VIP Golden 👑</option></select>
-<input type="file" id="postFile" accept="image/*,video/*">
-<button class="btn dark" onclick="useCamera()">📷 USE CAMERA</button>
-<button class="btn green" id="postBtn">📤 POST NOW - 5 COINS + FILTER</button>
-<p id="postMsg" style="text-align:center;color:#888;font-size:13px"></p>
-</div>
-<div class="card"><p style="color:#a3e635;font-size:11px">MY POSTS + ARCHIVE (
+<div><h2 id="displayName" style="margin:0">@user</h2><p id="userPhone" style="color:#888;margin:2px 0"></p><p id="userBioShow" style="color:#ccc;font-size:13px;margin
