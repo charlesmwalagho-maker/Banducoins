@@ -33,15 +33,14 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 .dash{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.dash div{background:#1a1a1a;border:1px solid #222;border-radius:12px;padding:10px;text-align:center}.dash b{color:#facc15;font-size:18px}
 .filter-preview{width:100%;border-radius:12px;margin-top:10px;display:none;max-height:300px;object-fit:cover}
 .channel-card{border:2px solid #a855f7;border-radius:14px;padding:14px;margin-bottom:12px;background:#150a20}
-/* TIKTOK CAMERA - EXACT LIKE YOUR 1ST SCREENSHOT */
 .cam{position:fixed;inset:0;background:#000;z-index:300;display:none;flex-direction:column}
 .cam video{flex:1;width:100%;object-fit:cover;background:#111}
 .cam-top{display:flex;justify-content:space-between;padding:14px;align-items:center;position:absolute;top:0;left:0;right:0;z-index:5}
 .cam-top button{background:rgba(0,0,0,.6);color:#fff;border:none;padding:8px 14px;border-radius:20px;font-weight:bold}
 .cam-right{position:absolute;right:14px;top:90px;display:flex;flex-direction:column;gap:22px;font-size:28px;text-align:center;z-index:5;text-shadow:0 2px 6px #000}
 .cam-bottom{padding:10px 10px 14px;background:linear-gradient(transparent,#000)}
-.cam-modes{display:flex;justify-content:center;gap:20px;font-weight:bold;color:#bbb;margin:8px 0;font-size:18px}
-.cam-modes span{padding:4px 12px;border-radius:20px}
+.cam-modes{display:flex;justify-content:center;gap:10px;font-weight:bold;color:#bbb;margin:8px 0;font-size:16px;flex-wrap:nowrap;overflow-x:auto}
+.cam-modes span{padding:4px 12px;border-radius:20px;flex-shrink:0}
 .cam-modes span.active{color:#000;background:#fff}
 .effects{display:flex;gap:12px;overflow-x:auto;justify-content:center;margin:10px 0;padding:0 10px}
 .eff{width:58px;height:58px;border-radius:50%;background:#333;border:2px solid #888;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;overflow:hidden}
@@ -52,7 +51,6 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 .rec-inner{width:68px;height:68px;border-radius:50%;background:#fff;border:2px solid #ddd}
 .cam-tabs{display:flex;justify-content:center;gap:32px;font-weight:900;color:#888;margin-top:12px;font-size:18px}
 .cam-tabs span.active{color:#fff}
-/* POST DETAILS AFTER CAPTURE - SMALL SHEET */
 .post-sheet{position:fixed;left:0;right:0;bottom:0;z-index:350;background:#111;border-top-left-radius:20px;border-top-right-radius:20px;border:1px solid #333;max-height:88vh;overflow-y:auto;display:none;padding:16px;padding-bottom:30px}
 .post-sheet.open{display:block}
 .sheet-back{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:340;display:none}
@@ -240,8 +238,6 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <button id="bChannels">💜<br>Channel</button>
 <button id="bCoins">🪙<br>Buy<br>coins</button>
 </div>
-
-<!-- POST DETAILS - ONLY AFTER YOU CAPTURE IN TIKTOK CAMERA -->
 <div id="sheetBack" class="sheet-back" onclick="closePostSheet()"></div>
 <div id="postSheet" class="post-sheet">
 <div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">📤 POST</h3><button class="btn dark small" onclick="closePostSheet()">✕ CLOSE</button></div>
@@ -256,21 +252,32 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <p id="postMsg" style="text-align:center;color:#888"></p>
 <button class="btn dark" onclick="closePostSheet()">CANCEL</button>
 </div>
-
-<!-- TIKTOK CAMERA - LIKE YOUR 1ST SCREENSHOT -->
 <div id="cameraPage" class="cam">
 <div class="cam-top"><button onclick="closeTikTokCamera()">✕</button><button onclick="pickSound()">🎵 <span id="soundName">Add sound</span></button><button onclick="flipCam()">🔄</button></div>
 <video id="camVideo" autoplay playsinline muted></video>
-<div class="cam-right"><span onclick="alert('Flash')">⚡</span><span onclick="alert('Timer')">⏱</span><span onclick="alert('Filter')">✨</span><span onclick="alert('Beauty')">🪞</span><span onclick="alert('More')">⋯</span></div>
+<div class="cam-right"><span onclick="document.getElementById('camMsg').innerText='Flash: ON'">⚡</span><span onclick="document.getElementById('camMsg').innerText='Timer: 3s'">⏱</span><span onclick="document.getElementById('camMsg').innerText='Filter: ON'">✨</span><span onclick="document.getElementById('camMsg').innerText='Beauty: ON'">🪞</span><span onclick="document.getElementById('camMsg').innerText='More options'">⋯</span></div>
 <div class="cam-bottom">
 <div class="cam-modes"><span onclick="setLen(600,this)">10m</span><span onclick="setLen(60,this)">60s</span><span onclick="setLen(15,this)">15s</span><span class="active" onclick="setMode('PHOTO',this)">PHOTO</span><span onclick="setMode('TEXT',this)">TEXT</span></div>
 <div class="effects"><div class="eff" onclick="setEffect(this,'Normal')">🙂</div><div class="eff" onclick="setEffect(this,'Beauty')">👩</div><div class="eff active" onclick="setEffect(this,'Red')">🟥</div><div class="eff" onclick="setEffect(this,'Ghost')">👻</div><div class="eff" onclick="setEffect(this,'City')">🏙️</div></div>
-<div class="rec-row"><span style="font-size:28px" onclick="document.getElementById('postFile').click()">🖼️</span><div class="rec" onclick="takeTikTokPhoto()"><div class="rec-inner"></div></div><span style="font-size:28px" onclick="alert('All effects')">↗ All</span></div>
+<div class="rec-row"><span style="font-size:28px" onclick="document.getElementById('postFile').click()">🖼️</span><div class="rec" onclick="takeTikTokPhoto()"><div class="rec-inner"></div></div><span style="font-size:28px" onclick="document.getElementById('camMsg').innerText='All effects'">↗ All</span></div>
 <div class="cam-tabs"><span onclick="setCamTab('LIVE',this)">LIVE</span><span class="active" onclick="setCamTab('CAMERA',this)">CAMERA</span><span onclick="setCamTab('CREATE',this)">CREATE</span></div>
 <p id="camMsg" style="text-align:center;color:#facc15;font-size:13px">Tap white button to capture - then POST NOW - 5 coins</p>
 </div>
 </div>
-
+<div id="liveOverlay" style="display:none;position:fixed;inset:0;background:#000;z-index:400;flex-direction:column">
+<div style="display:flex;justify-content:space-between;padding:14px;align-items:center">
+<span style="background:#e11d48;padding:6px 12px;border-radius:20px;font-weight:900">🔴 LIVE</span>
+<span style="background:rgba(0,0,0,.6);padding:6px 12px;border-radius:20px">👁 1 watching</span>
+<button class="btn dark small" onclick="stopLive()">✕ END LIVE</button>
+</div>
+<video id="liveVideo" autoplay playsinline muted style="flex:1;width:100%;object-fit:cover;background:#111"></video>
+<div style="padding:14px;text-align:center">
+<p id="liveTimer2" style="font-size:32px;color:#facc15;font-weight:900;margin:0">00:00:00</p>
+<p style="color:#888;font-size:12px">LIVE - 10 coins / hour - You already paid</p>
+<div style="display:flex;gap:8px;justify-content:center"><button class="btn dark small" onclick="sendLiveGift(10,'Heart')">❤️ 10</button><button class="btn dark small" onclick="sendLiveGift(50,'Rose')">🌹 50</button><button class="btn dark small" onclick="sendLiveGift(100,'Crown')">👑 100</button></div>
+<button class="btn dark" onclick="stopLive()" style="background:#e11d48">⏹ STOP LIVE</button>
+</div>
+</div>
 <script>
 function get(k,d){ try{ var v=localStorage.getItem(k); return v===null?d:v; }catch(e){ return d; } }
 function set(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
@@ -306,8 +313,8 @@ function updateUI(){
   document.getElementById("statFollowing").innerText=following.length; document.getElementById("statFollowers").innerText=getFollowers();
   if(avatarUrl) document.getElementById("avatarLabel").innerHTML='<img src="'+avatarUrl+'"><input type="file" accept="image/*" style="display:none" id="avatarInput">';
   var likes=0, comments=0, shares=0; myPosts.forEach(function(p){ likes+=p.likes||0; comments+=(p.comments||[]).length; shares+=p.shares||0; });
-  document.getElementById("dashPosts").innerText=myPosts.length; document.getElementById("dashLikes").innerText=likes; document.getElementById("dashComments").innerText=comments; document.getElementById("dashShares").innerText=shares;
-  document.getElementById("dashViews").innerText=(likes*3+comments*5+shares*10+myPosts.length*20); document.getElementById("dashGrowth").innerText="+"+Math.min(100,myPosts.length*8+likes*2)+"%";
+  document.getElementById("dashPosts").innerText=myPosts.filter(function(p){return p.postType!=="story"}).length; document.getElementById("dashLikes").innerText=likes; document.getElementById("dashComments").innerText=comments; document.getElementById("dashShares").innerText=shares;
+  document.getElementById("dashViews").innerText=(likes*3+comments*5+shares*10+myPosts.filter(function(p){return p.postType!=="story"}).length*20); document.getElementById("dashGrowth").innerText="+"+Math.min(100,myPosts.length*8+likes*2)+"%";
   var sel=document.getElementById("channelSelect"); sel.innerHTML='<option value="">Choose your channel...</option>'+channels.filter(function(c){return c.ownerPhone===currentUser}).map(function(c){return '<option value="'+c.id+'">'+c.name+'</option>';}).join("");
   var ce=document.getElementById("creatorEarn"); if(ce) ce.innerText=creatorEarn; var ae=document.getElementById("appEarn"); if(ae) ae.innerText=appEarnings;
   renderPosts(); renderFeed(); renderStories(); renderInboxUsers(); renderChannels();
@@ -385,13 +392,32 @@ async function checkPesapalReturn(){
 function startLive(type,hours){
   var cost=hours*10;
   if(coins<cost){ alert("Need "+cost+" coins. You have "+coins); showTab("coins"); return; }
-  coins-=cost; saveAll(); liveSeconds=hours*3600;
-  document.getElementById("liveStatus").innerText=type+" ACTIVE "+hours+"hrs -"+cost+" coins";
+  if(!confirm("Watch LIVE for "+hours+" hr = "+cost+" coins?\nYou have "+coins)) return;
+  coins-=cost; saveAll(); updateUI(); liveSeconds=hours*3600;
+  document.getElementById("liveStatus").innerText="WATCHING LIVE "+hours+"hrs -"+cost+" coins";
   clearInterval(liveInt);
-  liveInt=setInterval(function(){ liveSeconds--; if(liveSeconds<=0){ clearInterval(liveInt); document.getElementById("liveStatus").innerText="LIVE ENDED"; document.getElementById("liveTimer").innerText="00:00:00"; return; } var h=Math.floor(liveSeconds/3600), m=Math.floor((liveSeconds%3600)/60), s=liveSeconds%60; document.getElementById("liveTimer").innerText=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0'); },1000);
-  alert(type+" started! -"+cost+" coins");
+  liveInt=setInterval(function(){ liveSeconds--; if(liveSeconds<=0){ clearInterval(liveInt); document.getElementById("liveStatus").innerText="LIVE ENDED"; return; } var h=Math.floor(liveSeconds/3600), m=Math.floor((liveSeconds%3600)/60), s=liveSeconds%60; var t=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0'); document.getElementById("liveTimer").innerText=t; var t2=document.getElementById("liveTimer2"); if(t2) t2.innerText=t; },1000);
+  alert("You are now WATCHING LIVE -"+cost+" coins");
 }
-function stopLive(){ clearInterval(liveInt); document.getElementById("liveTimer").innerText="00:00:00"; document.getElementById("liveStatus").innerText="LIVE STOPPED. Balance: "+coins; }
+function goLiveConfirm(){
+  if(coins<10){ alert("Need 10 coins to GO LIVE.\nYou have "+coins); showTab("coins"); return; }
+  if(!confirm("GO LIVE for 1 hour = 10 coins?\nYou have "+coins+"\nTap OK to go LIVE, Cancel to NOT pay.")) return;
+  coins-=10; saveAll(); updateUI();
+  closeTikTokCamera();
+  var ov=document.getElementById("liveOverlay"); ov.style.display="flex";
+  navigator.mediaDevices.getUserMedia({video:{facingMode:camFacing},audio:true}).then(function(s){ camStream=s; document.getElementById("liveVideo").srcObject=s; }).catch(function(){});
+  liveSeconds=3600; clearInterval(liveInt);
+  liveInt=setInterval(function(){ liveSeconds--; if(liveSeconds<=0){ stopLive(); return; } var h=Math.floor(liveSeconds/3600), m=Math.floor((liveSeconds%3600)/60), s=liveSeconds%60; var t=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0'); document.getElementById("liveTimer").innerText=t; document.getElementById("liveTimer2").innerText=t; document.getElementById("liveStatus").innerText="🔴 YOU ARE LIVE - "+t; },1000);
+  alert("🔴 YOU ARE LIVE NOW! -10 coins. Others can see you.");
+}
+function stopLive(){
+  clearInterval(liveInt);
+  if(camStream) camStream.getTracks().forEach(function(t){t.stop()});
+  document.getElementById("liveOverlay").style.display="none";
+  document.getElementById("liveTimer").innerText="00:00:00"; var t2=document.getElementById("liveTimer2"); if(t2) t2.innerText="00:00:00";
+  document.getElementById("liveStatus").innerText="LIVE ENDED. Balance: "+coins;
+  alert("LIVE ENDED. Balance: "+coins);
+}
 function sendLiveGift(cost,name){
   if(coins < cost){ alert("❌ Need "+cost+" coins for "+name+"\nYou have "+coins); showTab("coins"); return; }
   if(!confirm("Send "+name+" for "+cost+" coins?\nCreator gets 75% = "+Math.floor(cost*0.75)+"\nApp gets 25% = "+Math.ceil(cost*0.25))) return;
@@ -566,18 +592,18 @@ document.getElementById("postBtn").addEventListener("click", function(){
 async function openTikTokCamera(isLive){
   camIsLive = !!isLive;
   document.getElementById("cameraPage").style.display="flex";
-  document.getElementById("camMsg").innerText = camIsLive ? "LIVE mode - 10 coins / hour. Tap white button to go LIVE" : "Tap white button to capture - then POST NOW - 5 coins";
+  document.getElementById("camMsg").innerText = camIsLive ? "LIVE mode - Tap white button, then CONFIRM to go LIVE - 10 coins" : "Tap white button to capture - then POST NOW - 5 coins";
   try{ camStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:camFacing},audio:true}); document.getElementById("camVideo").srcObject=camStream; }catch(e){ document.getElementById("camMsg").innerText="Camera blocked - tap 🖼️ to Choose File instead. "+e.message; }
 }
 function closeTikTokCamera(){ document.getElementById("cameraPage").style.display="none"; if(camStream) camStream.getTracks().forEach(function(t){t.stop()}); }
 function flipCam(){ camFacing = camFacing==='user' ? 'environment' : 'user'; if(camStream) camStream.getTracks().forEach(function(t){t.stop()}); openTikTokCamera(camIsLive); }
 function setLen(s,el){ camLen=s; document.querySelectorAll(".cam-modes span").forEach(function(x){x.classList.remove("active")}); el.classList.add("active"); document.getElementById("camMsg").innerText="Length: "+s+"s selected"; }
-function setMode(m,el){ document.querySelectorAll(".cam-modes span").forEach(function(x){x.classList.remove("active")}); el.classList.add("active"); if(m==="TEXT"){ var t=prompt("Write TEXT for your post:"); if(t){ tempPostUrl=""; document.getElementById("caption").value=t; openPostSheet(); } } document.getElementById("camMsg").innerText=m+" mode - "+camLen+"s"; }
+function setMode(m,el){ document.querySelectorAll(".cam-modes span").forEach(function(x){x.classList.remove("active")}); el.classList.add("active"); if(m==="TEXT"){ var t=prompt("Write TEXT for your post:"); if(t){ document.getElementById("caption").value=t; openPostSheet(); } } document.getElementById("camMsg").innerText=m+" mode - "+camLen+"s"; }
 function setEffect(el,name){ document.querySelectorAll(".eff").forEach(function(x){x.classList.remove("active")}); el.classList.add("active"); var v=document.getElementById("camVideo"); if(name==="Red") v.style.filter="saturate(2)"; else if(name==="Beauty") v.style.filter="brightness(1.2)"; else if(name==="Ghost") v.style.filter="grayscale(1)"; else v.style.filter="none"; document.getElementById("camMsg").innerText="Effect: "+name; }
-function pickSound(){ var s=prompt("Pick sound: Afrobeat, Gospel, Bongo, Gengetone"); if(s) document.getElementById("soundName").innerText=s; }
-function setCamTab(t,el){ document.querySelectorAll(".cam-tabs span").forEach(function(x){x.classList.remove("active")}); el.classList.add("active"); if(t==="LIVE"){ camIsLive=true; document.getElementById("camMsg").innerText="LIVE mode - 10 coins / hour. Tap white button to go LIVE"; } else { camIsLive=false; document.getElementById("camMsg").innerText=t+" mode - "+camLen+"s"; } }
+function pickSound(){ var sounds=["Afrobeat","Gospel","Bongo","Gengetone"]; var cur=document.getElementById("soundName").innerText; var next=sounds[(sounds.indexOf(cur)+1)%sounds.length]||"Afrobeat"; document.getElementById("soundName").innerText=next; document.getElementById("camMsg").innerText="Sound: "+next; }
+function setCamTab(t,el){ document.querySelectorAll(".cam-tabs span").forEach(function(x){x.classList.remove("active")}); el.classList.add("active"); if(t==="LIVE"){ camIsLive=true; document.getElementById("camMsg").innerText="LIVE mode - Tap white button, then CONFIRM to go LIVE - 10 coins"; } else { camIsLive=false; document.getElementById("camMsg").innerText=t+" mode - "+camLen+"s"; } }
 function takeTikTokPhoto(){
-  if(camIsLive){ startLive("GO LIVE",1); closeTikTokCamera(); return; }
+  if(camIsLive){ goLiveConfirm(); return; }
   var v=document.getElementById("camVideo"); var c=document.createElement("canvas"); c.width=v.videoWidth||640; c.height=v.videoHeight||480; try{ c.getContext("2d").drawImage(v,0,0); tempPostUrl=c.toDataURL(); tempPostType="image"; document.getElementById("previewImg").src=tempPostUrl; document.getElementById("previewImg").style.display="block"; document.getElementById("previewVideo").style.display="none"; }catch(e){ alert("Use 🖼️ Choose File - camera capture blocked"); closeTikTokCamera(); return; }
   closeTikTokCamera(); openPostSheet();
 }
@@ -586,4 +612,4 @@ checkPesapalReturn();
 selectPkg(450,20,'coin');
 </script>
 </body>
-                          </html>
+  </html>
