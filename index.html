@@ -8,7 +8,7 @@
 *{box-sizing:border-box;font-family:Arial}body{background:#050505;color:#fff;margin:0}
 .top{padding:14px;display:flex;justify-content:space-between;background:#0a0a0a}
 .logo{font-weight:900;font-size:20px}.logo span{color:#a3e635}
-.wrap{max-width:480px;margin:auto;padding:14px;padding-bottom:95px}
+.wrap{max-width:480px;margin:auto;padding:14px;padding-bottom:110px}
 .card{background:#111;border:1px solid #333;border-radius:16px;padding:16px;margin-bottom:14px}
 input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #333;color:#fff;border-radius:12px;margin-top:10px;font-size:15px}
 .btn{width:100%;padding:14px;border:none;border-radius:12px;font-weight:900;font-size:16px;margin-top:10px}
@@ -17,7 +17,7 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 .hidden{display:none}.big{font-size:40px;font-weight:900;color:#facc15}
 .tabs{display:flex;gap:4px}.tabs button{flex:1;padding:10px 2px;border-radius:10px;background:#111;color:#fff;border:1px solid #333;font-weight:800;font-size:11px}.tabs button.active{background:#facc15;color:#000}
 .chip{padding:8px 12px;border-radius:20px;border:1px solid #333;background:#111;color:#fff;margin:3px;cursor:pointer;font-size:13px}.chip.active{background:#facc15;color:#000}
-.bottom{position:fixed;bottom:0;left:0;right:0;background:#0a0a0a;display:flex;max-width:480px;margin:auto;border-top:1px solid #222}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:#0a0a0a;display:flex;max-width:480px;margin:auto;border-top:1px solid #222;z-index:100}
 .bottom button{flex:1;background:none;border:none;color:#888;padding:10px 1px;font-weight:800;font-size:10px}.bottom button.active{color:#facc15}
 .post{border:1px solid #222;border-radius:12px;overflow:hidden;margin-bottom:12px;background:#0f0f0f}
 .post img,.post video{width:100%;display:block}.post-body{padding:12px}
@@ -33,7 +33,6 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 .dash{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.dash div{background:#1a1a1a;border:1px solid #222;border-radius:12px;padding:10px;text-align:center}.dash b{color:#facc15;font-size:18px}
 .filter-preview{width:100%;border-radius:12px;margin-top:10px;display:none;max-height:300px;object-fit:cover}
 .channel-card{border:2px solid #a855f7;border-radius:14px;padding:14px;margin-bottom:12px;background:#150a20}
-/* TIKTOK CAMERA + HIGHLIGHT VIEWER */
 .cam{position:fixed;inset:0;background:#000;z-index:200;display:none;flex-direction:column}
 .cam video{flex:1;width:100%;object-fit:cover;background:#111}
 .cam-top{display:flex;justify-content:space-between;padding:12px;align-items:center}
@@ -49,12 +48,22 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 .rec{width:78px;height:78px;border-radius:50%;border:5px solid #fff;background:#e11d48}
 .cam-tabs{display:flex;justify-content:center;gap:28px;font-weight:bold;color:#aaa;margin-top:10px}
 .cam-tabs span.active{color:#fff;border-bottom:3px solid #fff;padding-bottom:4px}
+/* POST SHEET FROM BOTTOM - TIKTOK STYLE */
+.post-sheet{position:fixed;left:0;right:0;bottom:0;z-index:250;background:#111;border-top-left-radius:20px;border-top-right-radius:20px;border:1px solid #333;max-height:88vh;overflow-y:auto;display:none;padding:16px;padding-bottom:30px}
+.post-sheet.open{display:block}
+.sheet-back{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:240;display:none}
+.sheet-back.open{display:block}
+/* INSTAGRAM HIGHLIGHTS - CIRCLES */
+.ig-highlights{display:flex;gap:14px;overflow-x:auto;padding:10px 2px}
+.ig-hl{width:72px;flex-shrink:0;text-align:center;cursor:pointer}
+.ig-circle{width:64px;height:64px;border-radius:50%;border:3px solid #facc15;overflow:hidden;background:#222;display:flex;align-items:center;justify-content:center;font-size:28px;margin:auto}
+.ig-circle img{width:100%;height:100%;object-fit:cover}
+.ig-hl small{display:block;margin-top:4px;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 </style>
 </head>
 <body>
 <div class="top"><div class="logo">BANDU<span>COINS</span> 🪙</div><div>🪙 <span id="balTop">0</span> | 💜 <span id="subTop">0</span></div></div>
 <div class="wrap">
-
 <div id="authCard" class="card">
 <h2 style="text-align:center">Welcome to BANDUCOINS</h2>
 <p style="color:#888;text-align:center;font-size:13px">One phone = One account. Auto-login saved.</p>
@@ -75,7 +84,6 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <button class="btn green" id="resetPassBtn">✅ CREATE NEW PASSWORD</button>
 </div>
 </div>
-
 <div id="main" class="hidden">
 <div class="tabs">
 <button id="tProfile" class="active">👤 PROFILE</button>
@@ -84,7 +92,6 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <button id="tChannels">💜 CHANNELS</button>
 <button id="tCoins">🪙 BUY COINS</button>
 </div>
-
 <div id="tab-profile">
 <div class="card">
 <div style="display:flex;gap:14px;align-items:center">
@@ -111,6 +118,7 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <div style="background:#150a20;border:1px solid #a855f7;border-radius:12px;padding:12px;margin-top:8px"><b style="color:#c084fc">💜 SUBCOINS - For Channels Only</b><br><span style="font-size:24px;font-weight:900;color:#c084fc" id="subBalance">0</span> SUBCOINS<br><small style="color:#888">1 Subcoin = 1 KSh. More expensive. Only for Channels.</small></div>
 <button class="btn gold" id="goCoinsBtn">+ BUY COINS / SUBCOINS</button>
 <button class="btn purple" id="goChannelsBtn">💜 GO TO CREATOR CHANNELS</button>
+<button class="btn gold" onclick="openPostSheet()">➕ CREATE POST - Opens TikTok Style</button>
 </div>
 <div class="card">
 <p style="color:#a3e635;font-size:12px">📊 MY DASHBOARD</p>
@@ -123,25 +131,10 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <div><b id="dashGrowth">+0%</b><br><span style="font-size:12px;color:#888">Growth</span></div>
 </div>
 </div>
-<div class="card">
-<p style="color:#a3e635;font-size:12px">POST - CAPTION & CATEGORY NOW OPTIONAL</p>
-<p style="font-size:12px;color:#888">Post = 5 coins • Watch = 2 coins • LIVE = 10 coins / hr</p>
-<textarea id="caption" rows="2" placeholder="Caption - OPTIONAL. You can leave empty."></textarea>
-<select id="category"><option value="">Category: No Category - Optional (OK if you don't choose)</option><option value="Short Videos">Short Videos</option><option>Sports</option><option>Comedy</option><option>Music</option><option>Kids</option><option>Cartoons</option></select>
-<select id="postType"><option value="permanent">📌 PERMANENT POST</option><option value="story">🕐 STORY - 24hrs, saved in Archive</option></select>
-<select id="filterSelect"><option value="">🎨 Filter: Normal</option><option value="grayscale(100%)">⬛ Black & White</option><option value="sepia(80%)">🟤 Sepia</option><option value="brightness(130%) contrast(110%)">☀️ Bright</option><option value="sepia(30%) saturate(150%)">🔥 Warm</option><option value="hue-rotate(180deg) saturate(120%)">🧊 Cool</option><option value="contrast(140%) saturate(140%)">✨ Trending</option></select>
-<input type="file" id="postFile" accept="image/*,video/*">
-<input type="file" id="cameraFile" accept="image/*,video/*" capture="camera" style="display:none">
-<button class="btn dark" onclick="openTikTokCamera()">📷 USE CAMERA - TikTok Style</button>
-<img id="previewImg" class="filter-preview"><video id="previewVideo" class="filter-preview" controls></video>
-<button class="btn green" id="postBtn">📤 POST NOW - 5 COINS</button>
-<p id="postMsg" style="text-align:center;color:#888"></p>
-</div>
+<div class="card"><p style="color:#a3e635;font-size:12px">⭐ HIGHLIGHTS - Instagram Style - Tap Circle</p><div id="archiveList"></div><button class="btn gold" onclick="addHighlight()">+ ADD LAST POST TO HIGHLIGHTS</button><p id="highlightMsg" style="text-align:center;color:#a3e635;font-size:13px"></p></div>
 <div class="card"><p style="color:#a3e635;font-size:12px">MY POSTS</p><div id="myPosts"></div></div>
-<div class="card"><p style="color:#a3e635;font-size:12px">⭐ HIGHLIGHTS / ARCHIVE - TAP TO OPEN</p><div id="archiveList"></div><button class="btn gold" onclick="addHighlight()">+ ADD LAST POST TO HIGHLIGHTS</button><p id="highlightMsg" style="text-align:center;color:#a3e635;font-size:13px"></p></div>
 <button class="btn dark" id="logoutBtn">LOGOUT</button>
 </div>
-
 <div id="tab-inbox" class="hidden">
 <div class="card"><h3>💬 INBOX</h3><div id="inboxUsers"></div></div>
 <div class="card hidden" id="chatCard">
@@ -153,7 +146,6 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <select id="sharePostSelect" class="hidden"></select>
 </div>
 </div>
-
 <div id="tab-spend" class="hidden">
 <div class="card">
 <h3>🪙 SPEND - WATCH = 2 COINS EACH</h3>
@@ -164,7 +156,6 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 </div>
 <div id="feedList"></div>
 </div>
-
 <div id="tab-channels" class="hidden">
 <div class="card" style="border:2px solid #a855f7">
 <h3>💜 CREATOR CHANNELS</h3>
@@ -187,6 +178,20 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <button class="btn gold" onclick="startLive('WATCH',3)">Watch LIVE 3 Hrs = 30 Coins</button>
 <button class="btn dark" onclick="openTikTokCamera(true)">🔴 GO LIVE - TikTok Camera - 10 Coins / Hr</button>
 <button class="btn dark" onclick="stopLive()">⏹ STOP LIVE</button>
+<h3>🎁 SEND GIFT - LIVE - Creator 75% / App 25%</h3>
+<p style="font-size:12px;color:#888">Viewer pays, Creator gets 75%</p>
+<p>❤️ Heart - 10 coins <button class="btn dark small" onclick="sendLiveGift(10,'Heart')">SEND</button></p>
+<p>🌹 Rose - 50 coins <button class="btn dark small" onclick="sendLiveGift(50,'Rose')">SEND</button></p>
+<p>👑 Crown - 100 coins <button class="btn dark small" onclick="sendLiveGift(100,'Crown')">SEND</button></p>
+<p>🦁 Lion - 1000 coins <button class="btn dark small" onclick="sendLiveGift(1000,'Lion')">SEND</button></p>
+<p id="giftMsg" style="color:#a3e635;text-align:center"></p>
+<h3>💰 MY CREATOR EARNINGS - 75%</h3>
+<div style="background:#1a1a1a;padding:12px;border-radius:12px;text-align:center">
+<p style="margin:0;color:#888;font-size:12px">YOU EARNED AS CREATOR (75%)</p>
+<p style="font-size:28px;color:#facc15;font-weight:900;margin:5px 0"><span id="creatorEarn">0</span> COINS</p>
+<p style="margin:0;color:#888;font-size:12px">App Owner earned (25%): <span id="appEarn">0</span> coins</p>
+<button class="btn gold" onclick="withdrawCreator()">💸 WITHDRAW MY 75% TO COINS</button>
+</div>
 </div>
 <div class="card">
 <p style="color:#a3e635;font-size:12px">POST IN MY CHANNEL - Caption & Category OPTIONAL</p>
@@ -199,7 +204,6 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 </div>
 <div id="channelList"></div>
 </div>
-
 <div id="tab-coins" class="hidden">
 <div class="card">
 <h3>BUY BANDUCOINS - NORMAL</h3>
@@ -231,23 +235,36 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 </div>
 </div>
 </div>
-
 <div class="bottom" id="bottomNav" style="display:none">
-<button id="bProfile" class="active">👤<br>PROFILE</button>
-<button id="bInbox">💬<br>INBOX</button>
-<button id="bSpend">🪙<br>SPEND</button>
-<button id="bChannels">💜<br>CHANNELS</button>
-<button id="bCoins">🪙<br>BUY COINS</button>
+<button id="bProfile" class="active">👤<br>Profile</button>
+<button id="bInbox">💬<br>Inbox</button>
+<button onclick="openPostSheet()" style="color:#000;background:#a3e635;border-radius:12px;margin:4px;font-size:14px">➕<br>Post</button>
+<button id="bSpend">🪙<br>Spend</button>
+<button id="bChannels">💜<br>Channel</button>
+<button id="bCoins">🪙<br>Buy<br>coins</button>
 </div>
-
-<!-- HIGHLIGHT VIEWER -->
+<div id="sheetBack" class="sheet-back" onclick="closePostSheet()"></div>
+<div id="postSheet" class="post-sheet">
+<div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">📤 POST</h3><button class="btn dark small" onclick="closePostSheet()">✕ CLOSE</button></div>
+<p style="color:#a3e635;font-size:12px">POST - CAPTION & CATEGORY NOW OPTIONAL</p>
+<p style="font-size:12px;color:#888">Post = 5 coins • Watch = 2 coins • LIVE = 10 coins / hr</p>
+<textarea id="caption" rows="2" placeholder="Caption - OPTIONAL. You can leave empty."></textarea>
+<select id="category"><option value="">Category: No Category - Optional (OK if you don't choose)</option><option value="Short Videos">Short Videos</option><option>Sports</option><option>Comedy</option><option>Music</option><option>Kids</option><option>Cartoons</option></select>
+<select id="postType"><option value="permanent">📌 PERMANENT POST</option><option value="story">🕐 STORY - 24hrs, saved in Archive</option></select>
+<select id="filterSelect"><option value="">🎨 Filter: Normal</option><option value="grayscale(100%)">⬛ Black & White</option><option value="sepia(80%)">🟤 Sepia</option><option value="brightness(130%) contrast(110%)">☀️ Bright</option><option value="sepia(30%) saturate(150%)">🔥 Warm</option><option value="hue-rotate(180deg) saturate(120%)">🧊 Cool</option><option value="contrast(140%) saturate(140%)">✨ Trending</option></select>
+<input type="file" id="postFile" accept="image/*,video/*">
+<input type="file" id="cameraFile" accept="image/*,video/*" capture="camera" style="display:none">
+<button class="btn dark" onclick="openTikTokCamera()">📷 USE CAMERA - TikTok Style</button>
+<img id="previewImg" class="filter-preview"><video id="previewVideo" class="filter-preview" controls></video>
+<button class="btn green" id="postBtn">📤 POST NOW - 5 COINS</button>
+<p id="postMsg" style="text-align:center;color:#888"></p>
+<button class="btn dark" onclick="closePostSheet()">CANCEL</button>
+</div>
 <div id="highlightViewer" style="display:none;position:fixed;inset:0;background:#000;z-index:300;padding:15px">
 <button class="btn dark" onclick="closeHighlight()">✕ CLOSE</button>
 <div id="highlightViewContent" style="margin-top:15px;background:#222;padding:15px;border-radius:15px;text-align:center"></div>
 <button class="btn dark" style="background:#5a1010" onclick="deleteHighlight()">🗑 DELETE THIS HIGHLIGHT</button>
 </div>
-
-<!-- TIKTOK CAMERA -->
 <div id="cameraPage" class="cam">
 <div class="cam-top"><button onclick="closeTikTokCamera()">✕</button><button onclick="pickSound()">🎵 <span id="soundName">Add sound</span></button><button onclick="flipCam()">🔄</button></div>
 <video id="camVideo" autoplay playsinline muted></video>
@@ -260,13 +277,13 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <p id="camMsg" style="text-align:center;color:#facc15;font-size:13px">Tap red button to capture - then POST NOW - 5 coins</p>
 </div>
 </div>
-
 <script>
 function get(k,d){ try{ var v=localStorage.getItem(k); return v===null?d:v; }catch(e){ return d; } }
 function set(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
 var coins = parseInt(get("bandu_coins","100"))||100;
 var subcoins = parseInt(get("bandu_subcoins","0"))||0;
 var appEarnings = parseInt(get("bandu_app_earnings","0"))||0;
+var creatorEarn = parseInt(get("bandu_creator_earn","0"))||0;
 var myPosts = []; try{ myPosts = JSON.parse(get("bandu_posts","[]")); }catch(e){ myPosts=[]; }
 var users = []; try{ users = JSON.parse(get("bandu_users","[]")); }catch(e){ users=[]; }
 var following = []; try{ following = JSON.parse(get("bandu_following","[]")); }catch(e){ following=[]; }
@@ -278,9 +295,8 @@ var highlights = []; try{ highlights = JSON.parse(get("bandu_highlights","[]"));
 var currentUser = get("bandu_phone",""), userName = get("bandu_name","@user"), avatarUrl = get("bandu_avatar",""), userBio = get("bandu_bio","");
 var currentCat="All", currentSearch="", selectedCoins=450, selectedAmount=20, selectedType="coin", currentChatPhone="", tempPostUrl="", tempPostType="image", tempFilter="", resetCode="", resetPhone="", tempChanUrl="", tempChanType="image";
 var camStream=null, camFacing='user', camIsLive=false, camLen=15, currentHighlightIndex=-1, liveSeconds=0, liveInt=null;
-
 function saveAll(){
-  set("bandu_coins", String(coins)); set("bandu_subcoins", String(subcoins)); set("bandu_app_earnings", String(appEarnings));
+  set("bandu_coins", String(coins)); set("bandu_subcoins", String(subcoins)); set("bandu_app_earnings", String(appEarnings)); set("bandu_creator_earn", String(creatorEarn));
   set("bandu_posts", JSON.stringify(myPosts)); set("bandu_users", JSON.stringify(users)); set("bandu_following", JSON.stringify(following)); set("bandu_chats", JSON.stringify(chats));
   set("bandu_channels", JSON.stringify(channels)); set("bandu_channel_posts", JSON.stringify(channelPosts)); set("bandu_subs", JSON.stringify(subs)); set("bandu_highlights", JSON.stringify(highlights));
   if(currentUser) set("bandu_phone", currentUser); if(userName) set("bandu_name", userName); if(avatarUrl) set("bandu_avatar", avatarUrl); set("bandu_bio", userBio); updateUI();
@@ -300,12 +316,15 @@ function updateUI(){
   document.getElementById("dashPosts").innerText=myPosts.length; document.getElementById("dashLikes").innerText=likes; document.getElementById("dashComments").innerText=comments; document.getElementById("dashShares").innerText=shares;
   document.getElementById("dashViews").innerText=(likes*3+comments*5+shares*10+myPosts.length*20); document.getElementById("dashGrowth").innerText="+"+Math.min(100,myPosts.length*8+likes*2)+"%";
   var sel=document.getElementById("channelSelect"); sel.innerHTML='<option value="">Choose your channel...</option>'+channels.filter(function(c){return c.ownerPhone===currentUser}).map(function(c){return '<option value="'+c.id+'">'+c.name+'</option>';}).join("");
+  var ce=document.getElementById("creatorEarn"); if(ce) ce.innerText=creatorEarn; var ae=document.getElementById("appEarn"); if(ae) ae.innerText=appEarnings;
   renderPosts(); renderFeed(); renderStories(); renderArchive(); renderInboxUsers(); renderChannels();
 }
 function showTab(name){
   ["profile","inbox","spend","channels","coins"].forEach(function(t){ document.getElementById("tab-"+t).classList.toggle("hidden", t!==name); });
   ["Profile","Inbox","Spend","Channels","Coins"].forEach(function(t){ var b=document.getElementById("t"+t); if(b) b.classList.toggle("active", t.toLowerCase()===name); var bb=document.getElementById("b"+t); if(bb) bb.classList.toggle("active", t.toLowerCase()===name); });
 }
+function openPostSheet(){ document.getElementById("postSheet").classList.add("open"); document.getElementById("sheetBack").classList.add("open"); }
+function closePostSheet(){ document.getElementById("postSheet").classList.remove("open"); document.getElementById("sheetBack").classList.remove("open"); }
 function openMain(){ document.getElementById("authCard").classList.add("hidden"); document.getElementById("main").classList.remove("hidden"); document.getElementById("bottomNav").style.display="flex"; updateUI(); }
 function doCreate(){
   var phone=document.getElementById("phone").value.trim(); var pass=document.getElementById("password").value.trim(); var name=document.getElementById("username").value.trim();
@@ -325,7 +344,6 @@ function doLogin(){
 document.getElementById("forgotLink").addEventListener("click", function(e){ e.preventDefault(); document.getElementById("forgotBox").classList.remove("hidden"); document.getElementById("forgotPhone").value=document.getElementById("phone").value; });
 document.getElementById("sendCodeBtn").addEventListener("click", function(){ resetPhone=document.getElementById("forgotPhone").value.trim(); if(!resetPhone){ alert("Enter phone first"); return; } resetCode=String(Math.floor(100000+Math.random()*900000)); document.getElementById("codeInfo").innerText="📩 Code sent to "+resetPhone+" (TEST MODE - Code is: "+resetCode+")"; alert("BANDUCOINS Code: "+resetCode); });
 document.getElementById("resetPassBtn").addEventListener("click", function(){ var code=document.getElementById("codeInput").value.trim(); var np=document.getElementById("newPassInput").value.trim(); if(!resetCode){ alert("First tap SEND CODE"); return; } if(code!==resetCode){ alert("Wrong code"); return; } if(!np||np.length<4){ alert("New password min 4 chars"); return; } var u=users.find(function(x){return x.phone===resetPhone;}); if(!u){ alert("No account for "+resetPhone); return; } u.pass=np; saveAll(); resetCode=""; document.getElementById("forgotBox").classList.add("hidden"); document.getElementById("authMsg").innerText="✅ New password created! Login now."; alert("✅ Password changed!"); });
-
 function selectPkg(c, amt, type){
   selectedCoins=c; selectedAmount=amt; selectedType=type;
   document.querySelectorAll(".pkg").forEach(function(b){ b.classList.remove("active"); });
@@ -371,7 +389,6 @@ async function checkPesapalReturn(){
     } else { document.getElementById("payMsg").innerText="Payment status: "+(data.payment_status_description||JSON.stringify(data).slice(0,200))+". If you paid, wait 1 min and refresh."; }
   }catch(e){ console.log("check return error", e); }
 }
-// LIVE - COINS ONLY 10/HR
 function startLive(type,hours){
   var cost=hours*10;
   if(coins<cost){ alert("Need "+cost+" coins. You have "+coins); showTab("coins"); return; }
@@ -382,30 +399,39 @@ function startLive(type,hours){
   alert(type+" started! -"+cost+" coins");
 }
 function stopLive(){ clearInterval(liveInt); document.getElementById("liveTimer").innerText="00:00:00"; document.getElementById("liveStatus").innerText="LIVE STOPPED. Balance: "+coins; }
-// CHANNELS
+function sendLiveGift(cost,name){
+  if(coins < cost){ alert("❌ Need "+cost+" coins for "+name+"\nYou have "+coins); showTab("coins"); return; }
+  if(!confirm("Send "+name+" for "+cost+" coins?\nCreator gets 75% = "+Math.floor(cost*0.75)+"\nApp gets 25% = "+Math.ceil(cost*0.25))) return;
+  coins -= cost; var toCreator=Math.floor(cost*0.75); var toApp=cost-toCreator; creatorEarn+=toCreator; appEarnings+=toApp;
+  saveAll(); document.getElementById("giftMsg").innerText="✅ Sent "+name+"! Creator +"+toCreator+" | App +"+toApp;
+  alert("✅ Sent "+name+"!\nCreator got "+toCreator+" (75%)\nApp got "+toApp+" (25%)");
+}
+function withdrawCreator(){
+  if(creatorEarn<=0){ alert("No earnings yet. Go LIVE, get gifts."); return; }
+  if(!confirm("Withdraw "+creatorEarn+" coins to your BALANCE?")) return;
+  coins+=creatorEarn; alert("✅ Withdrawn "+creatorEarn+" coins!"); creatorEarn=0; saveAll();
+}
 document.getElementById("createChannelBtn").addEventListener("click", function(){
   var name=document.getElementById("channelName").value.trim(); var desc=document.getElementById("channelDesc").value.trim();
   if(!name){ alert("Give your Channel / Page a name - e.g Wizzy's Page"); return; }
   var followers=getFollowers();
-  if(followers < 10000){ if(!confirm("⚠️ RULE: To open Channel you need 10,000+ Followers.\nYou have "+followers+" followers.\n\nFor TESTING, do you want to create it as TEST CHANNEL so you can see how it works?")) return; }
-  if(channels.find(function(c){return c.ownerPhone===currentUser})){ alert("You already have a channel. You have 1 channel per user."); return; }
+  if(followers < 10000){ if(!confirm("⚠️ RULE: To open Channel you need 10,000+ Followers.\nYou have "+followers+" followers.\n\nFor TESTING, do you want to create it as TEST CHANNEL?")) return; }
+  if(channels.find(function(c){return c.ownerPhone===currentUser})){ alert("You already have a channel."); return; }
   channels.push({id:Date.now(), name:name, desc:desc, ownerPhone:currentUser, ownerName:userName, price:600, createdAt:Date.now()});
-  saveAll(); document.getElementById("chanMsg").innerText="✅ Channel created: "+name+" - First 3 posts are FREE!";
-  alert("✅ Channel created: "+name);
+  saveAll(); document.getElementById("chanMsg").innerText="✅ Channel created: "+name+" - First 3 posts are FREE!"; alert("✅ Channel created: "+name);
 });
 document.getElementById("chanFile").addEventListener("change", function(e){ var f=e.target.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(){ tempChanUrl=r.result; tempChanType=f.type.indexOf("video")>=0?"video":"image"; }; r.readAsDataURL(f); });
 document.getElementById("postChannelBtn").addEventListener("click", function(){
   var cid=document.getElementById("channelSelect").value; if(!cid){ alert("First choose your channel"); return; }
   if(!tempChanUrl){ alert("Choose picture/video for channel"); return; }
-  if(subcoins < 50){ alert("❌ You need 50 Subcoins to post in channel.\nYou have "+subcoins+" Subcoins."); showTab("coins"); return; }
+  if(subcoins < 50){ alert("❌ You need 50 Subcoins to post in channel.\nYou have "+subcoins); showTab("coins"); return; }
   subcoins-=50; appEarnings+=50;
   var cap=document.getElementById("chanCaption").value; var cat=document.getElementById("chanCategory").value;
   var ch=channels.find(function(c){return String(c.id)===String(cid)});
   var count=channelPosts.filter(function(p){return String(p.channelId)===String(cid)}).length;
   var isFree = count < 3;
   channelPosts.unshift({channelId:cid, channelName:ch?ch.name:"Channel", url:tempChanUrl, type:tempChanType, caption:cap, category:cat, user:userName, phone:currentUser, avatar:avatarUrl, isFree:isFree, likes:0, comments:[], time:new Date().toLocaleString()});
-  tempChanUrl=""; saveAll();
-  alert(isFree ? "✅ Posted! This is FREE post #"+(count+1)+" / 3." : "✅ Posted! Cost 50 Subcoins. Locked post.");
+  tempChanUrl=""; saveAll(); alert(isFree ? "✅ Posted! FREE post #"+(count+1)+" / 3." : "✅ Posted! Cost 50 Subcoins. Locked post.");
   document.getElementById("chanPostMsg").innerText = isFree ? "FREE post "+(count+1)+"/3" : "Locked post - Cost 50 Subcoins";
 });
 function renderChannels(){
@@ -434,9 +460,7 @@ function subscribeChannel(chId){
   if(subs.find(function(s){return s.channelId===chId && s.userPhone===currentUser})){ alert("You already subscribed"); return; }
   if(subcoins < 600){ alert("❌ Need 600 Subcoins to subscribe.\nYou have "+subcoins); showTab("coins"); return; }
   if(!confirm("Subscribe to "+ch.name+" for 600 Subcoins?\nCreator gets 450 (75%)\nApp Owner gets 150 (25%)")) return;
-  subcoins-=600; appEarnings+=150;
-  subs.push({channelId:chId, userPhone:currentUser, userName:userName, time:Date.now()});
-  saveAll(); alert("✅ Subscribed to "+ch.name+"!");
+  subcoins-=600; appEarnings+=150; subs.push({channelId:chId, userPhone:currentUser, userName:userName, time:Date.now()}); saveAll(); alert("✅ Subscribed to "+ch.name+"!");
 }
 function watchChannelVideo(idx){
   var p=channelPosts[idx]; if(!p) return;
@@ -445,28 +469,25 @@ function watchChannelVideo(idx){
   var cost = p.type==="video" ? 30 : 5;
   if(!isOwner && subcoins < cost){ alert("Need "+cost+" Subcoins to watch.\nYou have "+subcoins); showTab("coins"); return; }
   if(!isOwner && !confirm("Watch this "+(p.type==="video"?"1 min video = 30 Subcoins":"picture = 5 Subcoins")+"?\nYou have "+subcoins+" Subcoins.")) return;
-  if(!isOwner) subcoins-=cost;
-  saveAll(); alert("▶️ Playing... You paid "+(isOwner?0:cost)+" Subcoins.");
+  if(!isOwner) subcoins-=cost; saveAll(); alert("▶️ Playing... You paid "+(isOwner?0:cost)+" Subcoins.");
 }
-// POSTS + WATCH 2 COINS + HIGHLIGHTS FIXED
 function renderPosts(){ var list=myPosts.filter(function(p){return p.postType!=="story"}); document.getElementById("myPosts").innerHTML=list.map(function(p){return postHTML(p);}).join("")||'<p style="color:#888;text-align:center">No permanent posts yet</p>'; }
 function renderStories(){ var now=Date.now(); var stories=myPosts.filter(function(p){return p.postType==="story" && (now-p.createdAt < 24*60*60*1000)}); document.getElementById("storyRow").innerHTML=stories.map(function(p){ return '<div class="story" onclick="openStoryHighlight(\''+p.time+'\')"><div class="story-circle">'+(p.type==="image" ? '<img src="'+p.url+'" style="filter:'+(p.filter||"")+'">' : '<span style="font-size:28px">🎬</span>')+'</div><small>'+p.user+'</small></div>'; }).join("")||'<p style="color:#888;font-size:13px">No stories today</p>'; }
 function renderArchive(){
-  var html = "";
-  if(highlights.length){
-    html += '<p style="color:#facc15;font-size:12px">⭐ HIGHLIGHTS - Tap to open</p>';
-    html += highlights.map(function(h,i){ return '<div class="user-row" onclick="openHighlight('+i+')" style="cursor:pointer">'+(h.url ? '<img src="'+h.url+'" style="width:50px;height:50px;object-fit:cover;border-radius:8px">' : '<span style="font-size:30px">⭐</span>')+'<div><b>'+h.title+'</b><br><small style="color:#888">'+h.date+'</small></div><span style="margin-left:auto">▶</span></div>'; }).join("");
-  }
+  var html='<div class="ig-highlights">';
+  if(highlights.length===0){ html+='<div class="ig-hl"><div class="ig-circle">⭐</div><small>No Highlights</small></div>'; }
+  else { html+=highlights.map(function(h,i){ var img=h.url ? '<img src="'+h.url+'">' : '⭐'; var name=(h.title||"Highlight").substring(0,10); return '<div class="ig-hl" onclick="openHighlight('+i+')"><div class="ig-circle">'+img+'</div><small>'+name+'</small></div>'; }).join(""); }
+  html+='<div class="ig-hl" onclick="addHighlight()"><div class="ig-circle" style="border-style:dashed">+</div><small>New</small></div></div>';
   var stories=myPosts.filter(function(p){return p.postType==="story"});
-  html += '<p style="color:#888;font-size:12px;margin-top:10px">🗄 ARCHIVE - All Stories</p>';
-  html += stories.map(function(p){ return '<div class="user-row">'+(p.type==="image" ? '<img src="'+p.url+'" style="width:50px;height:50px;object-fit:cover;border-radius:8px;filter:'+(p.filter||"")+'">' : '<span style="font-size:30px">🎬</span>')+'<div><b>Story - '+(p.category||"No Category")+'</b><br><small style="color:#888">'+p.time+'</small><br><small>'+(p.caption||"")+'</small></div></div>'; }).join("")||'<p style="color:#888;font-size:13px">No stories yet</p>';
+  html+='<p style="color:#888;font-size:12px">🗄 ARCHIVE - '+stories.length+' Stories - Tap to open</p>';
+  html+=stories.map(function(p){ return '<div class="user-row" onclick="openStoryHighlight(\''+p.time+'\')">'+(p.type==="image" ? '<img src="'+p.url+'" style="width:50px;height:50px;object-fit:cover;border-radius:8px;filter:'+(p.filter||"")+'">' : '<span style="font-size:30px">🎬</span>')+'<div><b>Story - '+(p.category||"No Category")+'</b><br><small style="color:#888">'+p.time+'</small><br><small>'+(p.caption||"")+'</small></div><span style="margin-left:auto">▶</span></div>'; }).join("")||'<p style="color:#888;font-size:13px">No stories yet</p>';
   document.getElementById("archiveList").innerHTML=html;
 }
 function addHighlight(){
   if(!myPosts.length){ alert("Post something first, then add to Highlights"); return; }
-  var last = myPosts[0];
-  highlights.push({title: (last.caption||"Story - "+(last.category||"Music")).substring(0,30), date: new Date().toLocaleString(), url: last.url, type: last.type});
-  saveAll(); document.getElementById("highlightMsg").innerText="✅ Added to HIGHLIGHTS! Tap it to view.";
+  var last=myPosts[0];
+  highlights.push({title:(last.caption||"Story - "+(last.category||"Music")).substring(0,30), date:new Date().toLocaleString(), url:last.url, type:last.type});
+  saveAll(); document.getElementById("highlightMsg").innerText="✅ Added to HIGHLIGHTS! Tap circle to view.";
 }
 function openHighlight(i){
   currentHighlightIndex=i; var h=highlights[i]; if(!h) return;
@@ -518,7 +539,6 @@ function handleFile(f){ if(!f) return; var r=new FileReader(); r.onload=function
 document.getElementById("postFile").addEventListener("change", function(e){ handleFile(e.target.files[0]); });
 document.getElementById("cameraFile").addEventListener("change", function(e){ handleFile(e.target.files[0]); alert("📷 Taken! Now POST."); });
 document.getElementById("filterSelect").addEventListener("change", function(){ tempFilter=this.value; document.getElementById("previewImg").style.filter=tempFilter; document.getElementById("previewVideo").style.filter=tempFilter; });
-// POST NOW - FIXED: 5 COINS ONLY
 document.getElementById("postBtn").addEventListener("click", function(){
   if(!tempPostUrl){ document.getElementById("postMsg").innerText="First choose picture/video OR camera"; return; }
   if(coins < 5){ alert("❌ Not enough coins! Post costs 5 coins.\nYou have "+coins+" coins.\nGo to BUY COINS."); showTab("coins"); return; }
@@ -526,9 +546,8 @@ document.getElementById("postBtn").addEventListener("click", function(){
   var type=document.getElementById("postType").value;
   myPosts.unshift({url:tempPostUrl, type:tempPostType, caption:document.getElementById("caption").value, user:userName, phone:currentUser, avatar:avatarUrl, category:document.getElementById("category").value, postType:type, filter:tempFilter, likes:0, shares:0, liked:false, comments:[], time:new Date().toLocaleString(), createdAt:Date.now()});
   document.getElementById("postMsg").innerText=type==="story"?"✅ Story posted! -5 coins. Balance: "+coins:"✅ Posted! -5 coins. Balance: "+coins;
-  document.getElementById("caption").value=""; tempPostUrl=""; document.getElementById("previewImg").style.display="none"; document.getElementById("previewVideo").style.display="none"; saveAll(); showTab("spend");
+  document.getElementById("caption").value=""; tempPostUrl=""; document.getElementById("previewImg").style.display="none"; document.getElementById("previewVideo").style.display="none"; saveAll(); setTimeout(closePostSheet,800); showTab("spend");
 });
-// TIKTOK CAMERA - FIXED
 async function openTikTokCamera(isLive){
   camIsLive = !!isLive;
   document.getElementById("cameraPage").style.display="flex";
@@ -545,7 +564,7 @@ function setCamTab(t,el){ document.querySelectorAll(".cam-tabs span").forEach(fu
 function takeTikTokPhoto(){
   if(camIsLive){ startLive("GO LIVE",1); closeTikTokCamera(); return; }
   var v=document.getElementById("camVideo"); var c=document.createElement("canvas"); c.width=v.videoWidth||640; c.height=v.videoHeight||480; try{ c.getContext("2d").drawImage(v,0,0); tempPostUrl=c.toDataURL(); tempPostType="image"; document.getElementById("previewImg").src=tempPostUrl; document.getElementById("previewImg").style.display="block"; }catch(e){ alert("Use Choose File - camera capture blocked"); }
-  closeTikTokCamera(); alert("Photo captured! Now tap POST NOW - 5 coins"); showTab("profile");
+  closeTikTokCamera(); alert("Photo captured! Now tap POST NOW - 5 coins"); openPostSheet();
 }
 try{ var logged=get("bandu_logged_in","0"); var savedPhone=get("bandu_phone",""); if(savedPhone && logged==="1"){ currentUser=savedPhone; userName=get("bandu_name","@user"); avatarUrl=get("bandu_avatar",""); userBio=get("bandu_bio",""); openMain(); } else if(savedPhone){ document.getElementById("phone").value=savedPhone; document.getElementById("authMsg").innerText="Welcome back! You have "+coins+" coins saved."; } }catch(e){}
 checkPesapalReturn();
