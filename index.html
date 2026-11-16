@@ -178,7 +178,7 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <div id="channelList"></div>
 </div>
 
-<!-- BUY COINS -->
+<!-- BUY COINS - PIN REMOVED, REAL PESAPAL -->
 <div id="tab-coins" class="hidden">
 <div class="card">
 <h3>BUY BANDUCOINS - NORMAL</h3>
@@ -202,11 +202,11 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <p style="font-size:18px;font-weight:900;margin:6px 0" id="selectedText">450 Coins - 20 KSh</p>
 <p style="color:#888;font-size:13px;margin:0">Pay from: <b style="color:#fff" id="selectedPhone"></b></p>
 </div>
-<p style="color:#a3e635;font-size:12px;margin-top:14px">YOUR SAVED NUMBER + PIN</p>
+<p style="color:#a3e635;font-size:12px;margin-top:14px">YOUR SAVED NUMBER</p>
 <input id="payPhone" type="tel" readonly style="background:#1a1a1a">
-<input id="mpesaPin" type="password" placeholder="Enter M-PESA PIN only" maxlength="4">
+<!-- PIN INPUT DELETED - Pesapal / Safaricom will ask for PIN on the STK popup on your phone, never on this website -->
 <button class="btn green" id="payBtn">💳 PAY NOW WITH M-PESA</button>
-<p id="payMsg" style="text-align:center;color:#888">Tap a package above, then PIN and Pay. We never store your PIN.</p>
+<p id="payMsg" style="text-align:center;color:#888">Tap a package above, then Pay. You will get an M-PESA STK prompt on your phone to enter your PIN there. We never ask or store your PIN.</p>
 </div>
 </div>
 </div>
@@ -282,7 +282,8 @@ function doLogin(){
 document.getElementById("forgotLink").addEventListener("click", function(e){ e.preventDefault(); document.getElementById("forgotBox").classList.remove("hidden"); document.getElementById("forgotPhone").value=document.getElementById("phone").value; });
 document.getElementById("sendCodeBtn").addEventListener("click", function(){ resetPhone=document.getElementById("forgotPhone").value.trim(); if(!resetPhone){ alert("Enter phone first"); return; } resetCode=String(Math.floor(100000+Math.random()*900000)); document.getElementById("codeInfo").innerText="📩 Code sent to "+resetPhone+" (TEST MODE - Code is: "+resetCode+")"; alert("BANDUCOINS Code: "+resetCode); });
 document.getElementById("resetPassBtn").addEventListener("click", function(){ var code=document.getElementById("codeInput").value.trim(); var np=document.getElementById("newPassInput").value.trim(); if(!resetCode){ alert("First tap SEND CODE"); return; } if(code!==resetCode){ alert("Wrong code"); return; } if(!np||np.length<4){ alert("New password min 4 chars"); return; } var u=users.find(function(x){return x.phone===resetPhone;}); if(!u){ alert("No account for "+resetPhone); return; } u.pass=np; saveAll(); resetCode=""; document.getElementById("forgotBox").classList.add("hidden"); document.getElementById("authMsg").innerText="✅ New password created! Login now."; alert("✅ Password changed!"); });
-// BUY - COIN vs SUBCOIN
+
+// BUY - COIN vs SUBCOIN - REAL PESAPAL, NO PIN
 function selectPkg(c, amt, type){
   selectedCoins=c; selectedAmount=amt; selectedType=type;
   document.querySelectorAll(".pkg").forEach(function(b){ b.classList.remove("active"); });
@@ -290,14 +291,65 @@ function selectPkg(c, amt, type){
   document.getElementById("selectedBox").style.display="block";
   document.getElementById("selectedText").innerText = type==="sub" ? c+" Subcoin - "+amt+" KSh (Channel Only)" : c+" Coins - "+amt+" KSh";
   document.getElementById("selectedPhone").innerText=currentUser;
-  document.getElementById("payMsg").innerText="You selected "+c+(type==="sub"?" Subcoins":" Coins")+". Now enter PIN and Pay.";
-  document.getElementById("mpesaPin").focus();
+  document.getElementById("payMsg").innerText="You selected "+c+(type==="sub"?" Subcoins":" Coins")+". Tap PAY - you will get STK on your phone to enter PIN there.";
 }
-function doPay(){
-  var pin=document.getElementById("mpesaPin").value.trim(); if(!pin||pin.length<4){ document.getElementById("payMsg").innerText="First tap a package, then enter PIN"; return; }
-  if(!confirm("Pay "+selectedAmount+" KSh from "+currentUser+" for "+selectedCoins+(selectedType==="sub"?" Subcoins":" Coins")+"?")) return;
-  if(selectedType==="sub") subcoins+=selectedCoins; else coins+=selectedCoins;
-  document.getElementById("mpesaPin").value=""; saveAll(); document.getElementById("payMsg").innerText="✅ "+selectedCoins+(selectedType==="sub"?" Subcoins":" Coins")+" added! Balance: "+(selectedType==="sub"?subcoins+" Subcoins":coins+" Coins"); showTab("profile");
+async function doPay(){
+  if(!currentUser){ document.getElementById("payMsg").innerText="Login first"; return; }
+  var btn=document.getElementById("payBtn");
+  btn.disabled=true; btn.innerText="⏳ Connecting to Pesapal...";
+  document.getElementById("payMsg").innerText="Connecting to Pesapal for "+selectedAmount+" KSh... Do NOT enter PIN here - wait for STK on your phone.";
+  try{
+    // Save what user is trying to buy, so we can credit ONLY after Pesapal confirms
+    var pending = { coins: selectedCoins, amount: selectedAmount, type: selectedType, phone: currentUser, time: Date.now() };
+    set("bandu_pending", JSON.stringify(pending));
+    var res = await fetch("/.netlify/functions/pesapal-order", {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({ amount: selectedAmount, phone: currentUser, coins: selectedCoins, type: selectedType })
+    });
+    var data = await res.json();
+    if(data.redirect_url){
+      window.location.href = data.redirect_url;
+    } else if(data.order_tracking_id){
+      // Some Pesapal responses use order_tracking_id - save it and go to Pesapal checkout
+      pending.trackingId = data.order_tracking_id;
+      set("bandu_pending", JSON.stringify(pending));
+      window.location.href = "https://pay.pesapal.com/v3/api/Transactions/SubmitOrderRequest";
+    } else {
+      document.getElementById("payMsg").innerText="❌ Pesapal error: " + JSON.stringify(data).slice(0,300);
+      btn.disabled=false; btn.innerText="💳 PAY NOW WITH M-PESA";
+    }
+  }catch(e){
+    document.getElementById("payMsg").innerText="❌ Network error: "+e.message;
+    btn.disabled=false; btn.innerText="💳 PAY NOW WITH M-PESA";
+  }
+}
+// After Pesapal redirects back, verify payment before adding coins
+async function checkPesapalReturn(){
+  try{
+    var params = new URLSearchParams(window.location.search);
+    var trackingId = params.get("OrderTrackingId") || params.get("orderTrackingId") || params.get("pesapal_transaction_tracking_id");
+    if(!trackingId) return;
+    var pendingStr = get("bandu_pending",""); if(!pendingStr) return;
+    var pending = JSON.parse(pendingStr);
+    // Avoid double-credit
+    var creditedKey = "bandu_credited_"+trackingId;
+    if(get(creditedKey,"")==="1") return;
+    document.getElementById("payMsg").innerText="⏳ Verifying your payment with Pesapal...";
+    var res = await fetch("/.netlify/functions/pesapal-check?trackingId="+encodeURIComponent(trackingId));
+    var data = await res.json();
+    var status = (data.payment_status_description || data.status || "").toString().toLowerCase();
+    if(status.indexOf("completed")>=0 || status.indexOf("success")>=0){
+      if(pending.type==="sub") subcoins+=pending.coins; else coins+=pending.coins;
+      set(creditedKey,"1"); set("bandu_pending","");
+      saveAll();
+      document.getElementById("payMsg").innerText="✅ "+pending.coins+(pending.type==="sub"?" Subcoins":" Coins")+" added! Payment confirmed.";
+      showTab("profile");
+      alert("✅ Payment confirmed! "+pending.coins+" added.");
+    } else {
+      document.getElementById("payMsg").innerText="Payment status: "+(data.payment_status_description||JSON.stringify(data).slice(0,200))+". If you paid, wait 1 min and refresh.";
+    }
+  }catch(e){ console.log("check return error", e); }
 }
 // CHANNELS
 document.getElementById("createChannelBtn").addEventListener("click", function(){
@@ -305,7 +357,6 @@ document.getElementById("createChannelBtn").addEventListener("click", function()
   if(!name){ alert("Give your Channel / Page a name - e.g Wizzy's Page"); return; }
   var followers=getFollowers();
   if(followers < 10000){
-    // For testing, allow creator to see rule but still create as PENDING, so Wizzy can test with 0 followers
     if(!confirm("⚠️ RULE: To open Channel you need 10,000+ Followers.\nYou have "+followers+" followers.\n\nFor TESTING, do you want to create it as TEST CHANNEL so you can see how it works?\nIn real launch, only 10K+ can open.")) return;
   }
   if(channels.find(function(c){return c.ownerPhone===currentUser})){ alert("You already have a channel. You have 1 channel per user."); return; }
@@ -355,8 +406,6 @@ function subscribeChannel(chId){
   if(subcoins < 600){ alert("❌ Need 600 Subcoins to subscribe.\nYou have "+subcoins+" Subcoins.\nGo to BUY COINS > Buy Subcoins.\nSubcoin = 200 KSh / 500 KSh / 1000 KSh"); showTab("coins"); return; }
   if(!confirm("Subscribe to "+ch.name+" for 600 Subcoins?\nCreator gets 450 (75%)\nApp Owner gets 150 (25%)\n\nYou will unlock all locked posts.")) return;
   subcoins-=600; appEarnings+=150;
-  // Creator gets 450 - if creator is another user, we store it as pending, for demo if same phone test, add to subcoins
-  // In real multi-phone, creator's subcoins increase on his phone when he logs in - for demo, add to creator if it's current user test
   subs.push({channelId:chId, userPhone:currentUser, userName:userName, time:Date.now()});
   saveAll(); alert("✅ Subscribed to "+ch.name+"!\nYou paid 600 Subcoins.\nCreator gets 450, App gets 150.\nNow you can watch locked videos (5 Subcoins / 10 sec).");
 }
@@ -365,7 +414,6 @@ function watchChannelVideo(idx){
   var ch=channels.find(function(c){return String(c.id)===String(p.channelId)});
   var isOwner=p.phone===currentUser; var isSub=subs.find(function(s){return String(s.channelId)===String(p.channelId) && s.userPhone===currentUser});
   if(!p.isFree && !isOwner && !isSub){ alert("Subscribe first - 600 Subcoins"); return; }
-  // Pay per view: 5 per 10 sec. Assume video is 60 sec for demo = 30 Subcoins. For image, 5 Subcoins.
   var cost = p.type==="video" ? 30 : 5;
   if(!isOwner && subcoins < cost){ alert("Need "+cost+" Subcoins to watch.\n1 min video = 6 x 5 = 30 Subcoins.\nYou have "+subcoins); showTab("coins"); return; }
   if(!isOwner && !confirm("Watch this "+(p.type==="video"?"1 min video = 30 Subcoins (6 x 5)":"picture = 5 Subcoins")+"?\nYou have "+subcoins+" Subcoins.")) return;
@@ -418,7 +466,8 @@ document.getElementById("cameraFile").addEventListener("change", function(e){ ha
 document.getElementById("filterSelect").addEventListener("change", function(){ tempFilter=this.value; document.getElementById("previewImg").style.filter=tempFilter; document.getElementById("previewVideo").style.filter=tempFilter; });
 document.getElementById("postBtn").addEventListener("click", function(){ if(!tempPostUrl){ document.getElementById("postMsg").innerText="First choose picture/video OR camera"; return; } var type=document.getElementById("postType").value; myPosts.unshift({url:tempPostUrl, type:tempPostType, caption:document.getElementById("caption").value, user:userName, phone:currentUser, avatar:avatarUrl, category:document.getElementById("category").value, postType:type, filter:tempFilter, likes:0, shares:0, liked:false, comments:[], time:new Date().toLocaleString(), createdAt:Date.now()}); document.getElementById("postMsg").innerText=type==="story"?"✅ Story posted!":"✅ Posted! Category optional - OK"; document.getElementById("caption").value=""; tempPostUrl=""; document.getElementById("previewImg").style.display="none"; document.getElementById("previewVideo").style.display="none"; saveAll(); showTab("spend"); });
 try{ var logged=get("bandu_logged_in","0"); var savedPhone=get("bandu_phone",""); if(savedPhone && logged==="1"){ currentUser=savedPhone; userName=get("bandu_name","@user"); avatarUrl=get("bandu_avatar",""); userBio=get("bandu_bio",""); openMain(); } else if(savedPhone){ document.getElementById("phone").value=savedPhone; document.getElementById("authMsg").innerText="Welcome back! You have "+coins+" coins saved."; } }catch(e){}
+checkPesapalReturn();
 selectPkg(450,20,'coin');
 </script>
 </body>
-  </html>
+</html>
