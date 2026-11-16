@@ -33,32 +33,30 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 .dash{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.dash div{background:#1a1a1a;border:1px solid #222;border-radius:12px;padding:10px;text-align:center}.dash b{color:#facc15;font-size:18px}
 .filter-preview{width:100%;border-radius:12px;margin-top:10px;display:none;max-height:300px;object-fit:cover}
 .channel-card{border:2px solid #a855f7;border-radius:14px;padding:14px;margin-bottom:12px;background:#150a20}
-.cam{position:fixed;inset:0;background:#000;z-index:200;display:none;flex-direction:column}
+/* TIKTOK CAMERA - EXACT LIKE YOUR 1ST SCREENSHOT */
+.cam{position:fixed;inset:0;background:#000;z-index:300;display:none;flex-direction:column}
 .cam video{flex:1;width:100%;object-fit:cover;background:#111}
-.cam-top{display:flex;justify-content:space-between;padding:12px;align-items:center}
+.cam-top{display:flex;justify-content:space-between;padding:14px;align-items:center;position:absolute;top:0;left:0;right:0;z-index:5}
 .cam-top button{background:rgba(0,0,0,.6);color:#fff;border:none;padding:8px 14px;border-radius:20px;font-weight:bold}
-.cam-right{position:absolute;right:12px;top:90px;display:flex;flex-direction:column;gap:14px;font-size:22px;text-align:center;z-index:5}
-.cam-bottom{padding:10px;background:#000}
-.cam-modes{display:flex;justify-content:center;gap:18px;font-weight:bold;color:#aaa;margin:8px 0;flex-wrap:wrap}
-.cam-modes span.active{color:#fff}
-.effects{display:flex;gap:10px;overflow-x:auto;justify-content:center;margin:8px 0}
-.eff{width:52px;height:52px;border-radius:50%;background:#333;border:2px solid #555;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.cam-right{position:absolute;right:14px;top:90px;display:flex;flex-direction:column;gap:22px;font-size:28px;text-align:center;z-index:5;text-shadow:0 2px 6px #000}
+.cam-bottom{padding:10px 10px 14px;background:linear-gradient(transparent,#000)}
+.cam-modes{display:flex;justify-content:center;gap:20px;font-weight:bold;color:#bbb;margin:8px 0;font-size:18px}
+.cam-modes span{padding:4px 12px;border-radius:20px}
+.cam-modes span.active{color:#000;background:#fff}
+.effects{display:flex;gap:12px;overflow-x:auto;justify-content:center;margin:10px 0;padding:0 10px}
+.eff{width:58px;height:58px;border-radius:50%;background:#333;border:2px solid #888;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;overflow:hidden}
+.eff img{width:100%;height:100%;object-fit:cover}
 .eff.active{border:3px solid #fff}
-.rec-row{display:flex;justify-content:center;align-items:center;gap:18px}
-.rec{width:78px;height:78px;border-radius:50%;border:5px solid #fff;background:#e11d48}
-.cam-tabs{display:flex;justify-content:center;gap:28px;font-weight:bold;color:#aaa;margin-top:10px}
-.cam-tabs span.active{color:#fff;border-bottom:3px solid #fff;padding-bottom:4px}
-/* POST SHEET FROM BOTTOM - TIKTOK STYLE */
-.post-sheet{position:fixed;left:0;right:0;bottom:0;z-index:250;background:#111;border-top-left-radius:20px;border-top-right-radius:20px;border:1px solid #333;max-height:88vh;overflow-y:auto;display:none;padding:16px;padding-bottom:30px}
+.rec-row{display:flex;justify-content:center;align-items:center;gap:22px}
+.rec{width:82px;height:82px;border-radius:50%;border:4px solid #fff;background:#fff;display:flex;align-items:center;justify-content:center}
+.rec-inner{width:68px;height:68px;border-radius:50%;background:#fff;border:2px solid #ddd}
+.cam-tabs{display:flex;justify-content:center;gap:32px;font-weight:900;color:#888;margin-top:12px;font-size:18px}
+.cam-tabs span.active{color:#fff}
+/* POST DETAILS AFTER CAPTURE - SMALL SHEET */
+.post-sheet{position:fixed;left:0;right:0;bottom:0;z-index:350;background:#111;border-top-left-radius:20px;border-top-right-radius:20px;border:1px solid #333;max-height:88vh;overflow-y:auto;display:none;padding:16px;padding-bottom:30px}
 .post-sheet.open{display:block}
-.sheet-back{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:240;display:none}
+.sheet-back{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:340;display:none}
 .sheet-back.open{display:block}
-/* INSTAGRAM HIGHLIGHTS - CIRCLES */
-.ig-highlights{display:flex;gap:14px;overflow-x:auto;padding:10px 2px}
-.ig-hl{width:72px;flex-shrink:0;text-align:center;cursor:pointer}
-.ig-circle{width:64px;height:64px;border-radius:50%;border:3px solid #facc15;overflow:hidden;background:#222;display:flex;align-items:center;justify-content:center;font-size:28px;margin:auto}
-.ig-circle img{width:100%;height:100%;object-fit:cover}
-.ig-hl small{display:block;margin-top:4px;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 </style>
 </head>
 <body>
@@ -118,7 +116,7 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <div style="background:#150a20;border:1px solid #a855f7;border-radius:12px;padding:12px;margin-top:8px"><b style="color:#c084fc">💜 SUBCOINS - For Channels Only</b><br><span style="font-size:24px;font-weight:900;color:#c084fc" id="subBalance">0</span> SUBCOINS<br><small style="color:#888">1 Subcoin = 1 KSh. More expensive. Only for Channels.</small></div>
 <button class="btn gold" id="goCoinsBtn">+ BUY COINS / SUBCOINS</button>
 <button class="btn purple" id="goChannelsBtn">💜 GO TO CREATOR CHANNELS</button>
-<button class="btn gold" onclick="openPostSheet()">➕ CREATE POST - Opens TikTok Style</button>
+<button class="btn gold" onclick="openTikTokCamera()">➕ CREATE POST - Opens TikTok Camera</button>
 </div>
 <div class="card">
 <p style="color:#a3e635;font-size:12px">📊 MY DASHBOARD</p>
@@ -131,7 +129,6 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <div><b id="dashGrowth">+0%</b><br><span style="font-size:12px;color:#888">Growth</span></div>
 </div>
 </div>
-<div class="card"><p style="color:#a3e635;font-size:12px">⭐ HIGHLIGHTS - Instagram Style - Tap Circle</p><div id="archiveList"></div><button class="btn gold" onclick="addHighlight()">+ ADD LAST POST TO HIGHLIGHTS</button><p id="highlightMsg" style="text-align:center;color:#a3e635;font-size:13px"></p></div>
 <div class="card"><p style="color:#a3e635;font-size:12px">MY POSTS</p><div id="myPosts"></div></div>
 <button class="btn dark" id="logoutBtn">LOGOUT</button>
 </div>
@@ -142,14 +139,14 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <h3 id="chatWith">Chat</h3><div id="chatMessages" style="max-height:300px;overflow-y:auto"></div>
 <input id="chatInput" placeholder="Write message...">
 <button class="btn gold" id="sendMsgBtn">📩 SEND</button>
-<button class="btn dark" id="shareVideoBtn">📤 SHARE MY VIDEO</button>
+<button class="btn dark" id="shareVideoBtn">📤 SHARE MY VIDEO - 1 COIN AUTO</button>
 <select id="sharePostSelect" class="hidden"></select>
 </div>
 </div>
 <div id="tab-spend" class="hidden">
 <div class="card">
-<h3>🪙 SPEND - WATCH = 2 COINS EACH</h3>
-<p style="color:#a3e635;font-size:12px">🔴 STORIES</p><div class="story-row" id="storyRow"></div>
+<h3>🪙 SPEND - WATCH = 1 COIN AUTO</h3>
+<p style="color:#a3e635;font-size:12px">🔴 STORIES - Tap story = 1 coin auto</p><div class="story-row" id="storyRow"></div>
 <input id="searchInput" placeholder="🔍 Search users...">
 <div id="searchResults"></div>
 <div><button class="chip active" data-cat="All">All</button><button class="chip" data-cat="Sports">⚽ Sports</button><button class="chip" data-cat="Comedy">😂 Comedy</button><button class="chip" data-cat="Short Videos">🎬 Short Videos</button><button class="chip" data-cat="Music">🎵 Music</button><button class="chip" data-cat="Kids">🧒 Kids</button><button class="chip" data-cat="Cartoons">🎭 Cartoons</button></div>
@@ -238,45 +235,42 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <div class="bottom" id="bottomNav" style="display:none">
 <button id="bProfile" class="active">👤<br>Profile</button>
 <button id="bInbox">💬<br>Inbox</button>
-<button onclick="openPostSheet()" style="color:#000;background:#a3e635;border-radius:12px;margin:4px;font-size:14px">➕<br>Post</button>
+<button onclick="openTikTokCamera()" style="color:#000;background:#a3e635;border-radius:12px;margin:4px;font-size:14px">➕<br>Post</button>
 <button id="bSpend">🪙<br>Spend</button>
 <button id="bChannels">💜<br>Channel</button>
 <button id="bCoins">🪙<br>Buy<br>coins</button>
 </div>
+
+<!-- POST DETAILS - ONLY AFTER YOU CAPTURE IN TIKTOK CAMERA -->
 <div id="sheetBack" class="sheet-back" onclick="closePostSheet()"></div>
 <div id="postSheet" class="post-sheet">
 <div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">📤 POST</h3><button class="btn dark small" onclick="closePostSheet()">✕ CLOSE</button></div>
-<p style="color:#a3e635;font-size:12px">POST - CAPTION & CATEGORY NOW OPTIONAL</p>
-<p style="font-size:12px;color:#888">Post = 5 coins • Watch = 2 coins • LIVE = 10 coins / hr</p>
+<p style="font-size:12px;color:#888">Post = 5 coins • Watch = 1 coin AUTO • Share = 1 coin AUTO • LIVE = 10 coins / hr</p>
+<img id="previewImg" class="filter-preview"><video id="previewVideo" class="filter-preview" controls></video>
 <textarea id="caption" rows="2" placeholder="Caption - OPTIONAL. You can leave empty."></textarea>
 <select id="category"><option value="">Category: No Category - Optional (OK if you don't choose)</option><option value="Short Videos">Short Videos</option><option>Sports</option><option>Comedy</option><option>Music</option><option>Kids</option><option>Cartoons</option></select>
 <select id="postType"><option value="permanent">📌 PERMANENT POST</option><option value="story">🕐 STORY - 24hrs, saved in Archive</option></select>
 <select id="filterSelect"><option value="">🎨 Filter: Normal</option><option value="grayscale(100%)">⬛ Black & White</option><option value="sepia(80%)">🟤 Sepia</option><option value="brightness(130%) contrast(110%)">☀️ Bright</option><option value="sepia(30%) saturate(150%)">🔥 Warm</option><option value="hue-rotate(180deg) saturate(120%)">🧊 Cool</option><option value="contrast(140%) saturate(140%)">✨ Trending</option></select>
 <input type="file" id="postFile" accept="image/*,video/*">
-<input type="file" id="cameraFile" accept="image/*,video/*" capture="camera" style="display:none">
-<button class="btn dark" onclick="openTikTokCamera()">📷 USE CAMERA - TikTok Style</button>
-<img id="previewImg" class="filter-preview"><video id="previewVideo" class="filter-preview" controls></video>
 <button class="btn green" id="postBtn">📤 POST NOW - 5 COINS</button>
 <p id="postMsg" style="text-align:center;color:#888"></p>
 <button class="btn dark" onclick="closePostSheet()">CANCEL</button>
 </div>
-<div id="highlightViewer" style="display:none;position:fixed;inset:0;background:#000;z-index:300;padding:15px">
-<button class="btn dark" onclick="closeHighlight()">✕ CLOSE</button>
-<div id="highlightViewContent" style="margin-top:15px;background:#222;padding:15px;border-radius:15px;text-align:center"></div>
-<button class="btn dark" style="background:#5a1010" onclick="deleteHighlight()">🗑 DELETE THIS HIGHLIGHT</button>
-</div>
+
+<!-- TIKTOK CAMERA - LIKE YOUR 1ST SCREENSHOT -->
 <div id="cameraPage" class="cam">
 <div class="cam-top"><button onclick="closeTikTokCamera()">✕</button><button onclick="pickSound()">🎵 <span id="soundName">Add sound</span></button><button onclick="flipCam()">🔄</button></div>
 <video id="camVideo" autoplay playsinline muted></video>
-<div class="cam-right"><span onclick="alert('Flash')">⚡</span><span onclick="alert('Timer')">⏱</span><span onclick="alert('Filter')">✨</span><span onclick="alert('Beauty')">🪞</span></div>
+<div class="cam-right"><span onclick="alert('Flash')">⚡</span><span onclick="alert('Timer')">⏱</span><span onclick="alert('Filter')">✨</span><span onclick="alert('Beauty')">🪞</span><span onclick="alert('More')">⋯</span></div>
 <div class="cam-bottom">
-<div class="cam-modes"><span onclick="setLen(600,this)">10m</span><span onclick="setLen(60,this)">60s</span><span class="active" onclick="setLen(15,this)">15s</span><span onclick="setMode('PHOTO',this)">PHOTO</span><span onclick="setMode('TEXT',this)">TEXT</span></div>
+<div class="cam-modes"><span onclick="setLen(600,this)">10m</span><span onclick="setLen(60,this)">60s</span><span onclick="setLen(15,this)">15s</span><span class="active" onclick="setMode('PHOTO',this)">PHOTO</span><span onclick="setMode('TEXT',this)">TEXT</span></div>
 <div class="effects"><div class="eff" onclick="setEffect(this,'Normal')">🙂</div><div class="eff" onclick="setEffect(this,'Beauty')">👩</div><div class="eff active" onclick="setEffect(this,'Red')">🟥</div><div class="eff" onclick="setEffect(this,'Ghost')">👻</div><div class="eff" onclick="setEffect(this,'City')">🏙️</div></div>
-<div class="rec-row"><span style="font-size:28px">🖼️</span><div class="rec" onclick="takeTikTokPhoto()"></div><span style="font-size:28px" onclick="alert('All effects')">↗ All</span></div>
-<div class="cam-tabs"><span id="tabLIVE" onclick="setCamTab('LIVE',this)">LIVE</span><span class="active" onclick="setCamTab('CAMERA',this)">CAMERA</span><span onclick="setCamTab('CREATE',this)">CREATE</span></div>
-<p id="camMsg" style="text-align:center;color:#facc15;font-size:13px">Tap red button to capture - then POST NOW - 5 coins</p>
+<div class="rec-row"><span style="font-size:28px" onclick="document.getElementById('postFile').click()">🖼️</span><div class="rec" onclick="takeTikTokPhoto()"><div class="rec-inner"></div></div><span style="font-size:28px" onclick="alert('All effects')">↗ All</span></div>
+<div class="cam-tabs"><span onclick="setCamTab('LIVE',this)">LIVE</span><span class="active" onclick="setCamTab('CAMERA',this)">CAMERA</span><span onclick="setCamTab('CREATE',this)">CREATE</span></div>
+<p id="camMsg" style="text-align:center;color:#facc15;font-size:13px">Tap white button to capture - then POST NOW - 5 coins</p>
 </div>
 </div>
+
 <script>
 function get(k,d){ try{ var v=localStorage.getItem(k); return v===null?d:v; }catch(e){ return d; } }
 function set(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
@@ -291,14 +285,13 @@ var chats = {}; try{ chats = JSON.parse(get("bandu_chats","{}")); }catch(e){ cha
 var channels = []; try{ channels = JSON.parse(get("bandu_channels","[]")); }catch(e){ channels=[]; }
 var channelPosts = []; try{ channelPosts = JSON.parse(get("bandu_channel_posts","[]")); }catch(e){ channelPosts=[]; }
 var subs = []; try{ subs = JSON.parse(get("bandu_subs","[]")); }catch(e){ subs=[]; }
-var highlights = []; try{ highlights = JSON.parse(get("bandu_highlights","[]")); }catch(e){ highlights=[]; }
 var currentUser = get("bandu_phone",""), userName = get("bandu_name","@user"), avatarUrl = get("bandu_avatar",""), userBio = get("bandu_bio","");
 var currentCat="All", currentSearch="", selectedCoins=450, selectedAmount=20, selectedType="coin", currentChatPhone="", tempPostUrl="", tempPostType="image", tempFilter="", resetCode="", resetPhone="", tempChanUrl="", tempChanType="image";
-var camStream=null, camFacing='user', camIsLive=false, camLen=15, currentHighlightIndex=-1, liveSeconds=0, liveInt=null;
+var camStream=null, camFacing='user', camIsLive=false, camLen=15, liveSeconds=0, liveInt=null;
 function saveAll(){
   set("bandu_coins", String(coins)); set("bandu_subcoins", String(subcoins)); set("bandu_app_earnings", String(appEarnings)); set("bandu_creator_earn", String(creatorEarn));
   set("bandu_posts", JSON.stringify(myPosts)); set("bandu_users", JSON.stringify(users)); set("bandu_following", JSON.stringify(following)); set("bandu_chats", JSON.stringify(chats));
-  set("bandu_channels", JSON.stringify(channels)); set("bandu_channel_posts", JSON.stringify(channelPosts)); set("bandu_subs", JSON.stringify(subs)); set("bandu_highlights", JSON.stringify(highlights));
+  set("bandu_channels", JSON.stringify(channels)); set("bandu_channel_posts", JSON.stringify(channelPosts)); set("bandu_subs", JSON.stringify(subs));
   if(currentUser) set("bandu_phone", currentUser); if(userName) set("bandu_name", userName); if(avatarUrl) set("bandu_avatar", avatarUrl); set("bandu_bio", userBio); updateUI();
 }
 function avatarHTML(name, url, cls){ if(url) return '<span class="'+(cls||'avatar-sm')+'"><img src="'+url+'"></span>'; return '<span class="'+(cls||'avatar-sm')+'">👤</span>'; }
@@ -317,7 +310,7 @@ function updateUI(){
   document.getElementById("dashViews").innerText=(likes*3+comments*5+shares*10+myPosts.length*20); document.getElementById("dashGrowth").innerText="+"+Math.min(100,myPosts.length*8+likes*2)+"%";
   var sel=document.getElementById("channelSelect"); sel.innerHTML='<option value="">Choose your channel...</option>'+channels.filter(function(c){return c.ownerPhone===currentUser}).map(function(c){return '<option value="'+c.id+'">'+c.name+'</option>';}).join("");
   var ce=document.getElementById("creatorEarn"); if(ce) ce.innerText=creatorEarn; var ae=document.getElementById("appEarn"); if(ae) ae.innerText=appEarnings;
-  renderPosts(); renderFeed(); renderStories(); renderArchive(); renderInboxUsers(); renderChannels();
+  renderPosts(); renderFeed(); renderStories(); renderInboxUsers(); renderChannels();
 }
 function showTab(name){
   ["profile","inbox","spend","channels","coins"].forEach(function(t){ document.getElementById("tab-"+t).classList.toggle("hidden", t!==name); });
@@ -445,7 +438,7 @@ function renderChannels(){
       var idx=channelPosts.indexOf(p);
       if(p.isFree || isOwner || isSub){
         var media=p.type==="image" ? '<img src="'+p.url+'">' : '<video controls src="'+p.url+'"></video>';
-        return '<div class="post"><div class="post-body"><b>'+p.user+'</b> <span style="background:#a3e635;color:#000;padding:2px 8px;border-radius:10px;font-size:11px">FREE</span> <span style="color:#888;font-size:12px">'+p.time+'</span><p>'+(p.caption||"")+'</p></div>'+media+'<div class="post-body"><button class="btn dark small" onclick="watchChannelVideo('+idx+')">▶️ WATCH - 5 Subcoins / 10 sec</button></div></div>';
+        return '<div class="post"><div class="post-body"><b>'+p.user+'</b> <span style="background:#a3e635;color:#000;padding:2px 8px;border-radius:10px;font-size:11px">FREE</span> <span style="color:#888;font-size:12px">'+p.time+'</span><p>'+(p.caption||"")+'</p></div>'+media+'</div>';
       } else {
         return '<div class="post"><div class="post-body" style="text-align:center;padding:20px"><div style="font-size:40px">🔒</div><b>LOCKED POST #'+(pi+1)+'</b><br><small style="color:#888">Only subscribers can see this. First 3 posts were FREE.</small><br><button class="btn purple small" onclick="subscribeChannel('+ch.id+')">💜 SUBSCRIBE 600 Subcoins</button></div></div>';
       }
@@ -462,46 +455,42 @@ function subscribeChannel(chId){
   if(!confirm("Subscribe to "+ch.name+" for 600 Subcoins?\nCreator gets 450 (75%)\nApp Owner gets 150 (25%)")) return;
   subcoins-=600; appEarnings+=150; subs.push({channelId:chId, userPhone:currentUser, userName:userName, time:Date.now()}); saveAll(); alert("✅ Subscribed to "+ch.name+"!");
 }
-function watchChannelVideo(idx){
-  var p=channelPosts[idx]; if(!p) return;
-  var isOwner=p.phone===currentUser; var isSub=subs.find(function(s){return String(s.channelId)===String(p.channelId) && s.userPhone===currentUser});
-  if(!p.isFree && !isOwner && !isSub){ alert("Subscribe first - 600 Subcoins"); return; }
-  var cost = p.type==="video" ? 30 : 5;
-  if(!isOwner && subcoins < cost){ alert("Need "+cost+" Subcoins to watch.\nYou have "+subcoins); showTab("coins"); return; }
-  if(!isOwner && !confirm("Watch this "+(p.type==="video"?"1 min video = 30 Subcoins":"picture = 5 Subcoins")+"?\nYou have "+subcoins+" Subcoins.")) return;
-  if(!isOwner) subcoins-=cost; saveAll(); alert("▶️ Playing... You paid "+(isOwner?0:cost)+" Subcoins.");
-}
 function renderPosts(){ var list=myPosts.filter(function(p){return p.postType!=="story"}); document.getElementById("myPosts").innerHTML=list.map(function(p){return postHTML(p);}).join("")||'<p style="color:#888;text-align:center">No permanent posts yet</p>'; }
-function renderStories(){ var now=Date.now(); var stories=myPosts.filter(function(p){return p.postType==="story" && (now-p.createdAt < 24*60*60*1000)}); document.getElementById("storyRow").innerHTML=stories.map(function(p){ return '<div class="story" onclick="openStoryHighlight(\''+p.time+'\')"><div class="story-circle">'+(p.type==="image" ? '<img src="'+p.url+'" style="filter:'+(p.filter||"")+'">' : '<span style="font-size:28px">🎬</span>')+'</div><small>'+p.user+'</small></div>'; }).join("")||'<p style="color:#888;font-size:13px">No stories today</p>'; }
-function renderArchive(){
-  var html='<div class="ig-highlights">';
-  if(highlights.length===0){ html+='<div class="ig-hl"><div class="ig-circle">⭐</div><small>No Highlights</small></div>'; }
-  else { html+=highlights.map(function(h,i){ var img=h.url ? '<img src="'+h.url+'">' : '⭐'; var name=(h.title||"Highlight").substring(0,10); return '<div class="ig-hl" onclick="openHighlight('+i+')"><div class="ig-circle">'+img+'</div><small>'+name+'</small></div>'; }).join(""); }
-  html+='<div class="ig-hl" onclick="addHighlight()"><div class="ig-circle" style="border-style:dashed">+</div><small>New</small></div></div>';
-  var stories=myPosts.filter(function(p){return p.postType==="story"});
-  html+='<p style="color:#888;font-size:12px">🗄 ARCHIVE - '+stories.length+' Stories - Tap to open</p>';
-  html+=stories.map(function(p){ return '<div class="user-row" onclick="openStoryHighlight(\''+p.time+'\')">'+(p.type==="image" ? '<img src="'+p.url+'" style="width:50px;height:50px;object-fit:cover;border-radius:8px;filter:'+(p.filter||"")+'">' : '<span style="font-size:30px">🎬</span>')+'<div><b>Story - '+(p.category||"No Category")+'</b><br><small style="color:#888">'+p.time+'</small><br><small>'+(p.caption||"")+'</small></div><span style="margin-left:auto">▶</span></div>'; }).join("")||'<p style="color:#888;font-size:13px">No stories yet</p>';
-  document.getElementById("archiveList").innerHTML=html;
+function renderStories(){ var now=Date.now(); var stories=myPosts.filter(function(p){return p.postType==="story" && (now-p.createdAt < 24*60*60*1000)}); document.getElementById("storyRow").innerHTML=stories.map(function(p){ return '<div class="story" onclick="openStory(\''+p.time+'\')"><div class="story-circle">'+(p.type==="image" ? '<img src="'+p.url+'" style="filter:'+(p.filter||"")+'">' : '<span style="font-size:28px">🎬</span>')+'</div><small>'+p.user+'</small></div>'; }).join("")||'<p style="color:#888;font-size:13px">No stories today</p>'; }
+function openStory(time){
+  var p=myPosts.find(function(x){return x.time===time}); if(!p) return;
+  if(p.phone!==currentUser && !p.watched){
+    if(coins<1){ alert("Need 1 coin to watch Story"); showTab("coins"); return; }
+    coins-=1; p.watched=true; saveAll(); updateUI(); alert("👁 Story Watched! -1 coin auto. Balance: "+coins);
+  }
+  alert("Story: "+(p.caption||"No caption")+"\n"+p.time);
 }
-function addHighlight(){
-  if(!myPosts.length){ alert("Post something first, then add to Highlights"); return; }
-  var last=myPosts[0];
-  highlights.push({title:(last.caption||"Story - "+(last.category||"Music")).substring(0,30), date:new Date().toLocaleString(), url:last.url, type:last.type});
-  saveAll(); document.getElementById("highlightMsg").innerText="✅ Added to HIGHLIGHTS! Tap circle to view.";
-}
-function openHighlight(i){
-  currentHighlightIndex=i; var h=highlights[i]; if(!h) return;
-  document.getElementById("highlightViewer").style.display="block";
-  document.getElementById("highlightViewContent").innerHTML='<h3>'+h.title+'</h3><p style="color:#888">'+h.date+'</p>'+(h.url ? (h.type==="video" ? '<video controls src="'+h.url+'" style="width:100%;border-radius:12px"></video>' : '<img src="'+h.url+'" style="width:100%;border-radius:12px">') : '<div style="font-size:50px">⭐</div>')+'<p>Playing Highlight...</p>';
-}
-function openStoryHighlight(time){ var p=myPosts.find(function(x){return x.time===time}); if(!p) return; document.getElementById("highlightViewer").style.display="block"; document.getElementById("highlightViewContent").innerHTML='<h3>Story - '+(p.category||"")+'</h3><p>'+p.time+'</p>'+(p.type==="image" ? '<img src="'+p.url+'" style="width:100%;border-radius:12px">' : '<video controls src="'+p.url+'" style="width:100%"></video>')+'<p>'+(p.caption||"")+'</p>'; currentHighlightIndex=-1; }
-function closeHighlight(){ document.getElementById("highlightViewer").style.display="none"; }
-function deleteHighlight(){ if(currentHighlightIndex<0){ closeHighlight(); return; } highlights.splice(currentHighlightIndex,1); saveAll(); closeHighlight(); alert("Highlight deleted"); }
 function renderFeed(){ var list=myPosts.filter(function(p){return p.postType!=="story"}); if(currentCat!=="All") list=list.filter(function(p){return (p.category||"")===currentCat}); if(currentSearch) list=list.filter(function(p){return (p.user||"").toLowerCase().includes(currentSearch.toLowerCase())}); if(!list.length){ document.getElementById("feedList").innerHTML='<p style="color:#888;text-align:center">No posts</p>'; return; } document.getElementById("feedList").innerHTML=list.map(function(p){return postHTML(p, myPosts.indexOf(p));}).join(""); }
-function postHTML(p, realIdx){ var idx=(realIdx!==undefined?realIdx:myPosts.indexOf(p)); var liked=p.liked?"❤️":"🤍"; var isMine=p.phone===currentUser; var media=p.type==="image" ? '<img src="'+p.url+'" style="filter:'+(p.filter||"")+'">' : '<video controls src="'+p.url+'" style="filter:'+(p.filter||"")+'"></video>'; var comments=(p.comments||[]).map(function(c){return '<div class="comment"><b>'+c.user+'</b>: '+c.text+'</div>';}).join(""); return '<div class="post"><div class="post-body">'+avatarHTML(p.user,p.avatar)+' <b>'+p.user+'</b> <span style="color:#888;font-size:12px">• '+(p.category||"No Category")+' • '+p.time+'</span><p style="margin-top:6px">'+(p.caption||"")+'</p></div>'+media+'<div class="post-body"><button class="btn dark small" onclick="watchPost('+idx+')">▶ WATCH - 2 COINS</button><button class="btn dark small" onclick="likePost('+idx+')">'+liked+' Like ('+(p.likes||0)+')</button><button class="btn dark small" onclick="sharePost('+idx+')">🔗 Share ('+(p.shares||0)+')</button><button class="btn dark small" onclick="downloadPost('+idx+')">⬇️ Download</button>'+(isMine?'<button class="btn dark small" style="background:#5a1010" onclick="deletePost('+idx+')">🗑️ Delete</button>':'')+'<div style="margin-top:8px"><input id="cmt_'+idx+'" placeholder="Write comment..."><button class="btn gold small" onclick="addComment('+idx+')">💬 Comment</button></div><div>'+comments+'</div></div></div>'; }
-function watchPost(i){ var p=myPosts[i]; if(!p) return; if(p.phone===currentUser){ alert("▶ Playing your own video - FREE for owner"); return; } if(p.watched){ alert("▶ Playing again - you already paid 2 coins"); return; } if(coins<2){ alert("Not enough coins! Need 2 coins to watch. Buy coins."); showTab("coins"); return; } if(!confirm("Watch this video for 2 coins?\nYou have "+coins+" coins.")) return; coins-=2; p.watched=true; saveAll(); alert("▶ Playing... -2 coins. Balance: "+coins); }
+function postHTML(p, realIdx){
+  var idx=(realIdx!==undefined?realIdx:myPosts.indexOf(p));
+  var liked=p.liked?"❤️":"🤍"; var isMine=p.phone===currentUser;
+  var media = p.type==="image" ? '<img src="'+p.url+'" style="filter:'+(p.filter||"")+'" onclick="autoWatch('+idx+')">' : '<video controls src="'+p.url+'" style="filter:'+(p.filter||"")+'" onplay="autoWatch('+idx+')" onclick="autoWatch('+idx+')"></video>';
+  var comments=(p.comments||[]).map(function(c){return '<div class="comment"><b>'+c.user+'</b>: '+c.text+'</div>';}).join("");
+  return '<div class="post"><div class="post-body">'+avatarHTML(p.user,p.avatar)+' <b>'+p.user+'</b> <span style="color:#888;font-size:12px">• '+(p.category||"No Category")+' • '+p.time+'</span><p style="margin-top:6px">'+(p.caption||"")+'</p></div>'+media+'<div class="post-body"><span style="color:#888;font-size:12px">👁 Watch = 1 coin AUTO • 🔗 Share = 1 coin AUTO • Tap video to play</span><br><button class="btn dark small" onclick="likePost('+idx+')">'+liked+' Like ('+(p.likes||0)+')</button><button class="btn dark small" onclick="sharePost('+idx+')">🔗 Share - 1 COIN ('+(p.shares||0)+')</button><button class="btn dark small" onclick="downloadPost('+idx+')">⬇️ Download</button>'+(isMine?'<button class="btn dark small" style="background:#5a1010" onclick="deletePost('+idx+')">🗑️ Delete</button>':'')+'<div style="margin-top:8px"><input id="cmt_'+idx+'" placeholder="Write comment..."><button class="btn gold small" onclick="addComment('+idx+')">💬 Comment</button></div><div>'+comments+'</div></div></div>';
+}
+function autoWatch(i){
+  var p=myPosts[i]; if(!p) return;
+  if(p.phone===currentUser) return;
+  if(p.watched) return;
+  if(coins<1){ alert("❌ Need 1 coin to WATCH.\nYou have "+coins+"\nGo to BUY COINS."); showTab("coins"); var vids=document.querySelectorAll("video"); vids.forEach(function(v){v.pause()}); return; }
+  coins-=1; p.watched=true; saveAll(); updateUI();
+  document.getElementById("balTop").innerText=coins; document.getElementById("balance").innerText=coins;
+  alert("👁 Watched! -1 coin auto. Balance: "+coins);
+}
 function likePost(i){ var p=myPosts[i]; if(!p) return; if(p.liked){ p.liked=false; p.likes=(p.likes||1)-1; } else { p.liked=true; p.likes=(p.likes||0)+1; } saveAll(); }
-function sharePost(i){ var p=myPosts[i]; p.shares=(p.shares||0)+1; saveAll(); if(navigator.share){ navigator.share({title:"BANDUCOINS", text:"Check this on BANDUCOINS", url:location.href}).catch(function(){}); } }
+function sharePost(i){
+  var p=myPosts[i]; if(!p) return;
+  if(coins<1){ alert("❌ Need 1 coin to SHARE.\nYou have "+coins); showTab("coins"); return; }
+  coins-=1; p.shares=(p.shares||0)+1; saveAll(); updateUI();
+  document.getElementById("balTop").innerText=coins;
+  alert("🔗 Shared! -1 coin auto. Balance: "+coins);
+  if(navigator.share){ navigator.share({title:"BANDUCOINS", text:"Check this on BANDUCOINS", url:location.href}).catch(function(){}); }
+}
 function downloadPost(i){ var p=myPosts[i]; var a=document.createElement("a"); a.href=p.url; a.download="banducoins_"+Date.now()+(p.type==="video"?".mp4":".jpg"); document.body.appendChild(a); a.click(); a.remove(); alert("✅ Download started"); }
 function deletePost(i){ if(!confirm("Delete?")) return; myPosts.splice(i,1); saveAll(); }
 function addComment(i){ var inp=document.getElementById("cmt_"+i); if(!inp) return; var txt=inp.value.trim(); if(!txt) return; var p=myPosts[i]; if(!p.comments) p.comments=[]; p.comments.push({user:userName, text:txt}); inp.value=""; saveAll(); }
@@ -510,7 +499,17 @@ function openChat(phone){ currentChatPhone=phone; var u=users.find(function(x){r
 function closeChat(){ document.getElementById("chatCard").classList.add("hidden"); currentChatPhone=""; }
 function renderChat(){ if(!currentChatPhone) return; var key=[currentUser,currentChatPhone].sort().join("_"); var msgs=chats[key]||[]; document.getElementById("chatMessages").innerHTML=msgs.map(function(m){return '<div class="msg '+(m.from===currentUser?'me':'them')+'"><b>'+m.fromName+':</b> '+m.text+(m.video?'<br>🎬 '+m.video:'')+'</div>';}).join("")||'<p style="color:#888">No messages yet</p>'; }
 document.getElementById("sendMsgBtn").addEventListener("click", function(){ if(!currentChatPhone) return; var txt=document.getElementById("chatInput").value.trim(); if(!txt) return; var key=[currentUser,currentChatPhone].sort().join("_"); if(!chats[key]) chats[key]=[]; chats[key].push({from:currentUser, fromName:userName, text:txt}); document.getElementById("chatInput").value=""; saveAll(); renderChat(); });
-document.getElementById("shareVideoBtn").addEventListener("click", function(){ if(!currentChatPhone) return; var sel=document.getElementById("sharePostSelect"); sel.classList.remove("hidden"); if(sel.value===""){ alert("Choose video then tap SHARE again"); return; } var p=myPosts[parseInt(sel.value)]; if(!p) return; var key=[currentUser,currentChatPhone].sort().join("_"); if(!chats[key]) chats[key]=[]; chats[key].push({from:currentUser, fromName:userName, text:"📤 I shared a video!", video:(p.caption||'My video')}); saveAll(); renderChat(); alert("✅ Video shared!"); });
+document.getElementById("shareVideoBtn").addEventListener("click", function(){
+  if(!currentChatPhone) return;
+  var sel=document.getElementById("sharePostSelect"); sel.classList.remove("hidden");
+  if(sel.value===""){ alert("Choose video then tap SHARE again"); return; }
+  if(coins<1){ alert("Need 1 coin to SHARE video"); showTab("coins"); return; }
+  coins-=1; saveAll(); updateUI();
+  var p=myPosts[parseInt(sel.value)]; if(!p) return;
+  var key=[currentUser,currentChatPhone].sort().join("_"); if(!chats[key]) chats[key]=[];
+  chats[key].push({from:currentUser, fromName:userName, text:"📤 I shared a video!", video:(p.caption||'My video')});
+  saveAll(); renderChat(); alert("✅ Video shared in INBOX! -1 coin auto. Balance: "+coins);
+});
 document.getElementById("searchInput").addEventListener("input", function(){ currentSearch=this.value.trim(); var res=document.getElementById("searchResults"); if(!currentSearch){ res.innerHTML=""; renderFeed(); return; } var found=users.filter(function(u){return u.name.toLowerCase().includes(currentSearch.toLowerCase())||u.phone.includes(currentSearch)}); if(!found.length) res.innerHTML='<p style="color:#888;font-size:13px">No user found</p>'; else res.innerHTML=found.map(function(u){ var isFollowing=following.includes(u.phone); var btn=u.phone===currentUser?'<span style="color:#a3e635;font-size:12px">YOU</span>':'<button class="btn dark small" onclick="toggleFollow(\''+u.phone+'\')">'+(isFollowing?"✅ Following":"➕ Follow")+'</button> <button class="btn dark small" onclick="openChatFromSearch(\''+u.phone+'\')">💬 Chat</button>'; return '<div class="user-row">'+avatarHTML(u.name,u.avatar)+'<div style="flex:1"><b>'+u.name+'</b><br><span style="color:#888;font-size:12px">'+u.phone+'</span><br><span style="color:#ccc;font-size:12px">'+(u.bio||"")+'</span></div>'+btn+'</div>'; }).join(""); renderFeed(); });
 function openChatFromSearch(phone){ showTab("inbox"); setTimeout(function(){ openChat(phone); },200); }
 function toggleFollow(phone){ var idx=following.indexOf(phone); if(idx>=0) following.splice(idx,1); else following.push(phone); saveAll(); document.getElementById("searchInput").dispatchEvent(new Event("input")); }
@@ -535,40 +534,56 @@ document.getElementById("editBio").addEventListener("input", function(){ var w=t
 document.getElementById("saveEditBtn").addEventListener("click", function(){ var nn=document.getElementById("editName").value.trim(); var nb=document.getElementById("editBio").value.trim(); if(nn) userName=nn; userBio=nb; var u=users.find(function(x){return x.phone===currentUser}); if(u){u.name=userName; u.bio=userBio;} myPosts.forEach(function(p){if(p.phone===currentUser) p.user=userName}); saveAll(); document.getElementById("editBox").classList.add("hidden"); alert("✅ Profile saved!"); });
 document.getElementById("logoutBtn").addEventListener("click", function(){ if(confirm("Logout? Coins and posts stay SAVED.")){ set("bandu_logged_in","0"); location.reload(); } });
 document.getElementById("avatarInput").addEventListener("change", function(e){ var f=e.target.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(){ avatarUrl=r.result; var u=users.find(function(x){return x.phone===currentUser}); if(u) u.avatar=avatarUrl; saveAll(); alert("✅ Picture saved!"); }; r.readAsDataURL(f); });
-function handleFile(f){ if(!f) return; var r=new FileReader(); r.onload=function(){ tempPostUrl=r.result; tempPostType=f.type.indexOf("video")>=0?"video":"image"; tempFilter=document.getElementById("filterSelect").value; if(tempPostType==="image"){ document.getElementById("previewImg").src=tempPostUrl; document.getElementById("previewImg").style.display="block"; document.getElementById("previewImg").style.filter=tempFilter; document.getElementById("previewVideo").style.display="none"; } else { document.getElementById("previewVideo").src=tempPostUrl; document.getElementById("previewVideo").style.display="block"; document.getElementById("previewVideo").style.filter=tempFilter; document.getElementById("previewImg").style.display="none"; } }; r.readAsDataURL(f); }
+function handleFile(f){
+  if(!f) return; var r=new FileReader();
+  r.onload=function(){
+    if(f.type.indexOf("image")>=0){
+      var img=new Image(); img.onload=function(){
+        var c=document.createElement("canvas"); var max=600; var w=img.width, h=img.height;
+        if(w>max){ h=h*max/w; w=max; } c.width=w; c.height=h; c.getContext("2d").drawImage(img,0,0,w,h);
+        tempPostUrl=c.toDataURL("image/jpeg",0.6); tempPostType="image"; tempFilter=document.getElementById("filterSelect").value;
+        document.getElementById("previewImg").src=tempPostUrl; document.getElementById("previewImg").style.display="block"; document.getElementById("previewImg").style.filter=tempFilter; document.getElementById("previewVideo").style.display="none";
+        openPostSheet();
+      }; img.src=r.result;
+    } else {
+      tempPostUrl=r.result; tempPostType="video"; tempFilter=document.getElementById("filterSelect").value;
+      document.getElementById("previewVideo").src=tempPostUrl; document.getElementById("previewVideo").style.display="block"; document.getElementById("previewVideo").style.filter=tempFilter; document.getElementById("previewImg").style.display="none";
+      openPostSheet();
+    }
+  }; r.readAsDataURL(f);
+}
 document.getElementById("postFile").addEventListener("change", function(e){ handleFile(e.target.files[0]); });
-document.getElementById("cameraFile").addEventListener("change", function(e){ handleFile(e.target.files[0]); alert("📷 Taken! Now POST."); });
 document.getElementById("filterSelect").addEventListener("change", function(){ tempFilter=this.value; document.getElementById("previewImg").style.filter=tempFilter; document.getElementById("previewVideo").style.filter=tempFilter; });
 document.getElementById("postBtn").addEventListener("click", function(){
-  if(!tempPostUrl){ document.getElementById("postMsg").innerText="First choose picture/video OR camera"; return; }
+  if(!tempPostUrl){ document.getElementById("postMsg").innerText="First capture in TikTok Camera or Choose File"; return; }
   if(coins < 5){ alert("❌ Not enough coins! Post costs 5 coins.\nYou have "+coins+" coins.\nGo to BUY COINS."); showTab("coins"); return; }
   coins-=5;
   var type=document.getElementById("postType").value;
-  myPosts.unshift({url:tempPostUrl, type:tempPostType, caption:document.getElementById("caption").value, user:userName, phone:currentUser, avatar:avatarUrl, category:document.getElementById("category").value, postType:type, filter:tempFilter, likes:0, shares:0, liked:false, comments:[], time:new Date().toLocaleString(), createdAt:Date.now()});
+  myPosts.unshift({url:tempPostUrl, type:tempPostType, caption:document.getElementById("caption").value, user:userName, phone:currentUser, avatar:avatarUrl, category:document.getElementById("category").value, postType:type, filter:tempFilter, likes:0, shares:0, liked:false, comments:[], watched:false, time:new Date().toLocaleString(), createdAt:Date.now()});
   document.getElementById("postMsg").innerText=type==="story"?"✅ Story posted! -5 coins. Balance: "+coins:"✅ Posted! -5 coins. Balance: "+coins;
-  document.getElementById("caption").value=""; tempPostUrl=""; document.getElementById("previewImg").style.display="none"; document.getElementById("previewVideo").style.display="none"; saveAll(); setTimeout(closePostSheet,800); showTab("spend");
+  document.getElementById("caption").value=""; tempPostUrl=""; document.getElementById("previewImg").style.display="none"; document.getElementById("previewVideo").style.display="none"; saveAll(); document.getElementById("balTop").innerText=coins; setTimeout(closePostSheet,800); showTab("spend");
 });
 async function openTikTokCamera(isLive){
   camIsLive = !!isLive;
   document.getElementById("cameraPage").style.display="flex";
-  document.getElementById("camMsg").innerText = camIsLive ? "LIVE mode - 10 coins / hour. Tap red to go LIVE" : "Tap red button to capture - then POST NOW - 5 coins";
-  try{ camStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:camFacing},audio:true}); document.getElementById("camVideo").srcObject=camStream; }catch(e){ document.getElementById("camMsg").innerText="Camera blocked - use Choose File instead. "+e.message; }
+  document.getElementById("camMsg").innerText = camIsLive ? "LIVE mode - 10 coins / hour. Tap white button to go LIVE" : "Tap white button to capture - then POST NOW - 5 coins";
+  try{ camStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:camFacing},audio:true}); document.getElementById("camVideo").srcObject=camStream; }catch(e){ document.getElementById("camMsg").innerText="Camera blocked - tap 🖼️ to Choose File instead. "+e.message; }
 }
 function closeTikTokCamera(){ document.getElementById("cameraPage").style.display="none"; if(camStream) camStream.getTracks().forEach(function(t){t.stop()}); }
 function flipCam(){ camFacing = camFacing==='user' ? 'environment' : 'user'; if(camStream) camStream.getTracks().forEach(function(t){t.stop()}); openTikTokCamera(camIsLive); }
 function setLen(s,el){ camLen=s; document.querySelectorAll(".cam-modes span").forEach(function(x){x.classList.remove("active")}); el.classList.add("active"); document.getElementById("camMsg").innerText="Length: "+s+"s selected"; }
-function setMode(m,el){ document.querySelectorAll(".cam-modes span").forEach(function(x){x.classList.remove("active")}); el.classList.add("active"); document.getElementById("camMsg").innerText=m+" mode - "+camLen+"s"; }
+function setMode(m,el){ document.querySelectorAll(".cam-modes span").forEach(function(x){x.classList.remove("active")}); el.classList.add("active"); if(m==="TEXT"){ var t=prompt("Write TEXT for your post:"); if(t){ tempPostUrl=""; document.getElementById("caption").value=t; openPostSheet(); } } document.getElementById("camMsg").innerText=m+" mode - "+camLen+"s"; }
 function setEffect(el,name){ document.querySelectorAll(".eff").forEach(function(x){x.classList.remove("active")}); el.classList.add("active"); var v=document.getElementById("camVideo"); if(name==="Red") v.style.filter="saturate(2)"; else if(name==="Beauty") v.style.filter="brightness(1.2)"; else if(name==="Ghost") v.style.filter="grayscale(1)"; else v.style.filter="none"; document.getElementById("camMsg").innerText="Effect: "+name; }
 function pickSound(){ var s=prompt("Pick sound: Afrobeat, Gospel, Bongo, Gengetone"); if(s) document.getElementById("soundName").innerText=s; }
-function setCamTab(t,el){ document.querySelectorAll(".cam-tabs span").forEach(function(x){x.classList.remove("active")}); el.classList.add("active"); if(t==="LIVE"){ camIsLive=true; document.getElementById("camMsg").innerText="LIVE mode - 10 coins / hour. Tap red to go LIVE"; } else { camIsLive=false; document.getElementById("camMsg").innerText=t+" mode - "+camLen+"s"; } }
+function setCamTab(t,el){ document.querySelectorAll(".cam-tabs span").forEach(function(x){x.classList.remove("active")}); el.classList.add("active"); if(t==="LIVE"){ camIsLive=true; document.getElementById("camMsg").innerText="LIVE mode - 10 coins / hour. Tap white button to go LIVE"; } else { camIsLive=false; document.getElementById("camMsg").innerText=t+" mode - "+camLen+"s"; } }
 function takeTikTokPhoto(){
   if(camIsLive){ startLive("GO LIVE",1); closeTikTokCamera(); return; }
-  var v=document.getElementById("camVideo"); var c=document.createElement("canvas"); c.width=v.videoWidth||640; c.height=v.videoHeight||480; try{ c.getContext("2d").drawImage(v,0,0); tempPostUrl=c.toDataURL(); tempPostType="image"; document.getElementById("previewImg").src=tempPostUrl; document.getElementById("previewImg").style.display="block"; }catch(e){ alert("Use Choose File - camera capture blocked"); }
-  closeTikTokCamera(); alert("Photo captured! Now tap POST NOW - 5 coins"); openPostSheet();
+  var v=document.getElementById("camVideo"); var c=document.createElement("canvas"); c.width=v.videoWidth||640; c.height=v.videoHeight||480; try{ c.getContext("2d").drawImage(v,0,0); tempPostUrl=c.toDataURL(); tempPostType="image"; document.getElementById("previewImg").src=tempPostUrl; document.getElementById("previewImg").style.display="block"; document.getElementById("previewVideo").style.display="none"; }catch(e){ alert("Use 🖼️ Choose File - camera capture blocked"); closeTikTokCamera(); return; }
+  closeTikTokCamera(); openPostSheet();
 }
 try{ var logged=get("bandu_logged_in","0"); var savedPhone=get("bandu_phone",""); if(savedPhone && logged==="1"){ currentUser=savedPhone; userName=get("bandu_name","@user"); avatarUrl=get("bandu_avatar",""); userBio=get("bandu_bio",""); openMain(); } else if(savedPhone){ document.getElementById("phone").value=savedPhone; document.getElementById("authMsg").innerText="Welcome back! You have "+coins+" coins saved."; } }catch(e){}
 checkPesapalReturn();
 selectPkg(450,20,'coin');
 </script>
 </body>
-  </html>
+                          </html>
