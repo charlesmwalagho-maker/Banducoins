@@ -506,7 +506,6 @@ function selectPkg(c,a,t){
   document.getElementById("selectedBox").style.display="block";
   document.getElementById("selectedText").innerText=c+(t==="coin"?" Coins":" Subcoins")+" - "+a+" KSh";
   document.getElementById("selectedPhone").innerText=currentUser;
-  // Save pending order so payment-success can credit it
   try{ localStorage.setItem("bandu_pending", JSON.stringify({coins:c, amount:a, type:t, phone:currentUser, time:Date.now()})); }catch(e){}
 }
 function closeChat(){ document.getElementById("chatCard").classList.add("hidden"); }
@@ -630,7 +629,7 @@ function refreshChannelSelect(){
 }
 setInterval(refreshChannelSelect, 3000);
 
-// ===== PESAPAL - REAL TRANSACTION - MATCHES YOUR pesapal.js =====
+// ===== PESAPAL - REAL TRANSACTION - MATCHES pesapal-order.js =====
 document.getElementById("payBtn").onclick = async function(){
   if(!selectedAmount || !selectedCoins){
     showToast("Tap a package first", true); return;
@@ -640,7 +639,6 @@ document.getElementById("payBtn").onclick = async function(){
   if(rawPhone.length < 12){
     showToast("Login first - phone missing", true); return;
   }
-  // Save pending so payment-success.html can credit
   try{ localStorage.setItem("bandu_pending", JSON.stringify({coins:selectedCoins, amount:selectedAmount, type:selectedType, phone:rawPhone, time:Date.now()})); }catch(e){}
 
   var btn = document.getElementById("payBtn");
@@ -649,16 +647,14 @@ document.getElementById("payBtn").onclick = async function(){
   document.getElementById("payMsg").innerText = "Connecting to Pesapal... Do not close.";
 
   try{
-    var res = await fetch("/.netlify/functions/pesapal", {
+    var res = await fetch("/.netlify/functions/pesapal-order", {
       method: "POST",
       headers: {"Content-Type":"application/json"},
       body: JSON.stringify({
         amount: selectedAmount,
-        description: "BANDU " + selectedCoins + " " + (selectedType==="coin" ? "Coins" : "Subcoins"),
-        email: rawPhone + "@banducoins.com",
         phone: rawPhone,
-        firstName: (userName || "Bandu").replace("@",""),
-        lastName: "User"
+        coins: selectedCoins,
+        type: selectedType
       })
     });
     var data = await res.json();
@@ -672,8 +668,8 @@ document.getElementById("payBtn").onclick = async function(){
     }
   }catch(e){
     btn.disabled = false; btn.innerText = "💳 PAY NOW WITH M-PESA";
-    showToast("Cannot reach Netlify function. Did you deploy pesapal.js?", true);
-    document.getElementById("payMsg").innerText = "Error: " + e.message + " - Check netlify/functions/pesapal.js is deployed";
+    showToast("Cannot reach Netlify function. Did you deploy pesapal-order.js?", true);
+    document.getElementById("payMsg").innerText = "Error: " + e.message + " - Check netlify/functions/pesapal-order.js is deployed";
   }
 };
 // If user returns from Pesapal with ?order_id=, show message
