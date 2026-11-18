@@ -1,0 +1,24 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Payment Success - BANDU</title><style>body{background:#050505;color:#fff;font-family:Arial;text-align:center;padding:30px}button{padding:14px 20px;border:none;border-radius:12px;background:#facc15;font-weight:900}</style></head><body>
+<h2>✅ Payment Received</h2><p id="msg">Checking your order...</p><p id="order"></p><button onclick="window.location.href='/'">⬅ BACK TO BANDU</button>
+<script>
+var p=new URLSearchParams(window.location.search);
+var orderId=p.get("order_id")||"";
+document.getElementById("order").innerText="Order: "+orderId;
+try{
+  var pending=JSON.parse(localStorage.getItem("bandu_pending")||"null");
+  if(pending){
+    if(pending.type==="coin"){
+      var c=parseInt(localStorage.getItem("bandu_coins")||"100")||100;
+      c+=pending.coins; localStorage.setItem("bandu_coins",c);
+      document.getElementById("msg").innerText="✅ Added "+pending.coins+" Coins. New balance: "+c;
+    } else {
+      var s=parseInt(localStorage.getItem("bandu_subcoins")||"0")||0;
+      s+=pending.coins; localStorage.setItem("bandu_subcoins",s);
+      document.getElementById("msg").innerText="✅ Added "+pending.coins+" Subcoins. New balance: "+s;
+    }
+    localStorage.removeItem("bandu_pending");
+  } else {
+    document.getElementById("msg").innerText="Payment completed. Go back to BANDU to see balance.";
+  }
+}catch(e){ document.getElementById("msg").innerText="Payment completed. Go back to BANDU."; }
+</script></body></html>
