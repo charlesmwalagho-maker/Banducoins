@@ -1,33 +1,39 @@
 exports.handler = async (event) => {
+  const headers = { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" };
   try {
-    const body = JSON.parse(event.body || "{}");
-    const amount = Number(body.amount || 20);
-    const phone = (body.phone || "").replace(/^0/, "254");
-    const coins = body.coins || 450;
-    const type = body.type || "coin";
-    const BASE = "https://pay.pesapal.com/pesapalv3";
-    const authRes = await fetch(BASE + "/api/Auth/RequestToken", {
+    if (event.httpMethod === "OPTIONS") return { statusCode: 200, headers, body: "{}" };
+    if (event.httpMethod !== "POST") return { statusCode: 405, headers, body: JSON.stringify({ error: "Method not allowed, use POST" }) };
+    const { amount, phone, coins, type } = JSON.parse(event.body || "{}");
+    if (!amount || !phone || !coins) return { statusCode: 400, headers, body: JSON.stringify({ error: "Missing amount, phone or coins" }) };
+    const KEY = process.env.PESAPAL_CONSUMER_KEY;
+    const SECRET = process.env.PESAPAL_CONSUMER_SECRET;
+    const IPN_ID = process.env.PESAPAL_IPN_ID;
+    if (!KEY || !SECRET || !IPN_ID) return { statusCode: 500, headers, body: JSON.stringify({ error: "Missing Pesapal env vars in Netlify" }) };
+    const authRes = await fetch("https://pay.pesapal.com/v3/api/Auth/RequestToken", {
       method: "POST",
-      headers: { "Content-Type": "application/json", "Accept": "application/json" },
-      body: JSON.stringify({ consumer_key: process.env.PESAPAL_CONSUMER_KEY, consumer_secret: process.env.PESAPAL_CONSUMER_SECRET }),
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({ consumer_key: KEY, consumer_secret: SECRET })
     });
-    const auth = await authRes.json();
-    if (!auth.token) return { statusCode: 500, body: JSON.stringify({ error: auth }) };
-    const siteUrl = process.env.URL || "https://banduconnet.netlify.app";
-    const orderRes = await fetch(BASE + "/api/Transactions/SubmitOrderRequest", {
+    const authText = await authRes.text();
+    let auth; try { auth = JSON.parse(authText); } catch { return { statusCode: 500, headers, body: JSON.stringify({ error: "Pesapal Auth failed: " + authText.slice(0,300) }) }; }
+    if (!auth.token) return { statusCode: 500, headers, body: JSON.stringify({ error: "No Pesapal token: " + JSON.stringify(auth).slice(0,300) }) };
+    const orderId = "BANDU-" + Date.now() + "-" + Math.floor(Math.random()*1000);
+    const orderRes = await fetch("https://pay.pesapal.com/v3/api/Transactions/SubmitOrderRequest", {
       method: "POST",
-      headers: { "Content-Type": "application/json", "Accept": "application/json", "Authorization": "Bearer " + auth.token },
+      headers: { "Content-Type": "application/json", Accept: "application/json", Authorization: "Bearer " + auth.token },
       body: JSON.stringify({
-        id: "BANDU-" + Date.now(),
-        currency: "KES",
-        amount: amount,
-        description: coins + (type === "sub" ? " Subcoins" : " Coins") + " - BANDUCOINS",
-        callback_url: siteUrl + "/?paid=1",
-        notification_id: (process.env.PESAPAL_IPN_ID || "").trim(),
-        billing_address: { email_address: "banducoins@gmail.com", phone_number: phone, country_code: "KE", first_name: "BANDU", last_name: "USER", line_1: "Nairobi", city: "Nairobi", state: "Nairobi", postal_code: "00100", zip_code: "00100" },
-      }),
+        id: orderId, currency: "KES", amount: Number(amount),
+        description: "BANDU " + coins + " " + (type === "sub" ? "Subcoins" : "Coins"),
+        callback_url: "https://banduconnet.netlify.app/payment-success.html?order_id=" + orderId + "&coins=" + coins + "&type=" + (type || "coin"),
+        notification_id: IPN_ID,
+        billing_address: { email_address: phone + "@banducoins.com", phone_number: phone, first_name: "Bandu", last_name: "User" }
+      })
     });
-    const order = await orderRes.json();
-    return { statusCode: 200, body: JSON.stringify(order) };
-  } catch (e) { return { statusCode: 500, body: JSON.stringify({ error: e.message }) }; }
+    const orderText = await orderRes.text();
+    let order; try { order = JSON.parse(orderText); } catch { return { statusCode: 500, headers, body: JSON.stringify({ error: "Pesapal Order failed: " + orderText.slice(0,300) }) }; }
+    if (!order.redirect_url) return { statusCode: 500, headers, body: JSON.stringify({ error: "No redirect_url: " + JSON.stringify(order).slice(0,400) }) };
+    return { statusCode: 200, headers, body: JSON.stringify({ redirect_url: order.redirect_url, order_tracking_id: order.order_tracking_id, order_id: orderId }) };
+  } catch (e) {
+    return { statusCode: 500, headers, body: JSON.stringify({ error: e.message }) };
+  }
 };
