@@ -5,9 +5,8 @@ exports.handler = async (event) => {
     const phone = (body.phone || "").replace(/^0/, "254");
     const coins = body.coins || 450;
     const type = body.type || "coin";
-    const isSandbox = (process.env.PESAPAL_ENV || "live").toLowerCase() === "sandbox";
-    const BASE = isSandbox ? "https://cyber.pesapal.com" : "https://pay.pesapal.com";
-    const authRes = await fetch(BASE + "/v3/api/Auth/RequestToken", {
+    const BASE = "https://pay.pesapal.com/pesapalv3";
+    const authRes = await fetch(BASE + "/api/Auth/RequestToken", {
       method: "POST",
       headers: { "Content-Type": "application/json", "Accept": "application/json" },
       body: JSON.stringify({ consumer_key: process.env.PESAPAL_CONSUMER_KEY, consumer_secret: process.env.PESAPAL_CONSUMER_SECRET }),
@@ -15,7 +14,7 @@ exports.handler = async (event) => {
     const auth = await authRes.json();
     if (!auth.token) return { statusCode: 500, body: JSON.stringify({ error: auth }) };
     const siteUrl = process.env.URL || "https://banduconnet.netlify.app";
-    const orderRes = await fetch(BASE + "/v3/api/Transactions/SubmitOrderRequest", {
+    const orderRes = await fetch(BASE + "/api/Transactions/SubmitOrderRequest", {
       method: "POST",
       headers: { "Content-Type": "application/json", "Accept": "application/json", "Authorization": "Bearer " + auth.token },
       body: JSON.stringify({
