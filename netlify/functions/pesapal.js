@@ -1,5 +1,5 @@
 // netlify/functions/pesapal.js
-// Fixed - uses only Netlify Env Variables, no hardcoded values
+// Fixed - uses only Netlify Env Variables, no hardcoded values, always LIVE
 
 exports.handler = async (event) => {
   const headers = {
@@ -30,7 +30,6 @@ exports.handler = async (event) => {
       return { statusCode: 400, headers, body: JSON.stringify({ error: "Amount is required" }) };
     }
 
-    const ENV = process.env.PESAPAL_ENV;
     const CONSUMER_KEY = process.env.PESAPAL_CONSUMER_KEY;
     const CONSUMER_SECRET = process.env.PESAPAL_CONSUMER_SECRET;
     const IPN_ID = process.env.PESAPAL_IPN_ID || "";
@@ -39,7 +38,7 @@ exports.handler = async (event) => {
       return { statusCode: 500, headers, body: JSON.stringify({ error: "Pesapal keys missing in Netlify" }) };
     }
 
-    const isLive = ENV === "live";
+    const isLive = true;
     const BASE_URL = isLive
       ? "https://pay.pesapal.com/pesapalv3"
       : "https://cybqa.pesapal.com/pesapalv3";
