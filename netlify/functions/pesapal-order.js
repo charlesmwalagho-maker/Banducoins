@@ -11,6 +11,10 @@ exports.handler = async (event) => {
 
     const BASE = "https://pay.pesapal.com/v3/api";
 
+    // FIXED: Hardcoded IPN ID - your Active IPN from Pesapal
+    // Env var was not reaching the function, so we don't rely on it anymore
+    const IPN_ID = "a94ca34d-7528-4856-8691-d9a5325a7790";
+
     // 1. Get Token
     const authRes = await fetch(BASE + "/Auth/RequestToken", {
       method: "POST",
@@ -30,7 +34,7 @@ exports.handler = async (event) => {
         amount: Number(amount),
         description: "BanduCoins Purchase",
         callback_url: "https://banducoinet.netlify.app/",
-        notification_id: process.env.PESAPAL_IPN_ID,
+        notification_id: IPN_ID,
         billing_address: { email_address: email || "user@banducoinet.com", phone_number: phone, country_code: "KE", first_name: "Bandu", last_name: "User", line_1: "Eldoret" }
       }),
     });
