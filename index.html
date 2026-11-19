@@ -72,6 +72,34 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 .server-badge{font-size:10px;padding:3px 8px;border-radius:10px;background:#222}
 .server-badge.online{background:#0a2a00;color:#a3e635;border:1px solid #a3e635}
 .mature-cover{background:#150a20;border:2px solid #e11d48;border-radius:12px;padding:18px;text-align:center}
+/* --- BANDUCOINS FIX: SPEND FULL-SCREEN FEED --- */
+.spend-feed{height:calc(100vh - 190px);overflow-y:auto;scroll-snap-type:y mandatory;border-radius:16px;background:#000}
+.spend-item{height:calc(100vh - 190px);scroll-snap-align:start;position:relative;background:#000;overflow:hidden;border-radius:16px;margin-bottom:10px}
+.spend-item img,.spend-item video{width:100%;height:100%;object-fit:cover;display:block}
+.spend-actions{position:absolute;right:10px;bottom:70px;display:flex;flex-direction:column;gap:16px;align-items:center;z-index:5}
+.spend-act{display:flex;flex-direction:column;align-items:center;background:rgba(0,0,0,.55);border-radius:30px;padding:8px 8px;min-width:52px}
+.spend-act button{background:none;border:none;font-size:28px;color:#fff;cursor:pointer;line-height:1}
+.spend-act button.liked{color:#e11d48}
+.spend-act span{font-size:12px;font-weight:900}
+.spend-info{position:absolute;left:12px;bottom:70px;right:70px;z-index:5;text-shadow:0 2px 8px #000}
+.big-heart{position:absolute;left:50%;top:45%;transform:translate(-50%,-50%) scale(0);font-size:90px;z-index:6;pointer-events:none;transition:transform .25s}
+.big-heart.show{transform:translate(-50%,-50%) scale(1.2)}
+.spend-tabs{display:flex;gap:6px;margin-bottom:8px}.spend-tabs button{flex:1;padding:10px;border-radius:10px;background:#111;color:#fff;border:1px solid #333;font-weight:900}.spend-tabs button.active{background:#facc15;color:#000}
+/* --- BANDUCOINS FIX: COMMENT SHEET --- */
+.comment-sheet{position:fixed;left:0;right:0;bottom:0;z-index:500;background:#111;border-top-left-radius:20px;border-top-right-radius:20px;border:1px solid #333;max-height:75vh;display:none;flex-direction:column;max-width:480px;margin:auto}
+.comment-sheet.open{display:flex}
+.comment-list{overflow-y:auto;padding:12px;flex:1}
+.comment-row{display:flex;gap:8px;padding:8px 0;border-bottom:1px solid #222}
+/* --- BANDUCOINS FIX: EDIT PROFILE FULL SCREEN --- */
+.edit-full{position:fixed;inset:0;background:#050505;z-index:600;display:none;overflow-y:auto;max-width:480px;margin:auto}
+.edit-full.open{display:block}
+.edit-cover{height:130px;background:#222;background-size:cover;background-position:center;display:flex;align-items:flex-end;justify-content:center;padding-bottom:10px}
+.edit-avatar-wrap{text-align:center;margin-top:-40px}
+.edit-avatar{width:90px;height:90px;border-radius:50%;border:3px solid #facc15;background:#222;display:inline-flex;align-items:center;justify-content:center;font-size:36px;overflow:hidden}
+.edit-avatar img{width:100%;height:100%;object-fit:cover}
+.toggle-row{display:flex;background:#111;border:1px solid #333;border-radius:12px;overflow:hidden;margin-top:10px}
+.toggle-row button{flex:1;padding:12px;border:none;background:#111;color:#fff;font-weight:900}
+.toggle-row button.active{background:#a855f7;color:#fff}
 </style>
 </head>
 <body>
@@ -111,7 +139,7 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <div class="card">
 <div style="display:flex;gap:14px;align-items:center">
 <label class="avatar" id="avatarLabel">👤<input type="file" accept="image/*" style="display:none" id="avatarInput"></label>
-<div style="min-width:0"><h2 id="displayName" style="word-break:break-word">@user <span id="verifiedBadge"></span></h2><p id="userPhone" style="color:#888"></p><p id="displayBio" style="color:#ccc;font-size:13px;margin-top:4px"></p><p id="verifyStatus" style="font-size:12px;color:#1da1f2"></p></div>
+<div style="min-width:0"><h2 id="displayName" style="word-break:break-word">@user <span id="verifiedBadge"></span></h2><p id="userPhone" style="color:#888"></p><p id="displayBio" style="color:#ccc;font-size:13px;margin-top:4px"></p><p id="verifyStatus" style="font-size:12px;color:#1da1f2"></p><p id="displayLocation" style="color:#888;font-size:12px"></p><p id="displayWebsite" style="color:#a3e635;font-size:12px"></p><p id="displayType" style="color:#c084fc;font-size:12px"></p></div>
 </div>
 <div class="stats">
 <div class="stat"><b id="statPosts">0</b><span>Posts</span></div>
@@ -121,14 +149,6 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <button class="btn dark" onclick="document.getElementById('avatarInput').click()">📸 PUT MY PROFILE PICTURE</button>
 <button class="btn gold" id="editProfileBtn">✏️ EDIT PROFILE</button>
 <p style="font-size:11px;color:#888;text-align:center">Verification: Only at 50,000 followers - Automatic. No request.</p>
-<div id="editBox" class="hidden" style="border:1px solid #facc15;border-radius:12px;padding:12px;margin-top:10px">
-<p style="color:#facc15;font-size:12px">EDIT PROFILE - Bio max 50 words</p>
-<input id="editName" placeholder="New Username">
-<textarea id="editBio" rows="3" placeholder="Write about yourself..."></textarea>
-<p style="color:#888;font-size:12px;text-align:right"><span id="wordCount">0</span> / 50 words</p>
-<button class="btn green" id="saveEditBtn">💾 SAVE PROFILE</button>
-<button class="btn dark" onclick="document.getElementById('editBox').classList.add('hidden')">CANCEL</button>
-</div>
 <p style="color:#a3e635;font-size:12px;margin-top:10px">MY BALANCE - SAVED</p>
 <div class="big"><span id="balance">0</span> COINS</div>
 <div style="background:#150a20;border:1px solid #a855f7;border-radius:12px;padding:12px;margin-top:8px"><b style="color:#c084fc">💜 SUBCOINS - For Channels Only</b><br><span style="font-size:24px;font-weight:900;color:#c084fc" id="subBalance">0</span> SUBCOINS<br><small style="color:#888">1 Subcoin = 1 KSh. More expensive. Only for Channels.</small></div>
@@ -163,17 +183,18 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 </div>
 </div>
 <div id="tab-spend" class="hidden">
-<div class="card">
-<h3>🪙 SPEND - REAL FEED LIKE BANDU</h3>
+<div class="card" style="padding:10px">
+<h3 style="margin:0">🪙 SPEND - BANDU FEED</h3>
 <p style="color:#a3e635;font-size:12px">FOR YOU = Everyone's posts • FOLLOWING = People you follow only</p>
 <p style="background:#0a1a00;padding:8px;border-radius:10px;font-size:12px">✅ PUBLIC FEED = CLEAN ONLY. No porn / naked / bad content. Bad content goes to Channels only.</p>
-<div style="display:flex;gap:6px"><button class="btn gold small" id="feedForYouBtn" onclick="setFeedMode('foryou')" style="flex:1">🌍 FOR YOU</button><button class="btn dark small" id="feedFollowingBtn" onclick="setFeedMode('following')" style="flex:1">👥 FOLLOWING</button></div>
-<p style="color:#a3e635;font-size:12px;margin-top:10px">🔴 STORIES - Tap story = 1 coin auto</p><div class="story-row" id="storyRow"></div>
+<div class="spend-tabs"><button id="feedFollowingTab" onclick="setFeedMode('following')">👥 FOLLOWING</button><button id="feedForYouTab" class="active" onclick="setFeedMode('foryou')">🌍 FOR YOU</button><button id="feedStoriesTab" onclick="setFeedMode('stories')">🔴 STORIES</button></div>
+<p style="color:#a3e635;font-size:12px">🔴 STORIES - Tap story = 1 coin auto</p><div class="story-row" id="storyRow"></div>
 <input id="searchInput" placeholder="🔍 Search users...">
 <div id="searchResults"></div>
 <div><button class="chip active" data-cat="All">All</button><button class="chip" data-cat="Sports">⚽ Sports</button><button class="chip" data-cat="Comedy">😂 Comedy</button><button class="chip" data-cat="Short Videos">🎬 Short Videos</button><button class="chip" data-cat="Music">🎵 Music</button><button class="chip" data-cat="Kids">🧒 Kids</button><button class="chip" data-cat="Cartoons">🎭 Cartoons</button></div>
 </div>
-<div id="feedList"></div>
+<div class="spend-feed" id="feedList"></div>
+<p style="text-align:center;color:#888;font-size:12px">Swipe UP = Next video • Swipe DOWN = Previous video • Swipe LEFT/RIGHT = Change tab</p>
 </div>
 <div id="tab-notifications" class="hidden">
 <div class="card"><h3>🔔 NOTIFICATIONS</h3><p style="color:#888;font-size:12px">Likes, Comments, Follows, Shares - All here. Tap to clear.</p><button class="btn dark small" onclick="clearNotifications()">✅ MARK ALL AS READ</button><div id="notifList" style="margin-top:12px"></div></div>
@@ -257,6 +278,32 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <button id="bSpend">🪙<br>Spend</button>
 <button id="bChannels">💜<br>Channel</button>
 <button id="bCoins">🪙<br>Buy<br>coins</button>
+</div>
+<!-- EDIT PROFILE FULL SCREEN -->
+<div id="editFull" class="edit-full">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:14px"><button class="btn dark small" onclick="closeEditFull()">← Back</button><b>Edit Profile</b><button class="btn gold small" onclick="saveEditFull()">Save</button></div>
+<div class="edit-cover" id="editCover"><button class="btn dark small" onclick="document.getElementById('coverInput').click()">Change Cover Photo</button><input type="file" id="coverInput" accept="image/*" style="display:none"></div>
+<div class="edit-avatar-wrap"><div class="edit-avatar" id="editAvatar">👤</div><br><button class="btn dark small" onclick="document.getElementById('editAvatarInput').click()">Change Photo</button><input type="file" id="editAvatarInput" accept="image/*" style="display:none"></div>
+<div style="padding:14px">
+<input id="editFullName" placeholder="Name - Wizzy">
+<input id="editFullUser" placeholder="Username - @wizzy">
+<textarea id="editFullBio" rows="3" placeholder="Bio - Music artist & producer. Beats, vibes, community."></textarea>
+<p style="color:#888;font-size:12px;text-align:right"><span id="wordCount">0</span> / 50 words</p>
+<input id="editFullLocation" placeholder="Location - Eldoret, Kenya">
+<input id="editFullWebsite" placeholder="Website Link - banducoins.com">
+<p style="margin-top:14px;font-weight:900">Account Type</p>
+<div class="toggle-row"><button id="typeArtist" class="active" onclick="setAccountType('Artist')">Artist</button><button id="typeFan" onclick="setAccountType('Fan')">Fan</button></div>
+<button class="btn dark" onclick="showToast('Change Password - Coming from your account settings')">Change Password &gt;</button>
+<button class="btn dark" onclick="showToast('Privacy - Only you can see your private info')">Privacy &gt;</button>
+<button class="btn purple" onclick="saveEditFull()">Save Changes</button>
+<button class="btn dark" onclick="closeEditFull()">Cancel</button>
+</div>
+</div>
+<!-- COMMENT SHEET -->
+<div id="commentSheet" class="comment-sheet">
+<div style="display:flex;justify-content:space-between;padding:14px"><b id="commentTitle">Comments</b><button class="btn dark small" onclick="closeComments()">✕</button></div>
+<div class="comment-list" id="commentList"></div>
+<div style="display:flex;gap:6px;padding:12px"><input id="commentInput" placeholder="Add comment..." style="margin:0"><button class="btn gold small" style="margin:0" onclick="sendComment()">➤</button></div>
 </div>
 <div id="sheetBack" class="sheet-back" onclick="closePostSheet()"></div>
 <div id="postSheet" class="post-sheet">
@@ -357,8 +404,11 @@ var reports=[]; try{reports=JSON.parse(get("bandu_reports","[]"))}catch(e){repor
 var verifiedUsers=[]; try{verifiedUsers=JSON.parse(get("bandu_verified","[]"))}catch(e){verifiedUsers=[]}
 var feedMode="foryou";
 var currentUser=get("bandu_phone",""), userName=get("bandu_name","@user"), avatarUrl=get("bandu_avatar",""), userBio=get("bandu_bio","");
+var userLocation=get("bandu_location","Eldoret, Kenya"), userWebsite=get("bandu_website","banducoins.com"), userType=get("bandu_type","Artist"), userCover=get("bandu_cover","");
 var currentCat="All", selectedCoins=450, selectedAmount=20, selectedType="coin", currentChatPhone="", tempPostUrl="", tempPostType="image", tempFilter="";
 var camStream=null, camFacing='user', camIsLive=false, camLen=15, camMode='PHOTO', liveSeconds=0, liveInt=null;
+var currentCommentIndex=-1;
+var savedPosts=[]; try{savedPosts=JSON.parse(get("bandu_saved","[]"))}catch(e){savedPosts=[]}
 var FILTERS=[
 {id:"beauty",name:"Beauty Pro",emoji:"✨",cost:0,css:"brightness(1.15) contrast(1.1) saturate(1.1)"},
 {id:"vintage",name:"Vintage",emoji:"📽️",cost:0,css:"sepia(0.6) contrast(1.05) brightness(0.95)"},
@@ -402,6 +452,7 @@ function saveAll(){
   set("bandu_chats",JSON.stringify(chats)); set("bandu_channels",JSON.stringify(channels)); set("bandu_channel_posts",JSON.stringify(channelPosts));
   set("bandu_subs",JSON.stringify(subs)); set("bandu_notifications",JSON.stringify(notifications)); set("bandu_reports",JSON.stringify(reports));
   set("bandu_verified",JSON.stringify(verifiedUsers)); set("bandu_phone",currentUser); set("bandu_name",userName); set("bandu_avatar",avatarUrl); set("bandu_bio",userBio);
+  set("bandu_location",userLocation); set("bandu_website",userWebsite); set("bandu_type",userType); set("bandu_cover",userCover); set("bandu_saved",JSON.stringify(savedPosts));
   updateUI();
 }
 function updateUI(){
@@ -416,6 +467,9 @@ function updateUI(){
   var dn=document.getElementById("displayName"); if(dn) dn.innerHTML=userName+" "+verifiedMark(currentUser);
   var up=document.getElementById("userPhone"); if(up) up.innerText=currentUser;
   var db=document.getElementById("displayBio"); if(db) db.innerText=userBio;
+  var dl=document.getElementById("displayLocation"); if(dl) dl.innerText=userLocation?("📍 "+userLocation):"";
+  var dw=document.getElementById("displayWebsite"); if(dw) dw.innerText=userWebsite?("🔗 "+userWebsite):"";
+  var dt=document.getElementById("displayType"); if(dt) dt.innerText=userType?("⭐ "+userType):"";
   var cf=document.getElementById("chanFollowers"); if(cf) cf.innerText=document.getElementById("statFollowers")?document.getElementById("statFollowers").innerText:"0";
   var cs=document.getElementById("chanSubcoins"); if(cs) cs.innerText=subcoins;
   checkVerification();
@@ -428,23 +482,36 @@ function showTab(name){
     var btn=document.getElementById("t"+t.charAt(0).toUpperCase()+t.slice(1));
     if(btn) btn.classList.toggle("active", t===name);
   });
+  // FIX: Bottom nav highlight - only active yellow
+  var map={profile:"bProfile",inbox:"bInbox",spend:"bSpend",channels:"bChannels",coins:"bCoins"};
+  ["bProfile","bInbox","bSpend","bChannels","bCoins"].forEach(function(id){var e=document.getElementById(id); if(e) e.classList.remove("active");});
+  if(map[name]){var ae=document.getElementById(map[name]); if(ae) ae.classList.add("active");}
   if(name==="spend") renderFeed();
   if(name==="channels") renderChannels();
   if(name==="notifications") renderNotifications();
   if(name==="profile") renderMyPosts();
 }
-function setFeedMode(m){ feedMode=m; document.getElementById("feedForYouBtn").className="btn "+(m==="foryou"?"gold":"dark")+" small"; document.getElementById("feedFollowingBtn").className="btn "+(m==="following"?"gold":"dark")+" small"; renderFeed(); }
-function renderFeed(){
-  var list=document.getElementById("feedList"); if(!list) return;
+function setFeedMode(m){ feedMode=m; var tabs={following:"feedFollowingTab",foryou:"feedForYouTab",stories:"feedStoriesTab"}; Object.keys(tabs).forEach(function(k){var e=document.getElementById(tabs[k]); if(e) e.classList.toggle("active",k===m);}); if(m==="stories"){showToast("Stories - Tap story to view");} renderFeed(); }
+function getVisiblePosts(){
   var posts=myPosts.filter(function(p){ return !p.isChannelOnly && !p.mature; });
   if(feedMode==="following") posts=posts.filter(function(p){ return following.indexOf(p.phone)>=0; });
+  if(feedMode==="stories") posts=posts.filter(function(p){ return p.postType==="story"; });
   if(currentCat!=="All") posts=posts.filter(function(p){ return p.category===currentCat; });
-  if(!posts.length){ list.innerHTML='<p style="text-align:center;color:#888">No clean public posts yet. Be the first to post clean content.</p>'; return; }
+  return posts;
+}
+function renderFeed(){
+  var list=document.getElementById("feedList"); if(!list) return;
+  var posts=getVisiblePosts();
+  if(!posts.length){ list.innerHTML='<p style="text-align:center;color:#888;padding:40px">No clean public posts yet. Be the first to post clean content.</p>'; return; }
   list.innerHTML=posts.map(function(p,i){
-    var media=p.url? (p.type==="video"?'<video src="'+p.url+'" controls></video>':'<img src="'+p.url+'">') : '';
-    return '<div class="post"><div class="post-body"><b>'+(p.user||p.phone)+' '+verifiedMark(p.phone)+'</b><br><small style="color:#888">'+(p.time||"")+'</small><p>'+(p.caption||"")+'</p></div>'+media+'<div class="post-body"><button class="btn dark small" onclick="likePost('+i+')">❤️ Like ('+(p.likes||0)+')</button> <button class="btn dark small" onclick="reportPost('+i+')">🚩 Report</button><div>'+(p.comments||[]).map(function(c){return '<div class="comment"><b>'+c.user+':</b> '+c.text+'</div>'}).join("")+'</div><input id="ci-'+i+'" placeholder="Comment..."><button class="btn gold small" onclick="commentPost('+i+')">Comment</button></div></div>';
+    var realIdx=myPosts.indexOf(p);
+    var liked=(p.likedBy||[]).indexOf(currentUser)>=0;
+    var media=p.url? (p.type==="video"?'<video src="'+p.url+'" playsinline loop onclick="togglePlay(this)"></video>':'<img src="'+p.url+'" ondblclick="likePost('+realIdx+',true)">') : '<div style="height:100%;display:flex;align-items:center;justify-content:center;padding:30px;text-align:center;background:#111"><h2>'+(p.caption||"")+'</h2></div>';
+    return '<div class="spend-item" ondblclick="likePost('+realIdx+',true)"><div class="big-heart" id="heart-'+realIdx+'">❤️</div>'+media+'<div class="spend-info"><div style="display:flex;gap:8px;align-items:center"><span class="avatar-sm" onclick="showTab(\'profile\')">👤</span><b>'+(p.user||p.phone)+' '+verifiedMark(p.phone)+'</b><button class="btn dark small" style="margin:0" onclick="followUser(\''+p.phone+'\')">+ Follow</button></div><p>'+(p.caption||"")+'</p><small style="color:#ccc">'+(p.time||"")+'</small></div><div class="spend-actions"><div class="spend-act"><button class="'+(liked?"liked":"")+'" onclick="likePost('+realIdx+')">❤️</button><span>'+(p.likes||0)+'</span></div><div class="spend-act"><button onclick="openComments('+realIdx+')">💬</button><span>'+((p.comments||[]).length)+'</span></div><div class="spend-act"><button onclick="sharePost('+realIdx+')">↗️</button><span>'+(p.shares||0)+'</span></div><div class="spend-act"><button onclick="savePost('+realIdx+')">🔖</button><span>Save</span></div><div class="spend-act"><button onclick="reportPost('+realIdx+')">🚩</button><span>Report</span></div></div></div>';
   }).join("");
 }
+function togglePlay(v){ if(v.paused) v.play(); else v.pause(); }
+function followUser(phone){ if(!phone||phone===currentUser) return; if(following.indexOf(phone)<0){following.push(phone); saveAll(); showToast("Following "+phone);} else {following=following.filter(function(x){return x!==phone}); saveAll(); showToast("Unfollowed");} renderFeed(); }
 function renderMyPosts(){
   var el=document.getElementById("myPosts"); if(!el) return;
   var mine=myPosts.filter(function(p){ return p.phone===currentUser; });
@@ -478,14 +545,26 @@ function renderChannels(){
   }).join("");
 }
 function revealMature(idx,btn){ var el=document.getElementById("mature-"+idx); if(el){ el.style.display="block"; btn.style.display="none"; } }
-function likePost(i){ var posts=myPosts.filter(function(p){ return !p.isChannelOnly && !p.mature; }); var p=posts[i]; if(!p) return; p.likes=(p.likes||0)+1; saveAll(); }
-function commentPost(i){
-  var posts=myPosts.filter(function(p){ return !p.isChannelOnly && !p.mature; }); var p=posts[i]; if(!p) return;
-  var inp=document.getElementById("ci-"+i); if(!inp||!inp.value.trim()) return;
-  if(containsBadContent(inp.value)){ showToast("❌ Bad content not allowed in Public Feed",true); return; }
-  if(!p.comments) p.comments=[];
-  p.comments.push({user:userName,text:inp.value}); inp.value=""; saveAll();
+// LIKE REAL - toggle, red, save
+function likePost(i,fromDouble){
+  var p=myPosts[i]; if(!p) return;
+  if(!p.likedBy) p.likedBy=[];
+  var idx=p.likedBy.indexOf(currentUser);
+  if(idx>=0){ p.likedBy.splice(idx,1); p.likes=Math.max(0,(p.likes||0)-1); }
+  else { p.likedBy.push(currentUser); p.likes=(p.likes||0)+1; if(fromDouble){var h=document.getElementById("heart-"+i); if(h){h.classList.add("show"); setTimeout(function(){h.classList.remove("show")},600);} } }
+  saveAll(); renderFeed();
+  if(window._firebaseReady && window._db && p._serverId){ try{var f=window._firestore; f.setDoc(f.doc(window._db,"posts",p._serverId),{likes:p.likes,likedBy:p.likedBy},{merge:true});}catch(e){} }
 }
+// COMMENT REAL - bottom sheet
+function openComments(i){ currentCommentIndex=i; var p=myPosts[i]; if(!p) return; document.getElementById("commentTitle").innerText="Comments ("+((p.comments||[]).length)+")"; renderCommentList(); document.getElementById("commentSheet").classList.add("open"); }
+function renderCommentList(){ var p=myPosts[currentCommentIndex]; if(!p) return; var el=document.getElementById("commentList"); el.innerHTML=(p.comments||[]).map(function(c,ci){return '<div class="comment-row"><span class="avatar-sm">👤</span><div><b>'+c.user+'</b> <small style="color:#888">'+(c.time||"")+'</small><div>'+c.text+'</div><button class="btn dark small" onclick="likeComment('+ci+')">❤️ '+(c.likes||0)+'</button> <button class="btn dark small" onclick="replyComment(\''+c.user+'\')">Reply</button></div></div>';}).join("")||'<p style="color:#888">No comments yet. Be first.</p>'; }
+function closeComments(){ document.getElementById("commentSheet").classList.remove("open"); }
+function sendComment(){ var p=myPosts[currentCommentIndex]; if(!p) return; var inp=document.getElementById("commentInput"); if(!inp.value.trim()) return; if(containsBadContent(inp.value)){ showToast("❌ Bad content not allowed in Public Feed",true); return; } if(!p.comments) p.comments=[]; p.comments.push({user:userName,text:inp.value,time:new Date().toLocaleString(),likes:0}); inp.value=""; saveAll(); renderCommentList(); renderFeed(); document.getElementById("commentTitle").innerText="Comments ("+p.comments.length+")"; }
+function likeComment(ci){ var p=myPosts[currentCommentIndex]; if(!p||!p.comments[ci]) return; p.comments[ci].likes=(p.comments[ci].likes||0)+1; saveAll(); renderCommentList(); }
+function replyComment(user){ document.getElementById("commentInput").value="@"+user+" "; document.getElementById("commentInput").focus(); }
+function commentPost(i){ openComments(i); }
+function sharePost(i){ var p=myPosts[i]; if(!p) return; p.shares=(p.shares||0)+1; saveAll(); renderFeed(); var text="BANDUCOINS - "+(p.caption||"")+" by "+(p.user||""); if(navigator.share){navigator.share({title:"BANDUCOINS",text:text,url:location.href}).catch(function(){});} else { try{navigator.clipboard.writeText(text+" "+location.href); showToast("Link copied - Share on WhatsApp");}catch(e){showToast("Share: "+text);} } }
+function savePost(i){ var p=myPosts[i]; if(!p) return; var key=p.createdAt+"_"+p.phone; if(savedPosts.indexOf(key)>=0){savedPosts=savedPosts.filter(function(x){return x!==key}); showToast("Removed from Saved");} else {savedPosts.push(key); showToast("Saved - See in Profile > Saved");} saveAll(); }
 function reportPost(i){ reports.push({post:i,time:new Date().toLocaleString(),by:currentUser}); set("bandu_reports",JSON.stringify(reports)); showToast("🚩 Reported to Admin"); renderNotifications(); }
 function addNotification(from,text,type){ notifications.unshift({from:from,text:text,type:type,time:new Date().toLocaleString(),read:false}); notifications=notifications.slice(0,100); set("bandu_notifications",JSON.stringify(notifications)); renderNotifications(); }
 function renderNotifications(){
@@ -527,6 +606,29 @@ async function searchMusic(){
   }catch(e){ document.getElementById("musicMsg").innerText="Music search failed, check internet"; }
 }
 function selectMusic(i){ var t=window._jamTracks[i]; selectedMusic=t; document.getElementById("selectedMusicLabel").innerText=t.name; document.getElementById("myMusicText").innerText=t.name; showToast("🎵 Selected: "+t.name); closeMusicSheet(); }
+// EDIT PROFILE FULL SCREEN
+function openEditFull(){
+  document.getElementById("editFullName").value=userName;
+  document.getElementById("editFullUser").value=userName;
+  document.getElementById("editFullBio").value=userBio;
+  document.getElementById("editFullLocation").value=userLocation;
+  document.getElementById("editFullWebsite").value=userWebsite;
+  document.getElementById("editAvatar").innerHTML=avatarUrl?'<img src="'+avatarUrl+'">':'👤';
+  if(userCover) document.getElementById("editCover").style.backgroundImage="url("+userCover+")";
+  setAccountType(userType||"Artist");
+  document.getElementById("editFull").classList.add("open");
+}
+function closeEditFull(){ document.getElementById("editFull").classList.remove("open"); }
+function setAccountType(t){ userType=t; document.getElementById("typeArtist").classList.toggle("active",t==="Artist"); document.getElementById("typeFan").classList.toggle("active",t==="Fan"); }
+function saveEditFull(){
+  var nm=document.getElementById("editFullName").value.trim();
+  var bio=document.getElementById("editFullBio").value.trim();
+  if(bio.split(/\s+/).filter(Boolean).length>50){ showToast("Bio max 50 words",true); return; }
+  if(containsBadContent(bio)){ showToast("Bad content not allowed in bio",true); return; }
+  userName=nm||userName; userBio=bio; userLocation=document.getElementById("editFullLocation").value.trim(); userWebsite=document.getElementById("editFullWebsite").value.trim();
+  var u=users.find(function(x){return x.phone===currentUser}); if(u){ u.name=userName; u.bio=userBio; }
+  saveAll(); closeEditFull(); showToast("✅ Profile Saved"); showTab("profile");
+}
 document.getElementById("createBtn").onclick=function(){
   var ph=document.getElementById("phone").value.trim(), pw=document.getElementById("password").value, nm=document.getElementById("username").value.trim()||"@user";
   if(ph.length<9||pw.length<4){ showToast("Enter phone + password 4+",true); return; }
@@ -547,16 +649,10 @@ document.getElementById("logoutBtn").onclick=function(){ document.getElementById
 document.getElementById("forgotLink").onclick=function(e){ e.preventDefault(); document.getElementById("forgotBox").classList.toggle("hidden"); };
 document.getElementById("sendCodeBtn").onclick=function(){ var ph=document.getElementById("forgotPhone").value.trim(); if(!ph) return; var code=Math.floor(100000+Math.random()*900000).toString(); window._resetCode=code; window._resetPhone=ph; document.getElementById("codeInfo").innerText="DEMO CODE: "+code; };
 document.getElementById("resetPassBtn").onclick=function(){ var c=document.getElementById("codeInput").value; var np=document.getElementById("newPassInput").value; if(c!==window._resetCode){ showToast("Wrong code",true); return; } var u=users.find(function(x){return x.phone===window._resetPhone}); if(u) u.pass=np; saveAll(); showToast("Password changed, LOGIN now"); };
-document.getElementById("editProfileBtn").onclick=function(){ document.getElementById("editBox").classList.toggle("hidden"); document.getElementById("editName").value=userName; document.getElementById("editBio").value=userBio; };
-document.getElementById("editBio").oninput=function(){ var w=this.value.trim().split(/\s+/).filter(Boolean).length; document.getElementById("wordCount").innerText=w; if(w>50) showToast("Bio max 50 words",true); };
-document.getElementById("saveEditBtn").onclick=function(){
-  var nm=document.getElementById("editName").value.trim(), bio=document.getElementById("editBio").value.trim();
-  if(bio.split(/\s+/).filter(Boolean).length>50){ showToast("Bio max 50 words",true); return; }
-  if(containsBadContent(bio)){ showToast("Bad content not allowed in bio",true); return; }
-  userName=nm||userName; userBio=bio;
-  var u=users.find(function(x){return x.phone===currentUser}); if(u){ u.name=userName; u.bio=userBio; }
-  saveAll(); document.getElementById("editBox").classList.add("hidden"); showToast("Profile saved");
-};
+document.getElementById("editProfileBtn").onclick=function(){ openEditFull(); };
+document.getElementById("editFullBio").oninput=function(){ var w=this.value.trim().split(/\s+/).filter(Boolean).length; document.getElementById("wordCount").innerText=w; if(w>50) showToast("Bio max 50 words",true); };
+document.getElementById("coverInput").onchange=function(e){ var f=e.target.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(ev){ userCover=ev.target.result; document.getElementById("editCover").style.backgroundImage="url("+userCover+")"; }; r.readAsDataURL(f); };
+document.getElementById("editAvatarInput").onchange=function(e){ var f=e.target.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(ev){ avatarUrl=ev.target.result; document.getElementById("editAvatar").innerHTML='<img src="'+avatarUrl+'">'; document.getElementById("avatarLabel").innerHTML='<img src="'+avatarUrl+'">'; }; r.readAsDataURL(f); };
 document.getElementById("avatarInput").onchange=function(e){
   var f=e.target.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(ev){ avatarUrl=ev.target.result; document.getElementById("avatarLabel").innerHTML='<img src="'+avatarUrl+'">'; saveAll(); }; r.readAsDataURL(f);
 };
@@ -588,7 +684,7 @@ document.getElementById("postBtn").onclick=async function(){
   }
   if(coins<5){ showToast("Not enough coins - Buy coins",true); return; }
   coins-=5;
-  var newPost={phone:currentUser,user:userName,caption:cap,category:cat,url:tempPostUrl,type:tempPostType,time:new Date().toLocaleString(),createdAt:Date.now(),likes:0,comments:[],isChannelOnly:false,mature:false,postType:type};
+  var newPost={phone:currentUser,user:userName,caption:cap,category:cat,url:tempPostUrl,type:tempPostType,time:new Date().toLocaleString(),createdAt:Date.now(),likes:0,comments:[],likedBy:[],shares:0,isChannelOnly:false,mature:false,postType:type};
   myPosts.unshift(newPost);
   if(window._firebaseReady && window._db){ try{ const {collection,addDoc}=window._firestore; await addDoc(collection(window._db,"posts"), newPost); }catch(e){} }
   tempPostUrl=""; document.getElementById("caption").value=""; saveAll(); closePostSheet(); showToast("✅ Posted - Public Feed - Clean"); renderFeed();
@@ -628,8 +724,6 @@ function refreshChannelSelect(){
   sel.innerHTML='<option value="">Choose your channel...</option>'+myCh.map(function(c){return '<option value="'+c.id+'">'+c.name+'</option>'}).join("");
 }
 setInterval(refreshChannelSelect, 3000);
-
-// ===== PESAPAL - REAL TRANSACTION - MATCHES pesapal-order.js =====
 document.getElementById("payBtn").onclick = async function(){
   if(!selectedAmount || !selectedCoins){
     showToast("Tap a package first", true); return;
@@ -640,48 +734,22 @@ document.getElementById("payBtn").onclick = async function(){
     showToast("Login first - phone missing", true); return;
   }
   try{ localStorage.setItem("bandu_pending", JSON.stringify({coins:selectedCoins, amount:selectedAmount, type:selectedType, phone:rawPhone, time:Date.now()})); }catch(e){}
-
   var btn = document.getElementById("payBtn");
   btn.disabled = true; btn.innerText = "⏳ CONNECTING TO PESAPAL...";
   showToast("💳 Connecting to Pesapal for " + selectedAmount + " KSh... Please wait");
   document.getElementById("payMsg").innerText = "Connecting to Pesapal... Do not close.";
-
   try{
     var res = await fetch("/.netlify/functions/pesapal-order", {
       method: "POST",
       headers: {"Content-Type":"application/json"},
-      body: JSON.stringify({
-        amount: selectedAmount,
-        phone: rawPhone,
-        coins: selectedCoins,
-        type: selectedType
-      })
+      body: JSON.stringify({amount: selectedAmount,phone: rawPhone,coins: selectedCoins,type: selectedType})
     });
     var data = await res.json();
-    console.log("PESAPAL:", data);
-    if(data.redirect_url){
-      window.location.href = data.redirect_url;
-    } else {
-      btn.disabled = false; btn.innerText = "💳 PAY NOW WITH M-PESA";
-      showToast("Pesapal error: " + (data.error || "No redirect_url"), true);
-      document.getElementById("payMsg").innerText = "Error: " + JSON.stringify(data).slice(0,400);
-    }
-  }catch(e){
-    btn.disabled = false; btn.innerText = "💳 PAY NOW WITH M-PESA";
-    showToast("Cannot reach Netlify function. Did you deploy pesapal-order.js?", true);
-    document.getElementById("payMsg").innerText = "Error: " + e.message + " - Check netlify/functions/pesapal-order.js is deployed";
-  }
+    if(data.redirect_url){ window.location.href = data.redirect_url; }
+    else { btn.disabled = false; btn.innerText = "💳 PAY NOW WITH M-PESA"; showToast("Pesapal error: " + (data.error || "No redirect_url"), true); document.getElementById("payMsg").innerText = "Error: " + JSON.stringify(data).slice(0,400); }
+  }catch(e){ btn.disabled = false; btn.innerText = "💳 PAY NOW WITH M-PESA"; showToast("Cannot reach Netlify function. Did you deploy pesapal-order.js?", true); document.getElementById("payMsg").innerText = "Error: " + e.message; }
 };
-// If user returns from Pesapal with ?order_id=, show message
-(function(){
-  try{
-    var p = new URLSearchParams(window.location.search);
-    if(p.get("order_id") || p.get("paid")){
-      showToast("✅ Returned from Pesapal. Check your balance.");
-    }
-  }catch(e){}
-})();
-
+(function(){ try{ var p = new URLSearchParams(window.location.search); if(p.get("order_id") || p.get("paid")){ showToast("✅ Returned from Pesapal. Check your balance."); } }catch(e){} })();
 function openBanduCamera(isLive){
   document.getElementById("cameraPage").style.display="flex";
   if(isLive) document.getElementById("camMsg").innerText="🔴 LIVE MODE - FREE";
