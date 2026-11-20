@@ -5,19 +5,43 @@ exports.handler = async (event) => {
   if (event.httpMethod !== "POST") return { statusCode: 405, body: JSON.stringify({ error: "Use POST" }) };
 
   try {
-    const { amount, phone, email } = JSON.parse(event.body || "{}");
+    const { amount, phone, email, type } = JSON.parse(event.body || "{}");
     if (!amount || !phone) return { statusCode: 400, body: JSON.stringify({ error: "amount and phone required" }) };
 
     const BASE = "https://pay.pesapal.com/v3/api";
     const IPN_ID = "a94ca34d-7528-4856-8691-d9a5325a7799";
 
-    // 1 KSh = 10 coins. 20 KSh = 200 coins, 45 KSh = 450 coins, etc.
-    // Works for ANY customer, ANY amount
-    const coins = Math.floor(Number(amount) * 10);
+    const amt = Number(amount);
+
+    // --- DIFFERENTIATE COINS vs SUBCOINS ---
+    let buyType = (type || "").toLowerCase();
+    if (buyType.includes("sub")) buyType = "SUB";
+    else if (buyType.includes("coin")) buyType = "COINS";
+    else {
+      // Fallback if frontend forgot to send type: guess from amount
+      if ([200, 500, 1000].includes(amt)) buyType = "SUB";
+      else buyType = "COINS";
+    }
+
+    let credits = 0;
+    if (buyType === "COINS") {
+      // COINS PRICE LIST
+      if (amt === 20) credits = 450;
+      else if (amt === 30) credits = 600;
+      else if (amt === 50) credits = 1000;
+      else if (amt === 100) credits = 2500;
+      else credits = Math.floor(amt * 22.5); // fallback for other amounts
+    } else {
+      // SUBCOINS PRICE LIST - FIXED
+      if (amt === 200) credits = 200;
+      else if (amt === 500) credits = 500; // FIXED: was 200, now 500
+      else if (amt === 1000) credits = 1000;
+      else credits = amt; // fallback
+    }
+
     const cleanPhone = String(phone).replace("+", "").replace(/\s/g, "").trim();
-    // Example: BANDU-254712345678-200-1763590000
-    // phone changes for every customer
-    const merchantRef = `BANDU-${cleanPhone}-${coins}-${Date.now()}`;
+    // Format: BANDU-COINS-254798486530-450-... OR BANDU-SUB-254798486530-500-...
+    const merchantRef = `BANDU-${buyType}-${cleanPhone}-${credits}-${Date.now()}`;
 
     const authRes = await fetch(BASE + "/Auth/RequestToken", {
       method: "POST",
@@ -33,8 +57,8 @@ exports.handler = async (event) => {
       body: JSON.stringify({
         id: merchantRef,
         currency: "KES",
-        amount: Number(amount),
-        description: "BanduCoins - " + coins + " coins",
+        amount: amt,
+        description: `Bandu ${buyType === "COINS" ? "Coins" : "Subcoins"} - ${credits} ${buyType === "COINS" ? "coins" : "subcoins"}`,
         callback_url: "https://banducoinet.netlify.app/",
         notification_id: IPN_ID,
         billing_address: { email_address: email || "user@banducoinet.com", phone_number: phone, country_code: "KE", first_name: "Bandu", last_name: "User", line_1: "Eldoret" }
