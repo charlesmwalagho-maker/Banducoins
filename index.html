@@ -41,17 +41,19 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 .cam{position:fixed;inset:0;background:#000;z-index:300;display:none;flex-direction:column;touch-action:none}
 .cam video{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px}
 .cam-top{display:flex;justify-content:space-between;padding:14px;align-items:center;position:absolute;top:0;left:0;right:0;z-index:10}
-.cam-top button{background:rgba(0,0,0,.6);color:#fff;border:none;padding:8px 10px;border-radius:20px;font-weight:bold;font-size:12px;cursor:pointer}
-.cam-right{position:absolute;right:14px;top:90px;display:flex;flex-direction:column;gap:22px;font-size:28px;text-align:center;z-index:10;text-shadow:0 2px 6px #000;cursor:pointer}
-.cam-bottom{padding:8px 10px 6px;background:#000;flex-shrink:0;position:relative;z-index:10}
-.cam-modes{display:flex;justify-content:center;gap:8px;font-weight:bold;color:#bbb;margin:6px 0;font-size:15px;flex-wrap:nowrap;overflow-x:auto}
+.cam-top button{background:rgba(0,0,0,.65);color:#fff;border:1px solid rgba(255,255,255,.2);padding:8px 12px;border-radius:20px;font-weight:bold;font-size:12px;cursor:pointer}
+.cam-right{position:absolute;right:14px;top:90px;display:flex;flex-direction:column;gap:20px;font-size:26px;text-align:center;z-index:10;text-shadow:0 2px 6px #000;cursor:pointer}
+.cam-right span{display:flex;flex-direction:column;align-items:center}.cam-right small{font-size:10px;font-weight:700}
+.cam-bottom{padding:8px 10px 6px;background:rgba(0,0,0,.88);flex-shrink:0;position:relative;z-index:10}
+.cam-modes{display:flex;justify-content:center;gap:8px;font-weight:bold;color:#bbb;margin:6px 0;font-size:14px;flex-wrap:nowrap;overflow-x:auto}
 .cam-modes span{padding:4px 10px;border-radius:20px;flex-shrink:0;cursor:pointer}
 .cam-modes span.active{color:#000;background:#fff}
-.filters-row{display:flex;gap:10px;overflow-x:auto;padding:8px 4px}
-.filt{flex-shrink:0;width:64px;text-align:center;cursor:pointer}
-.filt-circle{width:56px;height:56px;border-radius:50%;border:2px solid #666;display:flex;align-items:center;justify-content:center;font-size:26px;margin:auto;background:#222}
-.filt.active .filt-circle{border:3px solid #fff;transform:scale(1.08)}
-.filt span{font-size:10px;display:block;margin-top:3px;white-space:nowrap}
+.filters-row{display:flex;gap:10px;overflow-x:auto;padding:8px 4px;scrollbar-width:none}
+.filt{flex-shrink:0;width:68px;text-align:center;cursor:pointer}
+.filt-circle{width:56px;height:56px;border-radius:50%;border:2px solid #666;display:flex;align-items:center;justify-content:center;font-size:26px;margin:auto;background:#1c1c1c;transition:transform .15s}
+.filt.active .filt-circle{border:3px solid #facc15;transform:scale(1.1);background:#2a2500}
+.filt span{font-size:10px;display:block;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.filt small{font-size:9px;color:#a3e635}
 .rec-row{display:flex;justify-content:space-around;align-items:center;padding:8px 0}
 .rec{width:70px;height:70px;border-radius:50%;border:4px solid #fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .15s}
 .rec-inner{width:54px;height:54px;border-radius:50%;background:#fff;transition:all .15s}
@@ -66,21 +68,19 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 .sheet-back.open{display:block}
 #camCanvas{flex:1;width:100%;height:100%;object-fit:contain;background:#000;display:block}
 #arCanvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5}
-.music-sheet{position:fixed;left:0;right:0;bottom:0;z-index:360;background:#111;border-top-left-radius:20px;border-top-right-radius:20px;border:1px solid #a3e635;max-height:85vh;overflow-y:auto;display:none;padding:16px;padding-bottom:30px;max-width:480px;margin:auto}
+.music-sheet{position:fixed;left:0;right:0;bottom:0;z-index:360;background:#111;border-top-left-radius:20px;border-top-right-radius:20px;border:1px solid #a3e635;max-height:88vh;overflow-y:auto;display:none;padding:16px;padding-bottom:30px;max-width:480px;margin:auto}
 .music-sheet.open{display:block}
-.music-item{display:flex;gap:10px;align-items:center;padding:10px;border:1px solid #222;border-radius:12px;margin-bottom:8px}
-.music-item img{width:48px;height:48px;border-radius:8px;object-fit:cover;background:#222}
+.music-item{display:flex;gap:10px;align-items:center;padding:10px;border:1px solid #222;border-radius:12px;margin-bottom:8px;background:#0b0b0b}
+.music-item img{width:48px;height:48px;border-radius:8px;object-fit:cover;background:#222;flex-shrink:0}
 #toast{position:fixed;top:16px;left:50%;transform:translateX(-50%) translateY(-80px);background:#a3e635;color:#000;padding:12px 18px;border-radius:20px;font-weight:900;font-size:14px;z-index:999;transition:transform .3s;max-width:90%;text-align:center}
 #toast.show{transform:translateX(-50%) translateY(0)}
 #toast.err{background:#e11d48;color:#fff}
 .live-comments{max-height:140px;overflow-y:auto;background:#111;border:1px solid #333;border-radius:10px;padding:8px;margin-top:8px;text-align:left}
 .notif{padding:12px;border:1px solid #222;border-radius:12px;margin-bottom:8px;background:#0f0f0f;cursor:pointer}.notif.unread{border-color:#facc15;background:#1a1a00}
 .verified{color:#1da1f2;font-size:16px}
-.report-box{background:#2a0000;border:1px solid #e11d48;border-radius:12px;padding:10px;margin-top:8px}
 .server-badge{font-size:10px;padding:3px 8px;border-radius:10px;background:#222}
 .server-badge.online{background:#0a2a00;color:#a3e635;border:1px solid #a3e635}
 .mature-cover{background:#150a20;border:2px solid #e11d48;border-radius:12px;padding:18px;text-align:center}
-/* SPEND FULL-SCREEN FEED */
 .spend-feed{height:calc(100vh - 190px);overflow-y:auto;scroll-snap-type:y mandatory;border-radius:16px;background:#000}
 .spend-item{height:calc(100vh - 190px);scroll-snap-align:start;position:relative;background:#000;overflow:hidden;border-radius:16px;margin-bottom:10px}
 .spend-item img,.spend-item video{width:100%;height:100%;object-fit:cover;display:block}
@@ -90,15 +90,14 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 .spend-act button.liked{color:#e11d48}
 .spend-act span{font-size:12px;font-weight:900}
 .spend-info{position:absolute;left:12px;bottom:70px;right:70px;z-index:5;text-shadow:0 2px 8px #000}
+.sound-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(0,0,0,.65);border:1px solid #a3e635;color:#a3e635;padding:4px 10px;border-radius:20px;font-size:12px;margin-top:6px;cursor:pointer}
 .big-heart{position:absolute;left:50%;top:45%;transform:translate(-50%,-50%) scale(0);font-size:90px;z-index:6;pointer-events:none;transition:transform .25s}
 .big-heart.show{transform:translate(-50%,-50%) scale(1.2)}
 .spend-tabs{display:flex;gap:6px;margin-bottom:8px}.spend-tabs button{flex:1;padding:10px;border-radius:10px;background:#111;color:#fff;border:1px solid #333;font-weight:900;cursor:pointer}.spend-tabs button.active{background:#facc15;color:#000}
-/* COMMENT SHEET */
 .comment-sheet{position:fixed;left:0;right:0;bottom:0;z-index:500;background:#111;border-top-left-radius:20px;border-top-right-radius:20px;border:1px solid #333;max-height:75vh;display:none;flex-direction:column;max-width:480px;margin:auto}
 .comment-sheet.open{display:flex}
 .comment-list{overflow-y:auto;padding:12px;flex:1}
 .comment-row{display:flex;gap:8px;padding:8px 0;border-bottom:1px solid #222}
-/* EDIT PROFILE FULL SCREEN */
 .edit-full{position:fixed;inset:0;background:#050505;z-index:600;display:none;overflow-y:auto;max-width:480px;margin:auto}
 .edit-full.open{display:block}
 .edit-cover{height:130px;background:#222;background-size:cover;background-position:center;display:flex;align-items:flex-end;justify-content:center;padding-bottom:10px}
@@ -108,7 +107,6 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 .toggle-row{display:flex;background:#111;border:1px solid #333;border-radius:12px;overflow:hidden;margin-top:10px}
 .toggle-row button{flex:1;padding:12px;border:none;background:#111;color:#fff;font-weight:900;cursor:pointer}
 .toggle-row button.active{background:#a855f7;color:#fff}
-/* STORY VIEWER */
 .story-modal{position:fixed;inset:0;background:#000;z-index:550;display:none;flex-direction:column;max-width:480px;margin:auto}
 .story-modal.open{display:flex}
 </style>
@@ -149,7 +147,7 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <div id="tab-profile">
 <div class="card">
 <div style="display:flex;gap:14px;align-items:center">
-<label class="avatar" id="avatarLabel">👤<input type="file" accept="image/*" style="display:none" id="avatarInput"></label>
+<label class="avatar" id="avatarLabel"><span id="avatarEmoji">👤</span><img id="avatarImg" style="display:none"><input type="file" accept="image/*" style="display:none" id="avatarInput"></label>
 <div style="min-width:0"><h2 id="displayName" style="word-break:break-word">@user <span id="verifiedBadge"></span></h2><p id="userPhone" style="color:#888"></p><p id="displayBio" style="color:#ccc;font-size:13px;margin-top:4px"></p><p id="verifyStatus" style="font-size:12px;color:#1da1f2"></p><p id="displayLocation" style="color:#888;font-size:12px"></p><p id="displayWebsite" style="color:#a3e635;font-size:12px"></p><p id="displayType" style="color:#c084fc;font-size:12px"></p></div>
 </div>
 <div class="stats">
@@ -166,8 +164,8 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <button class="btn gold" id="goCoinsBtn">+ BUY COINS / SUBCOINS</button>
 <button class="btn purple" id="goChannelsBtn">💜 GO TO CREATOR CHANNELS</button>
 <button class="btn gold" onclick="openBanduCamera()">➕ CREATE POST - Opens BANDU Camera</button>
-<div style="background:#0a1a00;border:1px solid #a3e635;border-radius:12px;padding:10px;margin-top:10px"><b>✨ MY FILTERS - ALL FREE ✅</b><br><span id="myFiltersText" style="font-size:12px;color:#888">8 / 8 FREE</span><br><button class="btn dark small" onclick="openBanduCamera()">✨ TRY FILTERS IN CAMERA - FREE</button></div>
-<div style="background:#111;border:1px solid #facc15;border-radius:12px;padding:10px;margin-top:10px"><b>🎵 MY MUSIC - JAMENDO LIVE</b><br><span id="myMusicText" style="font-size:12px;color:#888">No song selected</span><br><button class="btn dark small" onclick="openMusicSheet()">🎵 SEARCH MUSIC - JAMENDO</button></div>
+<div style="background:#0a1a00;border:1px solid #a3e635;border-radius:12px;padding:10px;margin-top:10px"><b>✨ MY FILTERS - IG/TIKTOK/SNAPCHAT AR (ALL FREE ✅)</b><br><span id="myFiltersText" style="font-size:12px;color:#888">17 / 17 FREE</span><br><button class="btn dark small" onclick="openBanduCamera()">✨ TRY AR &amp; SHADER FILTERS - FREE</button></div>
+<div style="background:#111;border:1px solid #facc15;border-radius:12px;padding:10px;margin-top:10px"><b>🎵 MY MUSIC - AUDIUS + JAMENDO + MP3</b><br><span id="myMusicText" style="font-size:12px;color:#888">No song selected</span><br><button class="btn dark small" onclick="openMusicSheet()">🎵 PICK TRENDING SONG OR MP3</button></div>
 </div>
 <div class="card">
 <p style="color:#a3e635;font-size:12px">📊 MY DASHBOARD - REAL NUMBERS ONLY</p>
@@ -177,7 +175,7 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <div><b id="dashComments">0</b><span>Total Comments</span></div>
 <div><b id="dashShares">0</b><span>Total Shares</span></div>
 </div>
-<p style="font-size:11px;color:#888;text-align:center;margin:8px 0 0">No fake Views / Growth - Only real likes & comments count.</p>
+<p style="font-size:11px;color:#888;text-align:center;margin:8px 0 0">No fake Views / Growth - Only real likes &amp; comments count.</p>
 </div>
 <div class="card"><p style="color:#a3e635;font-size:12px">MY POSTS</p><div id="myPosts"></div></div>
 <button class="btn dark" id="logoutBtn">LOGOUT</button>
@@ -202,7 +200,10 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 </div>
 <div id="tab-spend" class="hidden">
 <div class="card" style="padding:10px">
+<div style="display:flex;justify-content:space-between;align-items:center">
 <h3 style="margin:0">🪙 SPEND - BANDU FEED</h3>
+<button class="btn dark small" id="feedMuteBtn" style="margin:0" onclick="toggleFeedAudio()">🔊 Sound ON</button>
+</div>
 <p style="color:#a3e635;font-size:12px">FOR YOU = Everyone's posts • FOLLOWING = People you follow only</p>
 <p style="background:#0a1a00;padding:8px;border-radius:10px;font-size:12px">✅ PUBLIC FEED = CLEAN ONLY. No porn / naked / bad content. Bad content goes to Channels only.</p>
 <div class="spend-tabs"><button id="feedFollowingTab" onclick="setFeedMode('following')">👥 FOLLOWING</button><button id="feedForYouTab" class="active" onclick="setFeedMode('foryou')">🌍 FOR YOU</button><button id="feedStoriesTab" onclick="setFeedMode('stories')">🔴 STORIES</button></div>
@@ -212,6 +213,7 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <div><button class="chip active" data-cat="All">All</button><button class="chip" data-cat="Sports">⚽ Sports</button><button class="chip" data-cat="Comedy">😂 Comedy</button><button class="chip" data-cat="Short Videos">🎬 Short Videos</button><button class="chip" data-cat="Music">🎵 Music</button><button class="chip" data-cat="Kids">🧒 Kids</button><button class="chip" data-cat="Cartoons">🎭 Cartoons</button></div>
 </div>
 <div class="spend-feed" id="feedList"></div>
+<audio id="feedMusicPlayer" loop></audio>
 <p style="text-align:center;color:#888;font-size:12px">Swipe UP = Next video • Swipe DOWN = Previous video • Swipe LEFT/RIGHT = Change tab</p>
 </div>
 <div id="tab-notifications" class="hidden">
@@ -236,7 +238,7 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <p style="color:#a3e635;font-size:12px">LIVE is FREE now. You only need Internet / Data. Gifts still earn creator 75%.</p>
 <p id="liveTimer" style="text-align:center;font-size:28px;color:#facc15;font-weight:900">00:00:00</p>
 <p id="liveStatus" style="text-align:center;color:#a3e635">Not Live - FREE to Join</p>
-<button class="btn gold" onclick="startLive('WATCH',1)">👁 WATCH LIVE - FREE</button>
+<button class="btn gold" onclick="startLive('WATCH')">👁 WATCH LIVE - FREE</button>
 <button class="btn dark" onclick="openBanduCamera(true)">🔴 GO LIVE - FREE - BANDU Camera</button>
 <button class="btn dark" onclick="stopLive()">⏹ STOP LIVE</button>
 <h3>💰 MY CREATOR EARNINGS - 75% FROM GIFTS</h3>
@@ -248,7 +250,7 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 </div>
 </div>
 <div class="card">
-<p style="color:#a3e635;font-size:12px">POST IN MY CHANNEL - Caption & Category OPTIONAL</p>
+<p style="color:#a3e635;font-size:12px">POST IN MY CHANNEL - Caption &amp; Category OPTIONAL</p>
 <select id="channelSelect"><option value="">Choose your channel...</option></select>
 <textarea id="chanCaption" rows="2" placeholder="Caption - OPTIONAL"></textarea>
 <select id="chanCategory"><option value="">Category: Optional</option><option>Short Videos</option><option>Sports</option><option>Comedy</option><option>Music</option><option>Kids</option><option>Cartoons</option></select>
@@ -297,7 +299,6 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <button id="bChannels">💜<br>Channel</button>
 <button id="bCoins">🪙<br>Buy<br>coins</button>
 </div>
-<!-- EDIT PROFILE FULL SCREEN -->
 <div id="editFull" class="edit-full">
 <div style="display:flex;justify-content:space-between;align-items:center;padding:14px"><button class="btn dark small" onclick="closeEditFull()">← Back</button><b>Edit Profile</b><button class="btn gold small" onclick="saveEditFull()">Save</button></div>
 <div class="edit-cover" id="editCover"><button class="btn dark small" onclick="document.getElementById('coverInput').click()">Change Cover Photo</button><input type="file" id="coverInput" accept="image/*" style="display:none"></div>
@@ -305,7 +306,7 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <div style="padding:14px">
 <input id="editFullName" placeholder="Name - Wizzy">
 <input id="editFullUser" placeholder="Username - @wizzy">
-<textarea id="editFullBio" rows="3" placeholder="Bio - Music artist & producer. Beats, vibes, community."></textarea>
+<textarea id="editFullBio" rows="3" placeholder="Bio - Music artist &amp; producer. Beats, vibes, community."></textarea>
 <p style="color:#888;font-size:12px;text-align:right"><span id="wordCount">0</span> / 50 words</p>
 <input id="editFullLocation" placeholder="Location - Eldoret, Kenya">
 <input id="editFullWebsite" placeholder="Website Link - banducoins.com">
@@ -317,13 +318,11 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <button class="btn dark" onclick="closeEditFull()">Cancel</button>
 </div>
 </div>
-<!-- COMMENT SHEET -->
 <div id="commentSheet" class="comment-sheet">
 <div style="display:flex;justify-content:space-between;padding:14px"><b id="commentTitle">Comments</b><button class="btn dark small" onclick="closeComments()">✕</button></div>
 <div class="comment-list" id="commentList"></div>
 <div style="display:flex;gap:6px;padding:12px"><input id="commentInput" placeholder="Add comment..." style="margin:0"><button class="btn gold small" style="margin:0" onclick="sendComment()">➤</button></div>
 </div>
-<!-- STORY VIEWER MODAL -->
 <div id="storyModal" class="story-modal">
 <div style="display:flex;justify-content:space-between;padding:14px;align-items:center;background:rgba(0,0,0,.7)">
 <b id="storyAuthor">@user</b>
@@ -348,30 +347,45 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <button class="btn dark" onclick="closePostSheet()">CANCEL</button>
 </div>
 <div id="musicSheet" class="music-sheet">
-<div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">🎵 SEARCH MUSIC - JAMENDO LIVE</h3><button class="btn dark small" onclick="closeMusicSheet()">✕ CLOSE</button></div>
-<p style="font-size:12px;color:#888">Royalty-free music only - No copyright strike.</p>
+<div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">🎵 MUSIC - TRENDING &amp; MP3</h3><button class="btn dark small" onclick="closeMusicSheet()">✕ CLOSE</button></div>
+<p style="font-size:12px;color:#888">Audius Trending Hits + Jamendo Royalty-Free + Your Phone Beats.</p>
 <p style="background:#1a2a00;padding:8px;border-radius:10px;font-size:12px">Selected: <b id="selectedMusicLabel" style="color:#facc15">No song</b> <button class="btn dark small" onclick="clearMusic()">Clear</button></p>
-<input id="musicSearchInput" placeholder="🔍 Search music... e.g afrobeats">
+<button class="btn purple small" style="width:100%" onclick="document.getElementById('localAudioInput').click()">📁 USE SONG / BEAT FROM MY PHONE (.mp3)</button>
+<input type="file" id="localAudioInput" accept="audio/*" style="display:none">
+<input id="musicSearchInput" placeholder="🔍 Search Audius &amp; Jamendo... e.g afrobeats, burna, gospel">
 <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">
-<button class="chip" onclick="quickMusic('afrobeats')">Afrobeats</button><button class="chip" onclick="quickMusic('gospel')">Gospel</button><button class="chip" onclick="quickMusic('amapiano')">Amapiano</button><button class="chip" onclick="quickMusic('bongo')">Bongo</button><button class="chip" onclick="quickMusic('chill')">Chill</button><button class="chip" onclick="quickMusic('hip hop')">Hip Hop</button>
+<button class="chip active" onclick="loadAudiusTrending('',this)">🔥 Trending</button>
+<button class="chip" onclick="loadAudiusTrending('Afrobeats',this)">🌍 Afrobeats</button>
+<button class="chip" onclick="loadAudiusTrending('Hip-Hop/Rap',this)">🎤 Hip-Hop</button>
+<button class="chip" onclick="loadAudiusTrending('R&amp;B/Soul',this)">💜 R&amp;B</button>
+<button class="chip" onclick="loadAudiusTrending('Electronic',this)">⚡ Electronic</button>
+<button class="chip" onclick="quickMusic('amapiano',this)">🥁 Amapiano</button>
+<button class="chip" onclick="quickMusic('bongo',this)">🎶 Bongo</button>
+<button class="chip" onclick="quickMusic('gospel',this)">🙏 Gospel</button>
 </div>
-<button class="btn gold" id="musicSearchBtn">🔍 SEARCH JAMENDO</button>
-<p id="musicMsg" style="text-align:center;color:#888;font-size:12px">Type a song name above and tap SEARCH JAMENDO</p>
+<button class="btn gold" id="musicSearchBtn">🔍 SEARCH ALL SONGS</button>
+<p id="musicMsg" style="text-align:center;color:#888;font-size:12px">Loading trending tracks...</p>
 <div id="musicResults"></div>
 <audio id="musicPreviewPlayer" controls style="width:100%;display:none;margin-top:8px"></audio>
 </div>
 <div id="cameraPage" class="cam" oncontextmenu="return false">
-<div class="cam-top"><button onclick="closeBanduCamera()">✕</button><button onclick="openMusicSheet()">🎵 <span id="soundName">Search Music</span></button><button onclick="flipCam()">🔄</button></div>
+<div class="cam-top"><button onclick="closeBanduCamera()">✕</button><button onclick="openMusicSheet()">🎵 <span id="soundName">Add Sound</span></button><button onclick="flipCam()">🔄</button></div>
 <div style="position:relative;flex:1;overflow:hidden;display:flex;min-height:0"><video id="camVideo" autoplay playsinline muted></video><canvas id="camCanvas"></canvas><canvas id="arCanvas"></canvas></div>
-<div class="cam-right"><span onclick="showToast('⚡ Flash: ON')">⚡</span><span onclick="startCamTimer()">⏱</span><span onclick="showToast('✨ Filter: ON - All FREE')">✨</span><span onclick="showToast('🪞 Beauty: ON')">🪞</span></div>
+<div class="cam-right">
+<span onclick="toggleCamSound()">🔊<small id="camSoundLabel">Sound</small></span>
+<span onclick="startCamTimer()">⏱<small>3s</small></span>
+<span onclick="cycleBeauty()">🪞<small>Beauty</small></span>
+<span onclick="nextFilter()">✨<small>Next</small></span>
+</div>
 <div class="cam-bottom">
 <div class="cam-modes"><span onclick="setLen(600,this)">10m</span><span onclick="setLen(60,this)">60s</span><span onclick="setLen(15,this)">15s</span><span class="active" onclick="setMode('PHOTO',this)">PHOTO</span><span onclick="setMode('TEXT',this)">TEXT</span></div>
-<div style="text-align:center;color:#a3e635;font-size:12px;font-weight:900;margin-top:4px">✨ FILTERS - ALL FREE ✅</div>
+<div style="text-align:center;color:#a3e635;font-size:11px;font-weight:900;margin-top:2px">✨ IG • TIKTOK • SNAPCHAT FILTERS (ALL FREE ✅)</div>
 <div id="filtersRow" class="filters-row"></div>
-<div class="rec-row"><span style="font-size:28px;cursor:pointer" onclick="pickFromGallery()">🖼️</span><div class="rec" id="recBtn" onclick="handleShutter()"><div class="rec-inner"></div></div><span style="font-size:28px;cursor:pointer" onclick="showToast('All 8 effects are FREE')">↗ All</span></div>
+<div class="rec-row"><span style="font-size:28px;cursor:pointer" onclick="pickFromGallery()">🖼️</span><div class="rec" id="recBtn" onclick="handleShutter()"><div class="rec-inner"></div></div><span style="font-size:14px;font-weight:900;cursor:pointer;color:#facc15" onclick="openMusicSheet()">🎵<br>Song</span></div>
 <div class="cam-tabs"><span id="tabLive" onclick="setCamTab('LIVE',this)">LIVE</span><span id="tabCamera" class="active" onclick="setCamTab('CAMERA',this)">CAMERA</span><span id="tabCreate" onclick="setCamTab('CREATE',this)">CREATE</span></div>
-<p id="camMsg" style="text-align:center;color:#facc15;font-size:13px;margin:4px 0 0">Canvas + Filter: Beauty Pro (FREE)</p>
+<p id="camMsg" style="text-align:center;color:#facc15;font-size:12px;margin:2px 0 0">Filter: Beauty Glow (FREE)</p>
 </div>
+<audio id="camAudioPlayer" loop></audio>
 </div>
 <div id="liveOverlay" style="display:none;position:fixed;inset:0;background:#000;z-index:400;flex-direction:column;max-width:480px;margin:auto">
 <div style="display:flex;justify-content:space-between;padding:14px;align-items:center">
@@ -380,7 +394,7 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 </div>
 <video id="liveVideo" autoplay playsinline muted style="flex:1;width:100%;object-fit:contain;background:#111"></video>
 <div style="padding:14px">
-<p style="color:#888;font-size:12px;text-align:center">LIVE - FREE - Just Internet - Gifts earn creator 75%</p>
+<p id="liveInfoNote" style="color:#888;font-size:12px;text-align:center">LIVE - FREE - Just Internet - Gifts earn creator 75%</p>
 <div style="display:flex;gap:6px;justify-content:center;margin-bottom:6px">
 <button class="btn gold small" onclick="sendLiveGift(10)">🎁 Gift 10 Coins</button>
 <button class="btn purple small" onclick="sendLiveGift(50)">💎 Gift 50 Coins</button>
@@ -392,7 +406,7 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 </div>
 <script type="module">
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc, getDocs, query, orderBy, onSnapshot, doc, setDoc, deleteDoc, where } from "firebase/firestore";
+import { getFirestore, collection, addDoc, getDocs, query, orderBy, onSnapshot, doc, setDoc } from "firebase/firestore";
 const firebaseConfig = {
   apiKey: "AIzaSyCf6YZW8nZJZEqVnB-TzvqW1GPb5bocCjU",
   authDomain: "banducoins.firebaseapp.com",
@@ -410,12 +424,15 @@ try{
     document.getElementById("serverBadge").innerText="☁️ REAL SERVER - Firebase";
     document.getElementById("serverBadge").classList.add("online");
   }
-}catch(e){ console.log("Firebase not configured yet",e); }
-window._db=db; window._firebaseReady=firebaseReady; window._firestore={collection,addDoc,getDocs,query,orderBy,onSnapshot,doc,setDoc,deleteDoc,where};
+}catch(e){ console.log("Firebase init",e); }
+window._db=db; window._firebaseReady=firebaseReady; window._firestore={collection,addDoc,getDocs,query,orderBy,onSnapshot,doc,setDoc};
 window.dispatchEvent(new Event("firebase-ready"));
 </script>
 <script>
 var JAMENDO_CLIENT_ID="6b629c60";
+var AUDIUS_HOST="https://discoveryprovider.audius.co";
+fetch("https://api.audius.co").then(function(r){return r.json()}).then(function(d){if(d&&d.data&&d.data.length) AUDIUS_HOST=d.data[0];}).catch(function(){});
+
 function esc(s){
   if(s===null||s===undefined) return "";
   return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
@@ -457,20 +474,46 @@ var currentUser=get("bandu_phone",""), userName=get("bandu_name","@user"), avata
 var userLocation=get("bandu_location","Eldoret, Kenya"), userWebsite=get("bandu_website","banducoins.com"), userType=get("bandu_type","Artist"), userCover=get("bandu_cover","");
 var currentCat="All", selectedCoins=450, selectedAmount=20, selectedType="coin", currentChatPhone="", tempPostUrl="", tempPostType="image";
 var camStream=null, camFacing='user', camLen=15, camMode='PHOTO', liveSeconds=0, liveInt=null, mediaRecorder=null, recordedChunks=[], isRecording=false, galleryFromCam=false;
-var currentCommentIndex=-1;
+var currentCommentIndex=-1, beautyBoost=false, feedMuted=false, activeFeedObserver=null;
 var savedPosts=[]; try{savedPosts=JSON.parse(get("bandu_saved","[]"))}catch(e){savedPosts=[]}
+
 var FILTERS=[
-{id:"beauty",name:"Beauty Pro",emoji:"✨",cost:0,css:"brightness(1.15) contrast(1.1) saturate(1.1)"},
-{id:"vintage",name:"Vintage",emoji:"📽️",cost:0,css:"sepia(0.6) contrast(1.05) brightness(0.95)"},
-{id:"bw",name:"B&W",emoji:"⬛",cost:0,css:"grayscale(1) contrast(1.2)"},
-{id:"neon",name:"Nairobi Neon",emoji:"🌃",cost:0,css:"saturate(1.8) hue-rotate(280deg) contrast(1.2)"},
-{id:"cartoon",name:"Cartoon",emoji:"🎨",cost:0,css:"contrast(1.5) saturate(1.6)"},
-{id:"golden",name:"Golden Hour",emoji:"🌅",cost:0,css:"sepia(0.35) saturate(1.4) brightness(1.15)"},
-{id:"glitch",name:"Glitch",emoji:"📺",cost:0,css:"contrast(1.4) saturate(1.5)"},
-{id:"sunglasses",name:"Sunglasses AR",emoji:"😎",cost:0,css:"brightness(1.1)",isAR:true}
+  {id:"beauty",name:"Beauty Glow",emoji:"✨",css:"brightness(1.14) contrast(1.06) saturate(1.12)",fx:"warmglow"},
+  {id:"paris",name:"Paris IG",emoji:"🗼",css:"brightness(1.12) contrast(0.94) saturate(1.18) sepia(0.12)",fx:"paris"},
+  {id:"sunglasses",name:"Shades AR",emoji:"😎",css:"brightness(1.06) contrast(1.08)",isAR:true,arType:"shades"},
+  {id:"puppy",name:"Puppy AR",emoji:"🐶",css:"brightness(1.1) saturate(1.1)",isAR:true,arType:"puppy"},
+  {id:"hearteyes",name:"Heart Eyes",emoji:"😍",css:"brightness(1.12) saturate(1.2)",isAR:true,arType:"hearts"},
+  {id:"crown",name:"Gold Crown",emoji:"👑",css:"brightness(1.1) saturate(1.15)",isAR:true,arType:"crown"},
+  {id:"butterfly",name:"Butterfly AR",emoji:"🦋",css:"brightness(1.1) saturate(1.25)",isAR:true,arType:"butterfly"},
+  {id:"laser",name:"Laser Eyes",emoji:"⚡",css:"contrast(1.25) saturate(1.2)",isAR:true,arType:"laser"},
+  {id:"vhs",name:"90s VHS",emoji:"🎞️",css:"sepia(0.35) contrast(1.15) saturate(1.25)",fx:"vhs"},
+  {id:"glitch",name:"Glitch FX",emoji:"📺",css:"contrast(1.3) saturate(1.4)",fx:"glitch"},
+  {id:"coinrain",name:"Coin Rain",emoji:"🪙",css:"brightness(1.08) saturate(1.2)",fx:"coins"},
+  {id:"sparkle",name:"Sparkle Dust",emoji:"🌟",css:"brightness(1.1) saturate(1.2)",fx:"sparkle"},
+  {id:"golden",name:"Golden Hour",emoji:"🌅",css:"sepia(0.32) saturate(1.45) brightness(1.14)",fx:"golden"},
+  {id:"neon",name:"Nairobi Neon",emoji:"🌃",css:"saturate(1.9) hue-rotate(275deg) contrast(1.25)",fx:"neon"},
+  {id:"mirror",name:"Mirror Clone",emoji:"🪩",css:"contrast(1.12) saturate(1.18)",fx:"mirror"},
+  {id:"cartoon",name:"Comic Pop",emoji:"🎨",css:"contrast(1.6) saturate(1.75) brightness(1.08)",fx:"vignette"},
+  {id:"bw",name:"Noir B&W",emoji:"🖤",css:"grayscale(1) contrast(1.35) brightness(1.04)",fx:"vignette"}
 ];
-var selectedFilter=FILTERS[0];
-var selectedMusic=null;
+var selectedFilter=FILTERS[0], selectedFilterIndex=0, selectedMusic=null;
+
+var particles=[];
+for(var pi=0;pi<28;pi++) particles.push({x:Math.random(),y:Math.random(),s:0.4+Math.random()*0.8,v:0.004+Math.random()*0.008,a:Math.random()*6.28});
+
+var faceMesh=null, fmBusy=false, latestLandmarks=null;
+function initFaceMesh(){
+  if(faceMesh || typeof FaceMesh==="undefined") return;
+  try{
+    faceMesh=new FaceMesh({locateFile:function(file){ return "https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/"+file; }});
+    faceMesh.setOptions({maxNumFaces:1,refineLandmarks:false,minDetectionConfidence:0.5,minTrackingConfidence:0.5});
+    faceMesh.onResults(function(res){
+      fmBusy=false;
+      latestLandmarks=(res.multiFaceLandmarks && res.multiFaceLandmarks.length)?res.multiFaceLandmarks[0]:null;
+    });
+  }catch(e){}
+}
+
 var BAD_WORDS=["porn","naked","nude","sex","xxx","pornographic"];
 function containsBadContent(text){
   if(!text) return false;
@@ -484,8 +527,7 @@ function verifiedMark(phone){ return isVerified(phone)?'<span class="verified">�
 function checkVerification(){
   var followersEl=document.getElementById("statFollowers");
   var followers=followersEl?parseInt(followersEl.innerText||"0")||0:0;
-  var badge=document.getElementById("verifiedBadge");
-  var status=document.getElementById("verifyStatus");
+  var badge=document.getElementById("verifiedBadge"), status=document.getElementById("verifyStatus");
   if(followers>=50000){
     if(verifiedUsers.indexOf(currentUser)<0){ verifiedUsers.push(currentUser); set("bandu_verified",JSON.stringify(verifiedUsers)); }
     if(badge) badge.innerHTML='<span class="verified">✓</span>';
@@ -520,7 +562,11 @@ function updateUI(){
   var dl=document.getElementById("displayLocation"); if(dl) dl.innerText=userLocation?("📍 "+userLocation):"";
   var dw=document.getElementById("displayWebsite"); if(dw) dw.innerText=userWebsite?("🔗 "+userWebsite):"";
   var dt=document.getElementById("displayType"); if(dt) dt.innerText=userType?("⭐ "+userType):"";
-  var al=document.getElementById("avatarLabel"); if(al && avatarUrl && !al.querySelector("img")) al.innerHTML='<img src="'+avatarUrl+'"><input type="file" accept="image/*" style="display:none" id="avatarInput">';
+  var aImg=document.getElementById("avatarImg"), aEm=document.getElementById("avatarEmoji");
+  if(aImg && aEm){
+    if(avatarUrl){ aImg.src=avatarUrl; aImg.style.display="block"; aEm.style.display="none"; }
+    else { aImg.style.display="none"; aEm.style.display="block"; }
+  }
   var sf=document.getElementById("statFollowing"); if(sf) sf.innerText=following.length;
   var cf=document.getElementById("chanFollowers"); if(cf) cf.innerText=document.getElementById("statFollowers")?document.getElementById("statFollowers").innerText:"0";
   var cs=document.getElementById("chanSubcoins"); if(cs) cs.innerText=subcoins;
@@ -529,12 +575,11 @@ function updateUI(){
   checkVerification();
 }
 function showTab(name){
-  var tabs=["profile","inbox","spend","channels","coins","notifications"];
-  tabs.forEach(function(t){
-    var el=document.getElementById("tab-"+t);
-    if(el) el.classList.toggle("hidden", t!==name);
-    var btn=document.getElementById("t"+t.charAt(0).toUpperCase()+t.slice(1));
-    if(btn) btn.classList.toggle("active", t===name);
+  var feedAudio=document.getElementById("feedMusicPlayer");
+  if(name!=="spend" && feedAudio) feedAudio.pause();
+  ["profile","inbox","spend","channels","coins","notifications"].forEach(function(t){
+    var el=document.getElementById("tab-"+t); if(el) el.classList.toggle("hidden", t!==name);
+    var btn=document.getElementById("t"+t.charAt(0).toUpperCase()+t.slice(1)); if(btn) btn.classList.toggle("active", t===name);
   });
   var map={profile:"bProfile",inbox:"bInbox",spend:"bSpend",channels:"bChannels",coins:"bCoins"};
   ["bProfile","bInbox","bSpend","bChannels","bCoins"].forEach(function(id){var e=document.getElementById(id); if(e) e.classList.remove("active");});
@@ -578,43 +623,66 @@ function openStory(idx){
   }
   document.getElementById("storyAuthor").innerHTML=esc(s.user||s.phone)+" "+verifiedMark(s.phone);
   var box=document.getElementById("storyContent");
-  if(s.url){
-    box.innerHTML=s.type==="video"?'<video src="'+s.url+'" controls autoplay style="max-width:100%;max-height:100%"></video>':'<img src="'+s.url+'" style="max-width:100%;max-height:100%;object-fit:contain">';
-  } else {
-    box.innerHTML='<h2>'+esc(s.caption||"")+'</h2>';
-  }
+  box.innerHTML=s.url?(s.type==="video"?'<video src="'+s.url+'" controls autoplay style="max-width:100%;max-height:100%"></video>':'<img src="'+s.url+'" style="max-width:100%;max-height:100%;object-fit:contain">'):('<h2>'+esc(s.caption||"")+'</h2>');
   document.getElementById("storyCaption").innerText=s.caption||"";
   document.getElementById("storyModal").classList.add("open");
+  if(s.musicUrl && !feedMuted){ var fp=document.getElementById("feedMusicPlayer"); fp.src=s.musicUrl; fp.play().catch(function(){}); }
 }
 function closeStoryModal(){
   var v=document.querySelector("#storyContent video"); if(v) v.pause();
+  document.getElementById("feedMusicPlayer").pause();
   document.getElementById("storyModal").classList.remove("open");
+}
+function toggleFeedAudio(){
+  feedMuted=!feedMuted;
+  var fp=document.getElementById("feedMusicPlayer"), btn=document.getElementById("feedMuteBtn");
+  btn.innerText=feedMuted?"🔇 Muted":"🔊 Sound ON";
+  if(feedMuted) fp.pause();
+  else if(fp.src) fp.play().catch(function(){});
+}
+function playPostMusic(url){
+  var fp=document.getElementById("feedMusicPlayer");
+  if(!url || feedMuted){ fp.pause(); return; }
+  if(fp.src!==url) fp.src=url;
+  fp.play().catch(function(){});
 }
 function renderFeed(){
   var list=document.getElementById("feedList"); if(!list) return;
   var posts=getVisiblePosts();
-  if(!posts.length){ list.innerHTML='<p style="text-align:center;color:#888;padding:40px">No clean public posts yet. Be the first to post clean content.</p>'; return; }
+  if(!posts.length){
+    document.getElementById("feedMusicPlayer").pause();
+    list.innerHTML='<p style="text-align:center;color:#888;padding:40px">No clean public posts yet. Be the first to post clean content.</p>';
+    return;
+  }
   list.innerHTML=posts.map(function(p){
     var realIdx=myPosts.indexOf(p);
     var liked=(p.likedBy||[]).indexOf(currentUser)>=0;
     var isFollowing=following.indexOf(p.phone)>=0;
     var avHtml=(p.phone===currentUser && avatarUrl)?'<img src="'+avatarUrl+'">':'👤';
-    var media=p.url? (p.type==="video"?'<video src="'+p.url+'" playsinline loop onclick="togglePlay(this)"></video>':'<img src="'+p.url+'" ondblclick="likePost('+realIdx+',true)">') : '<div style="height:100%;display:flex;align-items:center;justify-content:center;padding:30px;text-align:center;background:#111"><h2>'+esc(p.caption||"")+'</h2></div>';
-    var musicLine=p.music?'<div style="font-size:12px;color:#a3e635;margin-top:4px">🎵 '+esc(p.music)+'</div>':'';
-    return '<div class="spend-item" ondblclick="likePost('+realIdx+',true)"><div class="big-heart" id="heart-'+realIdx+'">❤️</div>'+media+'<div class="spend-info"><div style="display:flex;gap:8px;align-items:center"><span class="avatar-sm" onclick="showTab(\'profile\')">'+avHtml+'</span><b>'+esc(p.user||p.phone)+' '+verifiedMark(p.phone)+'</b>'+(p.phone!==currentUser?'<button class="btn dark small" style="margin:0" onclick="followUser(\''+esc(p.phone)+'\')">'+(isFollowing?"✓ Following":"+ Follow")+'</button>':'')+'</div><p style="margin:6px 0 2px">'+esc(p.caption||"")+'</p>'+musicLine+'<small style="color:#ccc">'+esc(p.time||"")+'</small></div><div class="spend-actions"><div class="spend-act"><button class="'+(liked?"liked":"")+'" onclick="likePost('+realIdx+')">❤️</button><span>'+(p.likes||0)+'</span></div><div class="spend-act"><button onclick="openComments('+realIdx+')">💬</button><span>'+((p.comments||[]).length)+'</span></div><div class="spend-act"><button onclick="sharePost('+realIdx+')">↗️</button><span>'+(p.shares||0)+'</span></div><div class="spend-act"><button onclick="savePost('+realIdx+')">🔖</button><span>Save</span></div><div class="spend-act"><button onclick="reportPost('+realIdx+')">🚩</button><span>Report</span></div></div></div>';
+    var media=p.url?(p.type==="video"?'<video src="'+p.url+'" playsinline loop onclick="togglePlay(this)"></video>':'<img src="'+p.url+'" ondblclick="likePost('+realIdx+',true)">'):'<div style="height:100%;display:flex;align-items:center;justify-content:center;padding:30px;text-align:center;background:#111"><h2>'+esc(p.caption||"")+'</h2></div>';
+    var musicLine=p.music?'<div class="sound-pill" data-val="'+esc(p.musicUrl||"")+'" onclick="playPostMusic(this.dataset.val)">🎵 '+esc(p.music)+'</div>':'';
+    return '<div class="spend-item" data-music="'+esc(p.musicUrl||"")+'" ondblclick="likePost('+realIdx+',true)"><div class="big-heart" id="heart-'+realIdx+'">❤️</div>'+media+'<div class="spend-info"><div style="display:flex;gap:8px;align-items:center"><span class="avatar-sm" onclick="showTab(\'profile\')">'+avHtml+'</span><b>'+esc(p.user||p.phone)+' '+verifiedMark(p.phone)+'</b>'+(p.phone!==currentUser?'<button class="btn dark small" style="margin:0" data-val="'+esc(p.phone)+'" onclick="followUser(this.dataset.val)">'+(isFollowing?"✓ Following":"+ Follow")+'</button>':'')+'</div><p style="margin:6px 0 2px">'+esc(p.caption||"")+'</p>'+musicLine+'<br><small style="color:#ccc">'+esc(p.time||"")+'</small></div><div class="spend-actions"><div class="spend-act"><button class="'+(liked?"liked":"")+'" onclick="likePost('+realIdx+')">❤️</button><span>'+(p.likes||0)+'</span></div><div class="spend-act"><button onclick="openComments('+realIdx+')">💬</button><span>'+((p.comments||[]).length)+'</span></div><div class="spend-act"><button onclick="sharePost('+realIdx+')">↗️</button><span>'+(p.shares||0)+'</span></div><div class="spend-act"><button onclick="savePost('+realIdx+')">🔖</button><span>Save</span></div><div class="spend-act"><button onclick="reportPost('+realIdx+')">🚩</button><span>Report</span></div></div></div>';
   }).join("");
+  if(activeFeedObserver) activeFeedObserver.disconnect();
+  if("IntersectionObserver" in window){
+    activeFeedObserver=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          playPostMusic(en.target.getAttribute("data-music"));
+          var vid=en.target.querySelector("video"); if(vid) vid.play().catch(function(){});
+        } else {
+          var vid2=en.target.querySelector("video"); if(vid2) vid2.pause();
+        }
+      });
+    },{root:list,threshold:0.65});
+    list.querySelectorAll(".spend-item").forEach(function(el){ activeFeedObserver.observe(el); });
+  }
 }
 function togglePlay(v){ if(v.paused) v.play(); else v.pause(); }
 function followUser(phone){
   if(!phone||phone===currentUser) return;
-  if(following.indexOf(phone)<0){
-    following.push(phone);
-    addNotification(currentUser, userName+" followed "+phone, "follow");
-    saveAll(); showToast("Following "+phone);
-  } else {
-    following=following.filter(function(x){return x!==phone});
-    saveAll(); showToast("Unfollowed");
-  }
+  if(following.indexOf(phone)<0){ following.push(phone); addNotification(currentUser, userName+" followed "+phone, "follow"); saveAll(); showToast("Following "+phone); }
+  else { following=following.filter(function(x){return x!==phone}); saveAll(); showToast("Unfollowed"); }
   renderFeed();
 }
 function renderMyPosts(){
@@ -630,8 +698,8 @@ function renderMyPosts(){
   if(!mine.length){ el.innerHTML='<p style="color:#888">No posts yet.</p>'; return; }
   el.innerHTML=mine.map(function(p){
     if(p.mature) return '<div class="post"><div class="mature-cover">🔞 MATURE 18+ - CHANNEL ONLY - Not in Public Feed</div></div>';
-    var media=p.url? (p.type==="video"?'<video src="'+p.url+'" controls></video>':'<img src="'+p.url+'">') : '';
-    return '<div class="post"><div class="post-body"><p>'+esc(p.caption||"")+'</p><small style="color:#888">❤️ '+(p.likes||0)+' • 💬 '+((p.comments||[]).length)+' • ↗️ '+(p.shares||0)+'</small></div>'+media+'</div>';
+    var media=p.url?(p.type==="video"?'<video src="'+p.url+'" controls></video>':'<img src="'+p.url+'">'):'';
+    return '<div class="post"><div class="post-body"><p>'+esc(p.caption||"")+'</p>'+(p.music?'<small style="color:#a3e635">🎵 '+esc(p.music)+'</small><br>':'')+'<small style="color:#888">❤️ '+(p.likes||0)+' • 💬 '+((p.comments||[]).length)+' • ↗️ '+(p.shares||0)+'</small></div>'+media+'</div>';
   }).join("");
 }
 function subscribeChannel(chId){
@@ -639,10 +707,7 @@ function subscribeChannel(chId){
   var key=currentUser+"_"+chId;
   if(subs.indexOf(key)>=0){ showToast("Already subscribed!"); return; }
   if(subcoins<600){ showToast("Need 600 Subcoins to subscribe",true); showTab("coins"); return; }
-  subcoins-=600;
-  creatorEarn+=450; // 75% to creator
-  appEarnings+=150; // 25% to app owner
-  subs.push(key);
+  subcoins-=600; creatorEarn+=450; appEarnings+=150; subs.push(key);
   addNotification(currentUser, userName+" subscribed to "+ch.name+" (+450 creator coins)", "sub");
   saveAll(); renderChannels(); showToast("💜 Subscribed to "+ch.name+"!");
 }
@@ -655,7 +720,7 @@ function renderChannels(){
     var postsHtml=posts.map(function(p,postNum){
       var idx=channelPosts.indexOf(p);
       if(postNum>=3 && !isOwnerOrSub){
-        return '<div class="post"><div class="mature-cover" style="border-color:#a855f7">🔒 POST #'+(postNum+1)+' LOCKED<br><small style="color:#ccc">First 3 posts are FREE. Subscribe (600 Subcoins) to unlock.</small><br><button class="btn purple small" onclick="subscribeChannel(\''+esc(ch.id)+'\')">💜 SUBSCRIBE - 600 SUBCOINS</button></div></div>';
+        return '<div class="post"><div class="mature-cover" style="border-color:#a855f7">🔒 POST #'+(postNum+1)+' LOCKED<br><small style="color:#ccc">First 3 posts are FREE. Subscribe (600 Subcoins) to unlock.</small><br><button class="btn purple small" data-val="'+esc(ch.id)+'" onclick="subscribeChannel(this.dataset.val)">💜 SUBSCRIBE - 600 SUBCOINS</button></div></div>';
       }
       if(p.mature){
         return '<div class="post"><div class="mature-cover">🔞 MATURE 18+ - CHANNEL ONLY<br><button class="btn gold small" onclick="revealMature('+idx+',this)">👁 TAP TO VIEW 18+</button><div id="mature-'+idx+'" style="display:none">'+(p.url?(p.type==="video"?'<video src="'+p.url+'" controls></video>':'<img src="'+p.url+'">'):"")+'<p>'+esc(p.caption||"")+'</p></div></div></div>';
@@ -663,7 +728,7 @@ function renderChannels(){
       var media=p.url?(p.type==="video"?'<video src="'+p.url+'" controls></video>':'<img src="'+p.url+'">'):"";
       return '<div class="post"><div class="post-body"><p>'+esc(p.caption||"")+'</p></div>'+media+'</div>';
     }).join("");
-    var subBtn=(ch.owner!==currentUser && !isOwnerOrSub)?'<button class="btn purple small" onclick="subscribeChannel(\''+esc(ch.id)+'\')">💜 SUBSCRIBE (600 Subcoins)</button>':(ch.owner!==currentUser?'<span style="color:#a3e635;font-size:12px">✅ Subscribed</span>':'');
+    var subBtn=(ch.owner!==currentUser && !isOwnerOrSub)?'<button class="btn purple small" data-val="'+esc(ch.id)+'" onclick="subscribeChannel(this.dataset.val)">💜 SUBSCRIBE (600 Subcoins)</button>':(ch.owner!==currentUser?'<span style="color:#a3e635;font-size:12px">✅ Subscribed</span>':'');
     return '<div class="channel-card"><h3>💜 '+esc(ch.name)+'</h3><p style="color:#888;font-size:12px">'+esc(ch.desc||"")+'</p><p>Posts: '+posts.length+' | First 3 FREE '+subBtn+'</p>'+postsHtml+'</div>';
   }).join("");
 }
@@ -686,7 +751,7 @@ function renderCommentList(){
   var p=myPosts[currentCommentIndex]; if(!p) return;
   var el=document.getElementById("commentList");
   el.innerHTML=(p.comments||[]).map(function(c,ci){
-    return '<div class="comment-row"><span class="avatar-sm">👤</span><div><b>'+esc(c.user)+'</b> <small style="color:#888">'+esc(c.time||"")+'</small><div>'+esc(c.text)+'</div><button class="btn dark small" onclick="likeComment('+ci+')">❤️ '+(c.likes||0)+'</button> <button class="btn dark small" onclick="replyComment(\''+esc(c.user)+'\')">Reply</button></div></div>';
+    return '<div class="comment-row"><span class="avatar-sm">👤</span><div><b>'+esc(c.user)+'</b> <small style="color:#888">'+esc(c.time||"")+'</small><div>'+esc(c.text)+'</div><button class="btn dark small" onclick="likeComment('+ci+')">❤️ '+(c.likes||0)+'</button> <button class="btn dark small" data-val="'+esc(c.user)+'" onclick="replyComment(this.dataset.val)">Reply</button></div></div>';
   }).join("")||'<p style="color:#888">No comments yet. Be first.</p>';
 }
 function closeComments(){ document.getElementById("commentSheet").classList.remove("open"); }
@@ -704,12 +769,10 @@ function sendComment(){
 }
 function likeComment(ci){ var p=myPosts[currentCommentIndex]; if(!p||!p.comments[ci]) return; p.comments[ci].likes=(p.comments[ci].likes||0)+1; saveAll(); renderCommentList(); }
 function replyComment(user){ document.getElementById("commentInput").value="@"+user+" "; document.getElementById("commentInput").focus(); }
-function commentPost(i){ openComments(i); }
 function sharePost(i){
   var p=myPosts[i]; if(!p) return;
   if(coins<1){ showToast("Need 1 coin to share",true); return; }
-  coins-=1;
-  p.shares=(p.shares||0)+1;
+  coins-=1; p.shares=(p.shares||0)+1;
   if(p.phone!==currentUser) addNotification(currentUser, userName+" shared your post", "share");
   saveAll(); renderFeed();
   if(window._firebaseReady && window._db && p._serverId){ try{var f=window._firestore; f.setDoc(f.doc(window._db,"posts",p._serverId),{shares:p.shares},{merge:true});}catch(e){} }
@@ -723,9 +786,7 @@ function addNotification(from,text,type){ notifications.unshift({from:from,text:
 function renderNotifications(){
   var el=document.getElementById("notifList"); if(!el) return;
   if(!notifications.length){ el.innerHTML='<p style="color:#888;text-align:center">No notifications yet.</p>'; }
-  else {
-    el.innerHTML=notifications.map(function(n,i){ return '<div class="notif '+(n.read?"":"unread")+'" onclick="markNotifRead('+i+')"><b>'+esc(n.text)+'</b><br><small style="color:#888">'+esc(n.time)+'</small></div>'; }).join("");
-  }
+  else { el.innerHTML=notifications.map(function(n,i){ return '<div class="notif '+(n.read?"":"unread")+'" onclick="markNotifRead('+i+')"><b>'+esc(n.text)+'</b><br><small style="color:#888">'+esc(n.time)+'</small></div>'; }).join(""); }
   var card=document.getElementById("adminReportsCard"); if(card) card.style.display=isOwner()&&reports.length?"block":"none";
   var rl=document.getElementById("adminReportsList"); if(rl) rl.innerHTML=reports.map(function(r,i){ return '<div style="border:1px solid #333;padding:10px;border-radius:10px;margin-bottom:8px">Report #'+i+' - Post '+r.post+' by '+esc(r.by)+'<br><button class="btn dark small" onclick="deleteReported('+i+')">Delete Post</button></div>'; }).join("");
 }
@@ -745,7 +806,6 @@ function selectPkg(c,a,t,el){
   document.getElementById("selectedPhone").innerText=currentUser;
   try{ localStorage.setItem("bandu_pending", JSON.stringify({coins:c, amount:a, type:t, phone:currentUser, time:Date.now()})); }catch(e){}
 }
-// INBOX & CHAT
 function chatKey(a,b){ return [a,b].sort().join("_"); }
 function renderInbox(){
   var box=document.getElementById("inboxUsers"); if(!box) return;
@@ -756,7 +816,7 @@ function renderInbox(){
   var keys=Object.keys(known);
   if(!keys.length){ box.innerHTML='<p style="color:#888">No contacts yet. Enter a phone number above to start a chat.</p>'; return; }
   box.innerHTML=keys.map(function(ph){
-    return '<div class="user-row"><div><b>'+esc(known[ph])+'</b><br><small style="color:#888">'+esc(ph)+'</small></div><button class="btn gold small" onclick="openChat(\''+esc(ph)+'\')">💬 CHAT</button></div>';
+    return '<div class="user-row"><div><b>'+esc(known[ph])+'</b><br><small style="color:#888">'+esc(ph)+'</small></div><button class="btn gold small" data-val="'+esc(ph)+'" onclick="openChat(this.dataset.val)">💬 CHAT</button></div>';
   }).join("");
 }
 function startChatByPhone(){
@@ -792,8 +852,7 @@ function renderChatMessages(){
 }
 document.getElementById("sendMsgBtn").onclick=function(){
   if(!currentChatPhone) return;
-  var inp=document.getElementById("chatInput");
-  var txt=inp.value.trim(); if(!txt) return;
+  var inp=document.getElementById("chatInput"), txt=inp.value.trim(); if(!txt) return;
   var key=chatKey(currentUser, currentChatPhone);
   if(!chats[key]) chats[key]=[];
   chats[key].push({from:currentUser,text:txt,time:new Date().toLocaleTimeString()});
@@ -806,11 +865,9 @@ document.getElementById("shareVideoBtn").onclick=function(){
   var mine=myPosts.filter(function(p){return p.phone===currentUser;});
   if(!mine.length){ showToast("Create a post first to share it",true); return; }
   if(sel.classList.contains("hidden")){
-    sel.innerHTML='<option value="">-- Select your post to send (1 coin) --</option>'+mine.map(function(p,i){return '<option value="'+i+'">'+(p.caption||"Post #"+(i+1)).slice(0,40)+'</option>';}).join("");
+    sel.innerHTML='<option value="">-- Select your post to send (1 coin) --</option>'+mine.map(function(p,i){return '<option value="'+i+'">'+esc((p.caption||"Post #"+(i+1)).slice(0,40))+'</option>';}).join("");
     sel.classList.remove("hidden");
-  } else {
-    sel.classList.add("hidden");
-  }
+  } else sel.classList.add("hidden");
 };
 document.getElementById("sharePostSelect").onchange=function(){
   var idx=this.value; if(idx==="") return;
@@ -824,10 +881,8 @@ document.getElementById("sharePostSelect").onchange=function(){
   this.classList.add("hidden");
   saveAll(); renderChatMessages(); showToast("📤 Shared (-1 coin)");
 };
-// USER SEARCH IN SPEND
 document.getElementById("searchInput").oninput=function(){
-  var q=this.value.trim().toLowerCase();
-  var box=document.getElementById("searchResults");
+  var q=this.value.trim().toLowerCase(), box=document.getElementById("searchResults");
   if(!q){ box.innerHTML=""; return; }
   var pool={};
   users.forEach(function(u){ pool[u.phone]=u.name||u.phone; });
@@ -838,25 +893,23 @@ document.getElementById("searchInput").oninput=function(){
   if(!matches.length){ box.innerHTML='<p style="color:#888;font-size:12px">No matching users</p>'; return; }
   box.innerHTML=matches.slice(0,8).map(function(ph){
     var isF=following.indexOf(ph)>=0;
-    return '<div class="user-row"><div><b>'+esc(pool[ph])+' '+verifiedMark(ph)+'</b><br><small style="color:#888">'+esc(ph)+'</small></div><div><button class="btn dark small" onclick="followUser(\''+esc(ph)+'\')">'+(isF?"✓ Following":"+ Follow")+'</button><button class="btn gold small" onclick="showTab(\'inbox\');openChat(\''+esc(ph)+'\')">💬</button></div></div>';
+    return '<div class="user-row"><div><b>'+esc(pool[ph])+' '+verifiedMark(ph)+'</b><br><small style="color:#888">'+esc(ph)+'</small></div><div><button class="btn dark small" data-val="'+esc(ph)+'" onclick="followUser(this.dataset.val)">'+(isF?"✓ Following":"+ Follow")+'</button><button class="btn gold small" data-val="'+esc(ph)+'" onclick="showTab(\'inbox\');openChat(this.dataset.val)">💬</button></div></div>';
   }).join("");
 };
-// SWIPE LEFT/RIGHT ON SPEND TO CHANGE TAB
 (function(){
-  var sx=0, sy=0;
-  var sp=document.getElementById("tab-spend");
+  var sx=0, sy=0, sp=document.getElementById("tab-spend");
   sp.addEventListener("touchstart",function(e){ sx=e.changedTouches[0].screenX; sy=e.changedTouches[0].screenY; },{passive:true});
   sp.addEventListener("touchend",function(e){
     var dx=e.changedTouches[0].screenX-sx, dy=e.changedTouches[0].screenY-sy;
-    if(Math.abs(dx)>80 && Math.abs(dx)>Math.abs(dy)*1.5){
-      if(dx<0) showTab("channels");
-      else showTab("inbox");
-    }
+    if(Math.abs(dx)>80 && Math.abs(dx)>Math.abs(dy)*1.5){ if(dx<0) showTab("channels"); else showTab("inbox"); }
   },{passive:true});
 })();
 function closePostSheet(){ document.getElementById("postSheet").classList.remove("open"); document.getElementById("sheetBack").classList.remove("open"); }
-function openPostSheet(){ document.getElementById("postSheet").classList.add("open"); document.getElementById("sheetBack").classList.add("open"); }
-function openMusicSheet(){ document.getElementById("musicSheet").classList.add("open"); }
+function openPostSheet(){ galleryFromCam=false; document.getElementById("postSheet").classList.add("open"); document.getElementById("sheetBack").classList.add("open"); }
+function openMusicSheet(){
+  document.getElementById("musicSheet").classList.add("open");
+  if(!window._musicTracks || !window._musicTracks.length) loadAudiusTrending("");
+}
 function closeMusicSheet(){
   var player=document.getElementById("musicPreviewPlayer"); if(player) player.pause();
   document.getElementById("musicSheet").classList.remove("open");
@@ -865,36 +918,78 @@ function clearMusic(){
   selectedMusic=null;
   document.getElementById("selectedMusicLabel").innerText="No song";
   document.getElementById("myMusicText").innerText="No song selected";
-  document.getElementById("soundName").innerText="Search Music";
+  document.getElementById("soundName").innerText="Add Sound";
+  var ca=document.getElementById("camAudioPlayer"); if(ca){ ca.pause(); ca.src=""; }
 }
-function quickMusic(q){ document.getElementById("musicSearchInput").value=q; searchMusic(); }
-async function searchMusic(){
-  var q=document.getElementById("musicSearchInput").value.trim()||"afrobeats";
-  document.getElementById("musicMsg").innerText="Searching Jamendo...";
+function setMusicChipActive(btn){
+  document.querySelectorAll("#musicSheet .chip").forEach(function(c){ c.classList.remove("active"); });
+  if(btn) btn.classList.add("active");
+}
+async function loadAudiusTrending(genre, btn){
+  setMusicChipActive(btn);
+  document.getElementById("musicMsg").innerText="Loading trending songs from Audius...";
   try{
-    var r=await fetch("https://api.jamendo.com/v3.0/tracks/?client_id="+JAMENDO_CLIENT_ID+"&format=json&limit=10&search="+encodeURIComponent(q));
-    var d=await r.json(); var tracks=d.results||[];
-    window._jamTracks=tracks;
-    document.getElementById("musicResults").innerHTML=tracks.map(function(t,i){
-      return '<div class="music-item"><img src="'+esc(t.image||"")+'"><div style="flex:1;min-width:0"><b style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(t.name)+'</b><small style="color:#888">'+esc(t.artist_name)+'</small></div><button class="btn dark small" onclick="previewMusic('+i+')">▶</button><button class="btn gold small" onclick="selectMusic('+i+')">Use</button></div>';
-    }).join("")||'<p style="color:#888;text-align:center">No results</p>';
-    document.getElementById("musicMsg").innerText="Found "+tracks.length+" songs";
-  }catch(e){ document.getElementById("musicMsg").innerText="Music search failed, check internet"; }
+    var url=AUDIUS_HOST+"/v1/tracks/trending?app_name=BANDUCOINS&limit=15"+(genre?"&genre="+encodeURIComponent(genre):"");
+    var r=await fetch(url), d=await r.json();
+    var tracks=(d.data||[]).map(function(t){
+      return { name:t.title, artist:(t.user&&t.user.name)?t.user.name:"Audius Artist", image:(t.artwork&&t.artwork["150x150"])?t.artwork["150x150"]:"", audio:AUDIUS_HOST+"/v1/tracks/"+t.id+"/stream?app_name=BANDUCOINS", source:"Audius" };
+    });
+    if(!tracks.length) throw new Error("Empty");
+    renderMusicTracks(tracks, "Audius "+(genre||"Trending"));
+  }catch(e){ quickMusic(genre||"afrobeats", btn); }
+}
+function quickMusic(q, btn){ setMusicChipActive(btn); document.getElementById("musicSearchInput").value=q; searchMusic(true); }
+async function searchMusic(jamendoOnly){
+  var q=document.getElementById("musicSearchInput").value.trim()||"afrobeats";
+  document.getElementById("musicMsg").innerText="Searching top songs for \""+q+"\"...";
+  var combined=[];
+  if(!jamendoOnly){
+    try{
+      var ar=await fetch(AUDIUS_HOST+"/v1/tracks/search?query="+encodeURIComponent(q)+"&app_name=BANDUCOINS&limit=8"), ad=await ar.json();
+      (ad.data||[]).forEach(function(t){ combined.push({ name:t.title, artist:(t.user&&t.user.name)?t.user.name:"Audius Artist", image:(t.artwork&&t.artwork["150x150"])?t.artwork["150x150"]:"", audio:AUDIUS_HOST+"/v1/tracks/"+t.id+"/stream?app_name=BANDUCOINS", source:"Audius" }); });
+    }catch(e){}
+  }
+  try{
+    var jr=await fetch("https://api.jamendo.com/v3.0/tracks/?client_id="+JAMENDO_CLIENT_ID+"&format=json&order=popularity_week&limit=8&search="+encodeURIComponent(q)), jd=await jr.json();
+    (jd.results||[]).forEach(function(t){ combined.push({ name:t.name, artist:t.artist_name, image:t.image||"", audio:t.audio, source:"Jamendo" }); });
+  }catch(e){}
+  renderMusicTracks(combined, q);
+}
+function renderMusicTracks(tracks, label){
+  window._musicTracks=tracks;
+  document.getElementById("musicResults").innerHTML=tracks.map(function(t,i){
+    return '<div class="music-item"><img src="'+esc(t.image||"")+'"><div style="flex:1;min-width:0"><b style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(t.name)+'</b><small style="color:#888">'+esc(t.artist)+' • '+esc(t.source)+'</small></div><button class="btn dark small" onclick="previewMusic('+i+')">▶</button><button class="btn gold small" onclick="selectMusic('+i+')">Use</button></div>';
+  }).join("")||'<p style="color:#888;text-align:center">No songs found. Try another search or import an MP3 from your phone!</p>';
+  document.getElementById("musicMsg").innerText="Found "+tracks.length+" tracks ("+label+")";
 }
 function previewMusic(i){
-  var t=window._jamTracks[i]; if(!t||!t.audio) return;
+  var t=window._musicTracks[i]; if(!t||!t.audio) return;
   var player=document.getElementById("musicPreviewPlayer");
-  player.src=t.audio; player.style.display="block"; player.play();
+  player.src=t.audio; player.style.display="block"; player.play().catch(function(){ showToast("Tap play on audio bar below"); });
 }
 function selectMusic(i){
-  var t=window._jamTracks[i]; selectedMusic=t;
-  document.getElementById("selectedMusicLabel").innerText=t.name;
-  document.getElementById("myMusicText").innerText=t.name+" - "+t.artist_name;
+  var t=window._musicTracks[i]; if(!t) return;
+  selectedMusic=t;
+  document.getElementById("selectedMusicLabel").innerText=t.name+" - "+t.artist;
+  document.getElementById("myMusicText").innerText=t.name+" - "+t.artist;
   document.getElementById("soundName").innerText=t.name.slice(0,16);
+  var ca=document.getElementById("camAudioPlayer");
+  if(ca && t.audio){ ca.src=t.audio; if(document.getElementById("cameraPage").style.display==="flex") ca.play().catch(function(){}); }
   showToast("🎵 Selected: "+t.name); closeMusicSheet();
 }
-document.getElementById("musicSearchBtn").onclick=searchMusic;
-// EDIT PROFILE FULL SCREEN
+document.getElementById("musicSearchBtn").onclick=function(){ searchMusic(false); };
+document.getElementById("localAudioInput").onchange=function(e){
+  var f=e.target.files[0]; if(!f) return;
+  var url=URL.createObjectURL(f);
+  selectedMusic={name:f.name.replace(/\.[^/.]+$/,""), artist:"My Phone", image:"", audio:url, source:"Phone"};
+  document.getElementById("selectedMusicLabel").innerText=selectedMusic.name;
+  document.getElementById("myMusicText").innerText=selectedMusic.name+" (Local MP3)";
+  document.getElementById("soundName").innerText=selectedMusic.name.slice(0,16);
+  var ca=document.getElementById("camAudioPlayer"); ca.src=url;
+  if(document.getElementById("cameraPage").style.display==="flex") ca.play().catch(function(){});
+  showToast("🎵 Loaded from phone: "+selectedMusic.name); closeMusicSheet();
+};
+
 function openEditFull(){
   document.getElementById("editFullName").value=userName;
   document.getElementById("editFullUser").value=userName;
@@ -910,9 +1005,7 @@ function openEditFull(){
 function closeEditFull(){ document.getElementById("editFull").classList.remove("open"); }
 function setAccountType(t){ userType=t; document.getElementById("typeArtist").classList.toggle("active",t==="Artist"); document.getElementById("typeFan").classList.toggle("active",t==="Fan"); }
 function saveEditFull(){
-  var nm=document.getElementById("editFullName").value.trim();
-  var un=document.getElementById("editFullUser").value.trim();
-  var bio=document.getElementById("editFullBio").value.trim();
+  var nm=document.getElementById("editFullName").value.trim(), un=document.getElementById("editFullUser").value.trim(), bio=document.getElementById("editFullBio").value.trim();
   if(bio.split(/\s+/).filter(Boolean).length>50){ showToast("Bio max 50 words",true); return; }
   if(containsBadContent(bio)||containsBadContent(nm)||containsBadContent(un)){ showToast("Bad content not allowed in profile",true); return; }
   userName=(un && un!==userName)?un:(nm||userName);
@@ -939,14 +1032,12 @@ document.getElementById("loginBtn").onclick=function(){
 document.getElementById("logoutBtn").onclick=function(){ document.getElementById("main").classList.add("hidden"); document.getElementById("bottomNav").style.display="none"; document.getElementById("authCard").classList.remove("hidden"); };
 document.getElementById("forgotLink").onclick=function(e){ e.preventDefault(); document.getElementById("forgotBox").classList.toggle("hidden"); };
 document.getElementById("sendCodeBtn").onclick=function(){ var ph=document.getElementById("forgotPhone").value.trim(); if(!ph) return; var code=Math.floor(100000+Math.random()*900000).toString(); window._resetCode=code; window._resetPhone=ph; document.getElementById("codeInfo").innerText="DEMO CODE: "+code; };
-document.getElementById("resetPassBtn").onclick=function(){ var c=document.getElementById("codeInput").value; var np=document.getElementById("newPassInput").value; if(c!==window._resetCode){ showToast("Wrong code",true); return; } var u=users.find(function(x){return x.phone===window._resetPhone}); if(u) u.pass=np; saveAll(); showToast("Password changed, LOGIN now"); };
+document.getElementById("resetPassBtn").onclick=function(){ var c=document.getElementById("codeInput").value, np=document.getElementById("newPassInput").value; if(c!==window._resetCode){ showToast("Wrong code",true); return; } var u=users.find(function(x){return x.phone===window._resetPhone}); if(u) u.pass=np; saveAll(); showToast("Password changed, LOGIN now"); };
 document.getElementById("editProfileBtn").onclick=function(){ openEditFull(); };
 document.getElementById("editFullBio").oninput=function(){ var w=this.value.trim().split(/\s+/).filter(Boolean).length; document.getElementById("wordCount").innerText=w; if(w>50) showToast("Bio max 50 words",true); };
 document.getElementById("coverInput").onchange=function(e){ var f=e.target.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(ev){ compressImage(ev.target.result, 800, 0.75, function(res){ userCover=res; document.getElementById("editCover").style.backgroundImage="url("+userCover+")"; }); }; r.readAsDataURL(f); };
-document.getElementById("editAvatarInput").onchange=function(e){ var f=e.target.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(ev){ compressImage(ev.target.result, 320, 0.8, function(res){ avatarUrl=res; document.getElementById("editAvatar").innerHTML='<img src="'+avatarUrl+'">'; document.getElementById("avatarLabel").innerHTML='<img src="'+avatarUrl+'"><input type="file" accept="image/*" style="display:none" id="avatarInput">'; }); }; r.readAsDataURL(f); };
-document.getElementById("avatarInput").onchange=function(e){
-  var f=e.target.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(ev){ compressImage(ev.target.result, 320, 0.8, function(res){ avatarUrl=res; document.getElementById("avatarLabel").innerHTML='<img src="'+avatarUrl+'"><input type="file" accept="image/*" style="display:none" id="avatarInput">'; saveAll(); }); }; r.readAsDataURL(f);
-};
+document.getElementById("editAvatarInput").onchange=function(e){ var f=e.target.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(ev){ compressImage(ev.target.result, 320, 0.8, function(res){ avatarUrl=res; document.getElementById("editAvatar").innerHTML='<img src="'+avatarUrl+'">'; updateUI(); }); }; r.readAsDataURL(f); };
+document.getElementById("avatarInput").onchange=function(e){ var f=e.target.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(ev){ compressImage(ev.target.result, 320, 0.8, function(res){ avatarUrl=res; saveAll(); }); }; r.readAsDataURL(f); };
 document.getElementById("tProfile").onclick=function(){ showTab("profile"); };
 document.getElementById("tInbox").onclick=function(){ showTab("inbox"); };
 document.getElementById("tSpend").onclick=function(){ showTab("spend"); };
@@ -974,22 +1065,17 @@ document.getElementById("postFile").onchange=function(e){
         var im=document.getElementById("previewImg"); im.src=tempPostUrl; im.style.display="block"; document.getElementById("previewVideo").style.display="none";
       });
     }
-    if(galleryFromCam){ galleryFromCam=false; closeBanduCamera(); openPostSheet(); }
+    if(galleryFromCam){ closeBanduCamera(); openPostSheet(); }
   }; r.readAsDataURL(f);
 };
 document.getElementById("postBtn").onclick=async function(){
-  var cap=document.getElementById("caption").value.trim();
-  var cat=document.getElementById("category").value;
-  var type=document.getElementById("postType").value;
-  if(isMaturePost(cap, cat)){
-    showToast("❌ Bad / mature content NOT allowed in Public Feed. Post it inside your Channel only.", true);
-    document.getElementById("postMsg").innerText="Blocked: Mature content goes to Channel only.";
-    return;
-  }
+  var cap=document.getElementById("caption").value.trim(), cat=document.getElementById("category").value, type=document.getElementById("postType").value;
+  if(isMaturePost(cap, cat)){ showToast("❌ Bad / mature content NOT allowed in Public Feed. Post it inside your Channel only.", true); document.getElementById("postMsg").innerText="Blocked: Mature content goes to Channel only."; return; }
   if(!cap && !tempPostUrl){ showToast("Add a photo, video, or caption",true); return; }
   if(coins<5){ showToast("Not enough coins - Buy coins",true); return; }
   coins-=5;
-  var newPost={phone:currentUser,user:userName,caption:cap,category:cat,url:tempPostUrl,type:tempPostType,music:selectedMusic?selectedMusic.name:"",time:new Date().toLocaleString(),createdAt:Date.now(),likes:0,comments:[],likedBy:[],shares:0,isChannelOnly:false,mature:false,postType:type};
+  var remoteMusic=(selectedMusic && selectedMusic.source!=="Phone")?selectedMusic.audio:"";
+  var newPost={phone:currentUser,user:userName,caption:cap,category:cat,url:tempPostUrl,type:tempPostType,music:selectedMusic?(selectedMusic.name+" - "+selectedMusic.artist):"",musicUrl:remoteMusic,time:new Date().toLocaleString(),createdAt:Date.now(),likes:0,comments:[],likedBy:[],shares:0,isChannelOnly:false,mature:false,postType:type};
   myPosts.unshift(newPost);
   if(window._firebaseReady && window._db){
     try{
@@ -997,9 +1083,7 @@ document.getElementById("postBtn").onclick=async function(){
         const {collection,addDoc}=window._firestore;
         const ref=await addDoc(collection(window._db,"posts"), newPost);
         newPost._serverId=ref.id;
-      } else {
-        showToast("Posted locally (video >900KB needs Storage to sync to others)");
-      }
+      } else showToast("Posted locally (video >900KB needs Storage to sync to others)");
     }catch(e){ console.error("Firebase post error:",e); }
   }
   tempPostUrl=""; document.getElementById("caption").value="";
@@ -1017,7 +1101,7 @@ document.getElementById("createChannelBtn").onclick=function(){
 document.getElementById("chanFile").onchange=function(e){
   var f=e.target.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(ev){
     if(f.type.indexOf("video")>=0){ window._chanUrl=ev.target.result; window._chanType="video"; }
-    else { compressImage(ev.target.result, 720, 0.78, function(res){ window._chanUrl=res; window._chanType="image"; }); }
+    else compressImage(ev.target.result, 720, 0.78, function(res){ window._chanUrl=res; window._chanType="image"; });
   }; r.readAsDataURL(f);
 };
 document.getElementById("postChannelBtn").onclick=function(){
@@ -1027,22 +1111,18 @@ document.getElementById("postChannelBtn").onclick=function(){
     if(!myCh.length){ showToast("Create a channel first",true); return; }
     sel.value=myCh[0].id;
   }
-  var cap=document.getElementById("chanCaption").value.trim();
-  var cat=document.getElementById("chanCategory").value;
-  var matureVal=document.getElementById("chanMature").value;
+  var cap=document.getElementById("chanCaption").value.trim(), cat=document.getElementById("chanCategory").value, matureVal=document.getElementById("chanMature").value;
   var isMature=(matureVal==="mature") || isMaturePost(cap, cat);
   if(subcoins<50){ showToast("Need 50 Subcoins to post in channel",true); return; }
   subcoins-=50;
   channelPosts.push({channelId:sel.value,phone:currentUser,user:userName,caption:cap,category:cat,url:window._chanUrl||"",type:window._chanType||"image",time:new Date().toLocaleString(),createdAt:Date.now(),likes:0,comments:[],isChannelOnly:true,mature:isMature});
   window._chanUrl=""; document.getElementById("chanCaption").value="";
   saveAll(); renderChannels();
-  if(isMature) showToast("🔞 Posted as Mature 18+ - Channel Only, blurred until tap");
-  else showToast("💜 Posted in Channel - Clean");
+  showToast(isMature?"🔞 Posted as Mature 18+ - Channel Only, blurred until tap":"💜 Posted in Channel - Clean");
 };
 function refreshChannelSelect(){
   var sel=document.getElementById("channelSelect"); if(!sel) return;
-  var cur=sel.value;
-  var myCh=channels.filter(function(c){return c.owner===currentUser});
+  var cur=sel.value, myCh=channels.filter(function(c){return c.owner===currentUser});
   sel.innerHTML='<option value="">Choose your channel...</option>'+myCh.map(function(c){return '<option value="'+esc(c.id)+'">'+esc(c.name)+'</option>'}).join("");
   if(cur) sel.value=cur;
 }
@@ -1054,38 +1134,49 @@ document.getElementById("payBtn").onclick = async function(){
   try{ localStorage.setItem("bandu_pending", JSON.stringify({coins:selectedCoins, amount:selectedAmount, type:selectedType, phone:rawPhone, time:Date.now()})); }catch(e){}
   var btn = document.getElementById("payBtn");
   btn.disabled = true; btn.innerText = "⏳ CONNECTING TO PESAPAL...";
-  showToast("💳 Connecting to Pesapal for " + selectedAmount + " KSh... Please wait");
+  showToast("💳 Connecting to Pesapal for " + selectedAmount + " KSh...");
   document.getElementById("payMsg").innerText = "Connecting to Pesapal... Do not close.";
   try{
     var res = await fetch("/.netlify/functions/pesapal-order", {
-      method: "POST",
-      headers: {"Content-Type":"application/json"},
+      method: "POST", headers: {"Content-Type":"application/json"},
       body: JSON.stringify({amount: selectedAmount,phone: rawPhone,coins: selectedCoins,type: selectedType})
     });
     var data = await res.json();
     if(data.redirect_url){ window.location.href = data.redirect_url; }
     else { btn.disabled = false; btn.innerText = "💳 PAY NOW WITH M-PESA"; showToast("Pesapal error: " + (data.error || "No redirect_url"), true); document.getElementById("payMsg").innerText = "Error: " + JSON.stringify(data).slice(0,400); }
-  }catch(e){ btn.disabled = false; btn.innerText = "💳 PAY NOW WITH M-PESA"; showToast("Cannot reach Netlify function. Did you deploy pesapal-order.js?", true); document.getElementById("payMsg").innerText = "Error: " + e.message; }
+  }catch(e){ btn.disabled = false; btn.innerText = "💳 PAY NOW WITH M-PESA"; showToast("Cannot reach Netlify function.", true); document.getElementById("payMsg").innerText = "Error: " + e.message; }
 };
-(function(){ try{ var p = new URLSearchParams(window.location.search); if(p.get("order_id") || p.get("OrderTrackingId") || p.get("paid")){ showToast("✅ Returned from Pesapal. Confirming payment status..."); } }catch(e){} })();
-// CAMERA, VIDEO RECORDING & LIVE
+(function(){ try{ var p = new URLSearchParams(window.location.search); if(p.get("order_id") || p.get("OrderTrackingId") || p.get("paid")) showToast("✅ Returned from Pesapal. Confirming payment status..."); }catch(e){} })();
+
 function pickFromGallery(){ galleryFromCam=true; document.getElementById("postFile").click(); }
 function openBanduCamera(isLive){
   document.getElementById("cameraPage").style.display="flex";
-  if(isLive){
-    setCamTab("LIVE", document.getElementById("tabLive"));
-  } else {
-    document.getElementById("camMsg").innerText="Filter: "+selectedFilter.name+" (FREE)";
-  }
+  initFaceMesh();
+  if(isLive) setCamTab("LIVE", document.getElementById("tabLive"));
+  else document.getElementById("camMsg").innerText="Filter: "+selectedFilter.name+" (FREE)";
   startBanduCam();
 }
 function closeBanduCamera(){
   if(isRecording && mediaRecorder && mediaRecorder.state!=="inactive") mediaRecorder.stop();
-  isRecording=false;
+  isRecording=false; galleryFromCam=false;
   document.getElementById("recBtn").classList.remove("recording");
+  var ca=document.getElementById("camAudioPlayer"); if(ca) ca.pause();
   document.getElementById("cameraPage").style.display="none";
   if(camStream) camStream.getTracks().forEach(function(t){t.stop()});
   camStream=null;
+}
+function toggleCamSound(){
+  var ca=document.getElementById("camAudioPlayer");
+  if(!selectedMusic || !ca.src){ openMusicSheet(); return; }
+  if(ca.paused){ ca.play().catch(function(){}); document.getElementById("camSoundLabel").innerText="Playing"; }
+  else { ca.pause(); document.getElementById("camSoundLabel").innerText="Muted"; }
+}
+function cycleBeauty(){ beautyBoost=!beautyBoost; showToast(beautyBoost?"🪞 Extra Beauty Smooth: ON":"🪞 Extra Beauty Smooth: OFF"); }
+function nextFilter(){
+  selectedFilterIndex=(selectedFilterIndex+1)%FILTERS.length;
+  var el=document.querySelectorAll(".filt")[selectedFilterIndex];
+  selectFilter(selectedFilterIndex, el);
+  if(el && el.scrollIntoView) el.scrollIntoView({behavior:"smooth",inline:"center",block:"nearest"});
 }
 async function startBanduCam(){
   try{
@@ -1094,43 +1185,191 @@ async function startBanduCam(){
     drawBanduCam();
   }catch(e){ showToast("Camera permission needed",true); }
 }
+function lmPoint(idx, w, h){
+  if(latestLandmarks && latestLandmarks[idx]){
+    var rawX=latestLandmarks[idx].x;
+    return { x:(camFacing==="user"?(1-rawX):rawX)*w, y:latestLandmarks[idx].y*h };
+  }
+  return null;
+}
+function drawARFilter(ctx, w, h, arType, t){
+  var lEye=lmPoint(33,w,h), lEyeIn=lmPoint(133,w,h), rEyeIn=lmPoint(362,w,h), rEye=lmPoint(263,w,h);
+  var nose=lmPoint(1,w,h), forehead=lmPoint(10,w,h), lEdge=lmPoint(234,w,h), rEdge=lmPoint(454,w,h);
+  var lipTop=lmPoint(13,w,h), lipBot=lmPoint(14,w,h), lCheek=lmPoint(205,w,h), rCheek=lmPoint(425,w,h);
+  var le, re, fw, fh, cx, cy, angle=0, mouthOpen=false;
+  if(lEye && lEyeIn && rEye && rEyeIn && nose && forehead && lEdge && rEdge){
+    le={x:(lEye.x+lEyeIn.x)/2, y:(lEye.y+lEyeIn.y)/2};
+    re={x:(rEye.x+rEyeIn.x)/2, y:(rEye.y+rEyeIn.y)/2};
+    if(le.x > re.x){ var tmp=le; le=re; re=tmp; }
+    fw=Math.hypot(rEdge.x-lEdge.x, rEdge.y-lEdge.y); fh=fw*1.25;
+    cx=(le.x+re.x)/2; cy=(le.y+re.y)/2; angle=Math.atan2(re.y-le.y, re.x-le.x);
+    if(lipTop && lipBot) mouthOpen = Math.hypot(lipTop.x-lipBot.x, lipTop.y-lipBot.y) > fw*0.045;
+  } else {
+    fw=w*0.44; fh=fw*1.25; le={x:w*0.38, y:h*0.42}; re={x:w*0.62, y:h*0.42};
+    cx=w*0.5; cy=h*0.42; nose={x:w*0.5, y:h*0.50}; forehead={x:w*0.5, y:h*0.26};
+    lCheek={x:w*0.35, y:h*0.53}; rCheek={x:w*0.65, y:h*0.53}; lipBot={x:w*0.5, y:h*0.60};
+  }
+  ctx.save();
+  if(arType==="shades"){
+    ctx.translate(cx, cy); ctx.rotate(angle);
+    var sw=fw*0.36, sh=fw*0.20, gap=fw*0.08;
+    var g=ctx.createLinearGradient(0,-sh/2,0,sh/2);
+    g.addColorStop(0,"rgba(10,10,15,0.95)"); g.addColorStop(1,"rgba(40,40,60,0.82)");
+    ctx.fillStyle=g; ctx.strokeStyle="#facc15"; ctx.lineWidth=Math.max(3,fw*0.015);
+    ctx.beginPath(); ctx.roundRect(-gap/2-sw, -sh/2, sw, sh, sh*0.3); ctx.fill(); ctx.stroke();
+    ctx.beginPath(); ctx.roundRect(gap/2, -sh/2, sw, sh, sh*0.3); ctx.fill(); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(-gap/2, -sh*0.1); ctx.lineTo(gap/2, -sh*0.1); ctx.stroke();
+    ctx.strokeStyle="rgba(255,255,255,0.45)"; ctx.lineWidth=Math.max(2,fw*0.01);
+    ctx.beginPath(); ctx.moveTo(-gap/2-sw*0.75,-sh*0.28); ctx.lineTo(-gap/2-sw*0.45,sh*0.2); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(gap/2+sw*0.25,-sh*0.28); ctx.lineTo(gap/2+sw*0.55,sh*0.2); ctx.stroke();
+  }
+  else if(arType==="puppy"){
+    ctx.translate(forehead.x, forehead.y); ctx.rotate(angle);
+    ctx.fillStyle="#8b5a2b";
+    ctx.beginPath(); ctx.ellipse(-fw*0.48, -fh*0.02, fw*0.16, fh*0.28, -0.35, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(fw*0.48, -fh*0.02, fw*0.16, fh*0.28, 0.35, 0, Math.PI*2); ctx.fill();
+    ctx.fillStyle="#d2996c";
+    ctx.beginPath(); ctx.ellipse(-fw*0.48, 0, fw*0.09, fh*0.18, -0.35, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(fw*0.48, 0, fw*0.09, fh*0.18, 0.35, 0, Math.PI*2); ctx.fill();
+    ctx.restore(); ctx.save();
+    ctx.translate(nose.x, nose.y); ctx.rotate(angle);
+    ctx.fillStyle="#1a1a1a";
+    ctx.beginPath(); ctx.ellipse(0, 0, fw*0.13, fw*0.09, 0, 0, Math.PI*2); ctx.fill();
+    ctx.fillStyle="rgba(255,255,255,0.45)";
+    ctx.beginPath(); ctx.ellipse(-fw*0.04, -fw*0.03, fw*0.03, fw*0.015, -0.3, 0, Math.PI*2); ctx.fill();
+    ctx.restore(); ctx.save();
+    var mPos=lipBot||{x:nose.x,y:nose.y+fw*0.26};
+    ctx.translate(mPos.x, mPos.y); ctx.rotate(angle);
+    var tLen=mouthOpen ? fw*0.30 : fw*0.14 + Math.sin(t*6)*fw*0.02;
+    ctx.fillStyle="#ff5c8a";
+    ctx.beginPath(); ctx.roundRect(-fw*0.09, 0, fw*0.18, tLen, fw*0.09); ctx.fill();
+    ctx.strokeStyle="#c92a5b"; ctx.lineWidth=2;
+    ctx.beginPath(); ctx.moveTo(0, fw*0.02); ctx.lineTo(0, tLen*0.78); ctx.stroke();
+  }
+  else if(arType==="hearts"){
+    var hs=fw*0.19*(1+Math.sin(t*7)*0.14);
+    ctx.font=Math.round(hs)+"px Arial"; ctx.textAlign="center"; ctx.textBaseline="middle";
+    ctx.fillText("❤️", le.x, le.y); ctx.fillText("❤️", re.x, re.y);
+    if(lCheek && rCheek){
+      [lCheek,rCheek].forEach(function(ch){
+        var rg=ctx.createRadialGradient(ch.x,ch.y,1,ch.x,ch.y,fw*0.16);
+        rg.addColorStop(0,"rgba(255,105,150,0.48)"); rg.addColorStop(1,"rgba(255,105,150,0)");
+        ctx.fillStyle=rg; ctx.beginPath(); ctx.arc(ch.x,ch.y,fw*0.16,0,Math.PI*2); ctx.fill();
+      });
+    }
+  }
+  else if(arType==="crown"){
+    ctx.translate(forehead.x, forehead.y - fw*0.24); ctx.rotate(angle);
+    ctx.font=Math.round(fw*0.48)+"px Arial"; ctx.textAlign="center"; ctx.textBaseline="middle";
+    ctx.fillText("👑", 0, 0);
+    ctx.font=Math.round(fw*0.14)+"px Arial";
+    ctx.fillText("✨", -fw*0.26, -fw*0.12+Math.sin(t*5)*5);
+    ctx.fillText("✨", fw*0.26, -fw*0.12+Math.cos(t*5)*5);
+  }
+  else if(arType==="butterfly"){
+    ctx.translate(forehead.x, forehead.y - fw*0.16); ctx.rotate(angle);
+    ctx.font=Math.round(fw*0.18)+"px Arial"; ctx.textAlign="center"; ctx.textBaseline="middle";
+    for(var bi=0;bi<5;bi++){
+      var ba=-2.6 + bi*0.65;
+      ctx.fillText("🦋", Math.cos(ba)*(fw*0.44), Math.sin(ba)*(fw*0.24) + Math.sin(t*6+bi)*6);
+    }
+  }
+  else if(arType==="laser"){
+    [le,re].forEach(function(eye){
+      var grad=ctx.createLinearGradient(eye.x, eye.y, eye.x, h);
+      grad.addColorStop(0,"rgba(255,255,255,0.95)"); grad.addColorStop(0.15,"rgba(255,40,40,0.9)"); grad.addColorStop(1,"rgba(255,0,80,0)");
+      ctx.strokeStyle=grad; ctx.lineWidth=fw*0.09;
+      ctx.beginPath(); ctx.moveTo(eye.x, eye.y); ctx.lineTo(eye.x + (eye===le?-w*0.08:w*0.08), h); ctx.stroke();
+      ctx.fillStyle="#fff"; ctx.beginPath(); ctx.arc(eye.x, eye.y, fw*0.06, 0, Math.PI*2); ctx.fill();
+    });
+  }
+  ctx.restore();
+}
+function drawShaderOverlay(ctx, w, h, fx, t){
+  if(fx==="warmglow" || fx==="paris"){
+    var g=ctx.createRadialGradient(w*0.5,h*0.4,w*0.1,w*0.5,h*0.5,w*0.8);
+    g.addColorStop(0, fx==="paris"?"rgba(255,210,230,0.14)":"rgba(255,235,200,0.12)"); g.addColorStop(1,"rgba(0,0,0,0.18)");
+    ctx.fillStyle=g; ctx.fillRect(0,0,w,h);
+  }
+  else if(fx==="golden"){
+    var sg=ctx.createRadialGradient(w*0.15,h*0.15,10,w*0.15,h*0.15,w*0.85);
+    sg.addColorStop(0,"rgba(255,215,100,0.42)"); sg.addColorStop(0.45,"rgba(255,140,40,0.16)"); sg.addColorStop(1,"rgba(0,0,0,0)");
+    ctx.fillStyle=sg; ctx.fillRect(0,0,w,h);
+  }
+  else if(fx==="neon"){
+    var ng=ctx.createLinearGradient(0,0,w,h);
+    ng.addColorStop(0,"rgba(168,85,247,0.22)"); ng.addColorStop(1,"rgba(6,182,212,0.22)");
+    ctx.fillStyle=ng; ctx.fillRect(0,0,w,h);
+  }
+  else if(fx==="vhs"){
+    ctx.fillStyle="rgba(255,255,255,0.06)";
+    for(var y=0;y<h;y+=6) ctx.fillRect(0,y,w,2);
+    ctx.fillStyle="rgba(255,255,255,0.85)"; ctx.font="bold "+Math.round(w*0.036)+"px monospace";
+    ctx.fillText("REC ●  "+new Date().toLocaleDateString(), w*0.05, h*0.92);
+  }
+  else if(fx==="glitch"){
+    if(Math.sin(t*18)>0.2){
+      var gy=Math.random()*h*0.85, gh=12+Math.random()*28;
+      ctx.fillStyle="rgba(0,255,255,0.28)"; ctx.fillRect(0, gy, w, gh);
+      ctx.fillStyle="rgba(255,0,120,0.25)"; ctx.fillRect(8, gy+4, w, gh*0.7);
+    }
+  }
+  else if(fx==="coins" || fx==="sparkle"){
+    var sym=fx==="coins"?"🪙":"✨";
+    ctx.textAlign="center"; ctx.textBaseline="middle";
+    particles.forEach(function(p){
+      p.y += p.v; if(p.y>1.05){ p.y=-0.05; p.x=Math.random(); }
+      ctx.font=Math.round(w*0.06*p.s)+"px Arial";
+      ctx.globalAlpha=fx==="sparkle"?(0.4+0.6*Math.abs(Math.sin(t*4+p.a))):0.95;
+      ctx.fillText(sym, p.x*w, p.y*h);
+    });
+    ctx.globalAlpha=1;
+  }
+  else if(fx==="vignette"){
+    var vg=ctx.createRadialGradient(w/2,h/2,w*0.25,w/2,h/2,w*0.75);
+    vg.addColorStop(0,"rgba(0,0,0,0)"); vg.addColorStop(1,"rgba(0,0,0,0.55)");
+    ctx.fillStyle=vg; ctx.fillRect(0,0,w,h);
+  }
+}
 function drawBanduCam(){
   var video=document.getElementById("camVideo"), canvas=document.getElementById("camCanvas"), ctx=canvas.getContext("2d");
   function loop(){
     if(document.getElementById("cameraPage").style.display!=="flex") return;
     if(video.readyState>=2){
-      canvas.width=video.videoWidth; canvas.height=video.videoHeight;
-      ctx.filter=selectedFilter.css;
-      ctx.drawImage(video,0,0);
-      if(selectedFilter.isAR){
-        ctx.filter="none";
-        var gw=canvas.width*0.36, gh=canvas.height*0.09;
-        var gx=(canvas.width-gw)/2, gy=canvas.height*0.36;
-        ctx.fillStyle="rgba(10,10,10,0.88)";
-        ctx.fillRect(gx, gy, gw*0.44, gh);
-        ctx.fillRect(gx+gw*0.56, gy, gw*0.44, gh);
-        ctx.fillRect(gx+gw*0.44, gy+gh*0.2, gw*0.12, gh*0.2);
-        ctx.strokeStyle="#facc15"; ctx.lineWidth=4;
-        ctx.strokeRect(gx, gy, gw*0.44, gh);
-        ctx.strokeRect(gx+gw*0.56, gy, gw*0.44, gh);
+      var w=video.videoWidth, h=video.videoHeight;
+      if(canvas.width!==w || canvas.height!==h){ canvas.width=w; canvas.height=h; }
+      if(selectedFilter.isAR && faceMesh && !fmBusy){
+        fmBusy=true; faceMesh.send({image:video}).catch(function(){ fmBusy=false; });
       }
+      var filtCss=selectedFilter.css;
+      if(beautyBoost) filtCss+=" brightness(1.08) blur(0.4px)";
+      ctx.save(); ctx.filter=filtCss;
+      if(selectedFilter.fx==="mirror"){
+        ctx.drawImage(video, 0, 0, w/2, h, 0, 0, w/2, h);
+        ctx.translate(w, 0); ctx.scale(-1, 1);
+        ctx.drawImage(video, 0, 0, w/2, h, 0, 0, w/2, h);
+      } else if(camFacing==="user"){
+        ctx.translate(w, 0); ctx.scale(-1, 1); ctx.drawImage(video, 0, 0, w, h);
+      } else ctx.drawImage(video, 0, 0, w, h);
+      ctx.restore();
+      var t=performance.now()/1000;
+      if(selectedFilter.fx) drawShaderOverlay(ctx, w, h, selectedFilter.fx, t);
+      if(selectedFilter.isAR) drawARFilter(ctx, w, h, selectedFilter.arType, t);
     }
     requestAnimationFrame(loop);
   }
   loop();
 }
-function flipCam(){ camFacing=camFacing==="user"?"environment":"user"; if(camStream) camStream.getTracks().forEach(function(t){t.stop()}); startBanduCam(); }
-function setLen(l,el){ camLen=l; camMode="VIDEO"; document.querySelectorAll(".cam-modes span").forEach(function(s){s.classList.remove("active")}); el.classList.add("active"); document.getElementById("camMsg").innerText="Video Mode: "+l+"s max"; }
+function flipCam(){ camFacing=camFacing==="user"?"environment":"user"; latestLandmarks=null; if(camStream) camStream.getTracks().forEach(function(t){t.stop()}); startBanduCam(); }
+function setLen(l,el){ camLen=l; camMode="VIDEO"; document.querySelectorAll(".cam-modes span").forEach(function(s){s.classList.remove("active")}); el.classList.add("active"); document.getElementById("camMsg").innerText="Video Mode: "+l+"s max (Tap shutter to record)"; }
 function setMode(m,el){
-  camMode=m;
-  document.querySelectorAll(".cam-modes span").forEach(function(s){s.classList.remove("active")});
-  el.classList.add("active");
+  camMode=m; document.querySelectorAll(".cam-modes span").forEach(function(s){s.classList.remove("active")}); el.classList.add("active");
   if(m==="TEXT"){
     var txt=prompt("Write your text post:");
     if(txt && txt.trim()){
       var c=document.createElement("canvas"); c.width=720; c.height=960;
-      var cx=c.getContext("2d");
-      var g=cx.createLinearGradient(0,0,720,960); g.addColorStop(0,"#150a20"); g.addColorStop(1,"#000");
+      var cx=c.getContext("2d"), g=cx.createLinearGradient(0,0,720,960);
+      g.addColorStop(0,"#150a20"); g.addColorStop(1,"#000");
       cx.fillStyle=g; cx.fillRect(0,0,720,960);
       cx.fillStyle="#facc15"; cx.font="bold 42px Arial"; cx.textAlign="center";
       cx.fillText(txt.trim().slice(0,80), 360, 480);
@@ -1139,61 +1378,44 @@ function setMode(m,el){
       var im=document.getElementById("previewImg"); im.src=tempPostUrl; im.style.display="block";
       document.getElementById("previewVideo").style.display="none";
     }
-  }
+  } else document.getElementById("camMsg").innerText="Filter: "+selectedFilter.name+" (FREE)";
 }
 function setCamTab(t,el){
-  document.querySelectorAll(".cam-tabs span").forEach(function(s){s.classList.remove("active")});
-  el.classList.add("active");
-  if(t==="LIVE"){
-    document.getElementById("camMsg").innerText="🔴 LIVE MODE - FREE (Tap shutter to Go Live)";
-    camMode="LIVE";
-  } else {
-    if(camMode==="LIVE") camMode="PHOTO";
-    document.getElementById("camMsg").innerText="Filter: "+selectedFilter.name+" (FREE)";
-  }
+  document.querySelectorAll(".cam-tabs span").forEach(function(s){s.classList.remove("active")}); el.classList.add("active");
+  if(t==="LIVE"){ document.getElementById("camMsg").innerText="🔴 LIVE MODE - FREE (Tap shutter to Go Live)"; camMode="LIVE"; }
+  else { if(camMode==="LIVE") camMode="PHOTO"; document.getElementById("camMsg").innerText="Filter: "+selectedFilter.name+" (FREE)"; }
 }
-function startCamTimer(){
-  showToast("⏱ 3s Timer started...");
-  setTimeout(function(){ if(document.getElementById("cameraPage").style.display==="flex") handleShutter(); }, 3000);
-}
+function startCamTimer(){ showToast("⏱ 3s Timer started..."); setTimeout(function(){ if(document.getElementById("cameraPage").style.display==="flex") handleShutter(); }, 3000); }
 function handleShutter(){
-  if(camMode==="LIVE"){
-    closeBanduCamera();
-    startLive("GO_LIVE", 1);
-    return;
-  }
-  if(camMode==="VIDEO"){
-    toggleVideoRec();
-    return;
-  }
+  if(camMode==="LIVE"){ closeBanduCamera(); startLive("GO_LIVE"); return; }
+  if(camMode==="VIDEO"){ toggleVideoRec(); return; }
   takeBanduPhoto();
 }
 function toggleVideoRec(){
-  var btn=document.getElementById("recBtn");
+  var btn=document.getElementById("recBtn"), ca=document.getElementById("camAudioPlayer");
   if(!isRecording){
     try{
-      var canvas=document.getElementById("camCanvas");
-      var stream=canvas.captureStream(24);
-      recordedChunks=[];
-      mediaRecorder=new MediaRecorder(stream);
+      var canvas=document.getElementById("camCanvas"), stream=canvas.captureStream(24);
+      recordedChunks=[]; mediaRecorder=new MediaRecorder(stream);
       mediaRecorder.ondataavailable=function(e){ if(e.data.size>0) recordedChunks.push(e.data); };
       mediaRecorder.onstop=function(){
-        var blob=new Blob(recordedChunks, {type:"video/webm"});
-        var r=new FileReader();
+        if(ca) ca.pause();
+        var blob=new Blob(recordedChunks, {type:"video/webm"}), r=new FileReader();
         r.onload=function(ev){
           tempPostUrl=ev.target.result; tempPostType="video";
           closeBanduCamera(); openPostSheet();
           var v=document.getElementById("previewVideo"); v.src=tempPostUrl; v.style.display="block";
           document.getElementById("previewImg").style.display="none";
-          showToast("🎬 Video recorded - Ready to post");
+          showToast("🎬 Video recorded with "+selectedFilter.name);
         };
         r.readAsDataURL(blob);
       };
       mediaRecorder.start();
+      if(ca && ca.src) ca.play().catch(function(){});
       isRecording=true; btn.classList.add("recording");
-      document.getElementById("camMsg").innerText="🔴 Recording... Tap shutter to stop";
+      document.getElementById("camMsg").innerText="🔴 Recording with "+selectedFilter.name+"... Tap to stop";
       setTimeout(function(){ if(isRecording) toggleVideoRec(); }, camLen*1000);
-    }catch(e){ showToast("Video recording not supported on this browser, taking photo instead",true); takeBanduPhoto(); }
+    }catch(e){ showToast("Video recording not supported here, taking photo",true); takeBanduPhoto(); }
   } else {
     isRecording=false; btn.classList.remove("recording");
     if(mediaRecorder && mediaRecorder.state!=="inactive") mediaRecorder.stop();
@@ -1202,28 +1424,24 @@ function toggleVideoRec(){
 function takeBanduPhoto(){
   var canvas=document.getElementById("camCanvas");
   try{
-    var raw=canvas.toDataURL("image/jpeg",0.85);
-    compressImage(raw, 720, 0.8, function(res){
+    compressImage(canvas.toDataURL("image/jpeg",0.86), 720, 0.82, function(res){
       tempPostUrl=res; tempPostType="image";
       closeBanduCamera(); openPostSheet();
       var im=document.getElementById("previewImg"); im.src=tempPostUrl; im.style.display="block";
       document.getElementById("previewVideo").style.display="none";
-      showToast("📸 Photo taken - Now post it");
+      showToast("📸 Captured with "+selectedFilter.name);
     });
   }catch(e){ showToast("Take photo failed",true); }
 }
 function fmtTime(sec){
-  var h=String(Math.floor(sec/3600)).padStart(2,"0");
-  var m=String(Math.floor((sec%3600)/60)).padStart(2,"0");
-  var s=String(sec%60).padStart(2,"0");
-  return h+":"+m+":"+s;
+  return String(Math.floor(sec/3600)).padStart(2,"0")+":"+String(Math.floor((sec%3600)/60)).padStart(2,"0")+":"+String(sec%60).padStart(2,"0");
 }
 async function startLive(mode){
   document.getElementById("liveOverlay").style.display="flex";
   document.getElementById("liveStatus").innerText="🔴 LIVE NOW - FREE";
   document.getElementById("liveCommentsBox").innerHTML='<div style="color:#a3e635">🔴 Live stream started - FREE</div>';
-  liveSeconds=0;
-  clearInterval(liveInt);
+  document.getElementById("liveInfoNote").innerText=mode==="GO_LIVE"?"🔴 You are broadcasting LIVE (Free)":"👁 Watching LIVE mode (Send gifts or chat below)";
+  liveSeconds=0; clearInterval(liveInt);
   liveInt=setInterval(function(){
     liveSeconds++;
     var t=fmtTime(liveSeconds);
@@ -1250,11 +1468,8 @@ function stopLive(){
 function sendLiveGift(amt){
   if(coins<amt){ showToast("Not enough coins for gift",true); return; }
   coins-=amt;
-  var cShare=Math.round(amt*0.75);
-  var aShare=amt-cShare;
-  creatorEarn+=cShare;
-  appEarnings+=aShare;
-  saveAll();
+  var cShare=Math.round(amt*0.75), aShare=amt-cShare;
+  creatorEarn+=cShare; appEarnings+=aShare; saveAll();
   var box=document.getElementById("liveCommentsBox");
   box.innerHTML+='<div style="color:#facc15">🎁 '+esc(userName)+' sent a '+amt+' coin gift!</div>';
   box.scrollTop=box.scrollHeight;
@@ -1265,15 +1480,20 @@ function addLiveComment(){
   if(containsBadContent(inp.value)){ showToast("❌ Bad content blocked",true); return; }
   var box=document.getElementById("liveCommentsBox");
   box.innerHTML+='<div><b>'+esc(userName)+':</b> '+esc(inp.value)+'</div>';
-  box.scrollTop=box.scrollHeight;
-  inp.value="";
+  box.scrollTop=box.scrollHeight; inp.value="";
 }
 function withdrawCreator(){ if(creatorEarn<=0){ showToast("No earnings yet",true); return; } coins+=creatorEarn; creatorEarn=0; saveAll(); showToast("💸 Withdrawn to Coins"); }
 function renderFilters(){
   var row=document.getElementById("filtersRow"); if(!row) return;
-  row.innerHTML=FILTERS.map(function(f,i){ return '<div class="filt '+(i===0?"active":"")+'" onclick="selectFilter('+i+',this)"><div class="filt-circle">'+f.emoji+'</div><span>'+f.name+'</span><small>FREE</small></div>'; }).join("");
+  row.innerHTML=FILTERS.map(function(f,i){ return '<div class="filt '+(i===0?"active":"")+'" onclick="selectFilter('+i+',this)"><div class="filt-circle">'+f.emoji+'</div><span>'+f.name+'</span><small>'+(f.isAR?"AR":"FX")+'</small></div>'; }).join("");
 }
-function selectFilter(i,el){ selectedFilter=FILTERS[i]; document.querySelectorAll(".filt").forEach(function(x){x.classList.remove("active")}); el.classList.add("active"); document.getElementById("camMsg").innerText="Filter: "+selectedFilter.name+" (FREE)"; document.getElementById("previewFilterName").innerText=selectedFilter.name; }
+function selectFilter(i,el){
+  selectedFilterIndex=i; selectedFilter=FILTERS[i];
+  document.querySelectorAll(".filt").forEach(function(x){x.classList.remove("active")});
+  if(el) el.classList.add("active");
+  document.getElementById("camMsg").innerText="Filter: "+selectedFilter.name+" (FREE)";
+  document.getElementById("previewFilterName").innerText=selectedFilter.name;
+}
 renderFilters();
 if(currentUser){
   document.getElementById("authCard").classList.add("hidden"); document.getElementById("main").classList.remove("hidden"); document.getElementById("bottomNav").style.display="flex"; document.getElementById("payPhone").value=currentUser; showTab("profile");
@@ -1286,7 +1506,7 @@ async function loadFromServer(){
     const q=query(collection(window._db,"posts"), orderBy("createdAt","desc"));
     const snap=await getDocs(q); var serverPosts=[]; snap.forEach(function(d){ var p=d.data(); p._serverId=d.id; serverPosts.push(p); });
     if(serverPosts.length){
-      var all=serverPosts.concat(myPosts); var seen={}; var merged=[];
+      var all=serverPosts.concat(myPosts), seen={}, merged=[];
       all.forEach(function(p){ var key=(p.phone||"")+"_"+(p.createdAt||p.time); if(!seen[key]){ seen[key]=1; merged.push(p); } });
       merged.sort(function(a,b){ return (b.createdAt||0)-(a.createdAt||0); });
       myPosts=merged.slice(0,100); saveAll(); renderStories(); renderFeed(); showToast("☁️ Loaded "+serverPosts.length+" posts from REAL server");
