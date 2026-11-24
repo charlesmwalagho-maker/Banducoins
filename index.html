@@ -19,7 +19,7 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 .btn{width:100%;padding:14px;border:none;border-radius:12px;font-weight:900;font-size:16px;margin-top:10px;cursor:pointer}
 .gold{background:linear-gradient(90deg,#facc15,#a3e635);color:#000}
 .green{background:#a3e635;color:#000}.dark{background:#222;color:#fff}.purple{background:#a855f7;color:#fff}.small{padding:8px 10px;font-size:13px;width:auto;margin:4px 2px}
-.hidden{display:none}.big{font-size:40px;font-weight:900;color:#facc15}
+.hidden{display:none}.big{font-size:36px;font-weight:900;color:#facc15}
 .tabs{display:flex;gap:4px;flex-wrap:wrap}.tabs button{flex:1;padding:10px 2px;border-radius:10px;background:#111;color:#fff;border:1px solid #333;font-weight:800;font-size:11px;min-width:70px;cursor:pointer}.tabs button.active{background:#facc15;color:#000}
 .chip{padding:8px 12px;border-radius:20px;border:1px solid #333;background:#111;color:#fff;margin:3px;cursor:pointer;font-size:13px}.chip.active{background:#facc15;color:#000}
 .bottom{position:fixed;bottom:0;left:0;right:0;background:#0a0a0a;display:flex;max-width:480px;margin:auto;border-top:1px solid #222;z-index:100}
@@ -29,7 +29,6 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 .avatar{width:80px;height:80px;border-radius:50%;background:#222;border:3px solid #facc15;display:flex;align-items:center;justify-content:center;font-size:34px;overflow:hidden;flex-shrink:0;cursor:pointer}.avatar img{width:100%;height:100%;object-fit:cover}
 .avatar-sm{width:36px;height:36px;border-radius:50%;background:#222;border:2px solid #facc15;display:inline-flex;align-items:center;justify-content:center;font-size:16px;overflow:hidden;vertical-align:middle;flex-shrink:0}.avatar-sm img{width:100%;height:100%;object-fit:cover}
 .user-row{display:flex;gap:10px;align-items:center;padding:10px;border:1px solid #222;border-radius:12px;margin-bottom:8px;justify-content:space-between}
-.comment{font-size:13px;padding:6px 10px;background:#1a1a1a;border-radius:10px;margin-top:6px}
 .stats{display:flex;gap:8px;margin-top:10px}.stat{flex:1;background:#1a1a1a;border:1px solid #222;border-radius:12px;padding:10px 4px;text-align:center;min-width:0}.stat b{font-size:18px;color:#facc15;display:block}.stat span{font-size:11px;color:#888;display:block;white-space:nowrap}
 .selected-box{background:#1a2a00;border:2px solid #facc15;border-radius:14px;padding:14px;margin-top:12px;display:none}
 .pkg{border:2px solid #333}.pkg.active{border-color:#facc15;background:#2a2a00}
@@ -75,7 +74,7 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 #toast{position:fixed;top:16px;left:50%;transform:translateX(-50%) translateY(-80px);background:#a3e635;color:#000;padding:12px 18px;border-radius:20px;font-weight:900;font-size:14px;z-index:999;transition:transform .3s;max-width:90%;text-align:center}
 #toast.show{transform:translateX(-50%) translateY(0)}
 #toast.err{background:#e11d48;color:#fff}
-.live-comments{max-height:140px;overflow-y:auto;background:#111;border:1px solid #333;border-radius:10px;padding:8px;margin-top:8px;text-align:left}
+.live-comments{max-height:110px;overflow-y:auto;background:#111;border:1px solid #333;border-radius:10px;padding:8px;margin-top:8px;text-align:left;font-size:13px}
 .notif{padding:12px;border:1px solid #222;border-radius:12px;margin-bottom:8px;background:#0f0f0f;cursor:pointer}.notif.unread{border-color:#facc15;background:#1a1a00}
 .verified{color:#1da1f2;font-size:16px}
 .server-badge{font-size:10px;padding:3px 8px;border-radius:10px;background:#222}
@@ -84,13 +83,14 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 .spend-feed{height:calc(100vh - 190px);overflow-y:auto;scroll-snap-type:y mandatory;border-radius:16px;background:#000}
 .spend-item{height:calc(100vh - 190px);scroll-snap-align:start;position:relative;background:#000;overflow:hidden;border-radius:16px;margin-bottom:10px}
 .spend-item img,.spend-item video{width:100%;height:100%;object-fit:cover;display:block}
-.spend-actions{position:absolute;right:10px;bottom:70px;display:flex;flex-direction:column;gap:16px;align-items:center;z-index:5}
-.spend-act{display:flex;flex-direction:column;align-items:center;background:rgba(0,0,0,.55);border-radius:30px;padding:8px;min-width:52px}
-.spend-act button{background:none;border:none;font-size:28px;color:#fff;cursor:pointer;line-height:1}
+.spend-actions{position:absolute;right:10px;bottom:60px;display:flex;flex-direction:column;gap:12px;align-items:center;z-index:5}
+.spend-act{display:flex;flex-direction:column;align-items:center;background:rgba(0,0,0,.58);border-radius:30px;padding:7px;min-width:50px}
+.spend-act button{background:none;border:none;font-size:24px;color:#fff;cursor:pointer;line-height:1}
 .spend-act button.liked{color:#e11d48}
-.spend-act span{font-size:12px;font-weight:900}
-.spend-info{position:absolute;left:12px;bottom:70px;right:70px;z-index:5;text-shadow:0 2px 8px #000}
-.sound-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(0,0,0,.65);border:1px solid #a3e635;color:#a3e635;padding:4px 10px;border-radius:20px;font-size:12px;margin-top:6px;cursor:pointer}
+.spend-act span{font-size:11px;font-weight:900}
+.spend-info{position:absolute;left:12px;bottom:65px;right:70px;z-index:5;text-shadow:0 2px 8px #000}
+.sound-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(0,0,0,.68);border:1px solid #a3e635;color:#a3e635;padding:4px 10px;border-radius:20px;font-size:11px;margin-top:5px;cursor:pointer;margin-right:4px}
+.filt-pill{display:inline-flex;align-items:center;gap:4px;background:rgba(0,0,0,.68);border:1px solid #facc15;color:#facc15;padding:4px 10px;border-radius:20px;font-size:11px;margin-top:5px;cursor:pointer}
 .big-heart{position:absolute;left:50%;top:45%;transform:translate(-50%,-50%) scale(0);font-size:90px;z-index:6;pointer-events:none;transition:transform .25s}
 .big-heart.show{transform:translate(-50%,-50%) scale(1.2)}
 .spend-tabs{display:flex;gap:6px;margin-bottom:8px}.spend-tabs button{flex:1;padding:10px;border-radius:10px;background:#111;color:#fff;border:1px solid #333;font-weight:900;cursor:pointer}.spend-tabs button.active{background:#facc15;color:#000}
@@ -109,6 +109,10 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 .toggle-row button.active{background:#a855f7;color:#fff}
 .story-modal{position:fixed;inset:0;background:#000;z-index:550;display:none;flex-direction:column;max-width:480px;margin:auto}
 .story-modal.open{display:flex}
+.gift-grid{display:flex;gap:6px;overflow-x:auto;padding:6px 0;scrollbar-width:none}
+.gift-grid button{flex-shrink:0;padding:8px 10px;border-radius:12px;border:1px solid #facc15;background:#1c1600;color:#facc15;font-weight:900;font-size:12px;cursor:pointer}
+.earn-box{background:#091a10;border:1px solid #22c55e;border-radius:12px;padding:12px;margin-top:8px}
+.vid-gate{position:absolute;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;flex-direction:column;z-index:4;cursor:pointer}
 </style>
 </head>
 <body>
@@ -117,22 +121,23 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <div class="wrap">
 <div id="authCard" class="card">
 <h2 style="text-align:center">Welcome to BANDUCOINS</h2>
-<p style="color:#888;text-align:center;font-size:13px">One phone = One account. Auto-login saved. Real server with Firebase.</p>
+<p style="color:#888;text-align:center;font-size:13px">One phone number + unique username. SMS password recovery. Refer friends for +100 coins each!</p>
 <input id="phone" placeholder="Phone e.g 0798486530" type="tel">
-<input id="password" placeholder="Password" type="password">
-<input id="username" placeholder="Name e.g Wizzy">
+<input id="password" placeholder="Password (min 4 chars)" type="password">
+<input id="username" placeholder="Unique Username e.g @wizzy">
+<input id="refCodeInput" placeholder="Referral Code (Optional - Both get +100 coins!)">
 <button class="btn gold" id="createBtn">CREATE ACCOUNT</button>
 <button class="btn dark" id="loginBtn">LOGIN</button>
-<p style="text-align:center;margin-top:10px"><a href="#" id="forgotLink" style="color:#888;font-size:13px;text-decoration:underline">forgot password?</a></p>
+<p style="text-align:center;margin-top:10px"><a href="#" id="forgotLink" style="color:#888;font-size:13px;text-decoration:underline">forgot password? (SMS Verification)</a></p>
 <p id="authMsg" style="text-align:center;color:#888"></p>
 <div id="forgotBox" class="hidden" style="border:1px solid #facc15;border-radius:12px;padding:12px;margin-top:10px">
-<p style="color:#facc15;font-size:13px">🔐 FORGOT PASSWORD</p>
-<input id="forgotPhone" placeholder="Enter your phone number">
-<button class="btn dark" id="sendCodeBtn">📩 SEND CODE</button>
+<p style="color:#facc15;font-size:13px">🔐 SMS PASSWORD RECOVERY (Anti-Theft)</p>
+<input id="forgotPhone" placeholder="Enter your registered phone number" type="tel">
+<button class="btn dark" id="sendCodeBtn">📩 SEND SMS VERIFICATION CODE</button>
 <p id="codeInfo" style="color:#a3e635;font-size:12px;text-align:center"></p>
-<input id="codeInput" placeholder="Enter 6-digit code" maxlength="6">
+<input id="codeInput" placeholder="Enter 6-digit SMS code" maxlength="6">
 <input id="newPassInput" placeholder="New password" type="password">
-<button class="btn green" id="resetPassBtn">✅ CREATE NEW PASSWORD</button>
+<button class="btn green" id="resetPassBtn">✅ VERIFY SMS &amp; RESET PASSWORD</button>
 </div>
 </div>
 <div id="main" class="hidden">
@@ -157,25 +162,37 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 </div>
 <button class="btn dark" onclick="document.getElementById('avatarInput').click()">📸 PUT MY PROFILE PICTURE</button>
 <button class="btn gold" id="editProfileBtn">✏️ EDIT PROFILE</button>
-<p style="font-size:11px;color:#888;text-align:center">Verification: Only at 50,000 followers - Automatic. No request.</p>
-<p style="color:#a3e635;font-size:12px;margin-top:10px">MY BALANCE - SAVED</p>
+<p style="font-size:11px;color:#888;text-align:center">Payout Verification: Needs 50,000 followers + 10M views. Every extra 10M views = KSH 20,000.</p>
+<p style="color:#a3e635;font-size:12px;margin-top:10px">SPENDABLE BALANCE (Not mixed with Earnings)</p>
 <div class="big"><span id="balance">0</span> COINS</div>
-<div style="background:#150a20;border:1px solid #a855f7;border-radius:12px;padding:12px;margin-top:8px"><b style="color:#c084fc">💜 SUBCOINS - For Channels Only</b><br><span style="font-size:24px;font-weight:900;color:#c084fc" id="subBalance">0</span> SUBCOINS<br><small style="color:#888">1 Subcoin = 1 KSh. More expensive. Only for Channels.</small></div>
+<div class="earn-box">
+<b style="color:#4ade80">💵 CREATOR EARNING BALANCE (Separate)</b><br>
+<span style="font-size:26px;font-weight:900;color:#4ade80" id="profileEarnCoins">0</span> EARNING COINS <small style="color:#ccc">(≈ <span id="profileEarnKsh">0.00</span> KSH)</small><br>
+<small style="color:#888">75% Live Gifts • 30% Artist Songs • Min withdraw: 10,000 coins</small>
+</div>
+<div style="background:#150a20;border:1px solid #a855f7;border-radius:12px;padding:12px;margin-top:8px"><b style="color:#c084fc">💜 SUBCOINS - For Channels Only</b><br><span style="font-size:24px;font-weight:900;color:#c084fc" id="subBalance">0</span> SUBCOINS<br><small style="color:#888">1 Subcoin = 1 KSh • 2 Subcoins to watch channel content.</small></div>
+<div style="background:#1a1500;border:1px solid #facc15;border-radius:12px;padding:10px;margin-top:8px;display:flex;justify-content:space-between;align-items:center">
+<div><small style="color:#888">🎁 YOUR REFERRAL CODE (+100 coins each)</small><br><b id="myRefCode" style="color:#facc15;font-size:16px">BANDU0000</b></div>
+<button class="btn gold small" onclick="copyRefCode()">📋 COPY</button>
+</div>
 <button class="btn gold" id="goCoinsBtn">+ BUY COINS / SUBCOINS</button>
 <button class="btn purple" id="goChannelsBtn">💜 GO TO CREATOR CHANNELS</button>
 <button class="btn gold" onclick="openBanduCamera()">➕ CREATE POST - Opens BANDU Camera</button>
-<div style="background:#0a1a00;border:1px solid #a3e635;border-radius:12px;padding:10px;margin-top:10px"><b>✨ MY FILTERS - IG/TIKTOK/SNAPCHAT AR (ALL FREE ✅)</b><br><span id="myFiltersText" style="font-size:12px;color:#888">17 / 17 FREE</span><br><button class="btn dark small" onclick="openBanduCamera()">✨ TRY AR &amp; SHADER FILTERS - FREE</button></div>
-<div style="background:#111;border:1px solid #facc15;border-radius:12px;padding:10px;margin-top:10px"><b>🎵 MY MUSIC - AUDIUS + JAMENDO + MP3</b><br><span id="myMusicText" style="font-size:12px;color:#888">No song selected</span><br><button class="btn dark small" onclick="openMusicSheet()">🎵 PICK TRENDING SONG OR MP3</button></div>
+<div style="background:#0a1a00;border:1px solid #a3e635;border-radius:12px;padding:10px;margin-top:10px"><b>✨ MY FILTERS - IG/TIKTOK/SNAPCHAT AR (ALL FREE ✅)</b><br><span id="myFiltersText" style="font-size:12px;color:#888">17 / 17 FREE • Reuse from any post</span><br><button class="btn dark small" onclick="openBanduCamera()">✨ TRY AR &amp; SHADER FILTERS - FREE</button></div>
+<div style="background:#111;border:1px solid #facc15;border-radius:12px;padding:10px;margin-top:10px"><b>🎵 MY MUSIC - AUDIUS + JAMENDO + ARTIST SONGS</b><br><span id="myMusicText" style="font-size:12px;color:#888">No song selected</span><br><button class="btn dark small" onclick="openMusicSheet()">🎵 PICK / UPLOAD SONG</button></div>
 </div>
 <div class="card">
-<p style="color:#a3e635;font-size:12px">📊 MY DASHBOARD - REAL NUMBERS ONLY</p>
+<p style="color:#a3e635;font-size:12px">📊 MY DASHBOARD - VERIFICATION &amp; PAYOUTS</p>
 <div class="dash">
 <div><b id="dashPosts">0</b><span>Total Posts</span></div>
+<div><b id="dashViews">0</b><span>Total Views</span></div>
 <div><b id="dashLikes">0</b><span>Total Likes</span></div>
 <div><b id="dashComments">0</b><span>Total Comments</span></div>
 <div><b id="dashShares">0</b><span>Total Shares</span></div>
+<div><b id="dashViewKsh">0 KSH</b><span>Extra 10M Payout</span></div>
 </div>
-<p style="font-size:11px;color:#888;text-align:center;margin:8px 0 0">No fake Views / Growth - Only real likes &amp; comments count.</p>
+<button class="btn green small" style="width:100%;margin-top:10px" onclick="claimViewsPayout()">💸 CLAIM VIEWS PAYOUT (KSH 20,000 / +10M Views)</button>
+<p style="font-size:11px;color:#888;text-align:center;margin:8px 0 0">Needs 50k followers + 10M views to verify; each extra 10M views = KSH 20,000.</p>
 </div>
 <div class="card"><p style="color:#a3e635;font-size:12px">MY POSTS</p><div id="myPosts"></div></div>
 <button class="btn dark" id="logoutBtn">LOGOUT</button>
@@ -204,7 +221,7 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <h3 style="margin:0">🪙 SPEND - BANDU FEED</h3>
 <button class="btn dark small" id="feedMuteBtn" style="margin:0" onclick="toggleFeedAudio()">🔊 Sound ON</button>
 </div>
-<p style="color:#a3e635;font-size:12px">FOR YOU = Everyone's posts • FOLLOWING = People you follow only</p>
+<p style="color:#a3e635;font-size:12px">Watch/Download video = 1 coin • Share = 1 coin (receiver free) • Post = 5 coins</p>
 <p style="background:#0a1a00;padding:8px;border-radius:10px;font-size:12px">✅ PUBLIC FEED = CLEAN ONLY. No porn / naked / bad content. Bad content goes to Channels only.</p>
 <div class="spend-tabs"><button id="feedFollowingTab" onclick="setFeedMode('following')">👥 FOLLOWING</button><button id="feedForYouTab" class="active" onclick="setFeedMode('foryou')">🌍 FOR YOU</button><button id="feedStoriesTab" onclick="setFeedMode('stories')">🔴 STORIES</button></div>
 <p style="color:#a3e635;font-size:12px">🔴 STORIES - Tap story = 1 coin auto</p><div class="story-row" id="storyRow"></div>
@@ -214,39 +231,41 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 </div>
 <div class="spend-feed" id="feedList"></div>
 <audio id="feedMusicPlayer" loop></audio>
-<p style="text-align:center;color:#888;font-size:12px">Swipe UP = Next video • Swipe DOWN = Previous video • Swipe LEFT/RIGHT = Change tab</p>
+<p style="text-align:center;color:#888;font-size:12px">Swipe UP = Next • Swipe DOWN = Prev • Tap Song/Filter pill to reuse like TikTok</p>
 </div>
 <div id="tab-notifications" class="hidden">
-<div class="card"><h3>🔔 NOTIFICATIONS</h3><p style="color:#888;font-size:12px">Likes, Comments, Follows, Shares - All here. Tap to clear.</p><button class="btn dark small" onclick="clearNotifications()">✅ MARK ALL AS READ</button><div id="notifList" style="margin-top:12px"></div></div>
-<div class="card" id="adminReportsCard" style="display:none;border:2px solid #e11d48"><h3>🛡️ ADMIN - REPORTED POSTS</h3><p style="font-size:12px;color:#888">Only you (owner) see this. Review and delete bad posts.</p><div id="adminReportsList"></div></div>
+<div class="card"><h3>🔔 NOTIFICATIONS</h3><p style="color:#888;font-size:12px">Likes, Comments, Follows, Referrals, Payouts - Tap to mark read.</p><button class="btn dark small" onclick="clearNotifications()">✅ MARK ALL AS READ</button><div id="notifList" style="margin-top:12px"></div></div>
+<div class="card" id="adminReportsCard" style="display:none;border:2px solid #e11d48"><h3>🛡️ ADMIN - REPORTED POSTS</h3><p style="font-size:12px;color:#888">Only owner sees this. Review and delete bad posts.</p><div id="adminReportsList"></div></div>
 </div>
 <div id="tab-channels" class="hidden">
 <div class="card" style="border:2px solid #a855f7">
 <h3>💜 CREATOR CHANNELS</h3>
-<p style="color:#888;font-size:13px">Create your own page. Name it anything: <b style="color:#fff">Wizzy's Page</b></p>
-<p style="background:#150a20;padding:10px;border-radius:10px;font-size:13px">📏 RULES:<br>• Every channel has <b>3 FREE posts</b><br>• Post #4+ = LOCKED, need Subscribe<br>• Subscribe = <b>600 Subcoins</b> - Creator 75% = 450, App Owner 25% = 150<br>• Creator pays <b>50 Subcoins</b> to post in channel<br>• 🔞 Mature / bad content ONLY inside Channels, never in Public Feed</p>
-<p>Your Followers: <b style="color:#facc15" id="chanFollowers">0</b></p>
+<p style="color:#888;font-size:13px">Create your own page (Requires <b>10,000 followers</b>). Name it anything: <b style="color:#fff">Wizzy's Page</b></p>
+<p style="background:#150a20;padding:10px;border-radius:10px;font-size:13px">📏 RULES:<br>• Requires <b>10,000 followers</b> to create<br>• First <b>3 posts FREE</b>; Post #4+ LOCKED behind monthly subscription<br>• Creator sets monthly Subcoin price (e.g. 600) — <b>75% Creator / 25% Owner</b> (1 Subcoin = 1 KSH)<br>• Watching channel content costs <b>2 Subcoins</b><br>• Creator pays <b>50 Subcoins</b> to post • 🔞 Mature 18+ allowed in Channels only</p>
+<p>Your Followers: <b style="color:#facc15" id="chanFollowers">0</b> / 10,000 required</p>
 <p>Your Subcoins: <b style="color:#c084fc" id="chanSubcoins">0</b></p>
 <input id="channelName" placeholder="Your Channel / Page Name - e.g Wizzy's Page">
-<input id="channelPrice" value="600" type="number" readonly>
+<input id="channelPrice" value="600" type="number" min="50" placeholder="Monthly Subcoin Price e.g. 600">
 <textarea id="channelDesc" rows="2" placeholder="Channel description - OPTIONAL"></textarea>
-<button class="btn purple" id="createChannelBtn">💜 CREATE MY CHANNEL / PAGE</button>
+<button class="btn purple" id="createChannelBtn">💜 CREATE MY CHANNEL (Needs 10,000 Followers)</button>
 <p id="chanMsg" style="text-align:center;color:#888"></p>
 </div>
 <div class="card">
-<h3>🔴 LIVE - FREE ✅ NO COINS NEEDED - Just Internet</h3>
-<p style="color:#a3e635;font-size:12px">LIVE is FREE now. You only need Internet / Data. Gifts still earn creator 75%.</p>
+<h3>🔴 LIVE - DATA/WIFI ONLY ✅</h3>
+<p style="color:#a3e635;font-size:12px">Going live needs Internet/WiFi only. Gifts (10–10,000 coins) go to your separate Earning Balance (75% streamer / 25% platform).</p>
 <p id="liveTimer" style="text-align:center;font-size:28px;color:#facc15;font-weight:900">00:00:00</p>
-<p id="liveStatus" style="text-align:center;color:#a3e635">Not Live - FREE to Join</p>
-<button class="btn gold" onclick="startLive('WATCH')">👁 WATCH LIVE - FREE</button>
-<button class="btn dark" onclick="openBanduCamera(true)">🔴 GO LIVE - FREE - BANDU Camera</button>
+<p id="liveStatus" style="text-align:center;color:#a3e635">Not Live - Ready</p>
+<button class="btn gold" onclick="startLive('WATCH')">👁 WATCH LIVE</button>
+<button class="btn dark" onclick="openBanduCamera(true)">🔴 GO LIVE - WiFi / Data</button>
 <button class="btn dark" onclick="stopLive()">⏹ STOP LIVE</button>
-<h3>💰 MY CREATOR EARNINGS - 75% FROM GIFTS</h3>
-<div style="background:#1a1a1a;padding:12px;border-radius:12px;text-align:center">
-<p style="margin:0;color:#888;font-size:12px">YOU EARNED AS CREATOR (75% from Gifts)</p>
-<p style="font-size:28px;color:#facc15;font-weight:900;margin:5px 0"><span id="creatorEarn">0</span> COINS</p>
-<p style="margin:0;color:#888;font-size:12px">App Owner earned (25%): <span id="appEarn">0</span> coins</p>
-<button class="btn gold" onclick="withdrawCreator()">💸 WITHDRAW MY 75% TO COINS</button>
+<h3>💵 SEPARATE EARNING-COIN BALANCE</h3>
+<div class="earn-box" style="text-align:center">
+<p style="margin:0;color:#888;font-size:12px">EARNING COINS (75% Live Gifts + 30% Artist Songs)</p>
+<p style="font-size:28px;color:#4ade80;font-weight:900;margin:5px 0"><span id="creatorEarn">0</span> COINS</p>
+<p style="margin:0;color:#fff;font-size:14px">≈ <b style="color:#facc15" id="creatorEarnKsh">0.00</b> KSH <small style="color:#888">(10,000 coins ≈ 444.45 KSH)</small></p>
+<p style="margin:4px 0;color:#888;font-size:11px">Channel Subcoin Earnings (1 Subcoin = 1 KSH): <b id="subEarnKsh">0</b> KSH</p>
+<p style="margin:4px 0;color:#888;font-size:11px">Platform 25%: <span id="appEarn">0</span> coins | Today withdrawn: <span id="dailyWithdrawnLbl">0</span> / 100,000,000</p>
+<button class="btn green" onclick="withdrawCreator()">💸 CONVERT &amp; WITHDRAW INSTANTLY (Min 10,000)</button>
 </div>
 </div>
 <div class="card">
@@ -272,7 +291,7 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 </div>
 <div class="card" style="border:2px solid #a855f7">
 <h3>💜 BUY SUBCOINS - FOR CHANNEL AREA ONLY</h3>
-<p>Your Subcoins: <b id="subBalance2">0</b></p>
+<p>Your Subcoins: <b id="subBalance2">0</b> (1 Subcoin = 1 KSh)</p>
 <button class="btn dark pkg" onclick="selectPkg(200,200,'sub',this)">💜 200 Subcoin - 200 KSh</button>
 <button class="btn dark pkg" onclick="selectPkg(500,500,'sub',this)">💜 500 Subcoin - 500 KSh</button>
 <button class="btn dark pkg" onclick="selectPkg(1000,1000,'sub',this)">💜 1000 Subcoin - 1000 KSh</button>
@@ -312,7 +331,7 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <input id="editFullWebsite" placeholder="Website Link - banducoins.com">
 <p style="margin-top:14px;font-weight:900">Account Type</p>
 <div class="toggle-row"><button id="typeArtist" class="active" onclick="setAccountType('Artist')">Artist</button><button id="typeFan" onclick="setAccountType('Fan')">Fan</button></div>
-<button class="btn dark" onclick="showToast('Change Password - Use Forgot Password on login screen')">Change Password &gt;</button>
+<button class="btn dark" onclick="showToast('Use Forgot Password (SMS Verification) on login screen')">Change Password &gt;</button>
 <button class="btn dark" onclick="showToast('Privacy - Only you can see your private info')">Privacy &gt;</button>
 <button class="btn purple" onclick="saveEditFull()">Save Changes</button>
 <button class="btn dark" onclick="closeEditFull()">Cancel</button>
@@ -334,31 +353,39 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <div id="sheetBack" class="sheet-back" onclick="closePostSheet()"></div>
 <div id="postSheet" class="post-sheet">
 <div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">📤 POST - PUBLIC FEED - CLEAN ONLY</h3><button class="btn dark small" onclick="closePostSheet()">✕ CLOSE</button></div>
-<p style="font-size:12px;color:#888">Post = 5 coins • Watch/Story = 1 coin AUTO • Share = 1 coin AUTO • LIVE = FREE • 📶 Upload needs Internet<br>❌ No porn / naked / bad content here. Bad content = Channel only.</p>
+<p style="font-size:12px;color:#888">Post = 5 coins (+ track fee if using paid Artist Song) • Watch/Download = 1 coin • Share = 1 coin<br>❌ No porn / naked / bad content here. Bad content = Channel only.</p>
 <img id="previewImg" class="filter-preview"><video id="previewVideo" class="filter-preview" controls></video>
 <p id="previewFilterName" style="text-align:center;color:#a3e635;font-weight:900"></p>
+<p id="previewMusicFee" style="text-align:center;color:#facc15;font-size:12px;font-weight:900"></p>
 <textarea id="caption" rows="2" placeholder="Caption - OPTIONAL - Clean only"></textarea>
 <select id="category"><option value="">Category: No Category - Optional</option><option value="Short Videos">Short Videos</option><option>Sports</option><option>Comedy</option><option>Music</option><option>Kids</option><option>Cartoons</option></select>
 <select id="postType"><option value="permanent">📌 PERMANENT POST</option><option value="story">🕐 STORY - 24hrs</option></select>
 <button class="btn dark" onclick="openMusicSheet()">🎵 CHANGE MUSIC</button>
 <input type="file" id="postFile" accept="image/*,video/*">
-<button class="btn green" id="postBtn">📤 POST NOW - 5 COINS - Needs Internet 📶</button>
+<button class="btn green" id="postBtn">📤 POST NOW - 5 COINS</button>
 <p id="postMsg" style="text-align:center;color:#888"></p>
 <button class="btn dark" onclick="closePostSheet()">CANCEL</button>
 </div>
 <div id="musicSheet" class="music-sheet">
-<div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">🎵 MUSIC - TRENDING &amp; MP3</h3><button class="btn dark small" onclick="closeMusicSheet()">✕ CLOSE</button></div>
-<p style="font-size:12px;color:#888">Audius Trending Hits + Jamendo Royalty-Free + Your Phone Beats.</p>
+<div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">🎵 MUSIC &amp; ARTIST SONGS</h3><button class="btn dark small" onclick="closeMusicSheet()">✕ CLOSE</button></div>
+<p style="font-size:12px;color:#888">Audius Trending + Jamendo + Artist Uploads (Artists w/ 20k followers earn 30% when supporters post!).</p>
 <p style="background:#1a2a00;padding:8px;border-radius:10px;font-size:12px">Selected: <b id="selectedMusicLabel" style="color:#facc15">No song</b> <button class="btn dark small" onclick="clearMusic()">Clear</button></p>
-<button class="btn purple small" style="width:100%" onclick="document.getElementById('localAudioInput').click()">📁 USE SONG / BEAT FROM MY PHONE (.mp3)</button>
+<div style="border:1px solid #a855f7;border-radius:12px;padding:10px;margin-bottom:8px;background:#150a20">
+<b style="color:#c084fc">🎤 ARTIST UPLOAD (Requires 20,000 Followers)</b><br>
+<small style="color:#ccc">Supporters pay ~100 coins (3-min track) to post; Artist earns 30% into Earning Balance.</small>
+<input id="artistSongTitle" placeholder="Song Title e.g. Nairobi Nights">
+<input id="artistSongMins" type="number" value="3" min="1" max="10" placeholder="Length in mins (3 mins ≈ 100 coins)">
+<input type="file" id="artistAudioFile" accept="audio/*">
+<button class="btn purple small" style="width:100%" onclick="uploadArtistSong()">🚀 UPLOAD ARTIST SONG (20k Followers)</button>
+</div>
+<button class="btn dark small" style="width:100%" onclick="document.getElementById('localAudioInput').click()">📁 PICK LOCAL MP3 FROM MY PHONE (Personal)</button>
 <input type="file" id="localAudioInput" accept="audio/*" style="display:none">
-<input id="musicSearchInput" placeholder="🔍 Search Audius &amp; Jamendo... e.g afrobeats, burna, gospel">
+<input id="musicSearchInput" placeholder="🔍 Search Audius, Jamendo &amp; Artists...">
 <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">
 <button class="chip active" onclick="loadAudiusTrending('',this)">🔥 Trending</button>
+<button class="chip" onclick="loadArtistCatalog(this)">🎤 Bandu Artists</button>
 <button class="chip" onclick="loadAudiusTrending('Afrobeats',this)">🌍 Afrobeats</button>
-<button class="chip" onclick="loadAudiusTrending('Hip-Hop/Rap',this)">🎤 Hip-Hop</button>
-<button class="chip" onclick="loadAudiusTrending('R&amp;B/Soul',this)">💜 R&amp;B</button>
-<button class="chip" onclick="loadAudiusTrending('Electronic',this)">⚡ Electronic</button>
+<button class="chip" onclick="loadAudiusTrending('Hip-Hop/Rap',this)">🎧 Hip-Hop</button>
 <button class="chip" onclick="quickMusic('amapiano',this)">🥁 Amapiano</button>
 <button class="chip" onclick="quickMusic('bongo',this)">🎶 Bongo</button>
 <button class="chip" onclick="quickMusic('gospel',this)">🙏 Gospel</button>
@@ -388,20 +415,26 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <audio id="camAudioPlayer" loop></audio>
 </div>
 <div id="liveOverlay" style="display:none;position:fixed;inset:0;background:#000;z-index:400;flex-direction:column;max-width:480px;margin:auto">
-<div style="display:flex;justify-content:space-between;padding:14px;align-items:center">
-<span style="background:#e11d48;padding:6px 12px;border-radius:20px;font-weight:900">🔴 LIVE - FREE (<span id="liveOverlayTimer">00:00:00</span>)</span>
+<div style="display:flex;justify-content:space-between;padding:12px;align-items:center">
+<span style="background:#e11d48;padding:6px 12px;border-radius:20px;font-weight:900;font-size:12px">🔴 LIVE (<span id="liveOverlayTimer">00:00:00</span>)</span>
+<span style="font-size:13px;font-weight:900">❤️ <span id="liveLikeCount">0</span></span>
 <button class="btn dark small" onclick="stopLive()">✕ END LIVE</button>
 </div>
 <video id="liveVideo" autoplay playsinline muted style="flex:1;width:100%;object-fit:contain;background:#111"></video>
-<div style="padding:14px">
-<p id="liveInfoNote" style="color:#888;font-size:12px;text-align:center">LIVE - FREE - Just Internet - Gifts earn creator 75%</p>
-<div style="display:flex;gap:6px;justify-content:center;margin-bottom:6px">
-<button class="btn gold small" onclick="sendLiveGift(10)">🎁 Gift 10 Coins</button>
-<button class="btn purple small" onclick="sendLiveGift(50)">💎 Gift 50 Coins</button>
+<div style="padding:10px 14px 14px">
+<p id="liveInfoNote" style="color:#888;font-size:11px;text-align:center;margin:2px 0">LIVE - WiFi/Data only - 75% of gifts go to Streamer Earning Balance</p>
+<div class="gift-grid">
+<button onclick="likeLive()">❤️ Like</button>
+<button onclick="sendLiveGift(10,'🌹 Rose')">🌹 10</button>
+<button onclick="sendLiveGift(50,'🔥 Fire')">🔥 50</button>
+<button onclick="sendLiveGift(200,'🎤 Mic')">🎤 200</button>
+<button onclick="sendLiveGift(1000,'👑 Crown')">👑 1,000</button>
+<button onclick="sendLiveGift(5000,'🦁 Lion')">🦁 5,000</button>
+<button onclick="sendLiveGift(10000,'🚀 Rocket')">🚀 10,000</button>
 </div>
 <div class="live-comments" id="liveCommentsBox"></div>
-<div style="display:flex;gap:6px;margin-top:8px"><input id="liveCommentInput" placeholder="💬 Comment on LIVE..." style="margin:0"><button class="btn gold small" style="margin:0;white-space:nowrap" onclick="addLiveComment()">Send</button></div>
-<button class="btn dark" onclick="stopLive()" style="background:#e11d48">⏹ STOP LIVE</button>
+<div style="display:flex;gap:6px;margin-top:6px"><input id="liveCommentInput" placeholder="💬 Comment on LIVE..." style="margin:0"><button class="btn gold small" style="margin:0;white-space:nowrap" onclick="addLiveComment()">Send</button></div>
+<button class="btn dark" onclick="stopLive()" style="background:#e11d48;margin-top:6px">⏹ STOP LIVE &amp; UNLOCK WITHDRAWAL</button>
 </div>
 </div>
 <script type="module">
@@ -437,7 +470,7 @@ function esc(s){
   if(s===null||s===undefined) return "";
   return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
 }
-function showToast(m,e){var t=document.getElementById("toast");t.innerText=m;t.className=e?"show err":"show";setTimeout(function(){t.className=""},3000)}
+function showToast(m,e){var t=document.getElementById("toast");t.innerText=m;t.className=e?"show err":"show";setTimeout(function(){t.className=""},3200)}
 function get(k,d){try{var v=localStorage.getItem(k);return v===null?d:v}catch(e){return d}}
 function set(k,v){
   try{ localStorage.setItem(k,v); return true; }
@@ -455,10 +488,15 @@ function compressImage(dataUrl, maxW, quality, cb){
   img.onerror=function(){ cb(dataUrl); };
   img.src=dataUrl;
 }
+
 var coins=parseInt(get("bandu_coins","100"))||100;
 var subcoins=parseInt(get("bandu_subcoins","0"))||0;
 var appEarnings=parseInt(get("bandu_app_earnings","0"))||0;
 var creatorEarn=parseInt(get("bandu_creator_earn","0"))||0;
+var subEarnKsh=parseInt(get("bandu_sub_earn_ksh","0"))||0;
+var dailyWithdrawn=parseInt(get("bandu_daily_withdrawn","0"))||0;
+var dailyWithdrawDate=get("bandu_daily_date","");
+var claimedViewMillions=parseInt(get("bandu_claimed_views_m","0"))||0;
 var myPosts=[]; try{myPosts=JSON.parse(get("bandu_posts","[]"))}catch(e){myPosts=[]}
 var users=[]; try{users=JSON.parse(get("bandu_users","[]"))}catch(e){users=[]}
 var following=[]; try{following=JSON.parse(get("bandu_following","[]"))}catch(e){following=[]}
@@ -466,15 +504,21 @@ var chats={}; try{chats=JSON.parse(get("bandu_chats","{}"))}catch(e){chats={}}
 var channels=[]; try{channels=JSON.parse(get("bandu_channels","[]"))}catch(e){channels=[]}
 var channelPosts=[]; try{channelPosts=JSON.parse(get("bandu_channel_posts","[]"))}catch(e){channelPosts=[]}
 var subs=[]; try{subs=JSON.parse(get("bandu_subs","[]"))}catch(e){subs=[]}
+var artistSongs=[]; try{artistSongs=JSON.parse(get("bandu_artist_songs","[]"))}catch(e){artistSongs=[]}
+var pendingCredits={}; try{pendingCredits=JSON.parse(get("bandu_pending_credits","{}"))||{}}catch(e){pendingCredits={}}
 var notifications=[]; try{notifications=JSON.parse(get("bandu_notifications","[]"))}catch(e){notifications=[]}
 var reports=[]; try{reports=JSON.parse(get("bandu_reports","[]"))}catch(e){reports=[]}
 var verifiedUsers=[]; try{verifiedUsers=JSON.parse(get("bandu_verified","[]"))}catch(e){verifiedUsers=[]}
+var watchedChannelPosts=[]; try{watchedChannelPosts=JSON.parse(get("bandu_watched_ch","[]"))}catch(e){watchedChannelPosts=[]}
+
 var feedMode="foryou";
 var currentUser=get("bandu_phone",""), userName=get("bandu_name","@user"), avatarUrl=get("bandu_avatar",""), userBio=get("bandu_bio","");
 var userLocation=get("bandu_location","Eldoret, Kenya"), userWebsite=get("bandu_website","banducoins.com"), userType=get("bandu_type","Artist"), userCover=get("bandu_cover","");
 var currentCat="All", selectedCoins=450, selectedAmount=20, selectedType="coin", currentChatPhone="", tempPostUrl="", tempPostType="image";
-var camStream=null, camFacing='user', camLen=15, camMode='PHOTO', liveSeconds=0, liveInt=null, mediaRecorder=null, recordedChunks=[], isRecording=false, galleryFromCam=false;
+var camStream=null, camFacing='user', camLen=15, camMode='PHOTO', liveSeconds=0, liveInt=null, isLiveNow=false, liveLikes=0;
+var mediaRecorder=null, recordedChunks=[], isRecording=false, galleryFromCam=false;
 var currentCommentIndex=-1, beautyBoost=false, feedMuted=false, activeFeedObserver=null;
+var sessionWatchedVideos={};
 var savedPosts=[]; try{savedPosts=JSON.parse(get("bandu_saved","[]"))}catch(e){savedPosts=[]}
 
 var FILTERS=[
@@ -524,40 +568,96 @@ function containsBadContent(text){
 function isMaturePost(caption, category){ return containsBadContent(caption) || category==="Mature 18+"; }
 function isVerified(phone){ return verifiedUsers.indexOf(phone)>=0; }
 function verifiedMark(phone){ return isVerified(phone)?'<span class="verified">✓</span>':''; }
+function getFollowersCount(){
+  var el=document.getElementById("statFollowers");
+  return el ? (parseInt(el.innerText||"0")||0) : 0;
+}
+function getTotalViews(){
+  var v=0;
+  myPosts.forEach(function(p){ if(p.phone===currentUser) v+=(p.views||0); });
+  return v;
+}
 function checkVerification(){
-  var followersEl=document.getElementById("statFollowers");
-  var followers=followersEl?parseInt(followersEl.innerText||"0")||0:0;
+  var followers=getFollowersCount();
+  var views=getTotalViews();
   var badge=document.getElementById("verifiedBadge"), status=document.getElementById("verifyStatus");
-  if(followers>=50000){
+  if(followers>=50000 && views>=10000000){
     if(verifiedUsers.indexOf(currentUser)<0){ verifiedUsers.push(currentUser); set("bandu_verified",JSON.stringify(verifiedUsers)); }
     if(badge) badge.innerHTML='<span class="verified">✓</span>';
-    if(status) status.innerText="✓ Verified - 50,000+ followers";
+    if(status) status.innerText="✓ Verified for Creator Payouts (50k+ followers & 10M+ views)";
   } else {
     if(badge) badge.innerHTML="";
-    if(status) status.innerText="Need "+(50000-followers)+" more followers for verification";
+    var fNeed=Math.max(0, 50000-followers), vNeed=Math.max(0, 10000000-views);
+    if(status) status.innerText="Payout Verify: Need "+fNeed.toLocaleString()+" followers & "+vNeed.toLocaleString()+" views";
   }
 }
+function claimViewsPayout(){
+  var followers=getFollowersCount(), views=getTotalViews();
+  if(followers<50000 || views<10000000){
+    showToast("Need 50,000 followers + 10M views first!", true); return;
+  }
+  var extraMillions=Math.floor((views-10000000)/10000000);
+  if(extraMillions<=claimedViewMillions){
+    var nextAt=(10000000 + (claimedViewMillions+1)*10000000).toLocaleString();
+    showToast("Next KSH 20,000 payout unlocks at "+nextAt+" total views"); return;
+  }
+  var newMilestones=extraMillions-claimedViewMillions;
+  var payoutKsh=newMilestones*20000;
+  claimedViewMillions=extraMillions;
+  set("bandu_claimed_views_m", claimedViewMillions);
+  addNotification(currentUser, "💸 Claimed KSH "+payoutKsh.toLocaleString()+" views milestone payout!", "payout");
+  saveAll();
+  showToast("💸 Claimed KSH "+payoutKsh.toLocaleString()+" for "+newMilestones+"x 10M extra views!");
+}
+function coinsToKsh(c){ return ((c * 444.45) / 10000).toFixed(2); }
+function genRefCode(ph){ return "BANDU"+String(ph||"0000").slice(-4); }
+function copyRefCode(){
+  var code=genRefCode(currentUser);
+  try{ navigator.clipboard.writeText(code); showToast("📋 Copied Referral Code: "+code); }
+  catch(e){ showToast("Referral Code: "+code); }
+}
+function applyPendingCreditsForUser(ph){
+  if(!ph || !pendingCredits[ph]) return;
+  var cr=pendingCredits[ph];
+  if(cr.coins){ coins+=cr.coins; showToast("🎁 +"+cr.coins+" Referral Coins credited!"); }
+  if(cr.earn){ creatorEarn+=cr.earn; showToast("💵 +"+cr.earn+" Earning Coins credited!"); }
+  delete pendingCredits[ph];
+  set("bandu_pending_credits", JSON.stringify(pendingCredits));
+}
 function isOwner(){ return currentUser==="0798486530"; }
+function checkDailyReset(){
+  var today=new Date().toDateString();
+  if(dailyWithdrawDate!==today){ dailyWithdrawDate=today; dailyWithdrawn=0; set("bandu_daily_date",today); set("bandu_daily_withdrawn",0); }
+}
 function saveAll(){
   set("bandu_coins",coins); set("bandu_subcoins",subcoins); set("bandu_app_earnings",appEarnings); set("bandu_creator_earn",creatorEarn);
+  set("bandu_sub_earn_ksh",subEarnKsh); set("bandu_daily_withdrawn",dailyWithdrawn); set("bandu_daily_date",dailyWithdrawDate);
   set("bandu_posts",JSON.stringify(myPosts)); set("bandu_users",JSON.stringify(users)); set("bandu_following",JSON.stringify(following));
   set("bandu_chats",JSON.stringify(chats)); set("bandu_channels",JSON.stringify(channels)); set("bandu_channel_posts",JSON.stringify(channelPosts));
-  set("bandu_subs",JSON.stringify(subs)); set("bandu_notifications",JSON.stringify(notifications)); set("bandu_reports",JSON.stringify(reports));
+  set("bandu_subs",JSON.stringify(subs)); set("bandu_artist_songs",JSON.stringify(artistSongs)); set("bandu_pending_credits",JSON.stringify(pendingCredits));
+  set("bandu_notifications",JSON.stringify(notifications)); set("bandu_reports",JSON.stringify(reports)); set("bandu_watched_ch",JSON.stringify(watchedChannelPosts));
   set("bandu_verified",JSON.stringify(verifiedUsers)); set("bandu_phone",currentUser); set("bandu_name",userName); set("bandu_avatar",avatarUrl); set("bandu_bio",userBio);
   set("bandu_location",userLocation); set("bandu_website",userWebsite); set("bandu_type",userType); set("bandu_cover",userCover); set("bandu_saved",JSON.stringify(savedPosts));
   updateUI();
 }
 function updateUI(){
-  var b=document.getElementById("balance"); if(b) b.innerText=coins;
-  var b2=document.getElementById("balance2"); if(b2) b2.innerText=coins;
-  var bt=document.getElementById("balTop"); if(bt) bt.innerText=coins;
-  var s=document.getElementById("subBalance"); if(s) s.innerText=subcoins;
-  var s2=document.getElementById("subBalance2"); if(s2) s2.innerText=subcoins;
-  var st=document.getElementById("subTop"); if(st) st.innerText=subcoins;
-  var ce=document.getElementById("creatorEarn"); if(ce) ce.innerText=creatorEarn;
-  var ae=document.getElementById("appEarn"); if(ae) ae.innerText=appEarnings;
+  checkDailyReset();
+  var b=document.getElementById("balance"); if(b) b.innerText=coins.toLocaleString();
+  var b2=document.getElementById("balance2"); if(b2) b2.innerText=coins.toLocaleString();
+  var bt=document.getElementById("balTop"); if(bt) bt.innerText=coins.toLocaleString();
+  var s=document.getElementById("subBalance"); if(s) s.innerText=subcoins.toLocaleString();
+  var s2=document.getElementById("subBalance2"); if(s2) s2.innerText=subcoins.toLocaleString();
+  var st=document.getElementById("subTop"); if(st) st.innerText=subcoins.toLocaleString();
+  var ce=document.getElementById("creatorEarn"); if(ce) ce.innerText=creatorEarn.toLocaleString();
+  var cek=document.getElementById("creatorEarnKsh"); if(cek) cek.innerText=coinsToKsh(creatorEarn);
+  var pec=document.getElementById("profileEarnCoins"); if(pec) pec.innerText=creatorEarn.toLocaleString();
+  var pek=document.getElementById("profileEarnKsh"); if(pek) pek.innerText=coinsToKsh(creatorEarn);
+  var sek=document.getElementById("subEarnKsh"); if(sek) sek.innerText=subEarnKsh.toLocaleString();
+  var dwl=document.getElementById("dailyWithdrawnLbl"); if(dwl) dwl.innerText=dailyWithdrawn.toLocaleString();
+  var ae=document.getElementById("appEarn"); if(ae) ae.innerText=appEarnings.toLocaleString();
   var dn=document.getElementById("displayName"); if(dn) dn.innerHTML=esc(userName)+" "+verifiedMark(currentUser);
   var up=document.getElementById("userPhone"); if(up) up.innerText=currentUser;
+  var rfc=document.getElementById("myRefCode"); if(rfc) rfc.innerText=genRefCode(currentUser);
   var db=document.getElementById("displayBio"); if(db) db.innerText=userBio;
   var dl=document.getElementById("displayLocation"); if(dl) dl.innerText=userLocation?("📍 "+userLocation):"";
   var dw=document.getElementById("displayWebsite"); if(dw) dw.innerText=userWebsite?("🔗 "+userWebsite):"";
@@ -568,8 +668,8 @@ function updateUI(){
     else { aImg.style.display="none"; aEm.style.display="block"; }
   }
   var sf=document.getElementById("statFollowing"); if(sf) sf.innerText=following.length;
-  var cf=document.getElementById("chanFollowers"); if(cf) cf.innerText=document.getElementById("statFollowers")?document.getElementById("statFollowers").innerText:"0";
-  var cs=document.getElementById("chanSubcoins"); if(cs) cs.innerText=subcoins;
+  var cf=document.getElementById("chanFollowers"); if(cf) cf.innerText=getFollowersCount().toLocaleString();
+  var cs=document.getElementById("chanSubcoins"); if(cs) cs.innerText=subcoins.toLocaleString();
   var unread=notifications.filter(function(n){return !n.read}).length;
   var dot=document.getElementById("notifDot"); if(dot){ dot.style.display=unread>0?"block":"none"; dot.innerText=unread; }
   checkVerification();
@@ -617,10 +717,8 @@ function renderStories(){
 }
 function openStory(idx){
   var s=myPosts[idx]; if(!s) return;
-  if(s.phone!==currentUser){
-    if(coins<1){ showToast("Need 1 coin to view story",true); return; }
-    coins-=1; saveAll(); showToast("🪙 -1 coin (Story view)");
-  }
+  if(coins<1){ showToast("Need 1 coin to watch story",true); return; }
+  coins-=1; s.views=(s.views||0)+1; saveAll(); showToast("🪙 -1 coin (Story Watch)");
   document.getElementById("storyAuthor").innerHTML=esc(s.user||s.phone)+" "+verifiedMark(s.phone);
   var box=document.getElementById("storyContent");
   box.innerHTML=s.url?(s.type==="video"?'<video src="'+s.url+'" controls autoplay style="max-width:100%;max-height:100%"></video>':'<img src="'+s.url+'" style="max-width:100%;max-height:100%;object-fit:contain">'):('<h2>'+esc(s.caption||"")+'</h2>');
@@ -646,6 +744,51 @@ function playPostMusic(url){
   if(fp.src!==url) fp.src=url;
   fp.play().catch(function(){});
 }
+function reuseSoundFromPost(realIdx){
+  var p=myPosts[realIdx]; if(!p || !p.music) return;
+  selectedMusic={ name:p.musicName||p.music, artist:p.musicArtist||p.user||"Artist", audio:p.musicUrl||"", source:p.musicSource||"Reuse", artistPhone:p.musicArtistPhone||"", fee:p.musicFee||0 };
+  document.getElementById("selectedMusicLabel").innerText=selectedMusic.name;
+  document.getElementById("myMusicText").innerText=selectedMusic.name;
+  document.getElementById("soundName").innerText=selectedMusic.name.slice(0,16);
+  var ca=document.getElementById("camAudioPlayer");
+  if(ca && selectedMusic.audio) ca.src=selectedMusic.audio;
+  showToast("🎵 Reusing song: "+selectedMusic.name);
+  openBanduCamera();
+}
+function reuseFilterFromPost(filterId){
+  var fi=FILTERS.findIndex(function(f){return f.id===filterId;});
+  if(fi>=0){
+    selectedFilterIndex=fi; selectedFilter=FILTERS[fi];
+    renderFilters();
+    document.querySelectorAll(".filt").forEach(function(x,idx){ x.classList.toggle("active", idx===fi); });
+    showToast("✨ Reusing filter: "+selectedFilter.name);
+  }
+  openBanduCamera();
+}
+function watchVideoPost(realIdx){
+  var p=myPosts[realIdx]; if(!p) return;
+  var key=(p.createdAt||realIdx)+"_"+p.phone;
+  var vid=document.getElementById("vid-"+realIdx);
+  var gate=document.getElementById("gate-"+realIdx);
+  if(!sessionWatchedVideos[key]){
+    if(coins<1){ showToast("Need 1 coin to watch video",true); return; }
+    coins-=1; sessionWatchedVideos[key]=1; p.views=(p.views||0)+1;
+    saveAll(); showToast("🪙 -1 coin (Video Watch)");
+  }
+  if(gate) gate.style.display="none";
+  if(vid){ if(vid.paused) vid.play().catch(function(){}); else vid.pause(); }
+}
+function downloadPost(realIdx){
+  var p=myPosts[realIdx]; if(!p) return;
+  if(!p.url){ showToast("No video/media to download",true); return; }
+  if(coins<1){ showToast("Need 1 coin to download video",true); return; }
+  coins-=1; saveAll();
+  var a=document.createElement("a");
+  a.href=p.url;
+  a.download="banducoins_"+(p.type==="video"?"video.webm":"photo.jpg");
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  showToast("⬇️ Downloaded (-1 coin)");
+}
 function renderFeed(){
   var list=document.getElementById("feedList"); if(!list) return;
   var posts=getVisiblePosts();
@@ -659,17 +802,28 @@ function renderFeed(){
     var liked=(p.likedBy||[]).indexOf(currentUser)>=0;
     var isFollowing=following.indexOf(p.phone)>=0;
     var avHtml=(p.phone===currentUser && avatarUrl)?'<img src="'+avatarUrl+'">':'👤';
-    var media=p.url?(p.type==="video"?'<video src="'+p.url+'" playsinline loop onclick="togglePlay(this)"></video>':'<img src="'+p.url+'" ondblclick="likePost('+realIdx+',true)">'):'<div style="height:100%;display:flex;align-items:center;justify-content:center;padding:30px;text-align:center;background:#111"><h2>'+esc(p.caption||"")+'</h2></div>';
-    var musicLine=p.music?'<div class="sound-pill" data-val="'+esc(p.musicUrl||"")+'" onclick="playPostMusic(this.dataset.val)">🎵 '+esc(p.music)+'</div>':'';
-    return '<div class="spend-item" data-music="'+esc(p.musicUrl||"")+'" ondblclick="likePost('+realIdx+',true)"><div class="big-heart" id="heart-'+realIdx+'">❤️</div>'+media+'<div class="spend-info"><div style="display:flex;gap:8px;align-items:center"><span class="avatar-sm" onclick="showTab(\'profile\')">'+avHtml+'</span><b>'+esc(p.user||p.phone)+' '+verifiedMark(p.phone)+'</b>'+(p.phone!==currentUser?'<button class="btn dark small" style="margin:0" data-val="'+esc(p.phone)+'" onclick="followUser(this.dataset.val)">'+(isFollowing?"✓ Following":"+ Follow")+'</button>':'')+'</div><p style="margin:6px 0 2px">'+esc(p.caption||"")+'</p>'+musicLine+'<br><small style="color:#ccc">'+esc(p.time||"")+'</small></div><div class="spend-actions"><div class="spend-act"><button class="'+(liked?"liked":"")+'" onclick="likePost('+realIdx+')">❤️</button><span>'+(p.likes||0)+'</span></div><div class="spend-act"><button onclick="openComments('+realIdx+')">💬</button><span>'+((p.comments||[]).length)+'</span></div><div class="spend-act"><button onclick="sharePost('+realIdx+')">↗️</button><span>'+(p.shares||0)+'</span></div><div class="spend-act"><button onclick="savePost('+realIdx+')">🔖</button><span>Save</span></div><div class="spend-act"><button onclick="reportPost('+realIdx+')">🚩</button><span>Report</span></div></div></div>';
+    var key=(p.createdAt||realIdx)+"_"+p.phone;
+    var alreadyPaid=!!sessionWatchedVideos[key];
+    var media="";
+    if(p.url && p.type==="video"){
+      media='<video id="vid-'+realIdx+'" src="'+p.url+'" playsinline loop onclick="watchVideoPost('+realIdx+')"></video>'+(!alreadyPaid?'<div class="vid-gate" id="gate-'+realIdx+'" onclick="watchVideoPost('+realIdx+')"><div style="font-size:48px">▶️</div><span class="btn gold small" style="margin:6px 0">WATCH VIDEO (-1 COIN)</span></div>':'');
+    } else if(p.url){
+      media='<img src="'+p.url+'" ondblclick="likePost('+realIdx+',true)">';
+    } else {
+      media='<div style="height:100%;display:flex;align-items:center;justify-content:center;padding:30px;text-align:center;background:#111"><h2>'+esc(p.caption||"")+'</h2></div>';
+    }
+    var musicLine=p.music?'<span class="sound-pill" onclick="reuseSoundFromPost('+realIdx+')">🎵 '+esc(p.music)+' • Reuse</span>':'';
+    var filtLine=p.filterId?'<span class="filt-pill" data-val="'+esc(p.filterId)+'" onclick="reuseFilterFromPost(this.dataset.val)">✨ '+esc(p.filterName||p.filterId)+' • Try</span>':'';
+    return '<div class="spend-item" data-music="'+esc(p.musicUrl||"")+'" data-idx="'+realIdx+'" ondblclick="likePost('+realIdx+',true)"><div class="big-heart" id="heart-'+realIdx+'">❤️</div>'+media+'<div class="spend-info"><div style="display:flex;gap:8px;align-items:center"><span class="avatar-sm" onclick="showTab(\'profile\')">'+avHtml+'</span><b>'+esc(p.user||p.phone)+' '+verifiedMark(p.phone)+'</b>'+(p.phone!==currentUser?'<button class="btn dark small" style="margin:0" data-val="'+esc(p.phone)+'" onclick="followUser(this.dataset.val)">'+(isFollowing?"✓ Following":"+ Follow")+'</button>':'')+'</div><p style="margin:6px 0 2px">'+esc(p.caption||"")+'</p><div>'+musicLine+filtLine+'</div><small style="color:#ccc">👁 '+(p.views||0)+' views • '+esc(p.time||"")+'</small></div><div class="spend-actions"><div class="spend-act"><button class="'+(liked?"liked":"")+'" onclick="likePost('+realIdx+')">❤️</button><span>'+(p.likes||0)+'</span></div><div class="spend-act"><button onclick="openComments('+realIdx+')">💬</button><span>'+((p.comments||[]).length)+'</span></div><div class="spend-act"><button onclick="sharePost('+realIdx+')">↗️</button><span>1🪙</span></div><div class="spend-act"><button onclick="downloadPost('+realIdx+')">⬇️</button><span>1🪙</span></div><div class="spend-act"><button onclick="savePost('+realIdx+')">🔖</button><span>Save</span></div><div class="spend-act"><button onclick="reportPost('+realIdx+')">🚩</button><span>Report</span></div></div></div>';
   }).join("");
   if(activeFeedObserver) activeFeedObserver.disconnect();
   if("IntersectionObserver" in window){
     activeFeedObserver=new IntersectionObserver(function(entries){
       entries.forEach(function(en){
+        var idx=parseInt(en.target.getAttribute("data-idx"));
         if(en.isIntersecting){
           playPostMusic(en.target.getAttribute("data-music"));
-          var vid=en.target.querySelector("video"); if(vid) vid.play().catch(function(){});
+          if(myPosts[idx] && myPosts[idx].type!=="video"){ myPosts[idx].views=(myPosts[idx].views||0)+1; }
         } else {
           var vid2=en.target.querySelector("video"); if(vid2) vid2.pause();
         }
@@ -678,7 +832,6 @@ function renderFeed(){
     list.querySelectorAll(".spend-item").forEach(function(el){ activeFeedObserver.observe(el); });
   }
 }
-function togglePlay(v){ if(v.paused) v.play(); else v.pause(); }
 function followUser(phone){
   if(!phone||phone===currentUser) return;
   if(following.indexOf(phone)<0){ following.push(phone); addNotification(currentUser, userName+" followed "+phone, "follow"); saveAll(); showToast("Following "+phone); }
@@ -690,49 +843,76 @@ function renderMyPosts(){
   var mine=myPosts.filter(function(p){ return p.phone===currentUser; });
   document.getElementById("statPosts").innerText=mine.length;
   document.getElementById("dashPosts").innerText=mine.length;
-  var likes=0, comments=0, shares=0;
-  mine.forEach(function(p){ likes+=p.likes||0; comments+=(p.comments||[]).length; shares+=p.shares||0; });
-  document.getElementById("dashLikes").innerText=likes;
-  document.getElementById("dashComments").innerText=comments;
-  document.getElementById("dashShares").innerText=shares;
+  var likes=0, comments=0, shares=0, views=0;
+  mine.forEach(function(p){ likes+=p.likes||0; comments+=(p.comments||[]).length; shares+=p.shares||0; views+=p.views||0; });
+  document.getElementById("dashViews").innerText=views.toLocaleString();
+  document.getElementById("dashLikes").innerText=likes.toLocaleString();
+  document.getElementById("dashComments").innerText=comments.toLocaleString();
+  document.getElementById("dashShares").innerText=shares.toLocaleString();
+  var extraMil=Math.max(0, Math.floor((views-10000000)/10000000) - claimedViewMillions);
+  document.getElementById("dashViewKsh").innerText=(extraMil*20000).toLocaleString()+" KSH";
   if(!mine.length){ el.innerHTML='<p style="color:#888">No posts yet.</p>'; return; }
   el.innerHTML=mine.map(function(p){
     if(p.mature) return '<div class="post"><div class="mature-cover">🔞 MATURE 18+ - CHANNEL ONLY - Not in Public Feed</div></div>';
     var media=p.url?(p.type==="video"?'<video src="'+p.url+'" controls></video>':'<img src="'+p.url+'">'):'';
-    return '<div class="post"><div class="post-body"><p>'+esc(p.caption||"")+'</p>'+(p.music?'<small style="color:#a3e635">🎵 '+esc(p.music)+'</small><br>':'')+'<small style="color:#888">❤️ '+(p.likes||0)+' • 💬 '+((p.comments||[]).length)+' • ↗️ '+(p.shares||0)+'</small></div>'+media+'</div>';
+    return '<div class="post"><div class="post-body"><p>'+esc(p.caption||"")+'</p>'+(p.music?'<small style="color:#a3e635">🎵 '+esc(p.music)+'</small><br>':'')+'<small style="color:#888">👁 '+(p.views||0)+' • ❤️ '+(p.likes||0)+' • 💬 '+((p.comments||[]).length)+' • ↗️ '+(p.shares||0)+'</small></div>'+media+'</div>';
   }).join("");
 }
 function subscribeChannel(chId){
   var ch=channels.find(function(c){return c.id===chId;}); if(!ch) return;
   var key=currentUser+"_"+chId;
   if(subs.indexOf(key)>=0){ showToast("Already subscribed!"); return; }
-  if(subcoins<600){ showToast("Need 600 Subcoins to subscribe",true); showTab("coins"); return; }
-  subcoins-=600; creatorEarn+=450; appEarnings+=150; subs.push(key);
-  addNotification(currentUser, userName+" subscribed to "+ch.name+" (+450 creator coins)", "sub");
-  saveAll(); renderChannels(); showToast("💜 Subscribed to "+ch.name+"!");
+  var price=parseInt(ch.price)||600;
+  if(subcoins<price){ showToast("Need "+price+" Subcoins to subscribe",true); showTab("coins"); return; }
+  subcoins-=price;
+  var cShare=Math.round(price*0.75), aShare=price-cShare;
+  subEarnKsh+=cShare;
+  appEarnings+=aShare;
+  subs.push(key);
+  addNotification(currentUser, userName+" subscribed to "+ch.name+" (+"+cShare+" KSH/Subcoins to creator)", "sub");
+  saveAll(); renderChannels(); showToast("💜 Subscribed for "+price+" Subcoins!");
+}
+function watchChannelPost(idx){
+  var p=channelPosts[idx]; if(!p) return;
+  var key=currentUser+"_"+idx;
+  if(p.phone!==currentUser && watchedChannelPosts.indexOf(key)<0){
+    if(subcoins<2){ showToast("Need 2 Subcoins to watch channel content",true); showTab("coins"); return; }
+    subcoins-=2;
+    subEarnKsh+=1;
+    appEarnings+=1;
+    watchedChannelPosts.push(key);
+    saveAll(); showToast("💜 -2 Subcoins (Channel Watch)");
+  }
+  var box=document.getElementById("chmedia-"+idx), btn=document.getElementById("chwatch-"+idx);
+  if(box) box.style.display="block";
+  if(btn) btn.style.display="none";
 }
 function renderChannels(){
   var el=document.getElementById("channelList"); if(!el) return;
-  if(!channels.length){ el.innerHTML='<p style="color:#888;text-align:center">No channels yet. Create yours.</p>'; return; }
+  if(!channels.length){ el.innerHTML='<p style="color:#888;text-align:center">No channels yet. Needs 10,000 followers to create.</p>'; return; }
   el.innerHTML=channels.map(function(ch){
+    var price=parseInt(ch.price)||600;
     var posts=channelPosts.filter(function(p){ return p.channelId===ch.id; });
     var isOwnerOrSub=(ch.owner===currentUser) || (subs.indexOf(currentUser+"_"+ch.id)>=0);
     var postsHtml=posts.map(function(p,postNum){
       var idx=channelPosts.indexOf(p);
       if(postNum>=3 && !isOwnerOrSub){
-        return '<div class="post"><div class="mature-cover" style="border-color:#a855f7">🔒 POST #'+(postNum+1)+' LOCKED<br><small style="color:#ccc">First 3 posts are FREE. Subscribe (600 Subcoins) to unlock.</small><br><button class="btn purple small" data-val="'+esc(ch.id)+'" onclick="subscribeChannel(this.dataset.val)">💜 SUBSCRIBE - 600 SUBCOINS</button></div></div>';
+        return '<div class="post"><div class="mature-cover" style="border-color:#a855f7">🔒 POST #'+(postNum+1)+' LOCKED<br><small style="color:#ccc">First 3 posts are FREE. Subscribe ('+price+' Subcoins/mo) to unlock.</small><br><button class="btn purple small" data-val="'+esc(ch.id)+'" onclick="subscribeChannel(this.dataset.val)">💜 SUBSCRIBE - '+price+' SUBCOINS</button></div></div>';
       }
-      if(p.mature){
-        return '<div class="post"><div class="mature-cover">🔞 MATURE 18+ - CHANNEL ONLY<br><button class="btn gold small" onclick="revealMature('+idx+',this)">👁 TAP TO VIEW 18+</button><div id="mature-'+idx+'" style="display:none">'+(p.url?(p.type==="video"?'<video src="'+p.url+'" controls></video>':'<img src="'+p.url+'">'):"")+'<p>'+esc(p.caption||"")+'</p></div></div></div>';
-      }
+      var unlocked=(p.phone===currentUser) || (watchedChannelPosts.indexOf(currentUser+"_"+idx)>=0);
       var media=p.url?(p.type==="video"?'<video src="'+p.url+'" controls></video>':'<img src="'+p.url+'">'):"";
+      if(p.mature){
+        return '<div class="post"><div class="mature-cover">🔞 MATURE 18+ - CHANNEL ONLY<br><button class="btn gold small" onclick="watchChannelPost('+idx+')" id="chwatch-'+idx+'">👁 WATCH 18+ (-2 Subcoins)</button><div id="chmedia-'+idx+'" style="display:'+(unlocked?"block":"none")+'">'+media+'<p>'+esc(p.caption||"")+'</p></div></div></div>';
+      }
+      if(!unlocked && media){
+        return '<div class="post"><div class="post-body"><p>'+esc(p.caption||"")+'</p><button class="btn purple small" id="chwatch-'+idx+'" onclick="watchChannelPost('+idx+')">▶ WATCH CONTENT (-2 Subcoins)</button><div id="chmedia-'+idx+'" style="display:none">'+media+'</div></div></div>';
+      }
       return '<div class="post"><div class="post-body"><p>'+esc(p.caption||"")+'</p></div>'+media+'</div>';
     }).join("");
-    var subBtn=(ch.owner!==currentUser && !isOwnerOrSub)?'<button class="btn purple small" data-val="'+esc(ch.id)+'" onclick="subscribeChannel(this.dataset.val)">💜 SUBSCRIBE (600 Subcoins)</button>':(ch.owner!==currentUser?'<span style="color:#a3e635;font-size:12px">✅ Subscribed</span>':'');
-    return '<div class="channel-card"><h3>💜 '+esc(ch.name)+'</h3><p style="color:#888;font-size:12px">'+esc(ch.desc||"")+'</p><p>Posts: '+posts.length+' | First 3 FREE '+subBtn+'</p>'+postsHtml+'</div>';
+    var subBtn=(ch.owner!==currentUser && !isOwnerOrSub)?'<button class="btn purple small" data-val="'+esc(ch.id)+'" onclick="subscribeChannel(this.dataset.val)">💜 SUBSCRIBE ('+price+' Subcoins/mo)</button>':(ch.owner!==currentUser?'<span style="color:#a3e635;font-size:12px">✅ Subscribed</span>':'');
+    return '<div class="channel-card"><h3>💜 '+esc(ch.name)+' <small style="color:#c084fc">('+price+' Subcoins/mo)</small></h3><p style="color:#888;font-size:12px">'+esc(ch.desc||"")+'</p><p>Posts: '+posts.length+' | First 3 FREE '+subBtn+'</p>'+postsHtml+'</div>';
   }).join("");
 }
-function revealMature(idx,btn){ var el=document.getElementById("mature-"+idx); if(el){ el.style.display="block"; btn.style.display="none"; } }
 function likePost(i,fromDouble){
   var p=myPosts[i]; if(!p) return;
   if(!p.likedBy) p.likedBy=[];
@@ -771,14 +951,14 @@ function likeComment(ci){ var p=myPosts[currentCommentIndex]; if(!p||!p.comments
 function replyComment(user){ document.getElementById("commentInput").value="@"+user+" "; document.getElementById("commentInput").focus(); }
 function sharePost(i){
   var p=myPosts[i]; if(!p) return;
-  if(coins<1){ showToast("Need 1 coin to share",true); return; }
+  if(coins<1){ showToast("Need 1 coin to share (sender pays 1 coin)",true); return; }
   coins-=1; p.shares=(p.shares||0)+1;
   if(p.phone!==currentUser) addNotification(currentUser, userName+" shared your post", "share");
   saveAll(); renderFeed();
   if(window._firebaseReady && window._db && p._serverId){ try{var f=window._firestore; f.setDoc(f.doc(window._db,"posts",p._serverId),{shares:p.shares},{merge:true});}catch(e){} }
   var text="BANDUCOINS - "+(p.caption||"")+" by "+(p.user||"");
   if(navigator.share){navigator.share({title:"BANDUCOINS",text:text,url:location.href}).catch(function(){});}
-  else { try{navigator.clipboard.writeText(text+" "+location.href); showToast("Link copied (-1 coin) - Share on WhatsApp");}catch(e){showToast("Share: "+text);} }
+  else { try{navigator.clipboard.writeText(text+" "+location.href); showToast("Shared (-1 coin) - Receiver views free");}catch(e){showToast("Share: "+text);} }
 }
 function savePost(i){ var p=myPosts[i]; if(!p) return; var key=p.createdAt+"_"+p.phone; if(savedPosts.indexOf(key)>=0){savedPosts=savedPosts.filter(function(x){return x!==key}); showToast("Removed from Saved");} else {savedPosts.push(key); showToast("Saved ("+savedPosts.length+" total)");} saveAll(); }
 function reportPost(i){ reports.push({post:i,time:new Date().toLocaleString(),by:currentUser}); set("bandu_reports",JSON.stringify(reports)); showToast("🚩 Reported to Admin"); renderNotifications(); }
@@ -865,7 +1045,7 @@ document.getElementById("shareVideoBtn").onclick=function(){
   var mine=myPosts.filter(function(p){return p.phone===currentUser;});
   if(!mine.length){ showToast("Create a post first to share it",true); return; }
   if(sel.classList.contains("hidden")){
-    sel.innerHTML='<option value="">-- Select your post to send (1 coin) --</option>'+mine.map(function(p,i){return '<option value="'+i+'">'+esc((p.caption||"Post #"+(i+1)).slice(0,40))+'</option>';}).join("");
+    sel.innerHTML='<option value="">-- Select your post to send (Sender pays 1 coin) --</option>'+mine.map(function(p,i){return '<option value="'+i+'">'+esc((p.caption||"Post #"+(i+1)).slice(0,40))+'</option>';}).join("");
     sel.classList.remove("hidden");
   } else sel.classList.add("hidden");
 };
@@ -877,9 +1057,9 @@ document.getElementById("sharePostSelect").onchange=function(){
   coins-=1; p.shares=(p.shares||0)+1;
   var key=chatKey(currentUser, currentChatPhone);
   if(!chats[key]) chats[key]=[];
-  chats[key].push({from:currentUser,text:"📤 Shared post: "+(p.caption||"My video/photo"),time:new Date().toLocaleTimeString()});
+  chats[key].push({from:currentUser,text:"📤 Shared post (Free to view): "+(p.caption||"My video/photo"),time:new Date().toLocaleTimeString()});
   this.classList.add("hidden");
-  saveAll(); renderChatMessages(); showToast("📤 Shared (-1 coin)");
+  saveAll(); renderChatMessages(); showToast("📤 Shared (-1 coin, receiver free)");
 };
 document.getElementById("searchInput").oninput=function(){
   var q=this.value.trim().toLowerCase(), box=document.getElementById("searchResults");
@@ -905,7 +1085,13 @@ document.getElementById("searchInput").oninput=function(){
   },{passive:true});
 })();
 function closePostSheet(){ document.getElementById("postSheet").classList.remove("open"); document.getElementById("sheetBack").classList.remove("open"); }
-function openPostSheet(){ galleryFromCam=false; document.getElementById("postSheet").classList.add("open"); document.getElementById("sheetBack").classList.add("open"); }
+function openPostSheet(){
+  galleryFromCam=false;
+  var feeEl=document.getElementById("previewMusicFee");
+  if(feeEl) feeEl.innerText=(selectedMusic && selectedMusic.fee>0)?("🎵 Artist Song Fee: "+selectedMusic.fee+" coins (Artist earns 30%) + 5 coins post = "+(selectedMusic.fee+5)+" coins total"):"";
+  document.getElementById("postBtn").innerText="📤 POST NOW - "+((selectedMusic&&selectedMusic.fee>0)?(5+selectedMusic.fee):5)+" COINS";
+  document.getElementById("postSheet").classList.add("open"); document.getElementById("sheetBack").classList.add("open");
+}
 function openMusicSheet(){
   document.getElementById("musicSheet").classList.add("open");
   if(!window._musicTracks || !window._musicTracks.length) loadAudiusTrending("");
@@ -925,6 +1111,36 @@ function setMusicChipActive(btn){
   document.querySelectorAll("#musicSheet .chip").forEach(function(c){ c.classList.remove("active"); });
   if(btn) btn.classList.add("active");
 }
+function uploadArtistSong(){
+  var followers=getFollowersCount();
+  if(followers<20000){
+    showToast("🎤 Need 20,000 followers to upload Artist Songs (You have "+followers+")", true);
+    return;
+  }
+  var title=document.getElementById("artistSongTitle").value.trim();
+  var mins=parseFloat(document.getElementById("artistSongMins").value)||3;
+  var file=document.getElementById("artistAudioFile").files[0];
+  if(!title || !file){ showToast("Enter song title and pick audio file",true); return; }
+  var fee=Math.max(30, Math.round((mins/3)*100));
+  var r=new FileReader();
+  r.onload=function(ev){
+    artistSongs.unshift({ id:Date.now().toString(), name:title, artist:userName, artistPhone:currentUser, mins:mins, fee:fee, audio:ev.target.result, source:"Bandu Artist" });
+    document.getElementById("artistSongTitle").value="";
+    saveAll();
+    loadArtistCatalog();
+    showToast("🎤 Uploaded! Supporters pay "+fee+" coins (You earn 30% = "+Math.round(fee*0.30)+" coins)");
+  };
+  r.readAsDataURL(file);
+}
+function loadArtistCatalog(btn){
+  setMusicChipActive(btn);
+  if(!artistSongs.length){
+    document.getElementById("musicMsg").innerText="No artist songs uploaded yet (Requires 20k followers).";
+    document.getElementById("musicResults").innerHTML="";
+    return;
+  }
+  renderMusicTracks(artistSongs, "Bandu Artists");
+}
 async function loadAudiusTrending(genre, btn){
   setMusicChipActive(btn);
   document.getElementById("musicMsg").innerText="Loading trending songs from Audius...";
@@ -932,7 +1148,7 @@ async function loadAudiusTrending(genre, btn){
     var url=AUDIUS_HOST+"/v1/tracks/trending?app_name=BANDUCOINS&limit=15"+(genre?"&genre="+encodeURIComponent(genre):"");
     var r=await fetch(url), d=await r.json();
     var tracks=(d.data||[]).map(function(t){
-      return { name:t.title, artist:(t.user&&t.user.name)?t.user.name:"Audius Artist", image:(t.artwork&&t.artwork["150x150"])?t.artwork["150x150"]:"", audio:AUDIUS_HOST+"/v1/tracks/"+t.id+"/stream?app_name=BANDUCOINS", source:"Audius" };
+      return { name:t.title, artist:(t.user&&t.user.name)?t.user.name:"Audius Artist", image:(t.artwork&&t.artwork["150x150"])?t.artwork["150x150"]:"", audio:AUDIUS_HOST+"/v1/tracks/"+t.id+"/stream?app_name=BANDUCOINS", source:"Audius", fee:0 };
     });
     if(!tracks.length) throw new Error("Empty");
     renderMusicTracks(tracks, "Audius "+(genre||"Trending"));
@@ -942,24 +1158,25 @@ function quickMusic(q, btn){ setMusicChipActive(btn); document.getElementById("m
 async function searchMusic(jamendoOnly){
   var q=document.getElementById("musicSearchInput").value.trim()||"afrobeats";
   document.getElementById("musicMsg").innerText="Searching top songs for \""+q+"\"...";
-  var combined=[];
+  var combined=artistSongs.filter(function(s){ return s.name.toLowerCase().indexOf(q.toLowerCase())>=0 || s.artist.toLowerCase().indexOf(q.toLowerCase())>=0; });
   if(!jamendoOnly){
     try{
       var ar=await fetch(AUDIUS_HOST+"/v1/tracks/search?query="+encodeURIComponent(q)+"&app_name=BANDUCOINS&limit=8"), ad=await ar.json();
-      (ad.data||[]).forEach(function(t){ combined.push({ name:t.title, artist:(t.user&&t.user.name)?t.user.name:"Audius Artist", image:(t.artwork&&t.artwork["150x150"])?t.artwork["150x150"]:"", audio:AUDIUS_HOST+"/v1/tracks/"+t.id+"/stream?app_name=BANDUCOINS", source:"Audius" }); });
+      (ad.data||[]).forEach(function(t){ combined.push({ name:t.title, artist:(t.user&&t.user.name)?t.user.name:"Audius Artist", image:(t.artwork&&t.artwork["150x150"])?t.artwork["150x150"]:"", audio:AUDIUS_HOST+"/v1/tracks/"+t.id+"/stream?app_name=BANDUCOINS", source:"Audius", fee:0 }); });
     }catch(e){}
   }
   try{
     var jr=await fetch("https://api.jamendo.com/v3.0/tracks/?client_id="+JAMENDO_CLIENT_ID+"&format=json&order=popularity_week&limit=8&search="+encodeURIComponent(q)), jd=await jr.json();
-    (jd.results||[]).forEach(function(t){ combined.push({ name:t.name, artist:t.artist_name, image:t.image||"", audio:t.audio, source:"Jamendo" }); });
+    (jd.results||[]).forEach(function(t){ combined.push({ name:t.name, artist:t.artist_name, image:t.image||"", audio:t.audio, source:"Jamendo", fee:0 }); });
   }catch(e){}
   renderMusicTracks(combined, q);
 }
 function renderMusicTracks(tracks, label){
   window._musicTracks=tracks;
   document.getElementById("musicResults").innerHTML=tracks.map(function(t,i){
-    return '<div class="music-item"><img src="'+esc(t.image||"")+'"><div style="flex:1;min-width:0"><b style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(t.name)+'</b><small style="color:#888">'+esc(t.artist)+' • '+esc(t.source)+'</small></div><button class="btn dark small" onclick="previewMusic('+i+')">▶</button><button class="btn gold small" onclick="selectMusic('+i+')">Use</button></div>';
-  }).join("")||'<p style="color:#888;text-align:center">No songs found. Try another search or import an MP3 from your phone!</p>';
+    var feeBadge=t.fee>0?(' • <b style="color:#facc15">'+t.fee+' coins</b>'):' • FREE';
+    return '<div class="music-item"><img src="'+esc(t.image||"")+'"><div style="flex:1;min-width:0"><b style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(t.name)+'</b><small style="color:#888">'+esc(t.artist)+' • '+esc(t.source)+feeBadge+'</small></div><button class="btn dark small" onclick="previewMusic('+i+')">▶</button><button class="btn gold small" onclick="selectMusic('+i+')">Use</button></div>';
+  }).join("")||'<p style="color:#888;text-align:center">No songs found. Try another search or pick an MP3 from your phone!</p>';
   document.getElementById("musicMsg").innerText="Found "+tracks.length+" tracks ("+label+")";
 }
 function previewMusic(i){
@@ -970,7 +1187,7 @@ function previewMusic(i){
 function selectMusic(i){
   var t=window._musicTracks[i]; if(!t) return;
   selectedMusic=t;
-  document.getElementById("selectedMusicLabel").innerText=t.name+" - "+t.artist;
+  document.getElementById("selectedMusicLabel").innerText=t.name+" - "+t.artist+(t.fee>0?" ("+t.fee+" coins)":"");
   document.getElementById("myMusicText").innerText=t.name+" - "+t.artist;
   document.getElementById("soundName").innerText=t.name.slice(0,16);
   var ca=document.getElementById("camAudioPlayer");
@@ -981,7 +1198,7 @@ document.getElementById("musicSearchBtn").onclick=function(){ searchMusic(false)
 document.getElementById("localAudioInput").onchange=function(e){
   var f=e.target.files[0]; if(!f) return;
   var url=URL.createObjectURL(f);
-  selectedMusic={name:f.name.replace(/\.[^/.]+$/,""), artist:"My Phone", image:"", audio:url, source:"Phone"};
+  selectedMusic={name:f.name.replace(/\.[^/.]+$/,""), artist:"My Phone", image:"", audio:url, source:"Phone", fee:0};
   document.getElementById("selectedMusicLabel").innerText=selectedMusic.name;
   document.getElementById("myMusicText").innerText=selectedMusic.name+" (Local MP3)";
   document.getElementById("soundName").innerText=selectedMusic.name.slice(0,16);
@@ -1008,31 +1225,76 @@ function saveEditFull(){
   var nm=document.getElementById("editFullName").value.trim(), un=document.getElementById("editFullUser").value.trim(), bio=document.getElementById("editFullBio").value.trim();
   if(bio.split(/\s+/).filter(Boolean).length>50){ showToast("Bio max 50 words",true); return; }
   if(containsBadContent(bio)||containsBadContent(nm)||containsBadContent(un)){ showToast("Bad content not allowed in profile",true); return; }
-  userName=(un && un!==userName)?un:(nm||userName);
+  var nextName=(un && un!==userName)?un:(nm||userName);
+  if(users.find(function(x){ return x.phone!==currentUser && x.name.toLowerCase()===nextName.toLowerCase(); })){
+    showToast("Username already taken by another phone",true); return;
+  }
+  userName=nextName;
   userBio=bio; userLocation=document.getElementById("editFullLocation").value.trim(); userWebsite=document.getElementById("editFullWebsite").value.trim();
   var u=users.find(function(x){return x.phone===currentUser}); if(u){ u.name=userName; u.bio=userBio; }
   saveAll(); closeEditFull(); showToast("✅ Profile Saved"); showTab("profile");
 }
 document.getElementById("createBtn").onclick=function(){
-  var ph=document.getElementById("phone").value.trim(), pw=document.getElementById("password").value, nm=document.getElementById("username").value.trim()||"@user";
-  if(ph.length<9||pw.length<4){ showToast("Enter phone + password 4+",true); return; }
-  if(users.find(function(u){return u.phone===ph})){ showToast("Account exists, LOGIN",true); return; }
-  users.push({phone:ph,pass:pw,name:nm}); currentUser=ph; userName=nm;
+  var ph=document.getElementById("phone").value.trim(), pw=document.getElementById("password").value, nm=document.getElementById("username").value.trim(), ref=document.getElementById("refCodeInput").value.trim().toUpperCase();
+  if(ph.length<9||pw.length<4||!nm){ showToast("Enter phone, username & password (4+)",true); return; }
+  if(users.find(function(u){return u.phone===ph})){ showToast("One phone = One account. LOGIN instead.",true); return; }
+  if(users.find(function(u){return u.name.toLowerCase()===nm.toLowerCase()})){ showToast("Username already taken! Choose another.",true); return; }
+  var myCode=genRefCode(ph);
+  users.push({phone:ph,pass:pw,name:nm,refCode:myCode});
+  currentUser=ph; userName=nm; coins=100;
+  if(ref){
+    var referrer=users.find(function(u){ return (u.refCode===ref || genRefCode(u.phone)===ref) && u.phone!==ph; });
+    if(referrer){
+      coins+=100;
+      if(!pendingCredits[referrer.phone]) pendingCredits[referrer.phone]={coins:0,earn:0};
+      pendingCredits[referrer.phone].coins+=100;
+      addNotification(ph, "🎁 Referral Bonus: +100 coins to "+nm+" & +100 coins to "+referrer.name, "ref");
+      showToast("🎁 Referral Applied! +100 bonus coins to you & "+referrer.name);
+    } else {
+      showToast("Invalid referral code (account still created)",true);
+    }
+  } else {
+    showToast("Welcome to BANDU "+nm);
+  }
   document.getElementById("authCard").classList.add("hidden"); document.getElementById("main").classList.remove("hidden"); document.getElementById("bottomNav").style.display="flex";
-  document.getElementById("payPhone").value=ph; saveAll(); showTab("profile"); showToast("Welcome to BANDU "+nm);
+  document.getElementById("payPhone").value=ph; saveAll(); showTab("profile");
 };
 document.getElementById("loginBtn").onclick=function(){
   var ph=document.getElementById("phone").value.trim(), pw=document.getElementById("password").value;
   var u=users.find(function(x){return x.phone===ph && x.pass===pw});
   if(!u){ showToast("Wrong phone / password",true); return; }
   currentUser=ph; userName=u.name; userBio=u.bio||"";
+  applyPendingCreditsForUser(ph);
   document.getElementById("authCard").classList.add("hidden"); document.getElementById("main").classList.remove("hidden"); document.getElementById("bottomNav").style.display="flex";
   document.getElementById("payPhone").value=ph; saveAll(); showTab("profile"); showToast("Welcome back "+userName);
 };
 document.getElementById("logoutBtn").onclick=function(){ document.getElementById("main").classList.add("hidden"); document.getElementById("bottomNav").style.display="none"; document.getElementById("authCard").classList.remove("hidden"); };
 document.getElementById("forgotLink").onclick=function(e){ e.preventDefault(); document.getElementById("forgotBox").classList.toggle("hidden"); };
-document.getElementById("sendCodeBtn").onclick=function(){ var ph=document.getElementById("forgotPhone").value.trim(); if(!ph) return; var code=Math.floor(100000+Math.random()*900000).toString(); window._resetCode=code; window._resetPhone=ph; document.getElementById("codeInfo").innerText="DEMO CODE: "+code; };
-document.getElementById("resetPassBtn").onclick=function(){ var c=document.getElementById("codeInput").value, np=document.getElementById("newPassInput").value; if(c!==window._resetCode){ showToast("Wrong code",true); return; } var u=users.find(function(x){return x.phone===window._resetPhone}); if(u) u.pass=np; saveAll(); showToast("Password changed, LOGIN now"); };
+document.getElementById("sendCodeBtn").onclick=async function(){
+  var ph=document.getElementById("forgotPhone").value.trim();
+  if(!ph){ showToast("Enter your registered phone number",true); return; }
+  var u=users.find(function(x){return x.phone===ph});
+  if(!u){ showToast("No account found for that phone number",true); return; }
+  var code=Math.floor(100000+Math.random()*900000).toString();
+  window._resetCode=code; window._resetPhone=ph; window._resetExp=Date.now()+300000;
+  try{
+    var r=await fetch("/.netlify/functions/send-sms",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({phone:ph,code:code})});
+    if(r.ok){ document.getElementById("codeInfo").innerText="📩 SMS sent to "+ph+" (expires in 5 mins)"; return; }
+  }catch(e){}
+  document.getElementById("codeInfo").innerText="📩 SMS GATEWAY DEMO CODE for "+ph+": "+code+" (Deploy /.netlify/functions/send-sms for live SMS)";
+};
+document.getElementById("resetPassBtn").onclick=function(){
+  var ph=document.getElementById("forgotPhone").value.trim();
+  var c=document.getElementById("codeInput").value.trim(), np=document.getElementById("newPassInput").value;
+  if(!window._resetCode || Date.now()>window._resetExp){ showToast("Code expired. Request a new SMS code.",true); return; }
+  if(ph!==window._resetPhone || c!==window._resetCode){ showToast("Invalid SMS verification code or phone mismatch",true); return; }
+  if(np.length<4){ showToast("New password must be 4+ characters",true); return; }
+  var u=users.find(function(x){return x.phone===window._resetPhone});
+  if(u) u.pass=np;
+  window._resetCode=null;
+  saveAll(); document.getElementById("forgotBox").classList.add("hidden");
+  showToast("✅ SMS verified & password updated! Login now.");
+};
 document.getElementById("editProfileBtn").onclick=function(){ openEditFull(); };
 document.getElementById("editFullBio").oninput=function(){ var w=this.value.trim().split(/\s+/).filter(Boolean).length; document.getElementById("wordCount").innerText=w; if(w>50) showToast("Bio max 50 words",true); };
 document.getElementById("coverInput").onchange=function(e){ var f=e.target.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(ev){ compressImage(ev.target.result, 800, 0.75, function(res){ userCover=res; document.getElementById("editCover").style.backgroundImage="url("+userCover+")"; }); }; r.readAsDataURL(f); };
@@ -1072,10 +1334,29 @@ document.getElementById("postBtn").onclick=async function(){
   var cap=document.getElementById("caption").value.trim(), cat=document.getElementById("category").value, type=document.getElementById("postType").value;
   if(isMaturePost(cap, cat)){ showToast("❌ Bad / mature content NOT allowed in Public Feed. Post it inside your Channel only.", true); document.getElementById("postMsg").innerText="Blocked: Mature content goes to Channel only."; return; }
   if(!cap && !tempPostUrl){ showToast("Add a photo, video, or caption",true); return; }
-  if(coins<5){ showToast("Not enough coins - Buy coins",true); return; }
-  coins-=5;
+  var songFee=(selectedMusic && selectedMusic.fee>0)?selectedMusic.fee:0;
+  var totalCost=5+songFee;
+  if(coins<totalCost){ showToast("Need "+totalCost+" coins (5 post + "+songFee+" artist track)",true); return; }
+  coins-=totalCost;
+  if(songFee>0 && selectedMusic.artistPhone){
+    var artistCut=Math.round(songFee*0.30);
+    if(selectedMusic.artistPhone===currentUser) creatorEarn+=artistCut;
+    else {
+      if(!pendingCredits[selectedMusic.artistPhone]) pendingCredits[selectedMusic.artistPhone]={coins:0,earn:0};
+      pendingCredits[selectedMusic.artistPhone].earn+=artistCut;
+    }
+    addNotification(currentUser, "🎵 Artist "+selectedMusic.artist+" earned +"+artistCut+" coins (30%)", "music");
+  }
   var remoteMusic=(selectedMusic && selectedMusic.source!=="Phone")?selectedMusic.audio:"";
-  var newPost={phone:currentUser,user:userName,caption:cap,category:cat,url:tempPostUrl,type:tempPostType,music:selectedMusic?(selectedMusic.name+" - "+selectedMusic.artist):"",musicUrl:remoteMusic,time:new Date().toLocaleString(),createdAt:Date.now(),likes:0,comments:[],likedBy:[],shares:0,isChannelOnly:false,mature:false,postType:type};
+  var newPost={
+    phone:currentUser,user:userName,caption:cap,category:cat,url:tempPostUrl,type:tempPostType,
+    music:selectedMusic?(selectedMusic.name+" - "+selectedMusic.artist):"",
+    musicName:selectedMusic?selectedMusic.name:"",musicArtist:selectedMusic?selectedMusic.artist:"",
+    musicUrl:remoteMusic,musicSource:selectedMusic?selectedMusic.source:"",
+    musicArtistPhone:selectedMusic?(selectedMusic.artistPhone||""):"",musicFee:songFee,
+    filterId:selectedFilter?selectedFilter.id:"",filterName:selectedFilter?selectedFilter.name:"",
+    time:new Date().toLocaleString(),createdAt:Date.now(),likes:0,views:0,comments:[],likedBy:[],shares:0,isChannelOnly:false,mature:false,postType:type
+  };
   myPosts.unshift(newPost);
   if(window._firebaseReady && window._db){
     try{
@@ -1088,15 +1369,23 @@ document.getElementById("postBtn").onclick=async function(){
   }
   tempPostUrl=""; document.getElementById("caption").value="";
   document.getElementById("previewImg").style.display="none"; document.getElementById("previewVideo").style.display="none";
-  saveAll(); closePostSheet(); showToast("✅ Posted - Public Feed - Clean"); renderStories(); renderFeed();
+  saveAll(); closePostSheet(); showToast("✅ Posted (-"+totalCost+" coins)"); renderStories(); renderFeed();
 };
 document.getElementById("createChannelBtn").onclick=function(){
+  var followers=getFollowersCount();
+  if(followers<10000){
+    showToast("Need 10,000 followers to create a channel (You have "+followers+")", true);
+    document.getElementById("chanMsg").innerText="Locked: Need "+(10000-followers).toLocaleString()+" more followers.";
+    return;
+  }
   var nm=document.getElementById("channelName").value.trim(), desc=document.getElementById("channelDesc").value.trim();
+  var price=parseInt(document.getElementById("channelPrice").value)||600;
+  if(price<50){ showToast("Monthly price minimum is 50 Subcoins",true); return; }
   if(!nm){ showToast("Enter channel name",true); return; }
   if(containsBadContent(nm) || containsBadContent(desc)){ showToast("Bad content not allowed in channel name",true); return; }
-  channels.push({id:Date.now().toString(),name:nm,desc:desc,owner:currentUser,createdAt:Date.now()});
+  channels.push({id:Date.now().toString(),name:nm,desc:desc,price:price,owner:currentUser,createdAt:Date.now()});
   document.getElementById("channelName").value=""; document.getElementById("channelDesc").value="";
-  saveAll(); refreshChannelSelect(); renderChannels(); showToast("💜 Channel created: "+nm);
+  saveAll(); refreshChannelSelect(); renderChannels(); showToast("💜 Channel created: "+nm+" ("+price+" Subcoins/mo)");
 };
 document.getElementById("chanFile").onchange=function(e){
   var f=e.target.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(ev){
@@ -1108,7 +1397,7 @@ document.getElementById("postChannelBtn").onclick=function(){
   var sel=document.getElementById("channelSelect");
   if(!sel.value){
     var myCh=channels.filter(function(c){return c.owner===currentUser});
-    if(!myCh.length){ showToast("Create a channel first",true); return; }
+    if(!myCh.length){ showToast("Create a channel first (Needs 10k followers)",true); return; }
     sel.value=myCh[0].id;
   }
   var cap=document.getElementById("chanCaption").value.trim(), cat=document.getElementById("chanCategory").value, matureVal=document.getElementById("chanMature").value;
@@ -1382,7 +1671,7 @@ function setMode(m,el){
 }
 function setCamTab(t,el){
   document.querySelectorAll(".cam-tabs span").forEach(function(s){s.classList.remove("active")}); el.classList.add("active");
-  if(t==="LIVE"){ document.getElementById("camMsg").innerText="🔴 LIVE MODE - FREE (Tap shutter to Go Live)"; camMode="LIVE"; }
+  if(t==="LIVE"){ document.getElementById("camMsg").innerText="🔴 LIVE MODE - WiFi/Data only (Tap shutter to Go Live)"; camMode="LIVE"; }
   else { if(camMode==="LIVE") camMode="PHOTO"; document.getElementById("camMsg").innerText="Filter: "+selectedFilter.name+" (FREE)"; }
 }
 function startCamTimer(){ showToast("⏱ 3s Timer started..."); setTimeout(function(){ if(document.getElementById("cameraPage").style.display==="flex") handleShutter(); }, 3000); }
@@ -1437,10 +1726,13 @@ function fmtTime(sec){
   return String(Math.floor(sec/3600)).padStart(2,"0")+":"+String(Math.floor((sec%3600)/60)).padStart(2,"0")+":"+String(sec%60).padStart(2,"0");
 }
 async function startLive(mode){
+  if(!navigator.onLine){ showToast("📶 Going LIVE requires Data or WiFi connection!",true); return; }
+  isLiveNow=true; liveLikes=0;
+  document.getElementById("liveLikeCount").innerText="0";
   document.getElementById("liveOverlay").style.display="flex";
-  document.getElementById("liveStatus").innerText="🔴 LIVE NOW - FREE";
-  document.getElementById("liveCommentsBox").innerHTML='<div style="color:#a3e635">🔴 Live stream started - FREE</div>';
-  document.getElementById("liveInfoNote").innerText=mode==="GO_LIVE"?"🔴 You are broadcasting LIVE (Free)":"👁 Watching LIVE mode (Send gifts or chat below)";
+  document.getElementById("liveStatus").innerText="🔴 LIVE NOW (Data/WiFi)";
+  document.getElementById("liveCommentsBox").innerHTML='<div style="color:#a3e635">🔴 Live stream started — Gifts (10–10,000) go to separate Earning Balance</div>';
+  document.getElementById("liveInfoNote").innerText=mode==="GO_LIVE"?"🔴 You are broadcasting LIVE • Withdraw instantly after ending stream":"👁 Watching LIVE • Tap gifts (10–10,000 coins) to support streamer";
   liveSeconds=0; clearInterval(liveInt);
   liveInt=setInterval(function(){
     liveSeconds++;
@@ -1455,25 +1747,31 @@ async function startLive(mode){
       var lv=document.getElementById("liveVideo"); lv.srcObject=st; lv.play();
     }catch(e){ showToast("Camera/mic permission needed for Live",true); }
   }
-  showToast("🔴 LIVE - FREE - Just Internet");
+  showToast("🔴 LIVE Started (Data/WiFi)");
 }
 function stopLive(){
   clearInterval(liveInt);
+  isLiveNow=false;
   if(window._liveStream){ window._liveStream.getTracks().forEach(function(t){t.stop()}); window._liveStream=null; }
   document.getElementById("liveVideo").srcObject=null;
   document.getElementById("liveOverlay").style.display="none";
-  document.getElementById("liveStatus").innerText="Not Live - FREE to Join";
-  showToast("LIVE ended");
+  document.getElementById("liveStatus").innerText="Stream Ended — Instant Withdrawal Unlocked!";
+  showToast("⏹ LIVE ended — You can now withdraw Earning Coins!");
 }
-function sendLiveGift(amt){
-  if(coins<amt){ showToast("Not enough coins for gift",true); return; }
+function likeLive(){
+  liveLikes++;
+  document.getElementById("liveLikeCount").innerText=liveLikes.toLocaleString();
+}
+function sendLiveGift(amt, label){
+  if(coins<amt){ showToast("Not enough regular coins for "+label+" ("+amt+")",true); return; }
   coins-=amt;
   var cShare=Math.round(amt*0.75), aShare=amt-cShare;
-  creatorEarn+=cShare; appEarnings+=aShare; saveAll();
+  creatorEarn+=cShare;
+  appEarnings+=aShare; saveAll();
   var box=document.getElementById("liveCommentsBox");
-  box.innerHTML+='<div style="color:#facc15">🎁 '+esc(userName)+' sent a '+amt+' coin gift!</div>';
+  box.innerHTML+='<div style="color:#facc15">🎁 '+esc(userName)+' sent '+esc(label)+' ('+amt.toLocaleString()+' coins → +'+cShare.toLocaleString()+' Earning Balance)!</div>';
   box.scrollTop=box.scrollHeight;
-  showToast("🎁 Sent "+amt+" coins!");
+  showToast("🎁 Sent "+label+"! Streamer earned +"+cShare.toLocaleString()+" Earning Coins");
 }
 function addLiveComment(){
   var inp=document.getElementById("liveCommentInput"); if(!inp.value.trim()) return;
@@ -1482,10 +1780,23 @@ function addLiveComment(){
   box.innerHTML+='<div><b>'+esc(userName)+':</b> '+esc(inp.value)+'</div>';
   box.scrollTop=box.scrollHeight; inp.value="";
 }
-function withdrawCreator(){ if(creatorEarn<=0){ showToast("No earnings yet",true); return; } coins+=creatorEarn; creatorEarn=0; saveAll(); showToast("💸 Withdrawn to Coins"); }
+function withdrawCreator(){
+  checkDailyReset();
+  if(isLiveNow){ showToast("⏹ End your LIVE stream first to withdraw instantly!",true); return; }
+  if(creatorEarn<10000){ showToast("Minimum withdrawal is 10,000 earning coins (You have "+creatorEarn.toLocaleString()+")",true); return; }
+  var maxAllowedToday=100000000 - dailyWithdrawn;
+  if(maxAllowedToday<=0){ showToast("Daily max withdrawal (100,000,000 coins) reached today",true); return; }
+  var withdrawAmt=Math.min(creatorEarn, maxAllowedToday);
+  var ksh=coinsToKsh(withdrawAmt);
+  creatorEarn-=withdrawAmt;
+  dailyWithdrawn+=withdrawAmt;
+  addNotification(currentUser, "💸 Instant Payout: "+withdrawAmt.toLocaleString()+" earning coins → "+ksh+" KSH to "+currentUser, "payout");
+  saveAll();
+  showToast("💸 Withdrawn "+withdrawAmt.toLocaleString()+" earning coins = "+ksh+" KSH instantly!");
+}
 function renderFilters(){
   var row=document.getElementById("filtersRow"); if(!row) return;
-  row.innerHTML=FILTERS.map(function(f,i){ return '<div class="filt '+(i===0?"active":"")+'" onclick="selectFilter('+i+',this)"><div class="filt-circle">'+f.emoji+'</div><span>'+f.name+'</span><small>'+(f.isAR?"AR":"FX")+'</small></div>'; }).join("");
+  row.innerHTML=FILTERS.map(function(f,i){ return '<div class="filt '+(i===selectedFilterIndex?"active":"")+'" onclick="selectFilter('+i+',this)"><div class="filt-circle">'+f.emoji+'</div><span>'+f.name+'</span><small>'+(f.isAR?"AR":"FX")+'</small></div>'; }).join("");
 }
 function selectFilter(i,el){
   selectedFilterIndex=i; selectedFilter=FILTERS[i];
@@ -1496,6 +1807,7 @@ function selectFilter(i,el){
 }
 renderFilters();
 if(currentUser){
+  applyPendingCreditsForUser(currentUser);
   document.getElementById("authCard").classList.add("hidden"); document.getElementById("main").classList.remove("hidden"); document.getElementById("bottomNav").style.display="flex"; document.getElementById("payPhone").value=currentUser; showTab("profile");
 }
 updateUI(); renderStories(); renderFeed(); refreshChannelSelect(); renderChannels();
@@ -1517,7 +1829,7 @@ async function loadFromServer(){
         var p=ch.doc.data(); p._serverId=ch.doc.id;
         var existing=myPosts.find(function(x){ return (x._serverId && x._serverId===p._serverId) || (x.createdAt===p.createdAt && x.phone===p.phone); });
         if(ch.type==="added" && !existing){ myPosts.unshift(p); changed=true; }
-        else if(ch.type==="modified" && existing){ existing.likes=p.likes; existing.likedBy=p.likedBy; existing.comments=p.comments; existing.shares=p.shares; existing._serverId=p._serverId; changed=true; }
+        else if(ch.type==="modified" && existing){ existing.likes=p.likes; existing.likedBy=p.likedBy; existing.comments=p.comments; existing.shares=p.shares; existing.views=p.views||existing.views; existing._serverId=p._serverId; changed=true; }
       });
       if(changed){ saveAll(); renderStories(); renderFeed(); }
     });
@@ -1527,4 +1839,4 @@ window.addEventListener("firebase-ready", loadFromServer);
 setTimeout(loadFromServer, 2000);
 </script>
 </body>
-  </html>
+</html>
