@@ -8,35 +8,45 @@
 <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js" crossorigin="anonymous"></script>
 <script type="importmap">{"imports":{"firebase/app":"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js","firebase/firestore":"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"}}</script>
 <style>
-*{box-sizing:border-box;font-family:Arial;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
+*{box-sizing:border-box;font-family:Arial,sans-serif;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
 body{background:#050505;color:#fff;margin:0;overscroll-behavior:none}
 input,textarea{user-select:text;-webkit-user-select:text}
-.top{padding:14px;display:flex;justify-content:space-between;background:#0a0a0a;align-items:center}
-.logo{font-weight:900;font-size:20px}.logo span{color:#a3e635}
-.wrap{max-width:480px;margin:auto;padding:14px;padding-bottom:110px}
-.card{background:#111;border:1px solid #333;border-radius:16px;padding:16px;margin-bottom:14px}
+.top{padding:10px 14px;display:flex;justify-content:space-between;background:#0a0a0a;align-items:center;border-bottom:1px solid #1a1a1a;position:sticky;top:0;z-index:90}
+.logo{font-weight:900;font-size:18px;letter-spacing:.3px}.logo span{color:#a3e635}
+.pill-bal{background:#161616;border:1px solid #333;padding:5px 10px;border-radius:20px;font-size:12px;font-weight:800;cursor:pointer}
+.wrap{max-width:480px;margin:auto;padding:10px;padding-bottom:84px}
+.card{background:#111;border:1px solid #2b2b2b;border-radius:16px;padding:16px;margin-bottom:12px}
 input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #333;color:#fff;border-radius:12px;margin-top:10px;font-size:15px}
-.btn{width:100%;padding:14px;border:none;border-radius:12px;font-weight:900;font-size:16px;margin-top:10px;cursor:pointer}
+.btn{width:100%;padding:13px;border:none;border-radius:12px;font-weight:900;font-size:15px;margin-top:10px;cursor:pointer}
 .gold{background:linear-gradient(90deg,#facc15,#a3e635);color:#000}
-.green{background:#a3e635;color:#000}.dark{background:#222;color:#fff}.purple{background:#a855f7;color:#fff}.small{padding:8px 10px;font-size:13px;width:auto;margin:4px 2px}
-.hidden{display:none}.big{font-size:36px;font-weight:900;color:#facc15}
-.tabs{display:flex;gap:4px;flex-wrap:wrap}.tabs button{flex:1;padding:10px 2px;border-radius:10px;background:#111;color:#fff;border:1px solid #333;font-weight:800;font-size:11px;min-width:70px;cursor:pointer}.tabs button.active{background:#facc15;color:#000}
-.chip{padding:8px 12px;border-radius:20px;border:1px solid #333;background:#111;color:#fff;margin:3px;cursor:pointer;font-size:13px}.chip.active{background:#facc15;color:#000}
-.bottom{position:fixed;bottom:0;left:0;right:0;background:#0a0a0a;display:flex;max-width:480px;margin:auto;border-top:1px solid #222;z-index:100}
-.bottom button{flex:1;background:none;border:none;color:#888;padding:10px 1px;font-weight:800;font-size:10px;cursor:pointer}.bottom button.active{color:#facc15}
-.post{border:1px solid #222;border-radius:12px;overflow:hidden;margin-bottom:12px;background:#0f0f0f}
-.post img,.post video{width:100%;display:block}.post-body{padding:12px}
-.avatar{width:80px;height:80px;border-radius:50%;background:#222;border:3px solid #facc15;display:flex;align-items:center;justify-content:center;font-size:34px;overflow:hidden;flex-shrink:0;cursor:pointer}.avatar img{width:100%;height:100%;object-fit:cover}
-.avatar-sm{width:36px;height:36px;border-radius:50%;background:#222;border:2px solid #facc15;display:inline-flex;align-items:center;justify-content:center;font-size:16px;overflow:hidden;vertical-align:middle;flex-shrink:0}.avatar-sm img{width:100%;height:100%;object-fit:cover}
-.user-row{display:flex;gap:10px;align-items:center;padding:10px;border:1px solid #222;border-radius:12px;margin-bottom:8px;justify-content:space-between}
-.stats{display:flex;gap:8px;margin-top:10px}.stat{flex:1;background:#1a1a1a;border:1px solid #222;border-radius:12px;padding:10px 4px;text-align:center;min-width:0}.stat b{font-size:18px;color:#facc15;display:block}.stat span{font-size:11px;color:#888;display:block;white-space:nowrap}
+.green{background:#a3e635;color:#000}.dark{background:#222;color:#fff}.purple{background:#a855f7;color:#fff}.small{padding:7px 11px;font-size:12px;width:auto;margin:3px 2px}
+.hidden{display:none}.big{font-size:34px;font-weight:900;color:#facc15}
+.chip{padding:6px 11px;border-radius:20px;border:1px solid #333;background:#111;color:#fff;margin:2px;cursor:pointer;font-size:12px;flex-shrink:0}.chip.active{background:#facc15;color:#000;font-weight:800}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:#0a0a0a;display:flex;max-width:480px;margin:auto;border-top:1px solid #222;z-index:100;height:62px;align-items:center}
+.bottom button{flex:1;background:none;border:none;color:#888;padding:6px 2px;font-weight:800;font-size:11px;cursor:pointer;line-height:1.2}.bottom button.active{color:#facc15}
+.bottom .post-nav-btn{color:#000;background:linear-gradient(90deg,#facc15,#a3e635);border-radius:14px;margin:6px 4px;padding:8px 0;font-size:13px;font-weight:900}
+.avatar{width:82px;height:82px;border-radius:50%;background:#222;border:3px solid #facc15;display:flex;align-items:center;justify-content:center;font-size:34px;overflow:hidden;flex-shrink:0;cursor:pointer}.avatar img{width:100%;height:100%;object-fit:cover}
+.avatar-sm{width:38px;height:38px;border-radius:50%;background:#222;border:2px solid #facc15;display:inline-flex;align-items:center;justify-content:center;font-size:16px;overflow:hidden;vertical-align:middle;flex-shrink:0;cursor:pointer}.avatar-sm img{width:100%;height:100%;object-fit:cover}
+.user-row{display:flex;gap:10px;align-items:center;padding:10px;border:1px solid #222;border-radius:12px;margin-bottom:8px;justify-content:space-between;background:#0d0d0d}
+.stats{display:flex;gap:8px;margin-top:12px}.stat{flex:1;background:#1a1a1a;border:1px solid #222;border-radius:12px;padding:10px 4px;text-align:center;min-width:0}.stat b{font-size:18px;color:#facc15;display:block}.stat span{font-size:11px;color:#888;display:block;white-space:nowrap}
 .selected-box{background:#1a2a00;border:2px solid #facc15;border-radius:14px;padding:14px;margin-top:12px;display:none}
 .pkg{border:2px solid #333}.pkg.active{border-color:#facc15;background:#2a2a00}
-.story-row{display:flex;gap:10px;overflow-x:auto;padding:8px 0}.story{width:68px;flex-shrink:0;text-align:center;cursor:pointer}.story-circle{width:60px;height:60px;border-radius:50%;border:3px solid #facc15;overflow:hidden;background:#222;display:flex;align-items:center;justify-content:center;margin:auto}.story-circle img{width:100%;height:100%;object-fit:cover}
-.msg{padding:8px 12px;border-radius:14px;margin:6px 0;max-width:80%;font-size:14px;word-break:break-word}.me{background:#facc15;color:#000;margin-left:auto}.them{background:#222;color:#fff}
-.dash{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.dash div{background:#1a1a1a;border:1px solid #222;border-radius:12px;padding:12px 6px;text-align:center;min-width:0;overflow:hidden}.dash b{color:#facc15;font-size:18px;display:block}.dash span{font-size:11px;color:#888;display:block;white-space:nowrap}
+.story-row{display:flex;gap:10px;overflow-x:auto;padding:6px 2px;scrollbar-width:none}.story{width:62px;flex-shrink:0;text-align:center;cursor:pointer}.story-circle{width:54px;height:54px;border-radius:50%;border:2.5px solid #facc15;overflow:hidden;background:#222;display:flex;align-items:center;justify-content:center;margin:auto}.story-circle img{width:100%;height:100%;object-fit:cover}
+.msg{padding:9px 13px;border-radius:16px;margin:6px 0;max-width:78%;font-size:14px;word-break:break-word}.me{background:#facc15;color:#000;margin-left:auto}.them{background:#222;color:#fff}
+.dash{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.dash div{background:#1a1a1a;border:1px solid #222;border-radius:12px;padding:10px 6px;text-align:center;min-width:0;overflow:hidden}.dash b{color:#facc15;font-size:17px;display:block}.dash span{font-size:11px;color:#888;display:block;white-space:nowrap}
 .filter-preview{width:100%;border-radius:12px;margin-top:10px;display:none;max-height:300px;object-fit:cover}
 .channel-card{border:2px solid #a855f7;border-radius:14px;padding:14px;margin-bottom:12px;background:#150a20}
+.post{border:1px solid #222;border-radius:12px;overflow:hidden;margin-bottom:10px;background:#0f0f0f}
+.post img,.post video{width:100%;display:block}.post-body{padding:12px}
+/* 3-COLUMN IG/TIKTOK PROFILE GRID */
+.post-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:10px}
+.grid-tile{position:relative;aspect-ratio:3/4;background:#181818;overflow:hidden;cursor:pointer;border-radius:4px}
+.grid-tile img,.grid-tile video{width:100%;height:100%;object-fit:cover;display:block}
+.grid-tile .tile-txt{padding:8px;font-size:11px;color:#ddd;display:flex;align-items:center;justify-content:center;height:100%;text-align:center;background:#151515}
+.grid-badge{position:absolute;bottom:4px;left:5px;font-size:10px;font-weight:800;text-shadow:0 1px 4px #000}
+.grid-type{position:absolute;top:4px;right:5px;font-size:12px;text-shadow:0 1px 4px #000}
+.prof-tabs{display:flex;border-bottom:1px solid #222;margin-top:10px}.prof-tabs button{flex:1;background:none;border:none;color:#888;padding:10px;font-weight:800;font-size:13px;cursor:pointer;border-bottom:2px solid transparent}.prof-tabs button.active{color:#facc15;border-bottom-color:#facc15}
+/* CAMERA & SHEETS */
 .cam{position:fixed;inset:0;background:#000;z-index:300;display:none;flex-direction:column;touch-action:none}
 .cam video{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px}
 .cam-top{display:flex;justify-content:space-between;padding:14px;align-items:center;position:absolute;top:0;left:0;right:0;z-index:10}
@@ -56,58 +66,56 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 .rec-row{display:flex;justify-content:space-around;align-items:center;padding:8px 0}
 .rec{width:70px;height:70px;border-radius:50%;border:4px solid #fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .15s}
 .rec-inner{width:54px;height:54px;border-radius:50%;background:#fff;transition:all .15s}
-.rec.recording{border-color:#e11d48}
-.rec.recording .rec-inner{width:26px;height:26px;border-radius:6px;background:#e11d48}
+.rec.recording{border-color:#e11d48}.rec.recording .rec-inner{width:26px;height:26px;border-radius:6px;background:#e11d48}
 .cam-tabs{display:flex;justify-content:center;gap:20px;font-weight:900;font-size:13px;color:#888;padding:6px 0}
-.cam-tabs span{cursor:pointer}
-.cam-tabs span.active{color:#facc15}
-.post-sheet{position:fixed;left:0;right:0;bottom:0;z-index:350;background:#111;border-top-left-radius:20px;border-top-right-radius:20px;border:1px solid #333;max-height:88vh;overflow-y:auto;display:none;padding:16px;padding-bottom:30px;max-width:480px;margin:auto}
-.post-sheet.open{display:block}
-.sheet-back{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:340;display:none}
-.sheet-back.open{display:block}
+.cam-tabs span{cursor:pointer}.cam-tabs span.active{color:#facc15}
+.post-sheet,.music-sheet{position:fixed;left:0;right:0;bottom:0;background:#111;border-top-left-radius:20px;border-top-right-radius:20px;max-height:88vh;overflow-y:auto;display:none;padding:16px;padding-bottom:30px;max-width:480px;margin:auto}
+.post-sheet{z-index:350;border:1px solid #333}.music-sheet{z-index:360;border:1px solid #a3e635}
+.post-sheet.open,.music-sheet.open{display:block}
+.sheet-back{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:340;display:none}.sheet-back.open{display:block}
 #camCanvas{flex:1;width:100%;height:100%;object-fit:contain;background:#000;display:block}
 #arCanvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:5}
-.music-sheet{position:fixed;left:0;right:0;bottom:0;z-index:360;background:#111;border-top-left-radius:20px;border-top-right-radius:20px;border:1px solid #a3e635;max-height:88vh;overflow-y:auto;display:none;padding:16px;padding-bottom:30px;max-width:480px;margin:auto}
-.music-sheet.open{display:block}
 .music-item{display:flex;gap:10px;align-items:center;padding:10px;border:1px solid #222;border-radius:12px;margin-bottom:8px;background:#0b0b0b}
 .music-item img{width:48px;height:48px;border-radius:8px;object-fit:cover;background:#222;flex-shrink:0}
 #toast{position:fixed;top:16px;left:50%;transform:translateX(-50%) translateY(-80px);background:#a3e635;color:#000;padding:12px 18px;border-radius:20px;font-weight:900;font-size:14px;z-index:999;transition:transform .3s;max-width:90%;text-align:center}
-#toast.show{transform:translateX(-50%) translateY(0)}
-#toast.err{background:#e11d48;color:#fff}
+#toast.show{transform:translateX(-50%) translateY(0)}#toast.err{background:#e11d48;color:#fff}
 .live-comments{max-height:110px;overflow-y:auto;background:#111;border:1px solid #333;border-radius:10px;padding:8px;margin-top:8px;text-align:left;font-size:13px}
 .notif{padding:12px;border:1px solid #222;border-radius:12px;margin-bottom:8px;background:#0f0f0f;cursor:pointer}.notif.unread{border-color:#facc15;background:#1a1a00}
 .verified{color:#1da1f2;font-size:16px}
 .server-badge{font-size:10px;padding:3px 8px;border-radius:10px;background:#222}
 .server-badge.online{background:#0a2a00;color:#a3e635;border:1px solid #a3e635}
 .mature-cover{background:#150a20;border:2px solid #e11d48;border-radius:12px;padding:18px;text-align:center}
-.spend-feed{height:calc(100vh - 190px);overflow-y:auto;scroll-snap-type:y mandatory;border-radius:16px;background:#000}
-.spend-item{height:calc(100vh - 190px);scroll-snap-align:start;position:relative;background:#000;overflow:hidden;border-radius:16px;margin-bottom:10px}
+/* FULL-SCREEN TIKTOK/IG SPEND FEED */
+.spend-top{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:6px}
+.spend-tabs{display:flex;gap:4px;flex:1}.spend-tabs button{flex:1;padding:8px 4px;border-radius:10px;background:#111;color:#aaa;border:1px solid #2a2a2a;font-weight:900;font-size:12px;cursor:pointer}.spend-tabs button.active{background:#facc15;color:#000}
+.cat-strip{display:flex;gap:4px;overflow-x:auto;padding:4px 0;scrollbar-width:none}
+.spend-feed{height:calc(100vh - 220px);overflow-y:auto;scroll-snap-type:y mandatory;border-radius:16px;background:#000}
+.spend-item{height:calc(100vh - 220px);scroll-snap-align:start;position:relative;background:#000;overflow:hidden;border-radius:16px;margin-bottom:8px}
 .spend-item img,.spend-item video{width:100%;height:100%;object-fit:cover;display:block}
-.spend-actions{position:absolute;right:10px;bottom:60px;display:flex;flex-direction:column;gap:12px;align-items:center;z-index:5}
-.spend-act{display:flex;flex-direction:column;align-items:center;background:rgba(0,0,0,.58);border-radius:30px;padding:7px;min-width:50px}
-.spend-act button{background:none;border:none;font-size:24px;color:#fff;cursor:pointer;line-height:1}
+.spend-actions{position:absolute;right:10px;bottom:48px;display:flex;flex-direction:column;gap:11px;align-items:center;z-index:5}
+.spend-act{display:flex;flex-direction:column;align-items:center;background:rgba(0,0,0,.58);border-radius:30px;padding:6px;min-width:48px}
+.spend-act button{background:none;border:none;font-size:23px;color:#fff;cursor:pointer;line-height:1}
 .spend-act button.liked{color:#e11d48}
-.spend-act span{font-size:11px;font-weight:900}
-.spend-info{position:absolute;left:12px;bottom:65px;right:70px;z-index:5;text-shadow:0 2px 8px #000}
+.spend-act span{font-size:10px;font-weight:900}
+.spend-info{position:absolute;left:12px;bottom:48px;right:68px;z-index:5;text-shadow:0 2px 8px #000}
 .sound-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(0,0,0,.68);border:1px solid #a3e635;color:#a3e635;padding:4px 10px;border-radius:20px;font-size:11px;margin-top:5px;cursor:pointer;margin-right:4px}
 .filt-pill{display:inline-flex;align-items:center;gap:4px;background:rgba(0,0,0,.68);border:1px solid #facc15;color:#facc15;padding:4px 10px;border-radius:20px;font-size:11px;margin-top:5px;cursor:pointer}
 .big-heart{position:absolute;left:50%;top:45%;transform:translate(-50%,-50%) scale(0);font-size:90px;z-index:6;pointer-events:none;transition:transform .25s}
 .big-heart.show{transform:translate(-50%,-50%) scale(1.2)}
-.spend-tabs{display:flex;gap:6px;margin-bottom:8px}.spend-tabs button{flex:1;padding:10px;border-radius:10px;background:#111;color:#fff;border:1px solid #333;font-weight:900;cursor:pointer}.spend-tabs button.active{background:#facc15;color:#000}
-.comment-sheet{position:fixed;left:0;right:0;bottom:0;z-index:500;background:#111;border-top-left-radius:20px;border-top-right-radius:20px;border:1px solid #333;max-height:75vh;display:none;flex-direction:column;max-width:480px;margin:auto}
+/* MODALS */
+.comment-sheet{position:fixed;left:0;right:0;bottom:0;z-index:700;background:#111;border-top-left-radius:20px;border-top-right-radius:20px;border:1px solid #333;max-height:75vh;display:none;flex-direction:column;max-width:480px;margin:auto}
 .comment-sheet.open{display:flex}
 .comment-list{overflow-y:auto;padding:12px;flex:1}
 .comment-row{display:flex;gap:8px;padding:8px 0;border-bottom:1px solid #222}
-.edit-full{position:fixed;inset:0;background:#050505;z-index:600;display:none;overflow-y:auto;max-width:480px;margin:auto}
-.edit-full.open{display:block}
+.full-modal{position:fixed;inset:0;background:#050505;z-index:600;display:none;overflow-y:auto;max-width:480px;margin:auto;padding-bottom:40px}
+.full-modal.open{display:block}
 .edit-cover{height:130px;background:#222;background-size:cover;background-position:center;display:flex;align-items:flex-end;justify-content:center;padding-bottom:10px}
 .edit-avatar-wrap{text-align:center;margin-top:-40px}
 .edit-avatar{width:90px;height:90px;border-radius:50%;border:3px solid #facc15;background:#222;display:inline-flex;align-items:center;justify-content:center;font-size:36px;overflow:hidden}
 .edit-avatar img{width:100%;height:100%;object-fit:cover}
 .toggle-row{display:flex;background:#111;border:1px solid #333;border-radius:12px;overflow:hidden;margin-top:10px}
-.toggle-row button{flex:1;padding:12px;border:none;background:#111;color:#fff;font-weight:900;cursor:pointer}
-.toggle-row button.active{background:#a855f7;color:#fff}
-.story-modal{position:fixed;inset:0;background:#000;z-index:550;display:none;flex-direction:column;max-width:480px;margin:auto}
+.toggle-row button{flex:1;padding:12px;border:none;background:#111;color:#fff;font-weight:900;cursor:pointer}.toggle-row button.active{background:#a855f7;color:#fff}
+.story-modal{position:fixed;inset:0;background:#000;z-index:650;display:none;flex-direction:column;max-width:480px;margin:auto}
 .story-modal.open{display:flex}
 .gift-grid{display:flex;gap:6px;overflow-x:auto;padding:6px 0;scrollbar-width:none}
 .gift-grid button{flex-shrink:0;padding:8px 10px;border-radius:12px;border:1px solid #facc15;background:#1c1600;color:#facc15;font-weight:900;font-size:12px;cursor:pointer}
@@ -117,22 +125,30 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 </head>
 <body>
 <div id="toast"></div>
-<div class="top"><div class="logo">BANDU<span>COINS</span> 🪙</div><div style="display:flex;gap:8px;align-items:center"><span id="serverBadge" class="server-badge">📱 LOCAL MODE</span><span style="font-size:20px;cursor:pointer;position:relative" onclick="showTab('notifications')">🔔<span id="notifDot" style="display:none;position:absolute;top:-4px;right:-4px;background:#e11d48;color:#fff;font-size:10px;padding:2px 5px;border-radius:10px">0</span></span><div>🪙 <span id="balTop">0</span> | 💜 <span id="subTop">0</span></div></div></div>
+<div class="top">
+  <div class="logo">BANDU<span>COINS</span> 🪙</div>
+  <div style="display:flex;gap:6px;align-items:center">
+    <span id="serverBadge" class="server-badge">📱 LOCAL</span>
+    <div class="pill-bal" onclick="showTab('coins')">🪙 <span id="balTop">0</span></div>
+    <div class="pill-bal" style="border-color:#a855f7;color:#c084fc" onclick="showTab('coins')">💜 <span id="subTop">0</span></div>
+    <span style="font-size:20px;cursor:pointer;position:relative;padding:2px" onclick="showTab('notifications')">🔔<span id="notifDot" style="display:none;position:absolute;top:-2px;right:-2px;background:#e11d48;color:#fff;font-size:10px;padding:1px 5px;border-radius:10px">0</span></span>
+  </div>
+</div>
+
 <div class="wrap">
 <div id="authCard" class="card">
-<h2 style="text-align:center">Welcome to BANDUCOINS</h2>
-<p style="color:#888;text-align:center;font-size:13px">One phone number + unique username. SMS password recovery. Refer friends for +100 coins each!</p>
-<input id="phone" placeholder="Phone e.g 0798486530" type="tel">
+<h2 style="text-align:center;margin-top:4px">Welcome to BANDUCOINS</h2>
+<p style="color:#888;text-align:center;font-size:13px">Strictly one <b>+254...</b> phone number &amp; unique <b>@username</b> per account. SMS password recovery.</p>
+<input id="phone" placeholder="Phone strictly +254798486530 (Not 07...)" type="tel">
 <input id="password" placeholder="Password (min 4 chars)" type="password">
 <input id="username" placeholder="Unique Username e.g @wizzy">
 <input id="refCodeInput" placeholder="Referral Code (Optional - Both get +100 coins!)">
 <button class="btn gold" id="createBtn">CREATE ACCOUNT</button>
 <button class="btn dark" id="loginBtn">LOGIN</button>
 <p style="text-align:center;margin-top:10px"><a href="#" id="forgotLink" style="color:#888;font-size:13px;text-decoration:underline">forgot password? (SMS Verification)</a></p>
-<p id="authMsg" style="text-align:center;color:#888"></p>
 <div id="forgotBox" class="hidden" style="border:1px solid #facc15;border-radius:12px;padding:12px;margin-top:10px">
-<p style="color:#facc15;font-size:13px">🔐 SMS PASSWORD RECOVERY (Anti-Theft)</p>
-<input id="forgotPhone" placeholder="Enter your registered phone number" type="tel">
+<p style="color:#facc15;font-size:13px">🔐 SMS PASSWORD RECOVERY</p>
+<input id="forgotPhone" placeholder="Registered phone e.g. +254798486530" type="tel">
 <button class="btn dark" id="sendCodeBtn">📩 SEND SMS VERIFICATION CODE</button>
 <p id="codeInfo" style="color:#a3e635;font-size:12px;text-align:center"></p>
 <input id="codeInput" placeholder="Enter 6-digit SMS code" maxlength="6">
@@ -140,50 +156,54 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <button class="btn green" id="resetPassBtn">✅ VERIFY SMS &amp; RESET PASSWORD</button>
 </div>
 </div>
+
 <div id="main" class="hidden">
-<div class="tabs">
-<button id="tProfile" class="active">👤 PROFILE</button>
-<button id="tInbox">💬 INBOX</button>
-<button id="tSpend">🪙 SPEND</button>
-<button id="tChannels">💜 CHANNELS</button>
-<button id="tCoins">🪙 BUY COINS</button>
-<button id="tNotifications">🔔 NOTIF</button>
-</div>
+
+<!-- PROFILE TAB (Clean: NO Filters / NO Music here) -->
 <div id="tab-profile">
 <div class="card">
 <div style="display:flex;gap:14px;align-items:center">
 <label class="avatar" id="avatarLabel"><span id="avatarEmoji">👤</span><img id="avatarImg" style="display:none"><input type="file" accept="image/*" style="display:none" id="avatarInput"></label>
-<div style="min-width:0"><h2 id="displayName" style="word-break:break-word">@user <span id="verifiedBadge"></span></h2><p id="userPhone" style="color:#888"></p><p id="displayBio" style="color:#ccc;font-size:13px;margin-top:4px"></p><p id="verifyStatus" style="font-size:12px;color:#1da1f2"></p><p id="displayLocation" style="color:#888;font-size:12px"></p><p id="displayWebsite" style="color:#a3e635;font-size:12px"></p><p id="displayType" style="color:#c084fc;font-size:12px"></p></div>
+<div style="min-width:0">
+  <h2 id="displayName" style="word-break:break-word;margin:0 0 4px">@user <span id="verifiedBadge"></span></h2>
+  <p id="userPhone" style="color:#888;margin:0;font-size:13px"></p>
+  <p id="displayBio" style="color:#ccc;font-size:13px;margin:4px 0"></p>
+  <p id="verifyStatus" style="font-size:11px;color:#1da1f2;margin:2px 0"></p>
+  <p id="displayLocation" style="color:#888;font-size:12px;margin:2px 0"></p>
+  <p id="displayWebsite" style="color:#a3e635;font-size:12px;margin:2px 0"></p>
+  <p id="displayType" style="color:#c084fc;font-size:12px;margin:2px 0"></p>
+</div>
 </div>
 <div class="stats">
 <div class="stat"><b id="statPosts">0</b><span>Posts</span></div>
 <div class="stat"><b id="statFollowers">0</b><span>Followers</span></div>
 <div class="stat"><b id="statFollowing">0</b><span>Following</span></div>
 </div>
-<button class="btn dark" onclick="document.getElementById('avatarInput').click()">📸 PUT MY PROFILE PICTURE</button>
-<button class="btn gold" id="editProfileBtn">✏️ EDIT PROFILE</button>
-<p style="font-size:11px;color:#888;text-align:center">Payout Verification: Needs 50,000 followers + 10M views. Every extra 10M views = KSH 20,000.</p>
-<p style="color:#a3e635;font-size:12px;margin-top:10px">SPENDABLE BALANCE (Synced with Server)</p>
+<div style="display:flex;gap:8px;margin-top:10px">
+<button class="btn dark" style="margin:0;font-size:13px" onclick="document.getElementById('avatarInput').click()">📸 Photo</button>
+<button class="btn gold" style="margin:0;font-size:13px" id="editProfileBtn">✏️ Edit Profile</button>
+</div>
+<p style="color:#a3e635;font-size:11px;margin:12px 0 2px">SPENDABLE BALANCE</p>
 <div class="big"><span id="balance">0</span> COINS</div>
 <div class="earn-box">
 <b style="color:#4ade80">💵 CREATOR EARNING BALANCE (Separate)</b><br>
-<span style="font-size:26px;font-weight:900;color:#4ade80" id="profileEarnCoins">0</span> EARNING COINS <small style="color:#ccc">(≈ <span id="profileEarnKsh">0.00</span> KSH)</small><br>
+<span style="font-size:24px;font-weight:900;color:#4ade80" id="profileEarnCoins">0</span> EARNING COINS <small style="color:#ccc">(≈ <span id="profileEarnKsh">0.00</span> KSH)</small><br>
 <small style="color:#888">75% Live Gifts • 30% Artist Songs • Min withdraw: 10,000 coins</small>
 </div>
-<div style="background:#150a20;border:1px solid #a855f7;border-radius:12px;padding:12px;margin-top:8px"><b style="color:#c084fc">💜 SUBCOINS - For Channels Only</b><br><span style="font-size:24px;font-weight:900;color:#c084fc" id="subBalance">0</span> SUBCOINS<br><small style="color:#888">1 Subcoin = 1 KSh • 2 Subcoins to watch channel content.</small></div>
+<div style="background:#150a20;border:1px solid #a855f7;border-radius:12px;padding:10px;margin-top:8px"><b style="color:#c084fc">💜 SUBCOINS:</b> <span style="font-size:20px;font-weight:900;color:#c084fc" id="subBalance">0</span> <small style="color:#888">(1 Subcoin = 1 KSh • Channels)</small></div>
 <div style="background:#1a1500;border:1px solid #facc15;border-radius:12px;padding:10px;margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-<div><small style="color:#888">🎁 YOUR REFERRAL CODE (+100 coins each)</small><br><b id="myRefCode" style="color:#facc15;font-size:16px">BANDU0000</b></div>
+<div><small style="color:#888">🎁 REFERRAL CODE (+100 coins each)</small><br><b id="myRefCode" style="color:#facc15;font-size:15px">BANDU0000</b></div>
 <button class="btn gold small" onclick="copyRefCode()">📋 COPY</button>
 </div>
-<button class="btn dark small" style="width:100%" onclick="syncWalletFromServer(true)">🔄 REFRESH SERVER BALANCE</button>
-<button class="btn gold" id="goCoinsBtn">+ BUY COINS / SUBCOINS</button>
-<button class="btn purple" id="goChannelsBtn">💜 GO TO CREATOR CHANNELS</button>
-<button class="btn gold" onclick="openBanduCamera()">➕ CREATE POST - Opens BANDU Camera</button>
-<div style="background:#0a1a00;border:1px solid #a3e635;border-radius:12px;padding:10px;margin-top:10px"><b>✨ MY FILTERS - IG/TIKTOK/SNAPCHAT AR (ALL FREE ✅)</b><br><span id="myFiltersText" style="font-size:12px;color:#888">17 / 17 FREE • Reuse from any post</span><br><button class="btn dark small" onclick="openBanduCamera()">✨ TRY AR &amp; SHADER FILTERS - FREE</button></div>
-<div style="background:#111;border:1px solid #facc15;border-radius:12px;padding:10px;margin-top:10px"><b>🎵 MY MUSIC - AUDIUS + JAMENDO + ARTIST SONGS</b><br><span id="myMusicText" style="font-size:12px;color:#888">No song selected</span><br><button class="btn dark small" onclick="openMusicSheet()">🎵 PICK / UPLOAD SONG</button></div>
+<div style="display:flex;gap:8px;margin-top:8px">
+<button class="btn gold" style="margin:0;font-size:13px" id="goCoinsBtn">+ Buy Coins</button>
+<button class="btn purple" style="margin:0;font-size:13px" id="goChannelsBtn">💜 Channels</button>
 </div>
+<button class="btn dark small" style="width:100%;margin-top:8px" onclick="syncWalletFromServer(true)">🔄 REFRESH SERVER BALANCE</button>
+</div>
+
 <div class="card">
-<p style="color:#a3e635;font-size:12px">📊 MY DASHBOARD - VERIFICATION &amp; PAYOUTS</p>
+<p style="color:#a3e635;font-size:12px;margin-top:0">📊 MY DASHBOARD - VERIFICATION &amp; PAYOUTS</p>
 <div class="dash">
 <div><b id="dashPosts">0</b><span>Total Posts</span></div>
 <div><b id="dashViews">0</b><span>Total Views</span></div>
@@ -193,56 +213,76 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <div><b id="dashViewKsh">0 KSH</b><span>Extra 10M Payout</span></div>
 </div>
 <button class="btn green small" style="width:100%;margin-top:10px" onclick="claimViewsPayout()">💸 CLAIM VIEWS PAYOUT (KSH 20,000 / +10M Views)</button>
-<p style="font-size:11px;color:#888;text-align:center;margin:8px 0 0">Needs 50k followers + 10M views to verify; each extra 10M views = KSH 20,000.</p>
 </div>
-<div class="card"><p style="color:#a3e635;font-size:12px">MY POSTS</p><div id="myPosts"></div></div>
+
+<div class="card" style="padding:12px">
+<div class="prof-tabs">
+<button id="pTabPosts" class="active" onclick="setProfileSubTab('posts')">🎞️ My Posts</button>
+<button id="pTabSaved" onclick="setProfileSubTab('saved')">🔖 Saved</button>
+</div>
+<div id="myPosts" class="post-grid"></div>
+</div>
 <button class="btn dark" id="logoutBtn">LOGOUT</button>
 </div>
+
+<!-- INBOX TAB (Search Any Registered @username, View Profile, Follow & Real Chat) -->
 <div id="tab-inbox" class="hidden">
 <div class="card" id="inboxListCard">
-<h3>💬 INBOX</h3>
-<div style="display:flex;gap:6px;margin-bottom:10px">
-<input id="newChatPhone" placeholder="Enter phone to chat..." type="tel" style="margin:0">
-<button class="btn gold small" style="margin:0;white-space:nowrap" onclick="startChatByPhone()">💬 CHAT</button>
-</div>
+<h3 style="margin-top:0">💬 INBOX &amp; FIND PEOPLE</h3>
+<input id="inboxUserSearch" placeholder="🔍 Search anyone by @username or +254..." style="margin-top:0">
+<p style="color:#888;font-size:11px;margin:6px 0 10px">Tap a person to view their profile, posts, follow them, or chat.</p>
 <div id="inboxUsers"></div>
 </div>
 <div class="card hidden" id="chatCard">
-<p><button class="btn dark small" onclick="closeChat()">← Back</button></p>
-<h3 id="chatWith">Chat</h3><div id="chatMessages" style="max-height:300px;overflow-y:auto"></div>
+<div style="display:flex;justify-content:space-between;align-items:center">
+<button class="btn dark small" onclick="closeChat()">← Back</button>
+<button class="btn gold small" id="chatViewProfileBtn" onclick="openPublicProfile(currentChatPhone)">👤 View Profile</button>
+</div>
+<h3 id="chatWith" style="margin:8px 0">Chat</h3>
+<div id="chatMessages" style="max-height:320px;overflow-y:auto;padding:4px"></div>
 <input id="chatInput" placeholder="Write message...">
 <button class="btn gold" id="sendMsgBtn">📩 SEND</button>
 <button class="btn dark" id="shareVideoBtn">📤 SHARE MY VIDEO - 1 COIN AUTO</button>
 <select id="sharePostSelect" class="hidden"></select>
 </div>
 </div>
+
+<!-- FULL-SCREEN SPEND FEED -->
 <div id="tab-spend" class="hidden">
-<div class="card" style="padding:10px">
-<div style="display:flex;justify-content:space-between;align-items:center">
-<h3 style="margin:0">🪙 SPEND - BANDU FEED</h3>
-<button class="btn dark small" id="feedMuteBtn" style="margin:0" onclick="toggleFeedAudio()">🔊 Sound ON</button>
+<div class="spend-top">
+  <div class="spend-tabs">
+    <button id="feedFollowingTab" onclick="setFeedMode('following')">👥 Following</button>
+    <button id="feedForYouTab" class="active" onclick="setFeedMode('foryou')">🌍 For You</button>
+    <button id="feedStoriesTab" onclick="setFeedMode('stories')">🔴 Stories</button>
+  </div>
+  <button class="btn dark small" id="feedMuteBtn" style="margin:0" onclick="toggleFeedAudio()">🔊</button>
+  <button class="btn dark small" style="margin:0" onclick="document.getElementById('rulesModal').classList.add('open')">ℹ️</button>
 </div>
-<p style="color:#a3e635;font-size:12px">Watch/Download video = 1 coin • Share = 1 coin (receiver free) • Post = 5 coins</p>
-<p style="background:#0a1a00;padding:8px;border-radius:10px;font-size:12px">✅ PUBLIC FEED = CLEAN ONLY. No porn / naked / bad content. Bad content goes to Channels only.</p>
-<div class="spend-tabs"><button id="feedFollowingTab" onclick="setFeedMode('following')">👥 FOLLOWING</button><button id="feedForYouTab" class="active" onclick="setFeedMode('foryou')">🌍 FOR YOU</button><button id="feedStoriesTab" onclick="setFeedMode('stories')">🔴 STORIES</button></div>
-<p style="color:#a3e635;font-size:12px">🔴 STORIES - Tap story = 1 coin auto</p><div class="story-row" id="storyRow"></div>
-<input id="searchInput" placeholder="🔍 Search users...">
-<div id="searchResults"></div>
-<div><button class="chip active" data-cat="All">All</button><button class="chip" data-cat="Sports">⚽ Sports</button><button class="chip" data-cat="Comedy">😂 Comedy</button><button class="chip" data-cat="Short Videos">🎬 Short Videos</button><button class="chip" data-cat="Music">🎵 Music</button><button class="chip" data-cat="Kids">🧒 Kids</button><button class="chip" data-cat="Cartoons">🎭 Cartoons</button></div>
+<div class="story-row" id="storyRow"></div>
+<div class="cat-strip">
+  <button class="chip active" data-cat="All">All</button>
+  <button class="chip" data-cat="Sports">⚽ Sports</button>
+  <button class="chip" data-cat="Comedy">😂 Comedy</button>
+  <button class="chip" data-cat="Short Videos">🎬 Short Videos</button>
+  <button class="chip" data-cat="Music">🎵 Music</button>
+  <button class="chip" data-cat="Kids">🧒 Kids</button>
+  <button class="chip" data-cat="Cartoons">🎭 Cartoons</button>
 </div>
 <div class="spend-feed" id="feedList"></div>
 <audio id="feedMusicPlayer" loop></audio>
-<p style="text-align:center;color:#888;font-size:12px">Swipe UP = Next • Swipe DOWN = Prev • Tap Song/Filter pill to reuse like TikTok</p>
 </div>
+
+<!-- NOTIFICATIONS -->
 <div id="tab-notifications" class="hidden">
 <div class="card"><h3>🔔 NOTIFICATIONS</h3><p style="color:#888;font-size:12px">Likes, Comments, Follows, Referrals, Payouts - Tap to mark read.</p><button class="btn dark small" onclick="clearNotifications()">✅ MARK ALL AS READ</button><div id="notifList" style="margin-top:12px"></div></div>
 <div class="card" id="adminReportsCard" style="display:none;border:2px solid #e11d48"><h3>🛡️ ADMIN - REPORTED POSTS</h3><p style="font-size:12px;color:#888">Only owner sees this. Review and delete bad posts.</p><div id="adminReportsList"></div></div>
 </div>
+
+<!-- CHANNELS & LIVE -->
 <div id="tab-channels" class="hidden">
 <div class="card" style="border:2px solid #a855f7">
 <h3>💜 CREATOR CHANNELS</h3>
-<p style="color:#888;font-size:13px">Create your own page (Requires <b>10,000 followers</b>). Name it anything: <b style="color:#fff">Wizzy's Page</b></p>
-<p style="background:#150a20;padding:10px;border-radius:10px;font-size:13px">📏 RULES:<br>• Requires <b>10,000 followers</b> to create<br>• First <b>3 posts FREE</b>; Post #4+ LOCKED behind monthly subscription<br>• Creator sets monthly Subcoin price (e.g. 600) — <b>75% Creator / 25% Owner</b> (1 Subcoin = 1 KSH)<br>• Watching channel content costs <b>2 Subcoins</b><br>• Creator pays <b>50 Subcoins</b> to post • 🔞 Mature 18+ allowed in Channels only</p>
+<p style="background:#150a20;padding:10px;border-radius:10px;font-size:12px">📏 RULES:<br>• Requires <b>10,000 followers</b> to create<br>• First <b>3 posts FREE</b>; Post #4+ LOCKED behind monthly subscription<br>• Creator sets monthly Subcoin price (e.g. 600) — <b>75% Creator / 25% Owner</b> (1 Subcoin = 1 KSH)<br>• Watching channel content costs <b>2 Subcoins</b><br>• Creator pays <b>50 Subcoins</b> to post • 🔞 Mature 18+ allowed in Channels only</p>
 <p>Your Followers: <b style="color:#facc15" id="chanFollowers">0</b> / 10,000 required</p>
 <p>Your Subcoins: <b style="color:#c084fc" id="chanSubcoins">0</b></p>
 <input id="channelName" placeholder="Your Channel / Page Name - e.g Wizzy's Page">
@@ -253,7 +293,7 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 </div>
 <div class="card">
 <h3>🔴 LIVE - DATA/WIFI ONLY ✅</h3>
-<p style="color:#a3e635;font-size:12px">Going live needs Internet/WiFi only. Gifts (10–10,000 coins) go to your separate Earning Balance (75% streamer / 25% platform).</p>
+<p style="color:#a3e635;font-size:12px">Gifts (10–10,000 coins) go to your separate Earning Balance (75% streamer / 25% platform).</p>
 <p id="liveTimer" style="text-align:center;font-size:28px;color:#facc15;font-weight:900">00:00:00</p>
 <p id="liveStatus" style="text-align:center;color:#a3e635">Not Live - Ready</p>
 <button class="btn gold" onclick="startLive('WATCH')">👁 WATCH LIVE</button>
@@ -265,7 +305,7 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <p style="font-size:28px;color:#4ade80;font-weight:900;margin:5px 0"><span id="creatorEarn">0</span> COINS</p>
 <p style="margin:0;color:#fff;font-size:14px">≈ <b style="color:#facc15" id="creatorEarnKsh">0.00</b> KSH <small style="color:#888">(10,000 coins ≈ 444.45 KSH)</small></p>
 <p style="margin:4px 0;color:#888;font-size:11px">Channel Subcoin Earnings (1 Subcoin = 1 KSH): <b id="subEarnKsh">0</b> KSH</p>
-<p style="margin:4px 0;color:#888;font-size:11px">Platform 25%: <span id="appEarn">0</span> coins | Today withdrawn: <span id="dailyWithdrawnLbl">0</span> / 100,000,000</p>
+<p style="margin:4px 0;color:#888;font-size:11px">Platform 25%: <span id="appEarn">0</span> coins | Today: <span id="dailyWithdrawnLbl">0</span> / 100,000,000</p>
 <button class="btn green" onclick="withdrawCreator()">💸 CONVERT &amp; WITHDRAW INSTANTLY (Min 10,000)</button>
 </div>
 </div>
@@ -281,6 +321,8 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 </div>
 <div id="channelList"></div>
 </div>
+
+<!-- BUY COINS -->
 <div id="tab-coins" class="hidden">
 <div class="card">
 <h3>BUY BANDUCOINS - NORMAL</h3>
@@ -310,40 +352,95 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <p id="payMsg" style="text-align:center;color:#888">Tap a package above, then Pay. You will get M-PESA STK prompt on your phone.</p>
 </div>
 </div>
+
 </div>
 </div>
+
+<!-- CLEAN 5-ICON BOTTOM NAVIGATION -->
 <div class="bottom" id="bottomNav" style="display:none">
-<button id="bProfile" class="active">👤<br>Profile</button>
-<button id="bInbox">💬<br>Inbox</button>
-<button onclick="openBanduCamera()" style="color:#000;background:#a3e635;border-radius:12px;margin:4px;font-size:14px">➕<br>Post</button>
-<button id="bSpend">🪙<br>Spend</button>
+<button id="bSpend" class="active">🏠<br>Feed</button>
 <button id="bChannels">💜<br>Channel</button>
-<button id="bCoins">🪙<br>Buy<br>coins</button>
+<button class="post-nav-btn" onclick="openBanduCamera()">➕<br>Post</button>
+<button id="bInbox">💬<br>Inbox</button>
+<button id="bProfile">👤<br>Profile</button>
 </div>
-<div id="editFull" class="edit-full">
+
+<!-- PUBLIC PROFILE MODAL (Tap any user in Inbox Search or Feed) -->
+<div id="publicProfileModal" class="full-modal">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:14px;border-bottom:1px solid #222;position:sticky;top:0;background:#050505;z-index:5">
+  <button class="btn dark small" style="margin:0" onclick="closePublicProfile()">← Back</button>
+  <b id="pubHeaderName">@user</b>
+  <span style="width:52px"></span>
+</div>
+<div id="pubCover" style="height:110px;background:#1a1a1a;background-size:cover;background-position:center"></div>
+<div style="padding:14px;margin-top:-42px">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between">
+    <div class="avatar" id="pubAvatar" style="width:84px;height:84px">👤</div>
+    <div style="display:flex;gap:6px">
+      <button class="btn gold small" id="pubFollowBtn" onclick="toggleFollowPublic()">+ Follow</button>
+      <button class="btn dark small" id="pubMsgBtn" onclick="messagePublicUser()">💬 Message</button>
+    </div>
+  </div>
+  <h2 id="pubName" style="margin:10px 0 2px">@user</h2>
+  <p id="pubBio" style="color:#ccc;font-size:13px;margin:4px 0"></p>
+  <p id="pubMeta" style="color:#888;font-size:12px;margin:2px 0"></p>
+  <div class="stats">
+    <div class="stat"><b id="pubPostsCount">0</b><span>Posts</span></div>
+    <div class="stat"><b id="pubFollowersCount">0</b><span>Followers</span></div>
+    <div class="stat"><b id="pubFollowingCount">0</b><span>Following</span></div>
+  </div>
+  <div id="pubPostsGrid" class="post-grid" style="margin-top:14px"></div>
+</div>
+</div>
+
+<!-- SINGLE POST VIEWER MODAL (From Profile / Public Profile Grids) -->
+<div id="postViewerModal" class="full-modal" style="z-index:620">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:14px;border-bottom:1px solid #222">
+  <button class="btn dark small" style="margin:0" onclick="closePostViewer()">← Back</button>
+  <b id="pvAuthor">@user</b>
+  <span style="width:52px"></span>
+</div>
+<div id="pvBody" style="padding:14px"></div>
+</div>
+
+<!-- RULES INFO MODAL -->
+<div id="rulesModal" class="full-modal" style="padding:20px">
+<div style="display:flex;justify-content:space-between;align-items:center"><h3>📜 BANDUCOINS RULES</h3><button class="btn dark small" onclick="document.getElementById('rulesModal').classList.remove('open')">✕</button></div>
+<div class="card">
+<p>• ✅ <b>Public Feed = Clean Only</b> (No porn/naked/bad content; those go to Channels only).</p>
+<p>• 🪙 <b>Watch / Download Video:</b> 1 coin • <b>Post:</b> 5 coins • <b>Share:</b> 1 coin (receiver free).</p>
+<p>• 🎵 <b>Artist Songs:</b> Creators with 20,000+ followers can upload tracks (~100 coins for 3-min track, earning 30%).</p>
+<p>• 💜 <b>Channels:</b> 10,000 followers to create; 3 free posts; 2 Subcoins to watch.</p>
+<p>• 🔴 <b>LIVE:</b> WiFi/Data only; 75% of gifts (10–10,000) go to separate Earning Balance (`10,000 ≈ 444.45 KSH`).</p>
+<p>• ✓ <b>Payout Verify:</b> 50,000 followers + 10M views; every extra 10M views pays KSH 20,000.</p>
+</div>
+</div>
+
+<!-- EDIT PROFILE MODAL -->
+<div id="editFull" class="full-modal">
 <div style="display:flex;justify-content:space-between;align-items:center;padding:14px"><button class="btn dark small" onclick="closeEditFull()">← Back</button><b>Edit Profile</b><button class="btn gold small" onclick="saveEditFull()">Save</button></div>
 <div class="edit-cover" id="editCover"><button class="btn dark small" onclick="document.getElementById('coverInput').click()">Change Cover Photo</button><input type="file" id="coverInput" accept="image/*" style="display:none"></div>
 <div class="edit-avatar-wrap"><div class="edit-avatar" id="editAvatar">👤</div><br><button class="btn dark small" onclick="document.getElementById('editAvatarInput').click()">Change Photo</button><input type="file" id="editAvatarInput" accept="image/*" style="display:none"></div>
 <div style="padding:14px">
-<input id="editFullName" placeholder="Name - Wizzy">
-<input id="editFullUser" placeholder="Username - @wizzy">
-<textarea id="editFullBio" rows="3" placeholder="Bio - Music artist &amp; producer. Beats, vibes, community."></textarea>
+<input id="editFullName" placeholder="Display Name - e.g. Wizzy">
+<input id="editFullUser" placeholder="Unique Username - e.g. @wizzy">
+<textarea id="editFullBio" rows="3" placeholder="Bio - Music artist &amp; producer."></textarea>
 <p style="color:#888;font-size:12px;text-align:right"><span id="wordCount">0</span> / 50 words</p>
 <input id="editFullLocation" placeholder="Location - Eldoret, Kenya">
 <input id="editFullWebsite" placeholder="Website Link - banducoins.com">
 <p style="margin-top:14px;font-weight:900">Account Type</p>
 <div class="toggle-row"><button id="typeArtist" class="active" onclick="setAccountType('Artist')">Artist</button><button id="typeFan" onclick="setAccountType('Fan')">Fan</button></div>
-<button class="btn dark" onclick="showToast('Use Forgot Password (SMS Verification) on login screen')">Change Password &gt;</button>
-<button class="btn dark" onclick="showToast('Privacy - Only you can see your private info')">Privacy &gt;</button>
 <button class="btn purple" onclick="saveEditFull()">Save Changes</button>
 <button class="btn dark" onclick="closeEditFull()">Cancel</button>
 </div>
 </div>
+
 <div id="commentSheet" class="comment-sheet">
 <div style="display:flex;justify-content:space-between;padding:14px"><b id="commentTitle">Comments</b><button class="btn dark small" onclick="closeComments()">✕</button></div>
 <div class="comment-list" id="commentList"></div>
 <div style="display:flex;gap:6px;padding:12px"><input id="commentInput" placeholder="Add comment..." style="margin:0"><button class="btn gold small" style="margin:0" onclick="sendComment()">➤</button></div>
 </div>
+
 <div id="storyModal" class="story-modal">
 <div style="display:flex;justify-content:space-between;padding:14px;align-items:center;background:rgba(0,0,0,.7)">
 <b id="storyAuthor">@user</b>
@@ -352,6 +449,7 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <div id="storyContent" style="flex:1;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:12px;text-align:center"></div>
 <p id="storyCaption" style="text-align:center;padding:10px;color:#fff;margin:0;background:rgba(0,0,0,.7)"></p>
 </div>
+
 <div id="sheetBack" class="sheet-back" onclick="closePostSheet()"></div>
 <div id="postSheet" class="post-sheet">
 <div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">📤 POST - PUBLIC FEED - CLEAN ONLY</h3><button class="btn dark small" onclick="closePostSheet()">✕ CLOSE</button></div>
@@ -362,12 +460,13 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <textarea id="caption" rows="2" placeholder="Caption - OPTIONAL - Clean only"></textarea>
 <select id="category"><option value="">Category: No Category - Optional</option><option value="Short Videos">Short Videos</option><option>Sports</option><option>Comedy</option><option>Music</option><option>Kids</option><option>Cartoons</option></select>
 <select id="postType"><option value="permanent">📌 PERMANENT POST</option><option value="story">🕐 STORY - 24hrs</option></select>
-<button class="btn dark" onclick="openMusicSheet()">🎵 CHANGE MUSIC</button>
+<button class="btn dark" onclick="openMusicSheet()">🎵 PICK / CHANGE MUSIC</button>
 <input type="file" id="postFile" accept="image/*,video/*">
 <button class="btn green" id="postBtn">📤 POST NOW - 5 COINS</button>
 <p id="postMsg" style="text-align:center;color:#888"></p>
 <button class="btn dark" onclick="closePostSheet()">CANCEL</button>
 </div>
+
 <div id="musicSheet" class="music-sheet">
 <div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">🎵 MUSIC &amp; ARTIST SONGS</h3><button class="btn dark small" onclick="closeMusicSheet()">✕ CLOSE</button></div>
 <p style="font-size:12px;color:#888">Audius Trending + Jamendo + Artist Uploads (Artists w/ 20k followers earn 30% when supporters post!).</p>
@@ -397,6 +496,7 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <div id="musicResults"></div>
 <audio id="musicPreviewPlayer" controls style="width:100%;display:none;margin-top:8px"></audio>
 </div>
+
 <div id="cameraPage" class="cam" oncontextmenu="return false">
 <div class="cam-top"><button onclick="closeBanduCamera()">✕</button><button onclick="openMusicSheet()">🎵 <span id="soundName">Add Sound</span></button><button onclick="flipCam()">🔄</button></div>
 <div style="position:relative;flex:1;overflow:hidden;display:flex;min-height:0"><video id="camVideo" autoplay playsinline muted></video><canvas id="camCanvas"></canvas><canvas id="arCanvas"></canvas></div>
@@ -416,6 +516,7 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 </div>
 <audio id="camAudioPlayer" loop></audio>
 </div>
+
 <div id="liveOverlay" style="display:none;position:fixed;inset:0;background:#000;z-index:400;flex-direction:column;max-width:480px;margin:auto">
 <div style="display:flex;justify-content:space-between;padding:12px;align-items:center">
 <span style="background:#e11d48;padding:6px 12px;border-radius:20px;font-weight:900;font-size:12px">🔴 LIVE (<span id="liveOverlayTimer">00:00:00</span>)</span>
@@ -439,9 +540,10 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <button class="btn dark" onclick="stopLive()" style="background:#e11d48;margin-top:6px">⏹ STOP LIVE &amp; UNLOCK WITHDRAWAL</button>
 </div>
 </div>
+
 <script type="module">
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc, getDocs, query, orderBy, onSnapshot, doc, setDoc } from "firebase/firestore";
+import { getFirestore, collection, addDoc, getDoc, getDocs, query, where, orderBy, limit, onSnapshot, doc, setDoc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 const firebaseConfig = {
   apiKey: "AIzaSyCf6YZW8nZJZEqVnB-TzvqW1GPb5bocCjU",
   authDomain: "banducoins.firebaseapp.com",
@@ -456,11 +558,12 @@ try{
   if(firebaseConfig.apiKey){
     const app=initializeApp(firebaseConfig);
     db=getFirestore(app); firebaseReady=true;
-    document.getElementById("serverBadge").innerText="☁️ REAL SERVER - Firebase";
+    document.getElementById("serverBadge").innerText="☁️ REAL SERVER";
     document.getElementById("serverBadge").classList.add("online");
   }
 }catch(e){ console.log("Firebase init",e); }
-window._db=db; window._firebaseReady=firebaseReady; window._firestore={collection,addDoc,getDocs,query,orderBy,onSnapshot,doc,setDoc};
+window._db=db; window._firebaseReady=firebaseReady;
+window._firestore={collection,addDoc,getDoc,getDocs,query,where,orderBy,limit,onSnapshot,doc,setDoc,updateDoc,arrayUnion,arrayRemove};
 window.dispatchEvent(new Event("firebase-ready"));
 </script>
 <script>
@@ -490,6 +593,25 @@ function compressImage(dataUrl, maxW, quality, cb){
   img.onerror=function(){ cb(dataUrl); };
   img.src=dataUrl;
 }
+function strictKePhone(raw){
+  var s=String(raw||"").replace(/\s+/g,"").trim();
+  if(!/^\+254[17]\d{8}$/.test(s)) return "";
+  return s;
+}
+function normalizeUsername(raw){
+  var u=String(raw||"").trim().replace(/^@+/,"").toLowerCase();
+  if(!/^[a-z0-9_.]{3,20}$/.test(u)) return "";
+  return "@"+u;
+}
+async function hashPass(pw){
+  try{
+    if(window.crypto && crypto.subtle){
+      var buf=await crypto.subtle.digest("SHA-256", new TextEncoder().encode("bandu_"+pw));
+      return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,"0")}).join("");
+    }
+  }catch(e){}
+  return "plain_"+pw;
+}
 
 var coins=parseInt(get("bandu_coins","100"))||100;
 var subcoins=parseInt(get("bandu_subcoins","0"))||0;
@@ -502,6 +624,7 @@ var claimedViewMillions=parseInt(get("bandu_claimed_views_m","0"))||0;
 var myPosts=[]; try{myPosts=JSON.parse(get("bandu_posts","[]"))}catch(e){myPosts=[]}
 var users=[]; try{users=JSON.parse(get("bandu_users","[]"))}catch(e){users=[]}
 var following=[]; try{following=JSON.parse(get("bandu_following","[]"))}catch(e){following=[]}
+var myFollowers=[]; try{myFollowers=JSON.parse(get("bandu_followers","[]"))}catch(e){myFollowers=[]}
 var chats={}; try{chats=JSON.parse(get("bandu_chats","{}"))}catch(e){chats={}}
 var channels=[]; try{channels=JSON.parse(get("bandu_channels","[]"))}catch(e){channels=[]}
 var channelPosts=[]; try{channelPosts=JSON.parse(get("bandu_channel_posts","[]"))}catch(e){channelPosts=[]}
@@ -513,14 +636,14 @@ var reports=[]; try{reports=JSON.parse(get("bandu_reports","[]"))}catch(e){repor
 var verifiedUsers=[]; try{verifiedUsers=JSON.parse(get("bandu_verified","[]"))}catch(e){verifiedUsers=[]}
 var watchedChannelPosts=[]; try{watchedChannelPosts=JSON.parse(get("bandu_watched_ch","[]"))}catch(e){watchedChannelPosts=[]}
 
-var feedMode="foryou";
+var feedMode="foryou", profileSubTab="posts";
 var currentUser=get("bandu_phone",""), userName=get("bandu_name","@user"), avatarUrl=get("bandu_avatar",""), userBio=get("bandu_bio","");
 var userLocation=get("bandu_location","Eldoret, Kenya"), userWebsite=get("bandu_website","banducoins.com"), userType=get("bandu_type","Artist"), userCover=get("bandu_cover","");
-var currentCat="All", selectedCoins=450, selectedAmount=20, selectedType="coin", currentChatPhone="", tempPostUrl="", tempPostType="image";
+var currentCat="All", selectedCoins=450, selectedAmount=20, selectedType="coin", currentChatPhone="", currentPublicPhone="", tempPostUrl="", tempPostType="image";
 var camStream=null, camFacing='user', camLen=15, camMode='PHOTO', liveSeconds=0, liveInt=null, isLiveNow=false, liveLikes=0;
 var mediaRecorder=null, recordedChunks=[], isRecording=false, galleryFromCam=false;
-var currentCommentIndex=-1, beautyBoost=false, feedMuted=false, activeFeedObserver=null, _skipWalletPush=false;
-var sessionWatchedVideos={};
+var currentCommentIndex=-1, beautyBoost=false, feedMuted=false, activeFeedObserver=null, _skipWalletPush=false, chatUnsub=null;
+var sessionWatchedVideos={}, serverUsersCache={};
 var savedPosts=[]; try{savedPosts=JSON.parse(get("bandu_saved","[]"))}catch(e){savedPosts=[]}
 
 var FILTERS=[
@@ -570,18 +693,14 @@ function containsBadContent(text){
 function isMaturePost(caption, category){ return containsBadContent(caption) || category==="Mature 18+"; }
 function isVerified(phone){ return verifiedUsers.indexOf(phone)>=0; }
 function verifiedMark(phone){ return isVerified(phone)?'<span class="verified">✓</span>':''; }
-function getFollowersCount(){
-  var el=document.getElementById("statFollowers");
-  return el ? (parseInt(el.innerText||"0")||0) : 0;
-}
+function getFollowersCount(){ return myFollowers.length; }
 function getTotalViews(){
   var v=0;
   myPosts.forEach(function(p){ if(p.phone===currentUser) v+=(p.views||0); });
   return v;
 }
 function checkVerification(){
-  var followers=getFollowersCount();
-  var views=getTotalViews();
+  var followers=getFollowersCount(), views=getTotalViews();
   var badge=document.getElementById("verifiedBadge"), status=document.getElementById("verifyStatus");
   if(followers>=50000 && views>=10000000){
     if(verifiedUsers.indexOf(currentUser)<0){ verifiedUsers.push(currentUser); set("bandu_verified",JSON.stringify(verifiedUsers)); }
@@ -590,26 +709,21 @@ function checkVerification(){
   } else {
     if(badge) badge.innerHTML="";
     var fNeed=Math.max(0, 50000-followers), vNeed=Math.max(0, 10000000-views);
-    if(status) status.innerText="Payout Verify: Need "+fNeed.toLocaleString()+" followers & "+vNeed.toLocaleString()+" views";
+    if(status) status.innerText="Verify: Need "+fNeed.toLocaleString()+" followers & "+vNeed.toLocaleString()+" views";
   }
 }
 function claimViewsPayout(){
   var followers=getFollowersCount(), views=getTotalViews();
-  if(followers<50000 || views<10000000){
-    showToast("Need 50,000 followers + 10M views first!", true); return;
-  }
+  if(followers<50000 || views<10000000){ showToast("Need 50,000 followers + 10M views first!", true); return; }
   var extraMillions=Math.floor((views-10000000)/10000000);
   if(extraMillions<=claimedViewMillions){
     var nextAt=(10000000 + (claimedViewMillions+1)*10000000).toLocaleString();
     showToast("Next KSH 20,000 payout unlocks at "+nextAt+" total views"); return;
   }
-  var newMilestones=extraMillions-claimedViewMillions;
-  var payoutKsh=newMilestones*20000;
-  claimedViewMillions=extraMillions;
-  set("bandu_claimed_views_m", claimedViewMillions);
+  var newMilestones=extraMillions-claimedViewMillions, payoutKsh=newMilestones*20000;
+  claimedViewMillions=extraMillions; set("bandu_claimed_views_m", claimedViewMillions);
   addNotification(currentUser, "💸 Claimed KSH "+payoutKsh.toLocaleString()+" views milestone payout!", "payout");
-  saveAll();
-  showToast("💸 Claimed KSH "+payoutKsh.toLocaleString()+" for "+newMilestones+"x 10M extra views!");
+  saveAll(); showToast("💸 Claimed KSH "+payoutKsh.toLocaleString()+" for "+newMilestones+"x 10M extra views!");
 }
 function coinsToKsh(c){ return ((c * 444.45) / 10000).toFixed(2); }
 function genRefCode(ph){ return "BANDU"+String(ph||"0000").slice(-4); }
@@ -623,10 +737,9 @@ function applyPendingCreditsForUser(ph){
   var cr=pendingCredits[ph];
   if(cr.coins){ coins+=cr.coins; showToast("🎁 +"+cr.coins+" Referral Coins credited!"); }
   if(cr.earn){ creatorEarn+=cr.earn; showToast("💵 +"+cr.earn+" Earning Coins credited!"); }
-  delete pendingCredits[ph];
-  set("bandu_pending_credits", JSON.stringify(pendingCredits));
+  delete pendingCredits[ph]; set("bandu_pending_credits", JSON.stringify(pendingCredits));
 }
-function isOwner(){ return currentUser==="0798486530"; }
+function isOwner(){ return currentUser==="+254798486530"; }
 function checkDailyReset(){
   var today=new Date().toDateString();
   if(dailyWithdrawDate!==today){ dailyWithdrawDate=today; dailyWithdrawn=0; set("bandu_daily_date",today); set("bandu_daily_withdrawn",0); }
@@ -655,30 +768,70 @@ async function syncWalletFromServer(manual){
     if(prevC===""){
       if(srvC>coins){ coins=srvC; changed=true; }
       if(srvS>subcoins){ subcoins=srvS; changed=true; }
-      set("bandu_srv_coins", Math.max(coins, srvC));
-      set("bandu_srv_subcoins", Math.max(subcoins, srvS));
+      set("bandu_srv_coins", Math.max(coins, srvC)); set("bandu_srv_subcoins", Math.max(subcoins, srvS));
     } else {
       var pC=parseInt(prevC,10)||0, pS=parseInt(prevS,10)||0;
       if(srvC>pC){ var dc=srvC-pC; coins+=dc; changed=true; showToast("🪙 +"+dc+" Coins synced from server!"); }
       if(srvS>pS){ var ds=srvS-pS; subcoins+=ds; changed=true; showToast("💜 +"+ds+" Subcoins synced from server!"); }
-      set("bandu_srv_coins", srvC);
-      set("bandu_srv_subcoins", srvS);
+      set("bandu_srv_coins", srvC); set("bandu_srv_subcoins", srvS);
     }
-    if(changed){
-      _skipWalletPush=true; saveAll(); _skipWalletPush=false;
-      if(coins!==srvC || subcoins!==srvS) pushWalletToServer();
-    } else {
-      if(coins!==srvC || subcoins!==srvS) pushWalletToServer();
-      if(manual) showToast("✅ Balance synced ("+coins.toLocaleString()+" Coins)");
-    }
-  }catch(e){
-    if(manual) showToast("Could not reach server wallet", true);
-  }
+    if(changed){ _skipWalletPush=true; saveAll(); _skipWalletPush=false; if(coins!==srvC || subcoins!==srvS) pushWalletToServer(); }
+    else { if(coins!==srvC || subcoins!==srvS) pushWalletToServer(); if(manual) showToast("✅ Balance synced ("+coins.toLocaleString()+" Coins)"); }
+  }catch(e){ if(manual) showToast("Could not reach server wallet", true); }
+}
+async function syncMyProfileToFirestore(extra){
+  if(!window._firebaseReady || !window._db || !currentUser) return;
+  try{
+    const {doc,setDoc}=window._firestore;
+    var payload=Object.assign({
+      phone:currentUser,
+      name:userName,
+      usernameLower:userName.toLowerCase(),
+      bio:userBio,
+      avatar:avatarUrl||"",
+      cover:userCover||"",
+      location:userLocation||"",
+      website:userWebsite||"",
+      type:userType||"Artist",
+      refCode:genRefCode(currentUser),
+      updatedAt:Date.now()
+    }, extra||{});
+    await setDoc(doc(window._db,"users",currentUser), payload, {merge:true});
+    serverUsersCache[currentUser]=Object.assign(serverUsersCache[currentUser]||{}, payload);
+  }catch(e){}
+}
+async function loadUsersFromServer(){
+  if(!window._firebaseReady || !window._db) return;
+  try{
+    const {collection,getDocs,query,limit}=window._firestore;
+    const snap=await getDocs(query(collection(window._db,"users"), limit(200)));
+    snap.forEach(function(d){
+      var u=d.data();
+      if(u && u.phone){
+        serverUsersCache[u.phone]=u;
+        if(u.phone===currentUser){
+          if(Array.isArray(u.followers)) myFollowers=u.followers;
+          if(Array.isArray(u.following)) following=u.following;
+        }
+      }
+    });
+    set("bandu_followers", JSON.stringify(myFollowers));
+    set("bandu_following", JSON.stringify(following));
+    updateUI();
+    if(!document.getElementById("tab-inbox").classList.contains("hidden")) renderInbox();
+  }catch(e){}
+}
+function getUserRecord(ph){
+  if(serverUsersCache[ph]) return serverUsersCache[ph];
+  var lu=users.find(function(x){return x.phone===ph});
+  if(lu) return lu;
+  var post=myPosts.find(function(p){return p.phone===ph});
+  return {phone:ph, name:post?(post.user||ph):ph, avatar:"", bio:"", followers:[], following:[]};
 }
 function saveAll(){
   set("bandu_coins",coins); set("bandu_subcoins",subcoins); set("bandu_app_earnings",appEarnings); set("bandu_creator_earn",creatorEarn);
   set("bandu_sub_earn_ksh",subEarnKsh); set("bandu_daily_withdrawn",dailyWithdrawn); set("bandu_daily_date",dailyWithdrawDate);
-  set("bandu_posts",JSON.stringify(myPosts)); set("bandu_users",JSON.stringify(users)); set("bandu_following",JSON.stringify(following));
+  set("bandu_posts",JSON.stringify(myPosts)); set("bandu_users",JSON.stringify(users)); set("bandu_following",JSON.stringify(following)); set("bandu_followers",JSON.stringify(myFollowers));
   set("bandu_chats",JSON.stringify(chats)); set("bandu_channels",JSON.stringify(channels)); set("bandu_channel_posts",JSON.stringify(channelPosts));
   set("bandu_subs",JSON.stringify(subs)); set("bandu_artist_songs",JSON.stringify(artistSongs)); set("bandu_pending_credits",JSON.stringify(pendingCredits));
   set("bandu_notifications",JSON.stringify(notifications)); set("bandu_reports",JSON.stringify(reports)); set("bandu_watched_ch",JSON.stringify(watchedChannelPosts));
@@ -686,8 +839,7 @@ function saveAll(){
   set("bandu_location",userLocation); set("bandu_website",userWebsite); set("bandu_type",userType); set("bandu_cover",userCover); set("bandu_saved",JSON.stringify(savedPosts));
   updateUI();
   if(!_skipWalletPush && currentUser){
-    set("bandu_srv_coins", coins);
-    set("bandu_srv_subcoins", subcoins);
+    set("bandu_srv_coins", coins); set("bandu_srv_subcoins", subcoins);
     pushWalletToServer();
   }
 }
@@ -718,7 +870,8 @@ function updateUI(){
     if(avatarUrl){ aImg.src=avatarUrl; aImg.style.display="block"; aEm.style.display="none"; }
     else { aImg.style.display="none"; aEm.style.display="block"; }
   }
-  var sf=document.getElementById("statFollowing"); if(sf) sf.innerText=following.length;
+  var sfl=document.getElementById("statFollowers"); if(sfl) sfl.innerText=myFollowers.length.toLocaleString();
+  var sf=document.getElementById("statFollowing"); if(sf) sf.innerText=following.length.toLocaleString();
   var cf=document.getElementById("chanFollowers"); if(cf) cf.innerText=getFollowersCount().toLocaleString();
   var cs=document.getElementById("chanSubcoins"); if(cs) cs.innerText=subcoins.toLocaleString();
   var unread=notifications.filter(function(n){return !n.read}).length;
@@ -730,17 +883,16 @@ function showTab(name){
   if(name!=="spend" && feedAudio) feedAudio.pause();
   ["profile","inbox","spend","channels","coins","notifications"].forEach(function(t){
     var el=document.getElementById("tab-"+t); if(el) el.classList.toggle("hidden", t!==name);
-    var btn=document.getElementById("t"+t.charAt(0).toUpperCase()+t.slice(1)); if(btn) btn.classList.toggle("active", t===name);
   });
-  var map={profile:"bProfile",inbox:"bInbox",spend:"bSpend",channels:"bChannels",coins:"bCoins"};
-  ["bProfile","bInbox","bSpend","bChannels","bCoins"].forEach(function(id){var e=document.getElementById(id); if(e) e.classList.remove("active");});
+  var map={profile:"bProfile",inbox:"bInbox",spend:"bSpend",channels:"bChannels"};
+  ["bProfile","bInbox","bSpend","bChannels"].forEach(function(id){var e=document.getElementById(id); if(e) e.classList.remove("active");});
   if(map[name]){var ae=document.getElementById(map[name]); if(ae) ae.classList.add("active");}
   if(name==="spend"){ renderStories(); renderFeed(); }
   if(name==="channels"){ refreshChannelSelect(); renderChannels(); }
   if(name==="notifications") renderNotifications();
   if(name==="profile"){ renderMyPosts(); syncWalletFromServer(false); }
   if(name==="coins") syncWalletFromServer(false);
-  if(name==="inbox") renderInbox();
+  if(name==="inbox"){ loadUsersFromServer(); renderInbox(); }
 }
 function setFeedMode(m){
   feedMode=m;
@@ -760,11 +912,12 @@ function renderStories(){
   var row=document.getElementById("storyRow"); if(!row) return;
   var now=Date.now();
   var stories=myPosts.filter(function(p){ return p.postType==="story" && !p.isChannelOnly && !p.mature && (!p.createdAt || (now - p.createdAt) < 86400000); });
-  if(!stories.length){ row.innerHTML='<p style="color:#888;font-size:12px;margin:4px 0">No active 24h stories yet. Post one using Story mode.</p>'; return; }
+  if(!stories.length){ row.style.display="none"; return; }
+  row.style.display="flex";
   row.innerHTML=stories.map(function(s){
     var idx=myPosts.indexOf(s);
     var thumb=(s.url && s.type!=="video")?'<img src="'+s.url+'">':'🎬';
-    return '<div class="story" onclick="openStory('+idx+')"><div class="story-circle">'+thumb+'</div><small style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(s.user||s.phone)+'</small></div>';
+    return '<div class="story" onclick="openStory('+idx+')"><div class="story-circle">'+thumb+'</div><small style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10px">'+esc(s.user||s.phone)+'</small></div>';
   }).join("");
 }
 function openStory(idx){
@@ -786,7 +939,7 @@ function closeStoryModal(){
 function toggleFeedAudio(){
   feedMuted=!feedMuted;
   var fp=document.getElementById("feedMusicPlayer"), btn=document.getElementById("feedMuteBtn");
-  btn.innerText=feedMuted?"🔇 Muted":"🔊 Sound ON";
+  btn.innerText=feedMuted?"🔇":"🔊";
   if(feedMuted) fp.pause();
   else if(fp.src) fp.play().catch(function(){});
 }
@@ -800,7 +953,6 @@ function reuseSoundFromPost(realIdx){
   var p=myPosts[realIdx]; if(!p || !p.music) return;
   selectedMusic={ name:p.musicName||p.music, artist:p.musicArtist||p.user||"Artist", audio:p.musicUrl||"", source:p.musicSource||"Reuse", artistPhone:p.musicArtistPhone||"", fee:p.musicFee||0 };
   document.getElementById("selectedMusicLabel").innerText=selectedMusic.name;
-  document.getElementById("myMusicText").innerText=selectedMusic.name;
   document.getElementById("soundName").innerText=selectedMusic.name.slice(0,16);
   var ca=document.getElementById("camAudioPlayer");
   if(ca && selectedMusic.audio) ca.src=selectedMusic.audio;
@@ -820,8 +972,7 @@ function reuseFilterFromPost(filterId){
 function watchVideoPost(realIdx){
   var p=myPosts[realIdx]; if(!p) return;
   var key=(p.createdAt||realIdx)+"_"+p.phone;
-  var vid=document.getElementById("vid-"+realIdx);
-  var gate=document.getElementById("gate-"+realIdx);
+  var vid=document.getElementById("vid-"+realIdx), gate=document.getElementById("gate-"+realIdx);
   if(!sessionWatchedVideos[key]){
     if(coins<1){ showToast("Need 1 coin to watch video",true); return; }
     coins-=1; sessionWatchedVideos[key]=1; p.views=(p.views||0)+1;
@@ -836,8 +987,7 @@ function downloadPost(realIdx){
   if(coins<1){ showToast("Need 1 coin to download video",true); return; }
   coins-=1; saveAll();
   var a=document.createElement("a");
-  a.href=p.url;
-  a.download="banducoins_"+(p.type==="video"?"video.webm":"photo.jpg");
+  a.href=p.url; a.download="banducoins_"+(p.type==="video"?"video.webm":"photo.jpg");
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
   showToast("⬇️ Downloaded (-1 coin)");
 }
@@ -846,14 +996,16 @@ function renderFeed(){
   var posts=getVisiblePosts();
   if(!posts.length){
     document.getElementById("feedMusicPlayer").pause();
-    list.innerHTML='<p style="text-align:center;color:#888;padding:40px">No clean public posts yet. Be the first to post clean content.</p>';
+    list.innerHTML='<p style="text-align:center;color:#888;padding:40px">No clean public posts yet. Tap ➕ Post to create one!</p>';
     return;
   }
   list.innerHTML=posts.map(function(p){
     var realIdx=myPosts.indexOf(p);
     var liked=(p.likedBy||[]).indexOf(currentUser)>=0;
     var isFollowing=following.indexOf(p.phone)>=0;
-    var avHtml=(p.phone===currentUser && avatarUrl)?'<img src="'+avatarUrl+'">':'👤';
+    var uRec=getUserRecord(p.phone);
+    var avSrc=(p.phone===currentUser?avatarUrl:(uRec.avatar||""));
+    var avHtml=avSrc?'<img src="'+avSrc+'">':'👤';
     var key=(p.createdAt||realIdx)+"_"+p.phone;
     var alreadyPaid=!!sessionWatchedVideos[key];
     var media="";
@@ -866,7 +1018,7 @@ function renderFeed(){
     }
     var musicLine=p.music?'<span class="sound-pill" onclick="reuseSoundFromPost('+realIdx+')">🎵 '+esc(p.music)+' • Reuse</span>':'';
     var filtLine=p.filterId?'<span class="filt-pill" data-val="'+esc(p.filterId)+'" onclick="reuseFilterFromPost(this.dataset.val)">✨ '+esc(p.filterName||p.filterId)+' • Try</span>':'';
-    return '<div class="spend-item" data-music="'+esc(p.musicUrl||"")+'" data-idx="'+realIdx+'" ondblclick="likePost('+realIdx+',true)"><div class="big-heart" id="heart-'+realIdx+'">❤️</div>'+media+'<div class="spend-info"><div style="display:flex;gap:8px;align-items:center"><span class="avatar-sm" onclick="showTab(\'profile\')">'+avHtml+'</span><b>'+esc(p.user||p.phone)+' '+verifiedMark(p.phone)+'</b>'+(p.phone!==currentUser?'<button class="btn dark small" style="margin:0" data-val="'+esc(p.phone)+'" onclick="followUser(this.dataset.val)">'+(isFollowing?"✓ Following":"+ Follow")+'</button>':'')+'</div><p style="margin:6px 0 2px">'+esc(p.caption||"")+'</p><div>'+musicLine+filtLine+'</div><small style="color:#ccc">👁 '+(p.views||0)+' views • '+esc(p.time||"")+'</small></div><div class="spend-actions"><div class="spend-act"><button class="'+(liked?"liked":"")+'" onclick="likePost('+realIdx+')">❤️</button><span>'+(p.likes||0)+'</span></div><div class="spend-act"><button onclick="openComments('+realIdx+')">💬</button><span>'+((p.comments||[]).length)+'</span></div><div class="spend-act"><button onclick="sharePost('+realIdx+')">↗️</button><span>1🪙</span></div><div class="spend-act"><button onclick="downloadPost('+realIdx+')">⬇️</button><span>1🪙</span></div><div class="spend-act"><button onclick="savePost('+realIdx+')">🔖</button><span>Save</span></div><div class="spend-act"><button onclick="reportPost('+realIdx+')">🚩</button><span>Report</span></div></div></div>';
+    return '<div class="spend-item" data-music="'+esc(p.musicUrl||"")+'" data-idx="'+realIdx+'" ondblclick="likePost('+realIdx+',true)"><div class="big-heart" id="heart-'+realIdx+'">❤️</div>'+media+'<div class="spend-info"><div style="display:flex;gap:8px;align-items:center"><span class="avatar-sm" data-val="'+esc(p.phone)+'" onclick="openUserOrSelf(this.dataset.val)">'+avHtml+'</span><b style="cursor:pointer" data-val="'+esc(p.phone)+'" onclick="openUserOrSelf(this.dataset.val)">'+esc(p.user||p.phone)+' '+verifiedMark(p.phone)+'</b>'+(p.phone!==currentUser?'<button class="btn dark small" style="margin:0" data-val="'+esc(p.phone)+'" onclick="followUser(this.dataset.val)">'+(isFollowing?"✓ Following":"+ Follow")+'</button>':'')+'</div><p style="margin:6px 0 2px">'+esc(p.caption||"")+'</p><div>'+musicLine+filtLine+'</div><small style="color:#ccc">👁 '+(p.views||0)+' views</small></div><div class="spend-actions"><div class="spend-act"><button class="'+(liked?"liked":"")+'" onclick="likePost('+realIdx+')">❤️</button><span>'+(p.likes||0)+'</span></div><div class="spend-act"><button onclick="openComments('+realIdx+')">💬</button><span>'+((p.comments||[]).length)+'</span></div><div class="spend-act"><button onclick="sharePost('+realIdx+')">↗️</button><span>1🪙</span></div><div class="spend-act"><button onclick="downloadPost('+realIdx+')">⬇️</button><span>1🪙</span></div><div class="spend-act"><button onclick="savePost('+realIdx+')">🔖</button><span>Save</span></div><div class="spend-act"><button onclick="reportPost('+realIdx+')">🚩</button><span>Report</span></div></div></div>';
   }).join("");
   if(activeFeedObserver) activeFeedObserver.disconnect();
   if("IntersectionObserver" in window){
@@ -884,11 +1036,59 @@ function renderFeed(){
     list.querySelectorAll(".spend-item").forEach(function(el){ activeFeedObserver.observe(el); });
   }
 }
-function followUser(phone){
-  if(!phone||phone===currentUser) return;
-  if(following.indexOf(phone)<0){ following.push(phone); addNotification(currentUser, userName+" followed "+phone, "follow"); saveAll(); showToast("Following "+phone); }
-  else { following=following.filter(function(x){return x!==phone}); saveAll(); showToast("Unfollowed"); }
+function openUserOrSelf(ph){
+  if(!ph) return;
+  if(ph===currentUser) showTab("profile");
+  else openPublicProfile(ph);
+}
+async function followUser(phone){
+  if(!phone || phone===currentUser) return;
+  var isNowFollowing=false;
+  if(following.indexOf(phone)<0){
+    following.push(phone);
+    isNowFollowing=true;
+    addNotification(currentUser, userName+" followed "+phone, "follow");
+    showToast("Following "+(getUserRecord(phone).name||phone));
+  } else {
+    following=following.filter(function(x){return x!==phone});
+    showToast("Unfollowed");
+  }
+  var targetRec=serverUsersCache[phone];
+  if(targetRec){
+    if(!Array.isArray(targetRec.followers)) targetRec.followers=[];
+    if(isNowFollowing && targetRec.followers.indexOf(currentUser)<0) targetRec.followers.push(currentUser);
+    if(!isNowFollowing) targetRec.followers=targetRec.followers.filter(function(x){return x!==currentUser});
+  }
+  saveAll();
+  if(window._firebaseReady && window._db){
+    try{
+      const {doc,updateDoc,setDoc,arrayUnion,arrayRemove}=window._firestore;
+      await setDoc(doc(window._db,"users",currentUser), { following: following }, { merge:true });
+      await updateDoc(doc(window._db,"users",phone), { followers: isNowFollowing ? arrayUnion(currentUser) : arrayRemove(currentUser) }).catch(function(){});
+    }catch(e){}
+  }
   renderFeed();
+  if(document.getElementById("publicProfileModal").classList.contains("open") && currentPublicPhone===phone){
+    openPublicProfile(phone);
+  }
+}
+function setProfileSubTab(t){
+  profileSubTab=t;
+  document.getElementById("pTabPosts").classList.toggle("active", t==="posts");
+  document.getElementById("pTabSaved").classList.toggle("active", t==="saved");
+  renderMyPosts();
+}
+function buildPostGridHtml(postsList){
+  if(!postsList.length) return '<p style="color:#888;grid-column:1/-1;text-align:center;padding:20px">No posts here yet.</p>';
+  return postsList.map(function(p){
+    var realIdx=myPosts.indexOf(p);
+    if(p.mature) return '<div class="grid-tile"><div class="tile-txt">🔞 18+ Channel</div></div>';
+    var inner="";
+    if(p.url && p.type==="video") inner='<video src="'+p.url+'" muted playsinline></video><span class="grid-type">🎬</span>';
+    else if(p.url) inner='<img src="'+p.url+'">';
+    else inner='<div class="tile-txt">'+esc((p.caption||"").slice(0,55))+'</div>';
+    return '<div class="grid-tile" onclick="openPostViewer('+realIdx+')">'+inner+'<span class="grid-badge">👁 '+(p.views||0)+'</span></div>';
+  }).join("");
 }
 function renderMyPosts(){
   var el=document.getElementById("myPosts"); if(!el) return;
@@ -903,13 +1103,62 @@ function renderMyPosts(){
   document.getElementById("dashShares").innerText=shares.toLocaleString();
   var extraMil=Math.max(0, Math.floor((views-10000000)/10000000) - claimedViewMillions);
   document.getElementById("dashViewKsh").innerText=(extraMil*20000).toLocaleString()+" KSH";
-  if(!mine.length){ el.innerHTML='<p style="color:#888">No posts yet.</p>'; return; }
-  el.innerHTML=mine.map(function(p){
-    if(p.mature) return '<div class="post"><div class="mature-cover">🔞 MATURE 18+ - CHANNEL ONLY - Not in Public Feed</div></div>';
-    var media=p.url?(p.type==="video"?'<video src="'+p.url+'" controls></video>':'<img src="'+p.url+'">'):'';
-    return '<div class="post"><div class="post-body"><p>'+esc(p.caption||"")+'</p>'+(p.music?'<small style="color:#a3e635">🎵 '+esc(p.music)+'</small><br>':'')+'<small style="color:#888">👁 '+(p.views||0)+' • ❤️ '+(p.likes||0)+' • 💬 '+((p.comments||[]).length)+' • ↗️ '+(p.shares||0)+'</small></div>'+media+'</div>';
-  }).join("");
+  if(profileSubTab==="saved"){
+    var savedList=myPosts.filter(function(p){ return savedPosts.indexOf(p.createdAt+"_"+p.phone)>=0; });
+    el.innerHTML=buildPostGridHtml(savedList);
+  } else {
+    el.innerHTML=buildPostGridHtml(mine);
+  }
 }
+function openPostViewer(realIdx){
+  var p=myPosts[realIdx]; if(!p) return;
+  document.getElementById("pvAuthor").innerHTML=esc(p.user||p.phone)+" "+verifiedMark(p.phone);
+  var media="";
+  if(p.url && p.type==="video") media='<video src="'+p.url+'" controls playsinline style="width:100%;border-radius:12px;max-height:60vh;background:#000"></video>';
+  else if(p.url) media='<img src="'+p.url+'" style="width:100%;border-radius:12px;max-height:60vh;object-fit:contain;background:#000">';
+  document.getElementById("pvBody").innerHTML=media+'<p style="margin:10px 0">'+esc(p.caption||"")+'</p><small style="color:#888">👁 '+(p.views||0)+' • ❤️ '+(p.likes||0)+' • 💬 '+((p.comments||[]).length)+'</small><div style="display:flex;gap:8px;margin-top:12px"><button class="btn dark small" onclick="likePost('+realIdx+')">❤️ Like ('+(p.likes||0)+')</button><button class="btn dark small" onclick="openComments('+realIdx+')">💬 Comment</button><button class="btn gold small" onclick="sharePost('+realIdx+')">↗️ Share (1🪙)</button></div>';
+  document.getElementById("postViewerModal").classList.add("open");
+}
+function closePostViewer(){
+  var v=document.querySelector("#pvBody video"); if(v) v.pause();
+  document.getElementById("postViewerModal").classList.remove("open");
+}
+async function openPublicProfile(ph){
+  currentPublicPhone=ph;
+  if(window._firebaseReady && window._db){
+    try{
+      const {doc,getDoc}=window._firestore;
+      const snap=await getDoc(doc(window._db,"users",ph));
+      if(snap.exists()) serverUsersCache[ph]=snap.data();
+    }catch(e){}
+  }
+  var u=getUserRecord(ph);
+  var isF=following.indexOf(ph)>=0;
+  document.getElementById("pubHeaderName").innerText=u.name||ph;
+  document.getElementById("pubName").innerHTML=esc(u.name||ph)+" "+verifiedMark(ph);
+  document.getElementById("pubBio").innerText=u.bio||"BANDUCOINS creator";
+  document.getElementById("pubMeta").innerText=(u.location?("📍 "+u.location+" • "):"")+(u.type||"Creator");
+  document.getElementById("pubAvatar").innerHTML=u.avatar?'<img src="'+u.avatar+'">':'👤';
+  document.getElementById("pubCover").style.backgroundImage=u.cover?("url("+u.cover+")"):"none";
+  var fBtn=document.getElementById("pubFollowBtn");
+  fBtn.innerText=isF?"✓ Following":"+ Follow";
+  fBtn.className="btn small "+(isF?"dark":"gold");
+  var theirPosts=myPosts.filter(function(p){ return p.phone===ph && !p.isChannelOnly && !p.mature; });
+  document.getElementById("pubPostsCount").innerText=theirPosts.length;
+  document.getElementById("pubFollowersCount").innerText=Array.isArray(u.followers)?u.followers.length:0;
+  document.getElementById("pubFollowingCount").innerText=Array.isArray(u.following)?u.following.length:0;
+  document.getElementById("pubPostsGrid").innerHTML=buildPostGridHtml(theirPosts);
+  document.getElementById("publicProfileModal").classList.add("open");
+}
+function closePublicProfile(){ document.getElementById("publicProfileModal").classList.remove("open"); }
+function toggleFollowPublic(){ if(currentPublicPhone) followUser(currentPublicPhone); }
+function messagePublicUser(){
+  var ph=currentPublicPhone;
+  closePublicProfile();
+  showTab("inbox");
+  openChat(ph);
+}
+
 function subscribeChannel(chId){
   var ch=channels.find(function(c){return c.id===chId;}); if(!ch) return;
   var key=currentUser+"_"+chId;
@@ -918,9 +1167,7 @@ function subscribeChannel(chId){
   if(subcoins<price){ showToast("Need "+price+" Subcoins to subscribe",true); showTab("coins"); return; }
   subcoins-=price;
   var cShare=Math.round(price*0.75), aShare=price-cShare;
-  subEarnKsh+=cShare;
-  appEarnings+=aShare;
-  subs.push(key);
+  subEarnKsh+=cShare; appEarnings+=aShare; subs.push(key);
   addNotification(currentUser, userName+" subscribed to "+ch.name+" (+"+cShare+" KSH/Subcoins to creator)", "sub");
   saveAll(); renderChannels(); showToast("💜 Subscribed for "+price+" Subcoins!");
 }
@@ -929,15 +1176,11 @@ function watchChannelPost(idx){
   var key=currentUser+"_"+idx;
   if(p.phone!==currentUser && watchedChannelPosts.indexOf(key)<0){
     if(subcoins<2){ showToast("Need 2 Subcoins to watch channel content",true); showTab("coins"); return; }
-    subcoins-=2;
-    subEarnKsh+=1;
-    appEarnings+=1;
-    watchedChannelPosts.push(key);
+    subcoins-=2; subEarnKsh+=1; appEarnings+=1; watchedChannelPosts.push(key);
     saveAll(); showToast("💜 -2 Subcoins (Channel Watch)");
   }
   var box=document.getElementById("chmedia-"+idx), btn=document.getElementById("chwatch-"+idx);
-  if(box) box.style.display="block";
-  if(btn) btn.style.display="none";
+  if(box) box.style.display="block"; if(btn) btn.style.display="none";
 }
 function renderChannels(){
   var el=document.getElementById("channelList"); if(!el) return;
@@ -1000,7 +1243,7 @@ function sendComment(){
   if(window._firebaseReady && window._db && p._serverId){ try{var f=window._firestore; f.setDoc(f.doc(window._db,"posts",p._serverId),{comments:p.comments},{merge:true});}catch(e){} }
 }
 function likeComment(ci){ var p=myPosts[currentCommentIndex]; if(!p||!p.comments[ci]) return; p.comments[ci].likes=(p.comments[ci].likes||0)+1; saveAll(); renderCommentList(); }
-function replyComment(user){ document.getElementById("commentInput").value="@"+user+" "; document.getElementById("commentInput").focus(); }
+function replyComment(user){ document.getElementById("commentInput").value=user+" "; document.getElementById("commentInput").focus(); }
 function sharePost(i){
   var p=myPosts[i]; if(!p) return;
   if(coins<1){ showToast("Need 1 coin to share (sender pays 1 coin)",true); return; }
@@ -1038,35 +1281,53 @@ function selectPkg(c,a,t,el){
   document.getElementById("selectedPhone").innerText=currentUser;
   try{ localStorage.setItem("bandu_pending", JSON.stringify({coins:c, amount:a, type:t, phone:currentUser, time:Date.now()})); }catch(e){}
 }
+
+// INBOX: SEARCH ALL REGISTERED USERS BY @USERNAME, VIEW PROFILE, FOLLOW & REAL FIRESTORE CHAT
 function chatKey(a,b){ return [a,b].sort().join("_"); }
 function renderInbox(){
   var box=document.getElementById("inboxUsers"); if(!box) return;
-  var known={};
-  users.forEach(function(u){ if(u.phone!==currentUser) known[u.phone]=u.name||u.phone; });
-  myPosts.forEach(function(p){ if(p.phone && p.phone!==currentUser && !known[p.phone]) known[p.phone]=p.user||p.phone; });
-  following.forEach(function(ph){ if(ph!==currentUser && !known[ph]) known[ph]=ph; });
-  var keys=Object.keys(known);
-  if(!keys.length){ box.innerHTML='<p style="color:#888">No contacts yet. Enter a phone number above to start a chat.</p>'; return; }
-  box.innerHTML=keys.map(function(ph){
-    return '<div class="user-row"><div><b>'+esc(known[ph])+'</b><br><small style="color:#888">'+esc(ph)+'</small></div><button class="btn gold small" data-val="'+esc(ph)+'" onclick="openChat(this.dataset.val)">💬 CHAT</button></div>';
+  var q=(document.getElementById("inboxUserSearch")?document.getElementById("inboxUserSearch").value:"").trim().toLowerCase();
+  var pool={};
+  Object.keys(serverUsersCache).forEach(function(ph){ if(ph!==currentUser) pool[ph]=serverUsersCache[ph]; });
+  users.forEach(function(u){ if(u.phone!==currentUser && !pool[u.phone]) pool[u.phone]=u; });
+  myPosts.forEach(function(p){ if(p.phone && p.phone!==currentUser && !pool[p.phone]) pool[p.phone]={phone:p.phone, name:p.user||p.phone}; });
+  var list=Object.values(pool).filter(function(u){
+    if(!q) return true;
+    return (u.name||"").toLowerCase().indexOf(q)>=0 || (u.phone||"").toLowerCase().indexOf(q)>=0;
+  });
+  if(!list.length){
+    box.innerHTML='<p style="color:#888;text-align:center">'+(q?"No user found matching \""+esc(q)+"\"":"No other users found yet. Invite friends with your referral code!")+'</p>';
+    return;
+  }
+  box.innerHTML=list.slice(0,40).map(function(u){
+    var av=u.avatar?'<img src="'+u.avatar+'">':'👤';
+    var fCount=Array.isArray(u.followers)?u.followers.length:0;
+    return '<div class="user-row"><div style="display:flex;gap:10px;align-items:center;min-width:0;cursor:pointer" data-val="'+esc(u.phone)+'" onclick="openPublicProfile(this.dataset.val)"><span class="avatar-sm">'+av+'</span><div style="min-width:0"><b style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(u.name||u.phone)+' '+verifiedMark(u.phone)+'</b><small style="color:#888">'+fCount+' followers</small></div></div><div style="display:flex;gap:4px;flex-shrink:0"><button class="btn dark small" data-val="'+esc(u.phone)+'" onclick="openPublicProfile(this.dataset.val)">👤</button><button class="btn gold small" data-val="'+esc(u.phone)+'" onclick="openChat(this.dataset.val)">💬</button></div></div>';
   }).join("");
 }
-function startChatByPhone(){
-  var ph=document.getElementById("newChatPhone").value.trim();
-  if(ph.length<9){ showToast("Enter valid phone number",true); return; }
-  if(ph===currentUser){ showToast("Cannot chat with yourself",true); return; }
-  document.getElementById("newChatPhone").value="";
-  openChat(ph);
-}
+document.getElementById("inboxUserSearch").oninput=function(){ renderInbox(); };
 function openChat(ph){
   currentChatPhone=ph;
   document.getElementById("inboxListCard").classList.add("hidden");
   document.getElementById("chatCard").classList.remove("hidden");
-  var u=users.find(function(x){return x.phone===ph});
-  document.getElementById("chatWith").innerText="Chat with "+(u?u.name:ph);
+  var u=getUserRecord(ph);
+  document.getElementById("chatWith").innerText="Chat with "+(u.name||ph);
   renderChatMessages();
+  if(chatUnsub){ chatUnsub(); chatUnsub=null; }
+  if(window._firebaseReady && window._db){
+    try{
+      const {collection,query,orderBy,onSnapshot}=window._firestore;
+      var key=chatKey(currentUser, ph);
+      const q=query(collection(window._db,"chats",key,"messages"), orderBy("createdAt","asc"));
+      chatUnsub=onSnapshot(q, function(snap){
+        var msgs=[]; snap.forEach(function(d){ msgs.push(d.data()); });
+        if(msgs.length){ chats[key]=msgs; set("bandu_chats",JSON.stringify(chats)); renderChatMessages(); }
+      });
+    }catch(e){}
+  }
 }
 function closeChat(){
+  if(chatUnsub){ chatUnsub(); chatUnsub=null; }
   document.getElementById("chatCard").classList.add("hidden");
   document.getElementById("inboxListCard").classList.remove("hidden");
   document.getElementById("sharePostSelect").classList.add("hidden");
@@ -1082,15 +1343,18 @@ function renderChatMessages(){
   }).join("");
   box.scrollTop=box.scrollHeight;
 }
-document.getElementById("sendMsgBtn").onclick=function(){
+document.getElementById("sendMsgBtn").onclick=async function(){
   if(!currentChatPhone) return;
   var inp=document.getElementById("chatInput"), txt=inp.value.trim(); if(!txt) return;
   var key=chatKey(currentUser, currentChatPhone);
+  var msgObj={from:currentUser,text:txt,time:new Date().toLocaleTimeString(),createdAt:Date.now()};
   if(!chats[key]) chats[key]=[];
-  chats[key].push({from:currentUser,text:txt,time:new Date().toLocaleTimeString()});
+  chats[key].push(msgObj);
   inp.value="";
-  addNotification(currentUser, "Message sent to "+currentChatPhone, "msg");
   saveAll(); renderChatMessages();
+  if(window._firebaseReady && window._db){
+    try{ const {collection,addDoc}=window._firestore; await addDoc(collection(window._db,"chats",key,"messages"), msgObj); }catch(e){}
+  }
 };
 document.getElementById("shareVideoBtn").onclick=function(){
   var sel=document.getElementById("sharePostSelect");
@@ -1101,41 +1365,23 @@ document.getElementById("shareVideoBtn").onclick=function(){
     sel.classList.remove("hidden");
   } else sel.classList.add("hidden");
 };
-document.getElementById("sharePostSelect").onchange=function(){
+document.getElementById("sharePostSelect").onchange=async function(){
   var idx=this.value; if(idx==="") return;
   var mine=myPosts.filter(function(p){return p.phone===currentUser;});
   var p=mine[parseInt(idx)]; if(!p) return;
   if(coins<1){ showToast("Need 1 coin to share video in chat",true); return; }
   coins-=1; p.shares=(p.shares||0)+1;
   var key=chatKey(currentUser, currentChatPhone);
+  var msgObj={from:currentUser,text:"📤 Shared post (Free to view): "+(p.caption||"My video/photo"),time:new Date().toLocaleTimeString(),createdAt:Date.now()};
   if(!chats[key]) chats[key]=[];
-  chats[key].push({from:currentUser,text:"📤 Shared post (Free to view): "+(p.caption||"My video/photo"),time:new Date().toLocaleTimeString()});
+  chats[key].push(msgObj);
   this.classList.add("hidden");
   saveAll(); renderChatMessages(); showToast("📤 Shared (-1 coin, receiver free)");
+  if(window._firebaseReady && window._db){
+    try{ const {collection,addDoc}=window._firestore; await addDoc(collection(window._db,"chats",key,"messages"), msgObj); }catch(e){}
+  }
 };
-document.getElementById("searchInput").oninput=function(){
-  var q=this.value.trim().toLowerCase(), box=document.getElementById("searchResults");
-  if(!q){ box.innerHTML=""; return; }
-  var pool={};
-  users.forEach(function(u){ pool[u.phone]=u.name||u.phone; });
-  myPosts.forEach(function(p){ if(p.phone) pool[p.phone]=p.user||p.phone; });
-  var matches=Object.keys(pool).filter(function(ph){
-    return ph!==currentUser && (ph.toLowerCase().indexOf(q)>=0 || pool[ph].toLowerCase().indexOf(q)>=0);
-  });
-  if(!matches.length){ box.innerHTML='<p style="color:#888;font-size:12px">No matching users</p>'; return; }
-  box.innerHTML=matches.slice(0,8).map(function(ph){
-    var isF=following.indexOf(ph)>=0;
-    return '<div class="user-row"><div><b>'+esc(pool[ph])+' '+verifiedMark(ph)+'</b><br><small style="color:#888">'+esc(ph)+'</small></div><div><button class="btn dark small" data-val="'+esc(ph)+'" onclick="followUser(this.dataset.val)">'+(isF?"✓ Following":"+ Follow")+'</button><button class="btn gold small" data-val="'+esc(ph)+'" onclick="showTab(\'inbox\');openChat(this.dataset.val)">💬</button></div></div>';
-  }).join("");
-};
-(function(){
-  var sx=0, sy=0, sp=document.getElementById("tab-spend");
-  sp.addEventListener("touchstart",function(e){ sx=e.changedTouches[0].screenX; sy=e.changedTouches[0].screenY; },{passive:true});
-  sp.addEventListener("touchend",function(e){
-    var dx=e.changedTouches[0].screenX-sx, dy=e.changedTouches[0].screenY-sy;
-    if(Math.abs(dx)>80 && Math.abs(dx)>Math.abs(dy)*1.5){ if(dx<0) showTab("channels"); else showTab("inbox"); }
-  },{passive:true});
-})();
+
 function closePostSheet(){ document.getElementById("postSheet").classList.remove("open"); document.getElementById("sheetBack").classList.remove("open"); }
 function openPostSheet(){
   galleryFromCam=false;
@@ -1155,7 +1401,6 @@ function closeMusicSheet(){
 function clearMusic(){
   selectedMusic=null;
   document.getElementById("selectedMusicLabel").innerText="No song";
-  document.getElementById("myMusicText").innerText="No song selected";
   document.getElementById("soundName").innerText="Add Sound";
   var ca=document.getElementById("camAudioPlayer"); if(ca){ ca.pause(); ca.src=""; }
 }
@@ -1165,32 +1410,20 @@ function setMusicChipActive(btn){
 }
 function uploadArtistSong(){
   var followers=getFollowersCount();
-  if(followers<20000){
-    showToast("🎤 Need 20,000 followers to upload Artist Songs (You have "+followers+")", true);
-    return;
-  }
-  var title=document.getElementById("artistSongTitle").value.trim();
-  var mins=parseFloat(document.getElementById("artistSongMins").value)||3;
-  var file=document.getElementById("artistAudioFile").files[0];
+  if(followers<20000){ showToast("🎤 Need 20,000 followers to upload Artist Songs (You have "+followers+")", true); return; }
+  var title=document.getElementById("artistSongTitle").value.trim(), mins=parseFloat(document.getElementById("artistSongMins").value)||3, file=document.getElementById("artistAudioFile").files[0];
   if(!title || !file){ showToast("Enter song title and pick audio file",true); return; }
-  var fee=Math.max(30, Math.round((mins/3)*100));
-  var r=new FileReader();
+  var fee=Math.max(30, Math.round((mins/3)*100)), r=new FileReader();
   r.onload=function(ev){
     artistSongs.unshift({ id:Date.now().toString(), name:title, artist:userName, artistPhone:currentUser, mins:mins, fee:fee, audio:ev.target.result, source:"Bandu Artist" });
-    document.getElementById("artistSongTitle").value="";
-    saveAll();
-    loadArtistCatalog();
+    document.getElementById("artistSongTitle").value=""; saveAll(); loadArtistCatalog();
     showToast("🎤 Uploaded! Supporters pay "+fee+" coins (You earn 30% = "+Math.round(fee*0.30)+" coins)");
   };
   r.readAsDataURL(file);
 }
 function loadArtistCatalog(btn){
   setMusicChipActive(btn);
-  if(!artistSongs.length){
-    document.getElementById("musicMsg").innerText="No artist songs uploaded yet (Requires 20k followers).";
-    document.getElementById("musicResults").innerHTML="";
-    return;
-  }
+  if(!artistSongs.length){ document.getElementById("musicMsg").innerText="No artist songs uploaded yet (Requires 20k followers)."; document.getElementById("musicResults").innerHTML=""; return; }
   renderMusicTracks(artistSongs, "Bandu Artists");
 }
 async function loadAudiusTrending(genre, btn){
@@ -1240,7 +1473,6 @@ function selectMusic(i){
   var t=window._musicTracks[i]; if(!t) return;
   selectedMusic=t;
   document.getElementById("selectedMusicLabel").innerText=t.name+" - "+t.artist+(t.fee>0?" ("+t.fee+" coins)":"");
-  document.getElementById("myMusicText").innerText=t.name+" - "+t.artist;
   document.getElementById("soundName").innerText=t.name.slice(0,16);
   var ca=document.getElementById("camAudioPlayer");
   if(ca && t.audio){ ca.src=t.audio; if(document.getElementById("cameraPage").style.display==="flex") ca.play().catch(function(){}); }
@@ -1252,7 +1484,6 @@ document.getElementById("localAudioInput").onchange=function(e){
   var url=URL.createObjectURL(f);
   selectedMusic={name:f.name.replace(/\.[^/.]+$/,""), artist:"My Phone", image:"", audio:url, source:"Phone", fee:0};
   document.getElementById("selectedMusicLabel").innerText=selectedMusic.name;
-  document.getElementById("myMusicText").innerText=selectedMusic.name+" (Local MP3)";
   document.getElementById("soundName").innerText=selectedMusic.name.slice(0,16);
   var ca=document.getElementById("camAudioPlayer"); ca.src=url;
   if(document.getElementById("cameraPage").style.display==="flex") ca.play().catch(function(){});
@@ -1273,102 +1504,153 @@ function openEditFull(){
 }
 function closeEditFull(){ document.getElementById("editFull").classList.remove("open"); }
 function setAccountType(t){ userType=t; document.getElementById("typeArtist").classList.toggle("active",t==="Artist"); document.getElementById("typeFan").classList.toggle("active",t==="Fan"); }
-function saveEditFull(){
-  var nm=document.getElementById("editFullName").value.trim(), un=document.getElementById("editFullUser").value.trim(), bio=document.getElementById("editFullBio").value.trim();
+async function saveEditFull(){
+  var nm=document.getElementById("editFullName").value.trim(), unRaw=document.getElementById("editFullUser").value.trim(), bio=document.getElementById("editFullBio").value.trim();
   if(bio.split(/\s+/).filter(Boolean).length>50){ showToast("Bio max 50 words",true); return; }
-  if(containsBadContent(bio)||containsBadContent(nm)||containsBadContent(un)){ showToast("Bad content not allowed in profile",true); return; }
-  var nextName=(un && un!==userName)?un:(nm||userName);
+  if(containsBadContent(bio)||containsBadContent(nm)||containsBadContent(unRaw)){ showToast("Bad content not allowed in profile",true); return; }
+  var nextName=normalizeUsername(unRaw||nm);
+  if(!nextName){ showToast("Username must be 3-20 letters/numbers (no spaces)",true); return; }
   if(users.find(function(x){ return x.phone!==currentUser && x.name.toLowerCase()===nextName.toLowerCase(); })){
-    showToast("Username already taken by another phone",true); return;
+    showToast("Username already taken!",true); return;
+  }
+  if(window._firebaseReady && window._db){
+    try{
+      const {collection,getDocs,query,where}=window._firestore;
+      const snap=await getDocs(query(collection(window._db,"users"), where("usernameLower","==",nextName.toLowerCase())));
+      var conflict=false;
+      snap.forEach(function(d){ if(d.id!==currentUser) conflict=true; });
+      if(conflict){ showToast("Username already taken by another user!",true); return; }
+    }catch(e){}
   }
   userName=nextName;
   userBio=bio; userLocation=document.getElementById("editFullLocation").value.trim(); userWebsite=document.getElementById("editFullWebsite").value.trim();
   var u=users.find(function(x){return x.phone===currentUser}); if(u){ u.name=userName; u.bio=userBio; }
-  saveAll(); closeEditFull(); showToast("✅ Profile Saved"); showTab("profile");
+  saveAll(); syncMyProfileToFirestore(); closeEditFull(); showToast("✅ Profile Saved"); showTab("profile");
 }
-document.getElementById("createBtn").onclick=function(){
-  var ph=document.getElementById("phone").value.trim(), pw=document.getElementById("password").value, nm=document.getElementById("username").value.trim(), ref=document.getElementById("refCodeInput").value.trim().toUpperCase();
-  if(ph.length<9||pw.length<4||!nm){ showToast("Enter phone, username & password (4+)",true); return; }
-  if(users.find(function(u){return u.phone===ph})){ showToast("One phone = One account. LOGIN instead.",true); return; }
-  if(users.find(function(u){return u.name.toLowerCase()===nm.toLowerCase()})){ showToast("Username already taken! Choose another.",true); return; }
+
+// STRICT +254... ACCOUNT CREATION & FIRESTORE UNIQUE CHECK
+document.getElementById("createBtn").onclick=async function(){
+  var ph=strictKePhone(document.getElementById("phone").value);
+  var pw=document.getElementById("password").value;
+  var nm=normalizeUsername(document.getElementById("username").value);
+  var ref=document.getElementById("refCodeInput").value.trim().toUpperCase();
+  if(!ph){ showToast("❌ Phone must start with +254 (e.g. +254798486530), not 07...",true); return; }
+  if(pw.length<4){ showToast("Password must be 4+ characters",true); return; }
+  if(!nm){ showToast("Username must be 3-20 letters/numbers (e.g. @wizzy, no spaces)",true); return; }
+  if(users.find(function(u){return u.phone===ph})){ showToast("This +254 number already has an account. LOGIN instead.",true); return; }
+  if(users.find(function(u){return u.name.toLowerCase()===nm.toLowerCase()})){ showToast("Username "+nm+" is already taken!",true); return; }
+
+  var btn=document.getElementById("createBtn");
+  btn.disabled=true; btn.innerText="⏳ CHECKING ACCOUNT...";
+  var pwHash=await hashPass(pw);
+  var refTarget=null;
+
+  if(window._firebaseReady && window._db){
+    try{
+      const {collection,doc,getDoc,getDocs,query,where}=window._firestore;
+      const pSnap=await getDoc(doc(window._db,"users",ph));
+      if(pSnap.exists()){ btn.disabled=false; btn.innerText="CREATE ACCOUNT"; showToast("This +254 number already exists! Tap LOGIN.",true); return; }
+      const uSnap=await getDocs(query(collection(window._db,"users"), where("usernameLower","==",nm.toLowerCase())));
+      if(!uSnap.empty){ btn.disabled=false; btn.innerText="CREATE ACCOUNT"; showToast("Username "+nm+" already taken! Choose another.",true); return; }
+      if(ref){
+        const rSnap=await getDocs(query(collection(window._db,"users"), where("refCode","==",ref)));
+        rSnap.forEach(function(d){ if(d.id!==ph) refTarget=d.data(); });
+      }
+    }catch(e){}
+  }
+
+  btn.disabled=false; btn.innerText="CREATE ACCOUNT";
   var myCode=genRefCode(ph);
-  users.push({phone:ph,pass:pw,name:nm,refCode:myCode});
-  currentUser=ph; userName=nm; coins=100;
-  if(ref){
-    var referrer=users.find(function(u){ return (u.refCode===ref || genRefCode(u.phone)===ref) && u.phone!==ph; });
-    if(referrer){
-      coins+=100;
-      if(!pendingCredits[referrer.phone]) pendingCredits[referrer.phone]={coins:0,earn:0};
-      pendingCredits[referrer.phone].coins+=100;
-      addNotification(ph, "🎁 Referral Bonus: +100 coins to "+nm+" & +100 coins to "+referrer.name, "ref");
-      showToast("🎁 Referral Applied! +100 bonus coins to you & "+referrer.name);
-    } else {
-      showToast("Invalid referral code (account still created)",true);
-    }
+  users.push({phone:ph, pass:pw, passHash:pwHash, name:nm, refCode:myCode});
+  currentUser=ph; userName=nm; coins=100; following=[]; myFollowers=[];
+  var referrer=refTarget || (ref?users.find(function(u){ return (u.refCode===ref || genRefCode(u.phone)===ref) && u.phone!==ph; }):null);
+  if(ref && referrer){
+    coins+=100;
+    if(!pendingCredits[referrer.phone]) pendingCredits[referrer.phone]={coins:0,earn:0};
+    pendingCredits[referrer.phone].coins+=100;
+    addNotification(ph, "🎁 Referral Bonus: +100 coins to "+nm+" & +100 coins to "+referrer.name, "ref");
+    showToast("🎁 Referral Applied! +100 bonus coins to you & "+referrer.name);
+  } else if(ref){
+    showToast("Referral code not found (account still created)",true);
   } else {
     showToast("Welcome to BANDU "+nm);
   }
   document.getElementById("authCard").classList.add("hidden"); document.getElementById("main").classList.remove("hidden"); document.getElementById("bottomNav").style.display="flex";
   document.getElementById("payPhone").value=ph;
   saveAll();
+  await syncMyProfileToFirestore({passHash:pwHash, followers:[], following:[], createdAt:Date.now()});
   syncWalletFromServer(false);
+  loadUsersFromServer();
   showTab("profile");
 };
-document.getElementById("loginBtn").onclick=function(){
-  var ph=document.getElementById("phone").value.trim(), pw=document.getElementById("password").value;
-  var u=users.find(function(x){return x.phone===ph && x.pass===pw});
-  if(!u){ showToast("Wrong phone / password",true); return; }
-  currentUser=ph; userName=u.name; userBio=u.bio||"";
+
+document.getElementById("loginBtn").onclick=async function(){
+  var ph=strictKePhone(document.getElementById("phone").value);
+  var pw=document.getElementById("password").value;
+  if(!ph){ showToast("❌ Enter phone in +254 format e.g. +254798486530",true); return; }
+  var pwHash=await hashPass(pw);
+  var u=users.find(function(x){return x.phone===ph && (x.passHash===pwHash || x.pass===pw)});
+  if(!u && window._firebaseReady && window._db){
+    try{
+      const {doc,getDoc}=window._firestore;
+      const snap=await getDoc(doc(window._db,"users",ph));
+      if(snap.exists()){
+        var su=snap.data();
+        if(su.passHash===pwHash){ u=su; users.push(su); }
+      }
+    }catch(e){}
+  }
+  if(!u){ showToast("Wrong +254 phone or password",true); return; }
+  currentUser=ph; userName=u.name; userBio=u.bio||""; avatarUrl=u.avatar||avatarUrl; userCover=u.cover||userCover;
+  if(Array.isArray(u.followers)) myFollowers=u.followers;
+  if(Array.isArray(u.following)) following=u.following;
   applyPendingCreditsForUser(ph);
   document.getElementById("authCard").classList.add("hidden"); document.getElementById("main").classList.remove("hidden"); document.getElementById("bottomNav").style.display="flex";
   document.getElementById("payPhone").value=ph;
-  saveAll();
-  syncWalletFromServer(false);
-  showTab("profile"); showToast("Welcome back "+userName);
+  saveAll(); syncWalletFromServer(false); loadUsersFromServer();
+  showTab("spend"); showToast("Welcome back "+userName);
 };
+
 document.getElementById("logoutBtn").onclick=function(){ document.getElementById("main").classList.add("hidden"); document.getElementById("bottomNav").style.display="none"; document.getElementById("authCard").classList.remove("hidden"); };
 document.getElementById("forgotLink").onclick=function(e){ e.preventDefault(); document.getElementById("forgotBox").classList.toggle("hidden"); };
 document.getElementById("sendCodeBtn").onclick=async function(){
-  var ph=document.getElementById("forgotPhone").value.trim();
-  if(!ph){ showToast("Enter your registered phone number",true); return; }
-  var u=users.find(function(x){return x.phone===ph});
-  if(!u){ showToast("No account found for that phone number",true); return; }
+  var ph=strictKePhone(document.getElementById("forgotPhone").value);
+  if(!ph){ showToast("Enter registered phone in +254 format",true); return; }
+  var u=users.find(function(x){return x.phone===ph}) || serverUsersCache[ph];
+  if(!u){ showToast("No account found for "+ph,true); return; }
   var code=Math.floor(100000+Math.random()*900000).toString();
   window._resetCode=code; window._resetPhone=ph; window._resetExp=Date.now()+300000;
   try{
     var r=await fetch("/.netlify/functions/send-sms",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({phone:ph,code:code})});
     if(r.ok){ document.getElementById("codeInfo").innerText="📩 SMS sent to "+ph+" (expires in 5 mins)"; return; }
   }catch(e){}
-  document.getElementById("codeInfo").innerText="📩 SMS GATEWAY DEMO CODE for "+ph+": "+code+" (Deploy /.netlify/functions/send-sms for live SMS)";
+  document.getElementById("codeInfo").innerText="📩 SMS DEMO CODE for "+ph+": "+code;
 };
-document.getElementById("resetPassBtn").onclick=function(){
-  var ph=document.getElementById("forgotPhone").value.trim();
+document.getElementById("resetPassBtn").onclick=async function(){
+  var ph=strictKePhone(document.getElementById("forgotPhone").value);
   var c=document.getElementById("codeInput").value.trim(), np=document.getElementById("newPassInput").value;
   if(!window._resetCode || Date.now()>window._resetExp){ showToast("Code expired. Request a new SMS code.",true); return; }
   if(ph!==window._resetPhone || c!==window._resetCode){ showToast("Invalid SMS verification code or phone mismatch",true); return; }
   if(np.length<4){ showToast("New password must be 4+ characters",true); return; }
+  var newHash=await hashPass(np);
   var u=users.find(function(x){return x.phone===window._resetPhone});
-  if(u) u.pass=np;
-  window._resetCode=null;
-  saveAll(); document.getElementById("forgotBox").classList.add("hidden");
+  if(u){ u.pass=np; u.passHash=newHash; }
+  if(window._firebaseReady && window._db){
+    try{ const {doc,setDoc}=window._firestore; await setDoc(doc(window._db,"users",ph), {passHash:newHash}, {merge:true}); }catch(e){}
+  }
+  window._resetCode=null; saveAll(); document.getElementById("forgotBox").classList.add("hidden");
   showToast("✅ SMS verified & password updated! Login now.");
 };
+
 document.getElementById("editProfileBtn").onclick=function(){ openEditFull(); };
 document.getElementById("editFullBio").oninput=function(){ var w=this.value.trim().split(/\s+/).filter(Boolean).length; document.getElementById("wordCount").innerText=w; if(w>50) showToast("Bio max 50 words",true); };
 document.getElementById("coverInput").onchange=function(e){ var f=e.target.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(ev){ compressImage(ev.target.result, 800, 0.75, function(res){ userCover=res; document.getElementById("editCover").style.backgroundImage="url("+userCover+")"; }); }; r.readAsDataURL(f); };
 document.getElementById("editAvatarInput").onchange=function(e){ var f=e.target.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(ev){ compressImage(ev.target.result, 320, 0.8, function(res){ avatarUrl=res; document.getElementById("editAvatar").innerHTML='<img src="'+avatarUrl+'">'; updateUI(); }); }; r.readAsDataURL(f); };
-document.getElementById("avatarInput").onchange=function(e){ var f=e.target.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(ev){ compressImage(ev.target.result, 320, 0.8, function(res){ avatarUrl=res; saveAll(); }); }; r.readAsDataURL(f); };
-document.getElementById("tProfile").onclick=function(){ showTab("profile"); };
-document.getElementById("tInbox").onclick=function(){ showTab("inbox"); };
-document.getElementById("tSpend").onclick=function(){ showTab("spend"); };
-document.getElementById("tChannels").onclick=function(){ showTab("channels"); };
-document.getElementById("tCoins").onclick=function(){ showTab("coins"); };
-document.getElementById("tNotifications").onclick=function(){ showTab("notifications"); };
+document.getElementById("avatarInput").onchange=function(e){ var f=e.target.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(ev){ compressImage(ev.target.result, 320, 0.8, function(res){ avatarUrl=res; saveAll(); syncMyProfileToFirestore(); }); }; r.readAsDataURL(f); };
 document.getElementById("bProfile").onclick=function(){ showTab("profile"); };
 document.getElementById("bInbox").onclick=function(){ showTab("inbox"); };
 document.getElementById("bSpend").onclick=function(){ showTab("spend"); };
 document.getElementById("bChannels").onclick=function(){ showTab("channels"); };
-document.getElementById("bCoins").onclick=function(){ showTab("coins"); };
 document.getElementById("goCoinsBtn").onclick=function(){ showTab("coins"); };
 document.getElementById("goChannelsBtn").onclick=function(){ showTab("channels"); };
 document.querySelectorAll(".chip[data-cat]").forEach(function(c){ c.onclick=function(){ document.querySelectorAll(".chip[data-cat]").forEach(function(x){x.classList.remove("active")}); c.classList.add("active"); currentCat=c.getAttribute("data-cat"); renderFeed(); }; });
@@ -1392,8 +1674,7 @@ document.getElementById("postBtn").onclick=async function(){
   var cap=document.getElementById("caption").value.trim(), cat=document.getElementById("category").value, type=document.getElementById("postType").value;
   if(isMaturePost(cap, cat)){ showToast("❌ Bad / mature content NOT allowed in Public Feed. Post it inside your Channel only.", true); document.getElementById("postMsg").innerText="Blocked: Mature content goes to Channel only."; return; }
   if(!cap && !tempPostUrl){ showToast("Add a photo, video, or caption",true); return; }
-  var songFee=(selectedMusic && selectedMusic.fee>0)?selectedMusic.fee:0;
-  var totalCost=5+songFee;
+  var songFee=(selectedMusic && selectedMusic.fee>0)?selectedMusic.fee:0, totalCost=5+songFee;
   if(coins<totalCost){ showToast("Need "+totalCost+" coins (5 post + "+songFee+" artist track)",true); return; }
   coins-=totalCost;
   if(songFee>0 && selectedMusic.artistPhone){
@@ -1423,7 +1704,7 @@ document.getElementById("postBtn").onclick=async function(){
         const ref=await addDoc(collection(window._db,"posts"), newPost);
         newPost._serverId=ref.id;
       } else showToast("Posted locally (video >900KB needs Storage to sync to others)");
-    }catch(e){ console.error("Firebase post error:",e); }
+    }catch(e){}
   }
   tempPostUrl=""; document.getElementById("caption").value="";
   document.getElementById("previewImg").style.display="none"; document.getElementById("previewVideo").style.display="none";
@@ -1476,8 +1757,7 @@ function refreshChannelSelect(){
 document.getElementById("payBtn").onclick = async function(){
   if(!selectedAmount || !selectedCoins){ showToast("Tap a package first", true); return; }
   var rawPhone = (currentUser || document.getElementById("payPhone").value || "").toString().replace("+","").trim();
-  if(rawPhone.startsWith("0")) rawPhone = "254" + rawPhone.slice(1);
-  if(rawPhone.length < 12){ showToast("Login first - phone missing", true); return; }
+  if(rawPhone.length < 12){ showToast("Login first - +254 phone missing", true); return; }
   var btn = document.getElementById("payBtn");
   btn.disabled = true; btn.innerText = "⏳ CONNECTING TO PESAPAL...";
   showToast("💳 Connecting to Pesapal for " + selectedAmount + " KSh...");
@@ -1529,12 +1809,10 @@ async function verifyPendingPayment(){
     if((statusDesc === "completed" || data.status_code === 1) && creditAmt > 0 && amountOk){
       if(creditType === "sub"){
         subcoins += creditAmt;
-        var prevS = parseInt(get("bandu_srv_subcoins", "0"), 10) || 0;
-        set("bandu_srv_subcoins", prevS + creditAmt);
+        set("bandu_srv_subcoins", (parseInt(get("bandu_srv_subcoins","0"),10)||0) + creditAmt);
       } else {
         coins += creditAmt;
-        var prevC = parseInt(get("bandu_srv_coins", "0"), 10) || 0;
-        set("bandu_srv_coins", prevC + creditAmt);
+        set("bandu_srv_coins", (parseInt(get("bandu_srv_coins","0"),10)||0) + creditAmt);
       }
       credited.push(trackingId);
       localStorage.setItem("bandu_credited_orders", JSON.stringify(credited));
@@ -1549,7 +1827,7 @@ async function verifyPendingPayment(){
     } else {
       showToast("⏳ Payment status: " + (data.payment_status_description || "Pending") + ". Refresh shortly.");
     }
-  }catch(e){ console.log("Payment verify error", e); }
+  }catch(e){}
 }
 
 function pickFromGallery(){ galleryFromCam=true; document.getElementById("postFile").click(); }
@@ -1865,24 +2143,19 @@ async function startLive(mode){
   showToast("🔴 LIVE Started (Data/WiFi)");
 }
 function stopLive(){
-  clearInterval(liveInt);
-  isLiveNow=false;
+  clearInterval(liveInt); isLiveNow=false;
   if(window._liveStream){ window._liveStream.getTracks().forEach(function(t){t.stop()}); window._liveStream=null; }
   document.getElementById("liveVideo").srcObject=null;
   document.getElementById("liveOverlay").style.display="none";
   document.getElementById("liveStatus").innerText="Stream Ended — Instant Withdrawal Unlocked!";
   showToast("⏹ LIVE ended — You can now withdraw Earning Coins!");
 }
-function likeLive(){
-  liveLikes++;
-  document.getElementById("liveLikeCount").innerText=liveLikes.toLocaleString();
-}
+function likeLive(){ liveLikes++; document.getElementById("liveLikeCount").innerText=liveLikes.toLocaleString(); }
 function sendLiveGift(amt, label){
   if(coins<amt){ showToast("Not enough regular coins for "+label+" ("+amt+")",true); return; }
   coins-=amt;
   var cShare=Math.round(amt*0.75), aShare=amt-cShare;
-  creatorEarn+=cShare;
-  appEarnings+=aShare; saveAll();
+  creatorEarn+=cShare; appEarnings+=aShare; saveAll();
   var box=document.getElementById("liveCommentsBox");
   box.innerHTML+='<div style="color:#facc15">🎁 '+esc(userName)+' sent '+esc(label)+' ('+amt.toLocaleString()+' coins → +'+cShare.toLocaleString()+' Earning Balance)!</div>';
   box.scrollTop=box.scrollHeight;
@@ -1901,10 +2174,8 @@ function withdrawCreator(){
   if(creatorEarn<10000){ showToast("Minimum withdrawal is 10,000 earning coins (You have "+creatorEarn.toLocaleString()+")",true); return; }
   var maxAllowedToday=100000000 - dailyWithdrawn;
   if(maxAllowedToday<=0){ showToast("Daily max withdrawal (100,000,000 coins) reached today",true); return; }
-  var withdrawAmt=Math.min(creatorEarn, maxAllowedToday);
-  var ksh=coinsToKsh(withdrawAmt);
-  creatorEarn-=withdrawAmt;
-  dailyWithdrawn+=withdrawAmt;
+  var withdrawAmt=Math.min(creatorEarn, maxAllowedToday), ksh=coinsToKsh(withdrawAmt);
+  creatorEarn-=withdrawAmt; dailyWithdrawn+=withdrawAmt;
   addNotification(currentUser, "💸 Instant Payout: "+withdrawAmt.toLocaleString()+" earning coins → "+ksh+" KSH to "+currentUser, "payout");
   saveAll();
   showToast("💸 Withdrawn "+withdrawAmt.toLocaleString()+" earning coins = "+ksh+" KSH instantly!");
@@ -1922,8 +2193,9 @@ function selectFilter(i,el){
 }
 renderFilters();
 if(currentUser){
+  if(!currentUser.startsWith("+254") && currentUser.startsWith("0")) currentUser="+254"+currentUser.slice(1);
   applyPendingCreditsForUser(currentUser);
-  document.getElementById("authCard").classList.add("hidden"); document.getElementById("main").classList.remove("hidden"); document.getElementById("bottomNav").style.display="flex"; document.getElementById("payPhone").value=currentUser; showTab("profile");
+  document.getElementById("authCard").classList.add("hidden"); document.getElementById("main").classList.remove("hidden"); document.getElementById("bottomNav").style.display="flex"; document.getElementById("payPhone").value=currentUser; showTab("spend");
 }
 (async function initStartup(){
   await verifyPendingPayment();
@@ -1933,6 +2205,8 @@ updateUI(); renderStories(); renderFeed(); refreshChannelSelect(); renderChannel
 async function loadFromServer(){
   if(!window._firebaseReady || !window._db) return;
   try{
+    loadUsersFromServer();
+    syncMyProfileToFirestore();
     const {collection,getDocs,query,orderBy,onSnapshot}=window._firestore;
     const q=query(collection(window._db,"posts"), orderBy("createdAt","desc"));
     const snap=await getDocs(q); var serverPosts=[]; snap.forEach(function(d){ var p=d.data(); p._serverId=d.id; serverPosts.push(p); });
@@ -1942,7 +2216,7 @@ async function loadFromServer(){
       merged.sort(function(a,b){ return (b.createdAt||0)-(a.createdAt||0); });
       myPosts=merged.slice(0,100);
       _skipWalletPush=true; saveAll(); _skipWalletPush=false;
-      renderStories(); renderFeed(); showToast("☁️ Loaded "+serverPosts.length+" posts from REAL server");
+      renderStories(); renderFeed();
     }
     onSnapshot(collection(window._db,"posts"), function(snap){
       var changed=false;
