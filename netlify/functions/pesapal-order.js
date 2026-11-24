@@ -21,11 +21,6 @@ exports.handler = async (event) => {
     }
 
     const BASE = "https://pay.pesapal.com/v3/api";
-    const IPN_ID = process.env.PESAPAL_IPN_ID;
-    if (!IPN_ID) {
-      return { statusCode: 500, body: JSON.stringify({ error: "PESAPAL_IPN_ID not set in Netlify" }) };
-    }
-
     const amt = Number(amount);
 
     let buyType = (type || "").toLowerCase();
@@ -67,7 +62,40 @@ exports.handler = async (event) => {
       return { statusCode: 500, body: JSON.stringify({ error: "No token", details: auth }) };
     }
 
-    const siteUrl = process.env.URL || ((event.headers["x-forwarded-proto"] || "https") + "://" + event.headers.host);
+    const siteUrl = (process.env.URL || ((event.headers["x-forwarded-proto"] || "https") + "://" + event.headers.host)).replace(/\/$/, "");
+    const ipnUrl = siteUrl + "/.netlify/functions/pesapal-ipn";
+
+    let ipnId = "";
+    const envIpn = (process.env.PESAPAL_IPN_ID || "").trim();
+
+    const listRes = await fetch(BASE + "/URLSetup/GetIpnList", {
+      headers: { "Accept": "application/json", "Authorization": "Bearer " + auth.token }
+    });
+    const ipnList = await listRes.json();
+
+    if (Array.isArray(ipnList)) {
+      const matchUrl = ipnList.find((x) => x.url === ipnUrl);
+      const matchEnv = envIpn && ipnList.find((x) => x.ipn_id === envIpn);
+      if (matchUrl) ipnId = matchUrl.ipn_id;
+      else if (matchEnv) ipnId = matchEnv.ipn_id;
+    }
+
+    if (!ipnId) {
+      const regRes = await fetch(BASE + "/URLSetup/RegisterIPN", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          "Authorization": "Bearer " + auth.token
+        },
+        body: JSON.stringify({ url: ipnUrl, ipn_notification_type: "GET" })
+      });
+      const reg = await regRes.json();
+      ipnId = reg.ipn_id || "";
+      if (!ipnId) {
+        return { statusCode: 500, body: JSON.stringify({ error: "Could not register IPN", details: reg, ipnList }) };
+      }
+    }
 
     const orderRes = await fetch(BASE + "/Transactions/SubmitOrderRequest", {
       method: "POST",
@@ -82,7 +110,7 @@ exports.handler = async (event) => {
         amount: amt,
         description: `Bandu ${buyType === "COINS" ? "Coins" : "Subcoins"} - ${credits} ${buyType === "COINS" ? "coins" : "subcoins"}`,
         callback_url: siteUrl + "/",
-        notification_id: IPN_ID,
+        notification_id: ipnId,
         billing_address: {
           email_address: email || "user@banducoinet.com",
           phone_number: cleanPhone,
