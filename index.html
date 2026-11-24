@@ -163,7 +163,7 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <button class="btn dark" onclick="document.getElementById('avatarInput').click()">📸 PUT MY PROFILE PICTURE</button>
 <button class="btn gold" id="editProfileBtn">✏️ EDIT PROFILE</button>
 <p style="font-size:11px;color:#888;text-align:center">Payout Verification: Needs 50,000 followers + 10M views. Every extra 10M views = KSH 20,000.</p>
-<p style="color:#a3e635;font-size:12px;margin-top:10px">SPENDABLE BALANCE (Not mixed with Earnings)</p>
+<p style="color:#a3e635;font-size:12px;margin-top:10px">SPENDABLE BALANCE (Synced with Server)</p>
 <div class="big"><span id="balance">0</span> COINS</div>
 <div class="earn-box">
 <b style="color:#4ade80">💵 CREATOR EARNING BALANCE (Separate)</b><br>
@@ -175,6 +175,7 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <div><small style="color:#888">🎁 YOUR REFERRAL CODE (+100 coins each)</small><br><b id="myRefCode" style="color:#facc15;font-size:16px">BANDU0000</b></div>
 <button class="btn gold small" onclick="copyRefCode()">📋 COPY</button>
 </div>
+<button class="btn dark small" style="width:100%" onclick="syncWalletFromServer(true)">🔄 REFRESH SERVER BALANCE</button>
 <button class="btn gold" id="goCoinsBtn">+ BUY COINS / SUBCOINS</button>
 <button class="btn purple" id="goChannelsBtn">💜 GO TO CREATOR CHANNELS</button>
 <button class="btn gold" onclick="openBanduCamera()">➕ CREATE POST - Opens BANDU Camera</button>
@@ -305,6 +306,7 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <p style="color:#a3e635;font-size:12px;margin-top:14px">YOUR SAVED NUMBER</p>
 <input id="payPhone" type="tel" readonly style="background:#1a1a1a">
 <button class="btn green" id="payBtn">💳 PAY NOW WITH M-PESA</button>
+<button class="btn dark small" style="width:100%" onclick="syncWalletFromServer(true)">🔄 REFRESH BALANCE AFTER PAYMENT</button>
 <p id="payMsg" style="text-align:center;color:#888">Tap a package above, then Pay. You will get M-PESA STK prompt on your phone.</p>
 </div>
 </div>
@@ -517,7 +519,7 @@ var userLocation=get("bandu_location","Eldoret, Kenya"), userWebsite=get("bandu_
 var currentCat="All", selectedCoins=450, selectedAmount=20, selectedType="coin", currentChatPhone="", tempPostUrl="", tempPostType="image";
 var camStream=null, camFacing='user', camLen=15, camMode='PHOTO', liveSeconds=0, liveInt=null, isLiveNow=false, liveLikes=0;
 var mediaRecorder=null, recordedChunks=[], isRecording=false, galleryFromCam=false;
-var currentCommentIndex=-1, beautyBoost=false, feedMuted=false, activeFeedObserver=null;
+var currentCommentIndex=-1, beautyBoost=false, feedMuted=false, activeFeedObserver=null, _skipWalletPush=false;
 var sessionWatchedVideos={};
 var savedPosts=[]; try{savedPosts=JSON.parse(get("bandu_saved","[]"))}catch(e){savedPosts=[]}
 
@@ -629,6 +631,50 @@ function checkDailyReset(){
   var today=new Date().toDateString();
   if(dailyWithdrawDate!==today){ dailyWithdrawDate=today; dailyWithdrawn=0; set("bandu_daily_date",today); set("bandu_daily_withdrawn",0); }
 }
+function pushWalletToServer(){
+  if(!currentUser) return;
+  clearTimeout(window._walletPushTimer);
+  window._walletPushTimer=setTimeout(function(){
+    fetch("/.netlify/functions/wallet", {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({phone:currentUser, coins:coins, subcoins:subcoins})
+    }).then(function(r){ return r.json(); }).then(function(d){
+      if(typeof d.coins==="number"){ set("bandu_srv_coins", d.coins); set("bandu_srv_subcoins", d.subcoins||0); }
+    }).catch(function(){});
+  }, 450);
+}
+async function syncWalletFromServer(manual){
+  if(!currentUser) return;
+  try{
+    var r=await fetch("/.netlify/functions/wallet?phone="+encodeURIComponent(currentUser));
+    if(!r.ok) return;
+    var w=await r.json();
+    var srvC=Number(w.coins||0), srvS=Number(w.subcoins||0);
+    var prevC=get("bandu_srv_coins",""), prevS=get("bandu_srv_subcoins","");
+    var changed=false;
+    if(prevC===""){
+      if(srvC>coins){ coins=srvC; changed=true; }
+      if(srvS>subcoins){ subcoins=srvS; changed=true; }
+      set("bandu_srv_coins", Math.max(coins, srvC));
+      set("bandu_srv_subcoins", Math.max(subcoins, srvS));
+    } else {
+      var pC=parseInt(prevC,10)||0, pS=parseInt(prevS,10)||0;
+      if(srvC>pC){ var dc=srvC-pC; coins+=dc; changed=true; showToast("🪙 +"+dc+" Coins synced from server!"); }
+      if(srvS>pS){ var ds=srvS-pS; subcoins+=ds; changed=true; showToast("💜 +"+ds+" Subcoins synced from server!"); }
+      set("bandu_srv_coins", srvC);
+      set("bandu_srv_subcoins", srvS);
+    }
+    if(changed){
+      _skipWalletPush=true; saveAll(); _skipWalletPush=false;
+      if(coins!==srvC || subcoins!==srvS) pushWalletToServer();
+    } else {
+      if(coins!==srvC || subcoins!==srvS) pushWalletToServer();
+      if(manual) showToast("✅ Balance synced ("+coins.toLocaleString()+" Coins)");
+    }
+  }catch(e){
+    if(manual) showToast("Could not reach server wallet", true);
+  }
+}
 function saveAll(){
   set("bandu_coins",coins); set("bandu_subcoins",subcoins); set("bandu_app_earnings",appEarnings); set("bandu_creator_earn",creatorEarn);
   set("bandu_sub_earn_ksh",subEarnKsh); set("bandu_daily_withdrawn",dailyWithdrawn); set("bandu_daily_date",dailyWithdrawDate);
@@ -639,6 +685,11 @@ function saveAll(){
   set("bandu_verified",JSON.stringify(verifiedUsers)); set("bandu_phone",currentUser); set("bandu_name",userName); set("bandu_avatar",avatarUrl); set("bandu_bio",userBio);
   set("bandu_location",userLocation); set("bandu_website",userWebsite); set("bandu_type",userType); set("bandu_cover",userCover); set("bandu_saved",JSON.stringify(savedPosts));
   updateUI();
+  if(!_skipWalletPush && currentUser){
+    set("bandu_srv_coins", coins);
+    set("bandu_srv_subcoins", subcoins);
+    pushWalletToServer();
+  }
 }
 function updateUI(){
   checkDailyReset();
@@ -687,7 +738,8 @@ function showTab(name){
   if(name==="spend"){ renderStories(); renderFeed(); }
   if(name==="channels"){ refreshChannelSelect(); renderChannels(); }
   if(name==="notifications") renderNotifications();
-  if(name==="profile") renderMyPosts();
+  if(name==="profile"){ renderMyPosts(); syncWalletFromServer(false); }
+  if(name==="coins") syncWalletFromServer(false);
   if(name==="inbox") renderInbox();
 }
 function setFeedMode(m){
@@ -1257,7 +1309,10 @@ document.getElementById("createBtn").onclick=function(){
     showToast("Welcome to BANDU "+nm);
   }
   document.getElementById("authCard").classList.add("hidden"); document.getElementById("main").classList.remove("hidden"); document.getElementById("bottomNav").style.display="flex";
-  document.getElementById("payPhone").value=ph; saveAll(); showTab("profile");
+  document.getElementById("payPhone").value=ph;
+  saveAll();
+  syncWalletFromServer(false);
+  showTab("profile");
 };
 document.getElementById("loginBtn").onclick=function(){
   var ph=document.getElementById("phone").value.trim(), pw=document.getElementById("password").value;
@@ -1266,7 +1321,10 @@ document.getElementById("loginBtn").onclick=function(){
   currentUser=ph; userName=u.name; userBio=u.bio||"";
   applyPendingCreditsForUser(ph);
   document.getElementById("authCard").classList.add("hidden"); document.getElementById("main").classList.remove("hidden"); document.getElementById("bottomNav").style.display="flex";
-  document.getElementById("payPhone").value=ph; saveAll(); showTab("profile"); showToast("Welcome back "+userName);
+  document.getElementById("payPhone").value=ph;
+  saveAll();
+  syncWalletFromServer(false);
+  showTab("profile"); showToast("Welcome back "+userName);
 };
 document.getElementById("logoutBtn").onclick=function(){ document.getElementById("main").classList.add("hidden"); document.getElementById("bottomNav").style.display="none"; document.getElementById("authCard").classList.remove("hidden"); };
 document.getElementById("forgotLink").onclick=function(e){ e.preventDefault(); document.getElementById("forgotBox").classList.toggle("hidden"); };
@@ -1451,28 +1509,39 @@ document.getElementById("payBtn").onclick = async function(){
 };
 async function verifyPendingPayment(){
   try{
-    var pendingRaw = localStorage.getItem("bandu_pending");
-    if(!pendingRaw) return;
-    var pending = JSON.parse(pendingRaw);
+    var pending = null;
+    try{ pending = JSON.parse(localStorage.getItem("bandu_pending") || "null"); }catch(e){}
     var p = new URLSearchParams(window.location.search);
-    var trackingId = p.get("OrderTrackingId") || p.get("orderTrackingId") || p.get("order_id") || pending.orderTrackingId;
+    var trackingId = p.get("OrderTrackingId") || p.get("orderTrackingId") || p.get("order_id") || (pending && pending.orderTrackingId) || "";
     if(!trackingId) return;
     var credited = [];
     try{ credited = JSON.parse(localStorage.getItem("bandu_credited_orders") || "[]"); }catch(e){}
     if(credited.indexOf(trackingId) >= 0){ localStorage.removeItem("bandu_pending"); return; }
+
     showToast("⏳ Verifying M-PESA / Pesapal payment...");
     var res = await fetch("/.netlify/functions/pesapal-verify?orderTrackingId=" + encodeURIComponent(trackingId));
     var data = await res.json();
     var statusDesc = String(data.payment_status_description || "").toLowerCase();
-    if((statusDesc === "completed" || data.status_code === 1) && Number(data.amount) >= Number(pending.amount)){
-      if(pending.type === "sub") subcoins += parseInt(pending.coins);
-      else coins += parseInt(pending.coins);
+    var creditAmt = parseInt(data.credits || (pending && pending.coins) || 0, 10);
+    var creditType = data.buyType || (pending && pending.type) || "coin";
+    var amountOk = !pending || Number(data.amount) >= Number(pending.amount);
+
+    if((statusDesc === "completed" || data.status_code === 1) && creditAmt > 0 && amountOk){
+      if(creditType === "sub"){
+        subcoins += creditAmt;
+        var prevS = parseInt(get("bandu_srv_subcoins", "0"), 10) || 0;
+        set("bandu_srv_subcoins", prevS + creditAmt);
+      } else {
+        coins += creditAmt;
+        var prevC = parseInt(get("bandu_srv_coins", "0"), 10) || 0;
+        set("bandu_srv_coins", prevC + creditAmt);
+      }
       credited.push(trackingId);
       localStorage.setItem("bandu_credited_orders", JSON.stringify(credited));
       localStorage.removeItem("bandu_pending");
-      addNotification(currentUser, "✅ Payment Confirmed (" + (data.confirmation_code || "M-PESA") + "): +" + pending.coins + (pending.type === "sub" ? " Subcoins" : " Coins"), "pay");
-      saveAll();
-      showToast("✅ +" + pending.coins + (pending.type === "sub" ? " Subcoins" : " Coins") + " added to your balance!");
+      addNotification(currentUser, "✅ Payment Confirmed (" + (data.confirmation_code || "M-PESA") + "): +" + creditAmt + (creditType === "sub" ? " Subcoins" : " Coins"), "pay");
+      _skipWalletPush = true; saveAll(); _skipWalletPush = false;
+      showToast("✅ +" + creditAmt + (creditType === "sub" ? " Subcoins" : " Coins") + " added to your balance!");
       if(window.history && window.history.replaceState) window.history.replaceState({}, document.title, window.location.pathname);
     } else if(statusDesc === "failed" || statusDesc === "invalid" || statusDesc === "reversed"){
       localStorage.removeItem("bandu_pending");
@@ -1856,7 +1925,10 @@ if(currentUser){
   applyPendingCreditsForUser(currentUser);
   document.getElementById("authCard").classList.add("hidden"); document.getElementById("main").classList.remove("hidden"); document.getElementById("bottomNav").style.display="flex"; document.getElementById("payPhone").value=currentUser; showTab("profile");
 }
-verifyPendingPayment();
+(async function initStartup(){
+  await verifyPendingPayment();
+  await syncWalletFromServer(false);
+})();
 updateUI(); renderStories(); renderFeed(); refreshChannelSelect(); renderChannels();
 async function loadFromServer(){
   if(!window._firebaseReady || !window._db) return;
@@ -1868,7 +1940,9 @@ async function loadFromServer(){
       var all=serverPosts.concat(myPosts), seen={}, merged=[];
       all.forEach(function(p){ var key=(p.phone||"")+"_"+(p.createdAt||p.time); if(!seen[key]){ seen[key]=1; merged.push(p); } });
       merged.sort(function(a,b){ return (b.createdAt||0)-(a.createdAt||0); });
-      myPosts=merged.slice(0,100); saveAll(); renderStories(); renderFeed(); showToast("☁️ Loaded "+serverPosts.length+" posts from REAL server");
+      myPosts=merged.slice(0,100);
+      _skipWalletPush=true; saveAll(); _skipWalletPush=false;
+      renderStories(); renderFeed(); showToast("☁️ Loaded "+serverPosts.length+" posts from REAL server");
     }
     onSnapshot(collection(window._db,"posts"), function(snap){
       var changed=false;
@@ -1878,7 +1952,7 @@ async function loadFromServer(){
         if(ch.type==="added" && !existing){ myPosts.unshift(p); changed=true; }
         else if(ch.type==="modified" && existing){ existing.likes=p.likes; existing.likedBy=p.likedBy; existing.comments=p.comments; existing.shares=p.shares; existing.views=p.views||existing.views; existing._serverId=p._serverId; changed=true; }
       });
-      if(changed){ saveAll(); renderStories(); renderFeed(); }
+      if(changed){ _skipWalletPush=true; saveAll(); _skipWalletPush=false; renderStories(); renderFeed(); }
     });
   }catch(e){ console.log("load server error",e); }
 }
