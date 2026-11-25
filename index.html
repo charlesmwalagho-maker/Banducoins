@@ -19,7 +19,7 @@ input,textarea{user-select:text;-webkit-user-select:text}
 input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #333;color:#fff;border-radius:12px;margin-top:10px;font-size:15px}
 .btn{width:100%;padding:13px;border:none;border-radius:12px;font-weight:900;font-size:15px;margin-top:10px;cursor:pointer}
 .gold{background:linear-gradient(90deg,#facc15,#a3e635);color:#000}
-.green{background:#a3e635;color:#000}.dark{background:#222;color:#fff}.purple{background:#a855f7;color:#fff}.small{padding:7px 11px;font-size:12px;width:auto;margin:3px 2px}
+.green{background:#a3e635;color:#000}.dark{background:#222;color:#fff}.purple{background:#a855f7;color:#fff}.danger{background:#e11d48;color:#fff}.small{padding:7px 11px;font-size:12px;width:auto;margin:3px 2px}
 .hidden{display:none}.big{font-size:34px;font-weight:900;color:#facc15}
 .chip{padding:6px 11px;border-radius:20px;border:1px solid #333;background:#111;color:#fff;margin:2px;cursor:pointer;font-size:12px;flex-shrink:0}.chip.active{background:#facc15;color:#000;font-weight:800}
 .bottom{position:fixed;bottom:0;left:0;right:0;background:#0a0a0a;display:flex;max-width:480px;margin:auto;border-top:1px solid #222;z-index:100;height:62px;align-items:center}
@@ -38,7 +38,6 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 .channel-card{border:2px solid #a855f7;border-radius:14px;padding:14px;margin-bottom:12px;background:#150a20}
 .post{border:1px solid #222;border-radius:12px;overflow:hidden;margin-bottom:10px;background:#0f0f0f}
 .post img,.post video{width:100%;display:block}.post-body{padding:12px}
-/* 3-COLUMN IG/TIKTOK PROFILE GRID */
 .post-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:10px}
 .grid-tile{position:relative;aspect-ratio:3/4;background:#181818;overflow:hidden;cursor:pointer;border-radius:4px}
 .grid-tile img,.grid-tile video{width:100%;height:100%;object-fit:cover;display:block}
@@ -46,7 +45,6 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 .grid-badge{position:absolute;bottom:4px;left:5px;font-size:10px;font-weight:800;text-shadow:0 1px 4px #000}
 .grid-type{position:absolute;top:4px;right:5px;font-size:12px;text-shadow:0 1px 4px #000}
 .prof-tabs{display:flex;border-bottom:1px solid #222;margin-top:10px}.prof-tabs button{flex:1;background:none;border:none;color:#888;padding:10px;font-weight:800;font-size:13px;cursor:pointer;border-bottom:2px solid transparent}.prof-tabs button.active{color:#facc15;border-bottom-color:#facc15}
-/* CAMERA & SHEETS */
 .cam{position:fixed;inset:0;background:#000;z-index:300;display:none;flex-direction:column;touch-action:none}
 .cam video{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px}
 .cam-top{display:flex;justify-content:space-between;padding:14px;align-items:center;position:absolute;top:0;left:0;right:0;z-index:10}
@@ -85,16 +83,15 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 .server-badge{font-size:10px;padding:3px 8px;border-radius:10px;background:#222}
 .server-badge.online{background:#0a2a00;color:#a3e635;border:1px solid #a3e635}
 .mature-cover{background:#150a20;border:2px solid #e11d48;border-radius:12px;padding:18px;text-align:center}
-/* FULL-SCREEN TIKTOK/IG SPEND FEED */
 .spend-top{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:6px}
 .spend-tabs{display:flex;gap:4px;flex:1}.spend-tabs button{flex:1;padding:8px 4px;border-radius:10px;background:#111;color:#aaa;border:1px solid #2a2a2a;font-weight:900;font-size:12px;cursor:pointer}.spend-tabs button.active{background:#facc15;color:#000}
 .cat-strip{display:flex;gap:4px;overflow-x:auto;padding:4px 0;scrollbar-width:none}
 .spend-feed{height:calc(100vh - 220px);overflow-y:auto;scroll-snap-type:y mandatory;border-radius:16px;background:#000}
 .spend-item{height:calc(100vh - 220px);scroll-snap-align:start;position:relative;background:#000;overflow:hidden;border-radius:16px;margin-bottom:8px}
 .spend-item img,.spend-item video{width:100%;height:100%;object-fit:cover;display:block}
-.spend-actions{position:absolute;right:10px;bottom:48px;display:flex;flex-direction:column;gap:11px;align-items:center;z-index:5}
+.spend-actions{position:absolute;right:10px;bottom:48px;display:flex;flex-direction:column;gap:10px;align-items:center;z-index:5}
 .spend-act{display:flex;flex-direction:column;align-items:center;background:rgba(0,0,0,.58);border-radius:30px;padding:6px;min-width:48px}
-.spend-act button{background:none;border:none;font-size:23px;color:#fff;cursor:pointer;line-height:1}
+.spend-act button{background:none;border:none;font-size:22px;color:#fff;cursor:pointer;line-height:1}
 .spend-act button.liked{color:#e11d48}
 .spend-act span{font-size:10px;font-weight:900}
 .spend-info{position:absolute;left:12px;bottom:48px;right:68px;z-index:5;text-shadow:0 2px 8px #000}
@@ -102,7 +99,6 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 .filt-pill{display:inline-flex;align-items:center;gap:4px;background:rgba(0,0,0,.68);border:1px solid #facc15;color:#facc15;padding:4px 10px;border-radius:20px;font-size:11px;margin-top:5px;cursor:pointer}
 .big-heart{position:absolute;left:50%;top:45%;transform:translate(-50%,-50%) scale(0);font-size:90px;z-index:6;pointer-events:none;transition:transform .25s}
 .big-heart.show{transform:translate(-50%,-50%) scale(1.2)}
-/* MODALS */
 .comment-sheet{position:fixed;left:0;right:0;bottom:0;z-index:700;background:#111;border-top-left-radius:20px;border-top-right-radius:20px;border:1px solid #333;max-height:75vh;display:none;flex-direction:column;max-width:480px;margin:auto}
 .comment-sheet.open{display:flex}
 .comment-list{overflow-y:auto;padding:12px;flex:1}
@@ -128,7 +124,7 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <div class="top">
   <div class="logo">BANDU<span>COINS</span> 🪙</div>
   <div style="display:flex;gap:6px;align-items:center">
-    <span id="serverBadge" class="server-badge">📱 LOCAL</span>
+    <span id="serverBadge" class="server-badge">☁️ SERVER</span>
     <div class="pill-bal" onclick="showTab('coins')">🪙 <span id="balTop">0</span></div>
     <div class="pill-bal" style="border-color:#a855f7;color:#c084fc" onclick="showTab('coins')">💜 <span id="subTop">0</span></div>
     <span style="font-size:20px;cursor:pointer;position:relative;padding:2px" onclick="showTab('notifications')">🔔<span id="notifDot" style="display:none;position:absolute;top:-2px;right:-2px;background:#e11d48;color:#fff;font-size:10px;padding:1px 5px;border-radius:10px">0</span></span>
@@ -159,7 +155,7 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 
 <div id="main" class="hidden">
 
-<!-- PROFILE TAB (Clean: NO Filters / NO Music here) -->
+<!-- PROFILE TAB -->
 <div id="tab-profile">
 <div class="card">
 <div style="display:flex;gap:14px;align-items:center">
@@ -225,11 +221,14 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <button class="btn dark" id="logoutBtn">LOGOUT</button>
 </div>
 
-<!-- INBOX TAB (Search Any Registered @username, View Profile, Follow & Real Chat) -->
+<!-- INBOX TAB -->
 <div id="tab-inbox" class="hidden">
 <div class="card" id="inboxListCard">
-<h3 style="margin-top:0">💬 INBOX &amp; FIND PEOPLE</h3>
-<input id="inboxUserSearch" placeholder="🔍 Search anyone by @username or +254..." style="margin-top:0">
+<div style="display:flex;justify-content:space-between;align-items:center">
+  <h3 style="margin:0">💬 INBOX &amp; FIND PEOPLE</h3>
+  <button class="btn dark small" style="margin:0" onclick="loadUsersFromServer(true)">🔄</button>
+</div>
+<input id="inboxUserSearch" placeholder="🔍 Search anyone by @username or +254...">
 <p style="color:#888;font-size:11px;margin:6px 0 10px">Tap a person to view their profile, posts, follow them, or chat.</p>
 <div id="inboxUsers"></div>
 </div>
@@ -356,7 +355,7 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 </div>
 </div>
 
-<!-- CLEAN 5-ICON BOTTOM NAVIGATION -->
+<!-- BOTTOM NAV -->
 <div class="bottom" id="bottomNav" style="display:none">
 <button id="bSpend" class="active">🏠<br>Feed</button>
 <button id="bChannels">💜<br>Channel</button>
@@ -365,7 +364,7 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <button id="bProfile">👤<br>Profile</button>
 </div>
 
-<!-- PUBLIC PROFILE MODAL (Tap any user in Inbox Search or Feed) -->
+<!-- PUBLIC PROFILE MODAL -->
 <div id="publicProfileModal" class="full-modal">
 <div style="display:flex;justify-content:space-between;align-items:center;padding:14px;border-bottom:1px solid #222;position:sticky;top:0;background:#050505;z-index:5">
   <button class="btn dark small" style="margin:0" onclick="closePublicProfile()">← Back</button>
@@ -393,7 +392,7 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 </div>
 </div>
 
-<!-- SINGLE POST VIEWER MODAL (From Profile / Public Profile Grids) -->
+<!-- SINGLE POST VIEWER MODAL -->
 <div id="postViewerModal" class="full-modal" style="z-index:620">
 <div style="display:flex;justify-content:space-between;align-items:center;padding:14px;border-bottom:1px solid #222">
   <button class="btn dark small" style="margin:0" onclick="closePostViewer()">← Back</button>
@@ -408,7 +407,7 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <div style="display:flex;justify-content:space-between;align-items:center"><h3>📜 BANDUCOINS RULES</h3><button class="btn dark small" onclick="document.getElementById('rulesModal').classList.remove('open')">✕</button></div>
 <div class="card">
 <p>• ✅ <b>Public Feed = Clean Only</b> (No porn/naked/bad content; those go to Channels only).</p>
-<p>• 🪙 <b>Watch / Download Video:</b> 1 coin • <b>Post:</b> 5 coins • <b>Share:</b> 1 coin (receiver free).</p>
+<p>• 🪙 <b>Watch / Download Video:</b> 1 coin (paid once per video, never charged twice!) • <b>Post:</b> 5 coins • <b>Share:</b> 1 coin (receiver free).</p>
 <p>• 🎵 <b>Artist Songs:</b> Creators with 20,000+ followers can upload tracks (~100 coins for 3-min track, earning 30%).</p>
 <p>• 💜 <b>Channels:</b> 10,000 followers to create; 3 free posts; 2 Subcoins to watch.</p>
 <p>• 🔴 <b>LIVE:</b> WiFi/Data only; 75% of gifts (10–10,000) go to separate Earning Balance (`10,000 ≈ 444.45 KSH`).</p>
@@ -543,7 +542,7 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 
 <script type="module">
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc, getDoc, getDocs, query, where, orderBy, limit, onSnapshot, doc, setDoc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
+import { getFirestore, collection, addDoc, getDoc, getDocs, deleteDoc, query, where, orderBy, limit, onSnapshot, doc, setDoc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 const firebaseConfig = {
   apiKey: "AIzaSyCf6YZW8nZJZEqVnB-TzvqW1GPb5bocCjU",
   authDomain: "banducoins.firebaseapp.com",
@@ -563,7 +562,7 @@ try{
   }
 }catch(e){ console.log("Firebase init",e); }
 window._db=db; window._firebaseReady=firebaseReady;
-window._firestore={collection,addDoc,getDoc,getDocs,query,where,orderBy,limit,onSnapshot,doc,setDoc,updateDoc,arrayUnion,arrayRemove};
+window._firestore={collection,addDoc,getDoc,getDocs,deleteDoc,query,where,orderBy,limit,onSnapshot,doc,setDoc,updateDoc,arrayUnion,arrayRemove};
 window.dispatchEvent(new Event("firebase-ready"));
 </script>
 <script>
@@ -579,7 +578,7 @@ function showToast(m,e){var t=document.getElementById("toast");t.innerText=m;t.c
 function get(k,d){try{var v=localStorage.getItem(k);return v===null?d:v}catch(e){return d}}
 function set(k,v){
   try{ localStorage.setItem(k,v); return true; }
-  catch(e){ showToast("⚠️ Storage full! Clear old posts or use smaller media.",true); return false; }
+  catch(e){ showToast("⚠️ Storage full! Delete old posts.",true); return false; }
 }
 function compressImage(dataUrl, maxW, quality, cb){
   var img=new Image();
@@ -635,6 +634,7 @@ var notifications=[]; try{notifications=JSON.parse(get("bandu_notifications","[]
 var reports=[]; try{reports=JSON.parse(get("bandu_reports","[]"))}catch(e){reports=[]}
 var verifiedUsers=[]; try{verifiedUsers=JSON.parse(get("bandu_verified","[]"))}catch(e){verifiedUsers=[]}
 var watchedChannelPosts=[]; try{watchedChannelPosts=JSON.parse(get("bandu_watched_ch","[]"))}catch(e){watchedChannelPosts=[]}
+var deletedPostKeys=[]; try{deletedPostKeys=JSON.parse(get("bandu_deleted_posts","[]"))}catch(e){deletedPostKeys=[]}
 
 var feedMode="foryou", profileSubTab="posts";
 var currentUser=get("bandu_phone",""), userName=get("bandu_name","@user"), avatarUrl=get("bandu_avatar",""), userBio=get("bandu_bio","");
@@ -642,9 +642,19 @@ var userLocation=get("bandu_location","Eldoret, Kenya"), userWebsite=get("bandu_
 var currentCat="All", selectedCoins=450, selectedAmount=20, selectedType="coin", currentChatPhone="", currentPublicPhone="", tempPostUrl="", tempPostType="image";
 var camStream=null, camFacing='user', camLen=15, camMode='PHOTO', liveSeconds=0, liveInt=null, isLiveNow=false, liveLikes=0;
 var mediaRecorder=null, recordedChunks=[], isRecording=false, galleryFromCam=false;
-var currentCommentIndex=-1, beautyBoost=false, feedMuted=false, activeFeedObserver=null, _skipWalletPush=false, chatUnsub=null;
-var sessionWatchedVideos={}, serverUsersCache={};
+var currentCommentIndex=-1, beautyBoost=false, feedMuted=false, activeFeedObserver=null, _skipWalletPush=false, chatPollTimer=null;
+var serverUsersCache={};
+var watchedVideos={};
 var savedPosts=[]; try{savedPosts=JSON.parse(get("bandu_saved","[]"))}catch(e){savedPosts=[]}
+
+function loadWatchedForUser(ph){
+  if(!ph){ watchedVideos={}; return; }
+  try{ watchedVideos=JSON.parse(get("bandu_watched_"+ph,"{}")); }catch(e){ watchedVideos={}; }
+}
+function saveWatchedForUser(){
+  if(currentUser) set("bandu_watched_"+currentUser, JSON.stringify(watchedVideos));
+}
+function postKey(p){ return (p.createdAt||"0")+"_"+(p.phone||""); }
 
 var FILTERS=[
   {id:"beauty",name:"Beauty Glow",emoji:"✨",css:"brightness(1.14) contrast(1.06) saturate(1.12)",fx:"warmglow"},
@@ -771,55 +781,97 @@ async function syncWalletFromServer(manual){
       set("bandu_srv_coins", Math.max(coins, srvC)); set("bandu_srv_subcoins", Math.max(subcoins, srvS));
     } else {
       var pC=parseInt(prevC,10)||0, pS=parseInt(prevS,10)||0;
-      if(srvC>pC){ var dc=srvC-pC; coins+=dc; changed=true; showToast("🪙 +"+dc+" Coins synced from server!"); }
-      if(srvS>pS){ var ds=srvS-pS; subcoins+=ds; changed=true; showToast("💜 +"+ds+" Subcoins synced from server!"); }
+      if(srvC>pC){ var dc=srvC-pC; coins+=dc; changed=true; showToast("🪙 +"+dc+" Coins credited from server!"); }
+      if(srvS>pS){ var ds=srvS-pS; subcoins+=ds; changed=true; showToast("💜 +"+ds+" Subcoins credited from server!"); }
       set("bandu_srv_coins", srvC); set("bandu_srv_subcoins", srvS);
     }
     if(changed){ _skipWalletPush=true; saveAll(); _skipWalletPush=false; if(coins!==srvC || subcoins!==srvS) pushWalletToServer(); }
     else { if(coins!==srvC || subcoins!==srvS) pushWalletToServer(); if(manual) showToast("✅ Balance synced ("+coins.toLocaleString()+" Coins)"); }
   }catch(e){ if(manual) showToast("Could not reach server wallet", true); }
 }
-async function syncMyProfileToFirestore(extra){
-  if(!window._firebaseReady || !window._db || !currentUser) return;
+async function loadServerNotifs(){
+  if(!currentUser) return;
   try{
-    const {doc,setDoc}=window._firestore;
-    var payload=Object.assign({
-      phone:currentUser,
-      name:userName,
-      usernameLower:userName.toLowerCase(),
-      bio:userBio,
-      avatar:avatarUrl||"",
-      cover:userCover||"",
-      location:userLocation||"",
-      website:userWebsite||"",
-      type:userType||"Artist",
-      refCode:genRefCode(currentUser),
-      updatedAt:Date.now()
-    }, extra||{});
-    await setDoc(doc(window._db,"users",currentUser), payload, {merge:true});
-    serverUsersCache[currentUser]=Object.assign(serverUsersCache[currentUser]||{}, payload);
+    var r=await fetch("/.netlify/functions/social?action=notifs&phone="+encodeURIComponent(currentUser));
+    if(!r.ok) return;
+    var items=await r.json();
+    if(Array.isArray(items) && items.length){
+      var changed=false;
+      items.forEach(function(n){
+        if(!notifications.find(function(x){return x.text===n.text && x.time===n.time;})){
+          notifications.unshift(n); changed=true;
+        }
+      });
+      if(changed){ set("bandu_notifications", JSON.stringify(notifications.slice(0,100))); updateUI(); }
+    }
   }catch(e){}
 }
-async function loadUsersFromServer(){
-  if(!window._firebaseReady || !window._db) return;
+async function syncMyProfileToServer(extra){
+  if(!currentUser) return;
+  var payload=Object.assign({
+    action:"updateProfile", phone:currentUser, name:userName, bio:userBio,
+    avatar:avatarUrl||"", cover:userCover||"", location:userLocation||"", website:userWebsite||"", type:userType||"Artist"
+  }, extra||{});
+  fetch("/.netlify/functions/social", {
+    method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(payload)
+  }).catch(function(){});
+  if(window._firebaseReady && window._db){
+    try{
+      const {doc,setDoc}=window._firestore;
+      var fbPayload=Object.assign({}, payload); delete fbPayload.action;
+      fbPayload.usernameLower=userName.toLowerCase(); fbPayload.refCode=genRefCode(currentUser); fbPayload.updatedAt=Date.now();
+      await setDoc(doc(window._db,"users",currentUser), fbPayload, {merge:true});
+    }catch(e){}
+  }
+}
+async function loadUsersFromServer(manual){
+  var loadedAny=false;
   try{
-    const {collection,getDocs,query,limit}=window._firestore;
-    const snap=await getDocs(query(collection(window._db,"users"), limit(200)));
-    snap.forEach(function(d){
-      var u=d.data();
-      if(u && u.phone){
-        serverUsersCache[u.phone]=u;
-        if(u.phone===currentUser){
-          if(Array.isArray(u.followers)) myFollowers=u.followers;
-          if(Array.isArray(u.following)) following=u.following;
-        }
+    var r=await fetch("/.netlify/functions/social?action=users");
+    if(r.ok){
+      var list=await r.json();
+      if(Array.isArray(list)){
+        list.forEach(function(u){
+          if(u && u.phone){
+            serverUsersCache[u.phone]=u;
+            if(u.phone===currentUser){
+              if(Array.isArray(u.followers)) myFollowers=u.followers;
+              if(Array.isArray(u.following)) following=u.following;
+              if(Array.isArray(u.watchedVideos)){
+                u.watchedVideos.forEach(function(k){ watchedVideos[k]=1; });
+                saveWatchedForUser();
+              }
+            }
+          }
+        });
+        loadedAny=true;
       }
-    });
+    }
+  }catch(e){}
+  if(window._firebaseReady && window._db){
+    try{
+      const {collection,getDocs,query,limit}=window._firestore;
+      const snap=await getDocs(query(collection(window._db,"users"), limit(200)));
+      snap.forEach(function(d){
+        var u=d.data();
+        if(u && u.phone){
+          if(!serverUsersCache[u.phone]) serverUsersCache[u.phone]=u;
+          if(u.phone===currentUser){
+            if(Array.isArray(u.followers) && u.followers.length>myFollowers.length) myFollowers=u.followers;
+            if(Array.isArray(u.following) && u.following.length>following.length) following=u.following;
+          }
+        }
+      });
+      loadedAny=true;
+    }catch(e){}
+  }
+  if(loadedAny){
     set("bandu_followers", JSON.stringify(myFollowers));
     set("bandu_following", JSON.stringify(following));
     updateUI();
-    if(!document.getElementById("tab-inbox").classList.contains("hidden")) renderInbox();
-  }catch(e){}
+    renderInbox();
+    if(manual) showToast("✅ Loaded "+Object.keys(serverUsersCache).length+" users");
+  }
 }
 function getUserRecord(ph){
   if(serverUsersCache[ph]) return serverUsersCache[ph];
@@ -831,10 +883,16 @@ function getUserRecord(ph){
 function saveAll(){
   set("bandu_coins",coins); set("bandu_subcoins",subcoins); set("bandu_app_earnings",appEarnings); set("bandu_creator_earn",creatorEarn);
   set("bandu_sub_earn_ksh",subEarnKsh); set("bandu_daily_withdrawn",dailyWithdrawn); set("bandu_daily_date",dailyWithdrawDate);
-  set("bandu_posts",JSON.stringify(myPosts)); set("bandu_users",JSON.stringify(users)); set("bandu_following",JSON.stringify(following)); set("bandu_followers",JSON.stringify(myFollowers));
+  var litePosts=myPosts.slice(0,120).map(function(p){
+    if(p.url && p.url.length>350000 && p.url.indexOf("data:")===0) return Object.assign({},p,{url:""});
+    return p;
+  });
+  set("bandu_posts",JSON.stringify(litePosts));
+  set("bandu_users",JSON.stringify(users)); set("bandu_following",JSON.stringify(following)); set("bandu_followers",JSON.stringify(myFollowers));
   set("bandu_chats",JSON.stringify(chats)); set("bandu_channels",JSON.stringify(channels)); set("bandu_channel_posts",JSON.stringify(channelPosts));
   set("bandu_subs",JSON.stringify(subs)); set("bandu_artist_songs",JSON.stringify(artistSongs)); set("bandu_pending_credits",JSON.stringify(pendingCredits));
   set("bandu_notifications",JSON.stringify(notifications)); set("bandu_reports",JSON.stringify(reports)); set("bandu_watched_ch",JSON.stringify(watchedChannelPosts));
+  set("bandu_deleted_posts",JSON.stringify(deletedPostKeys));
   set("bandu_verified",JSON.stringify(verifiedUsers)); set("bandu_phone",currentUser); set("bandu_name",userName); set("bandu_avatar",avatarUrl); set("bandu_bio",userBio);
   set("bandu_location",userLocation); set("bandu_website",userWebsite); set("bandu_type",userType); set("bandu_cover",userCover); set("bandu_saved",JSON.stringify(savedPosts));
   updateUI();
@@ -881,18 +939,19 @@ function updateUI(){
 function showTab(name){
   var feedAudio=document.getElementById("feedMusicPlayer");
   if(name!=="spend" && feedAudio) feedAudio.pause();
+  if(name!=="inbox" && chatPollTimer){ clearInterval(chatPollTimer); chatPollTimer=null; }
   ["profile","inbox","spend","channels","coins","notifications"].forEach(function(t){
     var el=document.getElementById("tab-"+t); if(el) el.classList.toggle("hidden", t!==name);
   });
   var map={profile:"bProfile",inbox:"bInbox",spend:"bSpend",channels:"bChannels"};
   ["bProfile","bInbox","bSpend","bChannels"].forEach(function(id){var e=document.getElementById(id); if(e) e.classList.remove("active");});
   if(map[name]){var ae=document.getElementById(map[name]); if(ae) ae.classList.add("active");}
-  if(name==="spend"){ renderStories(); renderFeed(); }
+  if(name==="spend"){ loadFromServer(); renderStories(); renderFeed(); }
   if(name==="channels"){ refreshChannelSelect(); renderChannels(); }
-  if(name==="notifications") renderNotifications();
+  if(name==="notifications"){ loadServerNotifs(); renderNotifications(); }
   if(name==="profile"){ renderMyPosts(); syncWalletFromServer(false); }
   if(name==="coins") syncWalletFromServer(false);
-  if(name==="inbox"){ loadUsersFromServer(); renderInbox(); }
+  if(name==="inbox"){ loadUsersFromServer(false); renderInbox(); }
 }
 function setFeedMode(m){
   feedMode=m;
@@ -902,7 +961,7 @@ function setFeedMode(m){
   renderFeed();
 }
 function getVisiblePosts(){
-  var posts=myPosts.filter(function(p){ return !p.isChannelOnly && !p.mature; });
+  var posts=myPosts.filter(function(p){ return !p.isChannelOnly && !p.mature && deletedPostKeys.indexOf(postKey(p))<0; });
   if(feedMode==="following") posts=posts.filter(function(p){ return following.indexOf(p.phone)>=0; });
   if(feedMode==="stories") posts=posts.filter(function(p){ return p.postType==="story"; });
   if(currentCat!=="All") posts=posts.filter(function(p){ return p.category===currentCat; });
@@ -911,7 +970,7 @@ function getVisiblePosts(){
 function renderStories(){
   var row=document.getElementById("storyRow"); if(!row) return;
   var now=Date.now();
-  var stories=myPosts.filter(function(p){ return p.postType==="story" && !p.isChannelOnly && !p.mature && (!p.createdAt || (now - p.createdAt) < 86400000); });
+  var stories=myPosts.filter(function(p){ return p.postType==="story" && !p.isChannelOnly && !p.mature && deletedPostKeys.indexOf(postKey(p))<0 && (!p.createdAt || (now - p.createdAt) < 86400000); });
   if(!stories.length){ row.style.display="none"; return; }
   row.style.display="flex";
   row.innerHTML=stories.map(function(s){
@@ -920,10 +979,28 @@ function renderStories(){
     return '<div class="story" onclick="openStory('+idx+')"><div class="story-circle">'+thumb+'</div><small style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10px">'+esc(s.user||s.phone)+'</small></div>';
   }).join("");
 }
+function markVideoWatched(p){
+  var key=postKey(p);
+  if(watchedVideos[key]) return;
+  watchedVideos[key]=1;
+  saveWatchedForUser();
+  if(currentUser){
+    fetch("/.netlify/functions/social", {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({action:"watched", phone:currentUser, videoKey:key})
+    }).catch(function(){});
+  }
+}
 function openStory(idx){
   var s=myPosts[idx]; if(!s) return;
-  if(coins<1){ showToast("Need 1 coin to watch story",true); return; }
-  coins-=1; s.views=(s.views||0)+1; saveAll(); showToast("🪙 -1 coin (Story Watch)");
+  var key=postKey(s);
+  if(!watchedVideos[key]){
+    if(coins<1){ showToast("Need 1 coin to watch story",true); return; }
+    coins-=1; s.views=(s.views||0)+1;
+    markVideoWatched(s);
+    saveAll(); showToast("🪙 -1 coin (Story Watch)");
+    fetch("/.netlify/functions/social", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"postAction",op:"view",createdAt:s.createdAt,phone:s.phone})}).catch(function(){});
+  }
   document.getElementById("storyAuthor").innerHTML=esc(s.user||s.phone)+" "+verifiedMark(s.phone);
   var box=document.getElementById("storyContent");
   box.innerHTML=s.url?(s.type==="video"?'<video src="'+s.url+'" controls autoplay style="max-width:100%;max-height:100%"></video>':'<img src="'+s.url+'" style="max-width:100%;max-height:100%;object-fit:contain">'):('<h2>'+esc(s.caption||"")+'</h2>');
@@ -971,12 +1048,14 @@ function reuseFilterFromPost(filterId){
 }
 function watchVideoPost(realIdx){
   var p=myPosts[realIdx]; if(!p) return;
-  var key=(p.createdAt||realIdx)+"_"+p.phone;
+  var key=postKey(p);
   var vid=document.getElementById("vid-"+realIdx), gate=document.getElementById("gate-"+realIdx);
-  if(!sessionWatchedVideos[key]){
+  if(!watchedVideos[key]){
     if(coins<1){ showToast("Need 1 coin to watch video",true); return; }
-    coins-=1; sessionWatchedVideos[key]=1; p.views=(p.views||0)+1;
-    saveAll(); showToast("🪙 -1 coin (Video Watch)");
+    coins-=1; p.views=(p.views||0)+1;
+    markVideoWatched(p);
+    saveAll(); showToast("🪙 -1 coin (Video unlocked permanently!)");
+    fetch("/.netlify/functions/social", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"postAction",op:"view",createdAt:p.createdAt,phone:p.phone})}).catch(function(){});
   }
   if(gate) gate.style.display="none";
   if(vid){ if(vid.paused) vid.play().catch(function(){}); else vid.pause(); }
@@ -990,6 +1069,31 @@ function downloadPost(realIdx){
   a.href=p.url; a.download="banducoins_"+(p.type==="video"?"video.webm":"photo.jpg");
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
   showToast("⬇️ Downloaded (-1 coin)");
+}
+async function deleteMyPost(realIdx){
+  var p=myPosts[realIdx];
+  if(!p) return;
+  if(p.phone!==currentUser){
+    showToast("❌ You can only delete your own post!",true);
+    return;
+  }
+  if(!confirm("Delete this post permanently?")) return;
+  var key=postKey(p);
+  if(deletedPostKeys.indexOf(key)<0) deletedPostKeys.push(key);
+  myPosts.splice(realIdx,1);
+  saveAll();
+  closePostViewer();
+  renderStories(); renderFeed(); renderMyPosts();
+  showToast("🗑️ Post deleted");
+
+  fetch("/.netlify/functions/social", {
+    method:"POST", headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({action:"postAction", op:"delete", createdAt:p.createdAt, phone:currentUser})
+  }).catch(function(){});
+
+  if(window._firebaseReady && window._db && p._serverId){
+    try{ const {doc,deleteDoc}=window._firestore; await deleteDoc(doc(window._db,"posts",p._serverId)); }catch(e){}
+  }
 }
 function renderFeed(){
   var list=document.getElementById("feedList"); if(!list) return;
@@ -1006,11 +1110,11 @@ function renderFeed(){
     var uRec=getUserRecord(p.phone);
     var avSrc=(p.phone===currentUser?avatarUrl:(uRec.avatar||""));
     var avHtml=avSrc?'<img src="'+avSrc+'">':'👤';
-    var key=(p.createdAt||realIdx)+"_"+p.phone;
-    var alreadyPaid=!!sessionWatchedVideos[key];
+    var key=postKey(p);
+    var alreadyPaid=!!watchedVideos[key];
     var media="";
     if(p.url && p.type==="video"){
-      media='<video id="vid-'+realIdx+'" src="'+p.url+'" playsinline loop onclick="watchVideoPost('+realIdx+')"></video>'+(!alreadyPaid?'<div class="vid-gate" id="gate-'+realIdx+'" onclick="watchVideoPost('+realIdx+')"><div style="font-size:48px">▶️</div><span class="btn gold small" style="margin:6px 0">WATCH VIDEO (-1 COIN)</span></div>':'');
+      media='<video id="vid-'+realIdx+'" src="'+p.url+'" playsinline loop onclick="watchVideoPost('+realIdx+')"></video>'+(!alreadyPaid?'<div class="vid-gate" id="gate-'+realIdx+'" onclick="watchVideoPost('+realIdx+')"><div style="font-size:48px">▶️</div><span class="btn gold small" style="margin:6px 0">WATCH VIDEO (-1 COIN ONCE)</span></div>':'');
     } else if(p.url){
       media='<img src="'+p.url+'" ondblclick="likePost('+realIdx+',true)">';
     } else {
@@ -1018,7 +1122,8 @@ function renderFeed(){
     }
     var musicLine=p.music?'<span class="sound-pill" onclick="reuseSoundFromPost('+realIdx+')">🎵 '+esc(p.music)+' • Reuse</span>':'';
     var filtLine=p.filterId?'<span class="filt-pill" data-val="'+esc(p.filterId)+'" onclick="reuseFilterFromPost(this.dataset.val)">✨ '+esc(p.filterName||p.filterId)+' • Try</span>':'';
-    return '<div class="spend-item" data-music="'+esc(p.musicUrl||"")+'" data-idx="'+realIdx+'" ondblclick="likePost('+realIdx+',true)"><div class="big-heart" id="heart-'+realIdx+'">❤️</div>'+media+'<div class="spend-info"><div style="display:flex;gap:8px;align-items:center"><span class="avatar-sm" data-val="'+esc(p.phone)+'" onclick="openUserOrSelf(this.dataset.val)">'+avHtml+'</span><b style="cursor:pointer" data-val="'+esc(p.phone)+'" onclick="openUserOrSelf(this.dataset.val)">'+esc(p.user||p.phone)+' '+verifiedMark(p.phone)+'</b>'+(p.phone!==currentUser?'<button class="btn dark small" style="margin:0" data-val="'+esc(p.phone)+'" onclick="followUser(this.dataset.val)">'+(isFollowing?"✓ Following":"+ Follow")+'</button>':'')+'</div><p style="margin:6px 0 2px">'+esc(p.caption||"")+'</p><div>'+musicLine+filtLine+'</div><small style="color:#ccc">👁 '+(p.views||0)+' views</small></div><div class="spend-actions"><div class="spend-act"><button class="'+(liked?"liked":"")+'" onclick="likePost('+realIdx+')">❤️</button><span>'+(p.likes||0)+'</span></div><div class="spend-act"><button onclick="openComments('+realIdx+')">💬</button><span>'+((p.comments||[]).length)+'</span></div><div class="spend-act"><button onclick="sharePost('+realIdx+')">↗️</button><span>1🪙</span></div><div class="spend-act"><button onclick="downloadPost('+realIdx+')">⬇️</button><span>1🪙</span></div><div class="spend-act"><button onclick="savePost('+realIdx+')">🔖</button><span>Save</span></div><div class="spend-act"><button onclick="reportPost('+realIdx+')">🚩</button><span>Report</span></div></div></div>';
+    var delBtn=(p.phone===currentUser)?'<div class="spend-act"><button onclick="deleteMyPost('+realIdx+')">🗑️</button><span>Delete</span></div>':'';
+    return '<div class="spend-item" data-music="'+esc(p.musicUrl||"")+'" data-idx="'+realIdx+'" ondblclick="likePost('+realIdx+',true)"><div class="big-heart" id="heart-'+realIdx+'">❤️</div>'+media+'<div class="spend-info"><div style="display:flex;gap:8px;align-items:center"><span class="avatar-sm" data-val="'+esc(p.phone)+'" onclick="openUserOrSelf(this.dataset.val)">'+avHtml+'</span><b style="cursor:pointer" data-val="'+esc(p.phone)+'" onclick="openUserOrSelf(this.dataset.val)">'+esc(p.user||p.phone)+' '+verifiedMark(p.phone)+'</b>'+(p.phone!==currentUser?'<button class="btn dark small" style="margin:0" data-val="'+esc(p.phone)+'" onclick="followUser(this.dataset.val)">'+(isFollowing?"✓ Following":"+ Follow")+'</button>':'')+'</div><p style="margin:6px 0 2px">'+esc(p.caption||"")+'</p><div>'+musicLine+filtLine+'</div><small style="color:#ccc">👁 '+(p.views||0)+' views'+(alreadyPaid && p.type==="video"?' • ✅ Paid':'')+'</small></div><div class="spend-actions"><div class="spend-act"><button class="'+(liked?"liked":"")+'" onclick="likePost('+realIdx+')">❤️</button><span>'+(p.likes||0)+'</span></div><div class="spend-act"><button onclick="openComments('+realIdx+')">💬</button><span>'+((p.comments||[]).length)+'</span></div><div class="spend-act"><button onclick="sharePost('+realIdx+')">↗️</button><span>1🪙</span></div><div class="spend-act"><button onclick="downloadPost('+realIdx+')">⬇️</button><span>1🪙</span></div><div class="spend-act"><button onclick="savePost('+realIdx+')">🔖</button><span>Save</span></div>'+delBtn+'<div class="spend-act"><button onclick="reportPost('+realIdx+')">🚩</button><span>Report</span></div></div></div>';
   }).join("");
   if(activeFeedObserver) activeFeedObserver.disconnect();
   if("IntersectionObserver" in window){
@@ -1045,8 +1150,7 @@ async function followUser(phone){
   if(!phone || phone===currentUser) return;
   var isNowFollowing=false;
   if(following.indexOf(phone)<0){
-    following.push(phone);
-    isNowFollowing=true;
+    following.push(phone); isNowFollowing=true;
     addNotification(currentUser, userName+" followed "+phone, "follow");
     showToast("Following "+(getUserRecord(phone).name||phone));
   } else {
@@ -1060,6 +1164,10 @@ async function followUser(phone){
     if(!isNowFollowing) targetRec.followers=targetRec.followers.filter(function(x){return x!==currentUser});
   }
   saveAll();
+  fetch("/.netlify/functions/social", {
+    method:"POST", headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({action:"follow", followerPhone:currentUser, targetPhone:phone, follow:isNowFollowing})
+  }).catch(function(){});
   if(window._firebaseReady && window._db){
     try{
       const {doc,updateDoc,setDoc,arrayUnion,arrayRemove}=window._firestore;
@@ -1092,7 +1200,7 @@ function buildPostGridHtml(postsList){
 }
 function renderMyPosts(){
   var el=document.getElementById("myPosts"); if(!el) return;
-  var mine=myPosts.filter(function(p){ return p.phone===currentUser; });
+  var mine=myPosts.filter(function(p){ return p.phone===currentUser && deletedPostKeys.indexOf(postKey(p))<0; });
   document.getElementById("statPosts").innerText=mine.length;
   document.getElementById("dashPosts").innerText=mine.length;
   var likes=0, comments=0, shares=0, views=0;
@@ -1104,7 +1212,7 @@ function renderMyPosts(){
   var extraMil=Math.max(0, Math.floor((views-10000000)/10000000) - claimedViewMillions);
   document.getElementById("dashViewKsh").innerText=(extraMil*20000).toLocaleString()+" KSH";
   if(profileSubTab==="saved"){
-    var savedList=myPosts.filter(function(p){ return savedPosts.indexOf(p.createdAt+"_"+p.phone)>=0; });
+    var savedList=myPosts.filter(function(p){ return savedPosts.indexOf(postKey(p))>=0 && deletedPostKeys.indexOf(postKey(p))<0; });
     el.innerHTML=buildPostGridHtml(savedList);
   } else {
     el.innerHTML=buildPostGridHtml(mine);
@@ -1112,11 +1220,20 @@ function renderMyPosts(){
 }
 function openPostViewer(realIdx){
   var p=myPosts[realIdx]; if(!p) return;
+  var key=postKey(p);
+  var isVideo=(p.type==="video");
+  if(isVideo && !watchedVideos[key]){
+    if(coins<1){ showToast("Need 1 coin to watch this video",true); return; }
+    coins-=1; p.views=(p.views||0)+1;
+    markVideoWatched(p);
+    saveAll(); showToast("🪙 -1 coin (Video unlocked permanently!)");
+  }
   document.getElementById("pvAuthor").innerHTML=esc(p.user||p.phone)+" "+verifiedMark(p.phone);
   var media="";
-  if(p.url && p.type==="video") media='<video src="'+p.url+'" controls playsinline style="width:100%;border-radius:12px;max-height:60vh;background:#000"></video>';
+  if(p.url && isVideo) media='<video src="'+p.url+'" controls playsinline style="width:100%;border-radius:12px;max-height:60vh;background:#000"></video>';
   else if(p.url) media='<img src="'+p.url+'" style="width:100%;border-radius:12px;max-height:60vh;object-fit:contain;background:#000">';
-  document.getElementById("pvBody").innerHTML=media+'<p style="margin:10px 0">'+esc(p.caption||"")+'</p><small style="color:#888">👁 '+(p.views||0)+' • ❤️ '+(p.likes||0)+' • 💬 '+((p.comments||[]).length)+'</small><div style="display:flex;gap:8px;margin-top:12px"><button class="btn dark small" onclick="likePost('+realIdx+')">❤️ Like ('+(p.likes||0)+')</button><button class="btn dark small" onclick="openComments('+realIdx+')">💬 Comment</button><button class="btn gold small" onclick="sharePost('+realIdx+')">↗️ Share (1🪙)</button></div>';
+  var delHtml=(p.phone===currentUser)?'<button class="btn danger small" onclick="deleteMyPost('+realIdx+')">🗑️ Delete Post</button>':'';
+  document.getElementById("pvBody").innerHTML=media+'<p style="margin:10px 0">'+esc(p.caption||"")+'</p><small style="color:#888">👁 '+(p.views||0)+' • ❤️ '+(p.likes||0)+' • 💬 '+((p.comments||[]).length)+'</small><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:12px"><button class="btn dark small" onclick="likePost('+realIdx+')">❤️ Like ('+(p.likes||0)+')</button><button class="btn dark small" onclick="openComments('+realIdx+')">💬 Comment</button><button class="btn gold small" onclick="sharePost('+realIdx+')">↗️ Share (1🪙)</button>'+delHtml+'</div>';
   document.getElementById("postViewerModal").classList.add("open");
 }
 function closePostViewer(){
@@ -1143,7 +1260,7 @@ async function openPublicProfile(ph){
   var fBtn=document.getElementById("pubFollowBtn");
   fBtn.innerText=isF?"✓ Following":"+ Follow";
   fBtn.className="btn small "+(isF?"dark":"gold");
-  var theirPosts=myPosts.filter(function(p){ return p.phone===ph && !p.isChannelOnly && !p.mature; });
+  var theirPosts=myPosts.filter(function(p){ return p.phone===ph && !p.isChannelOnly && !p.mature && deletedPostKeys.indexOf(postKey(p))<0; });
   document.getElementById("pubPostsCount").innerText=theirPosts.length;
   document.getElementById("pubFollowersCount").innerText=Array.isArray(u.followers)?u.followers.length:0;
   document.getElementById("pubFollowingCount").innerText=Array.isArray(u.following)?u.following.length:0;
@@ -1152,12 +1269,7 @@ async function openPublicProfile(ph){
 }
 function closePublicProfile(){ document.getElementById("publicProfileModal").classList.remove("open"); }
 function toggleFollowPublic(){ if(currentPublicPhone) followUser(currentPublicPhone); }
-function messagePublicUser(){
-  var ph=currentPublicPhone;
-  closePublicProfile();
-  showTab("inbox");
-  openChat(ph);
-}
+function messagePublicUser(){ var ph=currentPublicPhone; closePublicProfile(); showTab("inbox"); openChat(ph); }
 
 function subscribeChannel(chId){
   var ch=channels.find(function(c){return c.id===chId;}); if(!ch) return;
@@ -1219,6 +1331,7 @@ function likePost(i,fromDouble){
     if(fromDouble){var h=document.getElementById("heart-"+i); if(h){h.classList.add("show"); setTimeout(function(){h.classList.remove("show")},600);} }
   }
   saveAll(); renderFeed();
+  fetch("/.netlify/functions/social", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"postAction",op:"like",createdAt:p.createdAt,phone:p.phone,likes:p.likes,likedBy:p.likedBy})}).catch(function(){});
   if(window._firebaseReady && window._db && p._serverId){ try{var f=window._firestore; f.setDoc(f.doc(window._db,"posts",p._serverId),{likes:p.likes,likedBy:p.likedBy},{merge:true});}catch(e){} }
 }
 function openComments(i){ currentCommentIndex=i; var p=myPosts[i]; if(!p) return; document.getElementById("commentTitle").innerText="Comments ("+((p.comments||[]).length)+")"; renderCommentList(); document.getElementById("commentSheet").classList.add("open"); }
@@ -1240,6 +1353,7 @@ function sendComment(){
   if(p.phone!==currentUser) addNotification(currentUser, userName+" commented on your post", "comment");
   saveAll(); renderCommentList(); renderFeed();
   document.getElementById("commentTitle").innerText="Comments ("+p.comments.length+")";
+  fetch("/.netlify/functions/social", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"postAction",op:"comment",createdAt:p.createdAt,phone:p.phone,comments:p.comments})}).catch(function(){});
   if(window._firebaseReady && window._db && p._serverId){ try{var f=window._firestore; f.setDoc(f.doc(window._db,"posts",p._serverId),{comments:p.comments},{merge:true});}catch(e){} }
 }
 function likeComment(ci){ var p=myPosts[currentCommentIndex]; if(!p||!p.comments[ci]) return; p.comments[ci].likes=(p.comments[ci].likes||0)+1; saveAll(); renderCommentList(); }
@@ -1250,12 +1364,13 @@ function sharePost(i){
   coins-=1; p.shares=(p.shares||0)+1;
   if(p.phone!==currentUser) addNotification(currentUser, userName+" shared your post", "share");
   saveAll(); renderFeed();
+  fetch("/.netlify/functions/social", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"postAction",op:"share",createdAt:p.createdAt,phone:p.phone,shares:p.shares})}).catch(function(){});
   if(window._firebaseReady && window._db && p._serverId){ try{var f=window._firestore; f.setDoc(f.doc(window._db,"posts",p._serverId),{shares:p.shares},{merge:true});}catch(e){} }
   var text="BANDUCOINS - "+(p.caption||"")+" by "+(p.user||"");
   if(navigator.share){navigator.share({title:"BANDUCOINS",text:text,url:location.href}).catch(function(){});}
   else { try{navigator.clipboard.writeText(text+" "+location.href); showToast("Shared (-1 coin) - Receiver views free");}catch(e){showToast("Share: "+text);} }
 }
-function savePost(i){ var p=myPosts[i]; if(!p) return; var key=p.createdAt+"_"+p.phone; if(savedPosts.indexOf(key)>=0){savedPosts=savedPosts.filter(function(x){return x!==key}); showToast("Removed from Saved");} else {savedPosts.push(key); showToast("Saved ("+savedPosts.length+" total)");} saveAll(); }
+function savePost(i){ var p=myPosts[i]; if(!p) return; var key=postKey(p); if(savedPosts.indexOf(key)>=0){savedPosts=savedPosts.filter(function(x){return x!==key}); showToast("Removed from Saved");} else {savedPosts.push(key); showToast("Saved ("+savedPosts.length+" total)");} saveAll(); }
 function reportPost(i){ reports.push({post:i,time:new Date().toLocaleString(),by:currentUser}); set("bandu_reports",JSON.stringify(reports)); showToast("🚩 Reported to Admin"); renderNotifications(); }
 function addNotification(from,text,type){ notifications.unshift({from:from,text:text,type:type,time:new Date().toLocaleString(),read:false}); notifications=notifications.slice(0,100); set("bandu_notifications",JSON.stringify(notifications)); renderNotifications(); updateUI(); }
 function renderNotifications(){
@@ -1282,7 +1397,6 @@ function selectPkg(c,a,t,el){
   try{ localStorage.setItem("bandu_pending", JSON.stringify({coins:c, amount:a, type:t, phone:currentUser, time:Date.now()})); }catch(e){}
 }
 
-// INBOX: SEARCH ALL REGISTERED USERS BY @USERNAME, VIEW PROFILE, FOLLOW & REAL FIRESTORE CHAT
 function chatKey(a,b){ return [a,b].sort().join("_"); }
 function renderInbox(){
   var box=document.getElementById("inboxUsers"); if(!box) return;
@@ -1299,35 +1413,36 @@ function renderInbox(){
     box.innerHTML='<p style="color:#888;text-align:center">'+(q?"No user found matching \""+esc(q)+"\"":"No other users found yet. Invite friends with your referral code!")+'</p>';
     return;
   }
-  box.innerHTML=list.slice(0,40).map(function(u){
+  box.innerHTML=list.slice(0,50).map(function(u){
     var av=u.avatar?'<img src="'+u.avatar+'">':'👤';
     var fCount=Array.isArray(u.followers)?u.followers.length:0;
     return '<div class="user-row"><div style="display:flex;gap:10px;align-items:center;min-width:0;cursor:pointer" data-val="'+esc(u.phone)+'" onclick="openPublicProfile(this.dataset.val)"><span class="avatar-sm">'+av+'</span><div style="min-width:0"><b style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(u.name||u.phone)+' '+verifiedMark(u.phone)+'</b><small style="color:#888">'+fCount+' followers</small></div></div><div style="display:flex;gap:4px;flex-shrink:0"><button class="btn dark small" data-val="'+esc(u.phone)+'" onclick="openPublicProfile(this.dataset.val)">👤</button><button class="btn gold small" data-val="'+esc(u.phone)+'" onclick="openChat(this.dataset.val)">💬</button></div></div>';
   }).join("");
 }
 document.getElementById("inboxUserSearch").oninput=function(){ renderInbox(); };
+async function fetchChatMsgs(key){
+  try{
+    var r=await fetch("/.netlify/functions/social?action=chat&key="+encodeURIComponent(key));
+    if(r.ok){
+      var msgs=await r.json();
+      if(Array.isArray(msgs)){ chats[key]=msgs; set("bandu_chats",JSON.stringify(chats)); renderChatMessages(); }
+    }
+  }catch(e){}
+}
 function openChat(ph){
   currentChatPhone=ph;
   document.getElementById("inboxListCard").classList.add("hidden");
   document.getElementById("chatCard").classList.remove("hidden");
   var u=getUserRecord(ph);
   document.getElementById("chatWith").innerText="Chat with "+(u.name||ph);
+  var key=chatKey(currentUser, ph);
   renderChatMessages();
-  if(chatUnsub){ chatUnsub(); chatUnsub=null; }
-  if(window._firebaseReady && window._db){
-    try{
-      const {collection,query,orderBy,onSnapshot}=window._firestore;
-      var key=chatKey(currentUser, ph);
-      const q=query(collection(window._db,"chats",key,"messages"), orderBy("createdAt","asc"));
-      chatUnsub=onSnapshot(q, function(snap){
-        var msgs=[]; snap.forEach(function(d){ msgs.push(d.data()); });
-        if(msgs.length){ chats[key]=msgs; set("bandu_chats",JSON.stringify(chats)); renderChatMessages(); }
-      });
-    }catch(e){}
-  }
+  fetchChatMsgs(key);
+  if(chatPollTimer) clearInterval(chatPollTimer);
+  chatPollTimer=setInterval(function(){ if(currentChatPhone===ph) fetchChatMsgs(key); }, 3500);
 }
 function closeChat(){
-  if(chatUnsub){ chatUnsub(); chatUnsub=null; }
+  if(chatPollTimer){ clearInterval(chatPollTimer); chatPollTimer=null; }
   document.getElementById("chatCard").classList.add("hidden");
   document.getElementById("inboxListCard").classList.remove("hidden");
   document.getElementById("sharePostSelect").classList.add("hidden");
@@ -1352,13 +1467,11 @@ document.getElementById("sendMsgBtn").onclick=async function(){
   chats[key].push(msgObj);
   inp.value="";
   saveAll(); renderChatMessages();
-  if(window._firebaseReady && window._db){
-    try{ const {collection,addDoc}=window._firestore; await addDoc(collection(window._db,"chats",key,"messages"), msgObj); }catch(e){}
-  }
+  fetch("/.netlify/functions/social", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"chat",key:key,msg:msgObj})}).catch(function(){});
 };
 document.getElementById("shareVideoBtn").onclick=function(){
   var sel=document.getElementById("sharePostSelect");
-  var mine=myPosts.filter(function(p){return p.phone===currentUser;});
+  var mine=myPosts.filter(function(p){return p.phone===currentUser && deletedPostKeys.indexOf(postKey(p))<0;});
   if(!mine.length){ showToast("Create a post first to share it",true); return; }
   if(sel.classList.contains("hidden")){
     sel.innerHTML='<option value="">-- Select your post to send (Sender pays 1 coin) --</option>'+mine.map(function(p,i){return '<option value="'+i+'">'+esc((p.caption||"Post #"+(i+1)).slice(0,40))+'</option>';}).join("");
@@ -1367,7 +1480,7 @@ document.getElementById("shareVideoBtn").onclick=function(){
 };
 document.getElementById("sharePostSelect").onchange=async function(){
   var idx=this.value; if(idx==="") return;
-  var mine=myPosts.filter(function(p){return p.phone===currentUser;});
+  var mine=myPosts.filter(function(p){return p.phone===currentUser && deletedPostKeys.indexOf(postKey(p))<0;});
   var p=mine[parseInt(idx)]; if(!p) return;
   if(coins<1){ showToast("Need 1 coin to share video in chat",true); return; }
   coins-=1; p.shares=(p.shares||0)+1;
@@ -1377,9 +1490,7 @@ document.getElementById("sharePostSelect").onchange=async function(){
   chats[key].push(msgObj);
   this.classList.add("hidden");
   saveAll(); renderChatMessages(); showToast("📤 Shared (-1 coin, receiver free)");
-  if(window._firebaseReady && window._db){
-    try{ const {collection,addDoc}=window._firestore; await addDoc(collection(window._db,"chats",key,"messages"), msgObj); }catch(e){}
-  }
+  fetch("/.netlify/functions/social", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"chat",key:key,msg:msgObj})}).catch(function(){});
 };
 
 function closePostSheet(){ document.getElementById("postSheet").classList.remove("open"); document.getElementById("sheetBack").classList.remove("open"); }
@@ -1513,22 +1624,15 @@ async function saveEditFull(){
   if(users.find(function(x){ return x.phone!==currentUser && x.name.toLowerCase()===nextName.toLowerCase(); })){
     showToast("Username already taken!",true); return;
   }
-  if(window._firebaseReady && window._db){
-    try{
-      const {collection,getDocs,query,where}=window._firestore;
-      const snap=await getDocs(query(collection(window._db,"users"), where("usernameLower","==",nextName.toLowerCase())));
-      var conflict=false;
-      snap.forEach(function(d){ if(d.id!==currentUser) conflict=true; });
-      if(conflict){ showToast("Username already taken by another user!",true); return; }
-    }catch(e){}
-  }
   userName=nextName;
   userBio=bio; userLocation=document.getElementById("editFullLocation").value.trim(); userWebsite=document.getElementById("editFullWebsite").value.trim();
   var u=users.find(function(x){return x.phone===currentUser}); if(u){ u.name=userName; u.bio=userBio; }
-  saveAll(); syncMyProfileToFirestore(); closeEditFull(); showToast("✅ Profile Saved"); showTab("profile");
+  saveAll();
+  await syncMyProfileToServer();
+  closeEditFull(); showToast("✅ Profile Saved"); showTab("profile");
 }
 
-// STRICT +254... ACCOUNT CREATION & FIRESTORE UNIQUE CHECK
+// CREATE ACCOUNT (Server-backed via social.js + Firestore + instant referral award to owner!)
 document.getElementById("createBtn").onclick=async function(){
   var ph=strictKePhone(document.getElementById("phone").value);
   var pw=document.getElementById("password").value;
@@ -1537,51 +1641,53 @@ document.getElementById("createBtn").onclick=async function(){
   if(!ph){ showToast("❌ Phone must start with +254 (e.g. +254798486530), not 07...",true); return; }
   if(pw.length<4){ showToast("Password must be 4+ characters",true); return; }
   if(!nm){ showToast("Username must be 3-20 letters/numbers (e.g. @wizzy, no spaces)",true); return; }
-  if(users.find(function(u){return u.phone===ph})){ showToast("This +254 number already has an account. LOGIN instead.",true); return; }
-  if(users.find(function(u){return u.name.toLowerCase()===nm.toLowerCase()})){ showToast("Username "+nm+" is already taken!",true); return; }
 
   var btn=document.getElementById("createBtn");
-  btn.disabled=true; btn.innerText="⏳ CHECKING ACCOUNT...";
+  btn.disabled=true; btn.innerText="⏳ CREATING ACCOUNT...";
   var pwHash=await hashPass(pw);
-  var refTarget=null;
+  var serverRes=null;
 
-  if(window._firebaseReady && window._db){
-    try{
-      const {collection,doc,getDoc,getDocs,query,where}=window._firestore;
-      const pSnap=await getDoc(doc(window._db,"users",ph));
-      if(pSnap.exists()){ btn.disabled=false; btn.innerText="CREATE ACCOUNT"; showToast("This +254 number already exists! Tap LOGIN.",true); return; }
-      const uSnap=await getDocs(query(collection(window._db,"users"), where("usernameLower","==",nm.toLowerCase())));
-      if(!uSnap.empty){ btn.disabled=false; btn.innerText="CREATE ACCOUNT"; showToast("Username "+nm+" already taken! Choose another.",true); return; }
-      if(ref){
-        const rSnap=await getDocs(query(collection(window._db,"users"), where("refCode","==",ref)));
-        rSnap.forEach(function(d){ if(d.id!==ph) refTarget=d.data(); });
-      }
-    }catch(e){}
+  try{
+    var r=await fetch("/.netlify/functions/social", {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({action:"signup", phone:ph, passHash:pwHash, name:nm, refCode:ref})
+    });
+    serverRes=await r.json();
+    if(!r.ok){
+      btn.disabled=false; btn.innerText="CREATE ACCOUNT";
+      showToast(serverRes.error||"Account creation blocked",true);
+      return;
+    }
+  }catch(e){
+    if(users.find(function(u){return u.phone===ph})){ btn.disabled=false; btn.innerText="CREATE ACCOUNT"; showToast("This +254 number already exists!",true); return; }
+    if(users.find(function(u){return u.name.toLowerCase()===nm.toLowerCase()})){ btn.disabled=false; btn.innerText="CREATE ACCOUNT"; showToast("Username "+nm+" is already taken!",true); return; }
   }
 
   btn.disabled=false; btn.innerText="CREATE ACCOUNT";
   var myCode=genRefCode(ph);
   users.push({phone:ph, pass:pw, passHash:pwHash, name:nm, refCode:myCode});
-  currentUser=ph; userName=nm; coins=100; following=[]; myFollowers=[];
-  var referrer=refTarget || (ref?users.find(function(u){ return (u.refCode===ref || genRefCode(u.phone)===ref) && u.phone!==ph; }):null);
-  if(ref && referrer){
-    coins+=100;
-    if(!pendingCredits[referrer.phone]) pendingCredits[referrer.phone]={coins:0,earn:0};
-    pendingCredits[referrer.phone].coins+=100;
-    addNotification(ph, "🎁 Referral Bonus: +100 coins to "+nm+" & +100 coins to "+referrer.name, "ref");
-    showToast("🎁 Referral Applied! +100 bonus coins to you & "+referrer.name);
-  } else if(ref){
-    showToast("Referral code not found (account still created)",true);
+  currentUser=ph; userName=nm; userBio=""; following=[]; myFollowers=[]; notifications=[];
+  loadWatchedForUser(ph);
+  coins=(serverRes && typeof serverRes.coins==="number") ? serverRes.coins : 100;
+  subcoins=0;
+  set("bandu_srv_coins", coins);
+  set("bandu_srv_subcoins", 0);
+
+  if(serverRes && serverRes.referralAwardedTo){
+    showToast("🎁 +100 coins to you AND +100 coins to "+serverRes.referralAwardedTo+"!");
+  } else if(ref && (!serverRes || !serverRes.referralAwardedTo)){
+    showToast("Account created (referral code not found)",true);
   } else {
     showToast("Welcome to BANDU "+nm);
   }
+
   document.getElementById("authCard").classList.add("hidden"); document.getElementById("main").classList.remove("hidden"); document.getElementById("bottomNav").style.display="flex";
   document.getElementById("payPhone").value=ph;
-  saveAll();
-  await syncMyProfileToFirestore({passHash:pwHash, followers:[], following:[], createdAt:Date.now()});
-  syncWalletFromServer(false);
-  loadUsersFromServer();
-  showTab("profile");
+  _skipWalletPush=true; saveAll(); _skipWalletPush=false;
+  syncMyProfileToServer({passHash:pwHash, followers:[], following:[], createdAt:Date.now()});
+  await loadUsersFromServer(false);
+  await loadFromServer();
+  showTab("spend");
 };
 
 document.getElementById("loginBtn").onclick=async function(){
@@ -1589,33 +1695,65 @@ document.getElementById("loginBtn").onclick=async function(){
   var pw=document.getElementById("password").value;
   if(!ph){ showToast("❌ Enter phone in +254 format e.g. +254798486530",true); return; }
   var pwHash=await hashPass(pw);
-  var u=users.find(function(x){return x.phone===ph && (x.passHash===pwHash || x.pass===pw)});
+  var u=null;
+
+  try{
+    var r=await fetch("/.netlify/functions/social", {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({action:"login", phone:ph, passHash:pwHash})
+    });
+    if(r.ok){
+      var d=await r.json();
+      if(d.user) u=d.user;
+    } else if(r.status===401){
+      var errD=await r.json();
+      // Fallback for legacy local-only accounts created before server sync
+      var localU=users.find(function(x){return x.phone===ph && (x.passHash===pwHash || x.pass===pw)});
+      if(localU) u=localU;
+      else { showToast(errD.error||"Wrong +254 phone or password",true); return; }
+    }
+  }catch(e){
+    u=users.find(function(x){return x.phone===ph && (x.passHash===pwHash || x.pass===pw)});
+  }
+
   if(!u && window._firebaseReady && window._db){
     try{
       const {doc,getDoc}=window._firestore;
       const snap=await getDoc(doc(window._db,"users",ph));
-      if(snap.exists()){
-        var su=snap.data();
-        if(su.passHash===pwHash){ u=su; users.push(su); }
-      }
+      if(snap.exists() && snap.data().passHash===pwHash) u=snap.data();
     }catch(e){}
   }
   if(!u){ showToast("Wrong +254 phone or password",true); return; }
+
   currentUser=ph; userName=u.name; userBio=u.bio||""; avatarUrl=u.avatar||avatarUrl; userCover=u.cover||userCover;
-  if(Array.isArray(u.followers)) myFollowers=u.followers;
-  if(Array.isArray(u.following)) following=u.following;
+  myFollowers=Array.isArray(u.followers)?u.followers:[];
+  following=Array.isArray(u.following)?u.following:[];
+  loadWatchedForUser(ph);
+  if(Array.isArray(u.watchedVideos)){
+    u.watchedVideos.forEach(function(k){ watchedVideos[k]=1; });
+    saveWatchedForUser();
+  }
   applyPendingCreditsForUser(ph);
   document.getElementById("authCard").classList.add("hidden"); document.getElementById("main").classList.remove("hidden"); document.getElementById("bottomNav").style.display="flex";
   document.getElementById("payPhone").value=ph;
-  saveAll(); syncWalletFromServer(false); loadUsersFromServer();
+  _skipWalletPush=true; saveAll(); _skipWalletPush=false;
+  syncMyProfileToServer({passHash:pwHash});
+  await syncWalletFromServer(false);
+  await loadServerNotifs();
+  await loadUsersFromServer(false);
+  await loadFromServer();
   showTab("spend"); showToast("Welcome back "+userName);
 };
 
-document.getElementById("logoutBtn").onclick=function(){ document.getElementById("main").classList.add("hidden"); document.getElementById("bottomNav").style.display="none"; document.getElementById("authCard").classList.remove("hidden"); };
+document.getElementById("logoutBtn").onclick=function(){
+  currentUser=""; set("bandu_phone","");
+  document.getElementById("main").classList.add("hidden"); document.getElementById("bottomNav").style.display="none"; document.getElementById("authCard").classList.remove("hidden");
+};
 document.getElementById("forgotLink").onclick=function(e){ e.preventDefault(); document.getElementById("forgotBox").classList.toggle("hidden"); };
 document.getElementById("sendCodeBtn").onclick=async function(){
   var ph=strictKePhone(document.getElementById("forgotPhone").value);
   if(!ph){ showToast("Enter registered phone in +254 format",true); return; }
+  await loadUsersFromServer(false);
   var u=users.find(function(x){return x.phone===ph}) || serverUsersCache[ph];
   if(!u){ showToast("No account found for "+ph,true); return; }
   var code=Math.floor(100000+Math.random()*900000).toString();
@@ -1635,6 +1773,7 @@ document.getElementById("resetPassBtn").onclick=async function(){
   var newHash=await hashPass(np);
   var u=users.find(function(x){return x.phone===window._resetPhone});
   if(u){ u.pass=np; u.passHash=newHash; }
+  fetch("/.netlify/functions/social", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"resetPass",phone:ph,passHash:newHash})}).catch(function(){});
   if(window._firebaseReady && window._db){
     try{ const {doc,setDoc}=window._firestore; await setDoc(doc(window._db,"users",ph), {passHash:newHash}, {merge:true}); }catch(e){}
   }
@@ -1646,7 +1785,7 @@ document.getElementById("editProfileBtn").onclick=function(){ openEditFull(); };
 document.getElementById("editFullBio").oninput=function(){ var w=this.value.trim().split(/\s+/).filter(Boolean).length; document.getElementById("wordCount").innerText=w; if(w>50) showToast("Bio max 50 words",true); };
 document.getElementById("coverInput").onchange=function(e){ var f=e.target.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(ev){ compressImage(ev.target.result, 800, 0.75, function(res){ userCover=res; document.getElementById("editCover").style.backgroundImage="url("+userCover+")"; }); }; r.readAsDataURL(f); };
 document.getElementById("editAvatarInput").onchange=function(e){ var f=e.target.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(ev){ compressImage(ev.target.result, 320, 0.8, function(res){ avatarUrl=res; document.getElementById("editAvatar").innerHTML='<img src="'+avatarUrl+'">'; updateUI(); }); }; r.readAsDataURL(f); };
-document.getElementById("avatarInput").onchange=function(e){ var f=e.target.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(ev){ compressImage(ev.target.result, 320, 0.8, function(res){ avatarUrl=res; saveAll(); syncMyProfileToFirestore(); }); }; r.readAsDataURL(f); };
+document.getElementById("avatarInput").onchange=function(e){ var f=e.target.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(ev){ compressImage(ev.target.result, 320, 0.8, function(res){ avatarUrl=res; saveAll(); syncMyProfileToServer(); }); }; r.readAsDataURL(f); };
 document.getElementById("bProfile").onclick=function(){ showTab("profile"); };
 document.getElementById("bInbox").onclick=function(){ showTab("inbox"); };
 document.getElementById("bSpend").onclick=function(){ showTab("spend"); };
@@ -1676,6 +1815,9 @@ document.getElementById("postBtn").onclick=async function(){
   if(!cap && !tempPostUrl){ showToast("Add a photo, video, or caption",true); return; }
   var songFee=(selectedMusic && selectedMusic.fee>0)?selectedMusic.fee:0, totalCost=5+songFee;
   if(coins<totalCost){ showToast("Need "+totalCost+" coins (5 post + "+songFee+" artist track)",true); return; }
+
+  var btn=document.getElementById("postBtn");
+  btn.disabled=true; btn.innerText="⏳ UPLOADING POST...";
   coins-=totalCost;
   if(songFee>0 && selectedMusic.artistPhone){
     var artistCut=Math.round(songFee*0.30);
@@ -1696,6 +1838,19 @@ document.getElementById("postBtn").onclick=async function(){
     filterId:selectedFilter?selectedFilter.id:"",filterName:selectedFilter?selectedFilter.name:"",
     time:new Date().toLocaleString(),createdAt:Date.now(),likes:0,views:0,comments:[],likedBy:[],shares:0,isChannelOnly:false,mature:false,postType:type
   };
+
+  // Save to Netlify Blobs first so media becomes a fast URL & never disappears
+  try{
+    var sr=await fetch("/.netlify/functions/social", {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({action:"post", post:newPost})
+    });
+    if(sr.ok){
+      var sd=await sr.json();
+      if(sd && sd.post) newPost=sd.post;
+    }
+  }catch(e){}
+
   myPosts.unshift(newPost);
   if(window._firebaseReady && window._db){
     try{
@@ -1703,13 +1858,16 @@ document.getElementById("postBtn").onclick=async function(){
         const {collection,addDoc}=window._firestore;
         const ref=await addDoc(collection(window._db,"posts"), newPost);
         newPost._serverId=ref.id;
-      } else showToast("Posted locally (video >900KB needs Storage to sync to others)");
+      }
     }catch(e){}
   }
+
+  btn.disabled=false; btn.innerText="📤 POST NOW - 5 COINS";
   tempPostUrl=""; document.getElementById("caption").value="";
   document.getElementById("previewImg").style.display="none"; document.getElementById("previewVideo").style.display="none";
   saveAll(); closePostSheet(); showToast("✅ Posted (-"+totalCost+" coins)"); renderStories(); renderFeed();
 };
+
 document.getElementById("createChannelBtn").onclick=function(){
   var followers=getFollowersCount();
   if(followers<10000){
@@ -2192,46 +2350,56 @@ function selectFilter(i,el){
   document.getElementById("previewFilterName").innerText=selectedFilter.name;
 }
 renderFilters();
+
+async function loadFromServer(){
+  var serverPosts=[];
+  try{
+    var r=await fetch("/.netlify/functions/social?action=posts");
+    if(r.ok){
+      var list=await r.json();
+      if(Array.isArray(list)) serverPosts=serverPosts.concat(list);
+    }
+  }catch(e){}
+
+  if(window._firebaseReady && window._db){
+    try{
+      const {collection,getDocs,query,orderBy}=window._firestore;
+      const q=query(collection(window._db,"posts"), orderBy("createdAt","desc"));
+      const snap=await getDocs(q);
+      snap.forEach(function(d){ var p=d.data(); p._serverId=d.id; serverPosts.push(p); });
+    }catch(e){}
+  }
+
+  if(serverPosts.length){
+    var all=serverPosts.concat(myPosts), seen={}, merged=[];
+    all.forEach(function(p){
+      var key=postKey(p);
+      if(deletedPostKeys.indexOf(key)>=0) return;
+      if(!seen[key]){ seen[key]=1; merged.push(p); }
+    });
+    merged.sort(function(a,b){ return (b.createdAt||0)-(a.createdAt||0); });
+    myPosts=merged.slice(0,150);
+    _skipWalletPush=true; saveAll(); _skipWalletPush=false;
+    renderStories(); renderFeed();
+    if(!document.getElementById("tab-profile").classList.contains("hidden")) renderMyPosts();
+  }
+}
+
 if(currentUser){
   if(!currentUser.startsWith("+254") && currentUser.startsWith("0")) currentUser="+254"+currentUser.slice(1);
+  loadWatchedForUser(currentUser);
   applyPendingCreditsForUser(currentUser);
   document.getElementById("authCard").classList.add("hidden"); document.getElementById("main").classList.remove("hidden"); document.getElementById("bottomNav").style.display="flex"; document.getElementById("payPhone").value=currentUser; showTab("spend");
 }
 (async function initStartup(){
   await verifyPendingPayment();
   await syncWalletFromServer(false);
+  await loadServerNotifs();
+  await loadUsersFromServer(false);
+  await loadFromServer();
 })();
 updateUI(); renderStories(); renderFeed(); refreshChannelSelect(); renderChannels();
-async function loadFromServer(){
-  if(!window._firebaseReady || !window._db) return;
-  try{
-    loadUsersFromServer();
-    syncMyProfileToFirestore();
-    const {collection,getDocs,query,orderBy,onSnapshot}=window._firestore;
-    const q=query(collection(window._db,"posts"), orderBy("createdAt","desc"));
-    const snap=await getDocs(q); var serverPosts=[]; snap.forEach(function(d){ var p=d.data(); p._serverId=d.id; serverPosts.push(p); });
-    if(serverPosts.length){
-      var all=serverPosts.concat(myPosts), seen={}, merged=[];
-      all.forEach(function(p){ var key=(p.phone||"")+"_"+(p.createdAt||p.time); if(!seen[key]){ seen[key]=1; merged.push(p); } });
-      merged.sort(function(a,b){ return (b.createdAt||0)-(a.createdAt||0); });
-      myPosts=merged.slice(0,100);
-      _skipWalletPush=true; saveAll(); _skipWalletPush=false;
-      renderStories(); renderFeed();
-    }
-    onSnapshot(collection(window._db,"posts"), function(snap){
-      var changed=false;
-      snap.docChanges().forEach(function(ch){
-        var p=ch.doc.data(); p._serverId=ch.doc.id;
-        var existing=myPosts.find(function(x){ return (x._serverId && x._serverId===p._serverId) || (x.createdAt===p.createdAt && x.phone===p.phone); });
-        if(ch.type==="added" && !existing){ myPosts.unshift(p); changed=true; }
-        else if(ch.type==="modified" && existing){ existing.likes=p.likes; existing.likedBy=p.likedBy; existing.comments=p.comments; existing.shares=p.shares; existing.views=p.views||existing.views; existing._serverId=p._serverId; changed=true; }
-      });
-      if(changed){ _skipWalletPush=true; saveAll(); _skipWalletPush=false; renderStories(); renderFeed(); }
-    });
-  }catch(e){ console.log("load server error",e); }
-}
 window.addEventListener("firebase-ready", loadFromServer);
-setTimeout(loadFromServer, 2000);
 </script>
 </body>
 </html>
