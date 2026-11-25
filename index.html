@@ -11,24 +11,43 @@
 *{box-sizing:border-box;font-family:Arial,sans-serif;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
 body{background:#050505;color:#fff;margin:0;overscroll-behavior:none}
 input,textarea{user-select:text;-webkit-user-select:text}
-.top{padding:10px 14px;display:flex;justify-content:space-between;background:#0a0a0a;align-items:center;border-bottom:1px solid #1a1a1a;position:sticky;top:0;z-index:90}
+.top{padding:10px 14px;display:flex;justify-content:space-between;background:#0a0a0a;align-items:center;border-bottom:1px solid #1a1a1a;position:sticky;top:0;z-index:95}
 .logo{font-weight:900;font-size:18px;letter-spacing:.3px}.logo span{color:#a3e635}
-.pill-bal{background:#161616;border:1px solid #333;padding:5px 10px;border-radius:20px;font-size:12px;font-weight:800;cursor:pointer}
-.wrap{max-width:480px;margin:auto;padding:10px;padding-bottom:84px}
+.pill-bal{background:#161616;border:1px solid #333;padding:5px 9px;border-radius:20px;font-size:12px;font-weight:800;cursor:pointer}
+.nav-top{position:sticky;top:49px;z-index:90;background:#0a0a0a;border-bottom:1px solid #222;display:flex;max-width:480px;margin:auto;align-items:center;height:52px}
+.nav-top button{flex:1;background:none;border:none;color:#888;padding:4px 2px;font-weight:800;font-size:11px;cursor:pointer;line-height:1.15}.nav-top button.active{color:#facc15}
+.nav-top .post-nav-btn{color:#000;background:linear-gradient(90deg,#facc15,#a3e635);border-radius:12px;margin:5px 4px;padding:6px 0;font-size:12px;font-weight:900}
+.wrap{max-width:480px;margin:auto;padding:10px;padding-bottom:64px}
 .card{background:#111;border:1px solid #2b2b2b;border-radius:16px;padding:16px;margin-bottom:12px}
 input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #333;color:#fff;border-radius:12px;margin-top:10px;font-size:15px}
 .btn{width:100%;padding:13px;border:none;border-radius:12px;font-weight:900;font-size:15px;margin-top:10px;cursor:pointer}
 .gold{background:linear-gradient(90deg,#facc15,#a3e635);color:#000}
 .green{background:#a3e635;color:#000}.dark{background:#222;color:#fff}.purple{background:#a855f7;color:#fff}.danger{background:#e11d48;color:#fff}.small{padding:7px 11px;font-size:12px;width:auto;margin:3px 2px}
-.hidden{display:none}.big{font-size:34px;font-weight:900;color:#facc15}
+.hidden{display:none}.big{font-size:32px;font-weight:900;color:#facc15}
 .chip{padding:6px 11px;border-radius:20px;border:1px solid #333;background:#111;color:#fff;margin:2px;cursor:pointer;font-size:12px;flex-shrink:0}.chip.active{background:#facc15;color:#000;font-weight:800}
-.bottom{position:fixed;bottom:0;left:0;right:0;background:#0a0a0a;display:flex;max-width:480px;margin:auto;border-top:1px solid #222;z-index:100;height:62px;align-items:center}
-.bottom button{flex:1;background:none;border:none;color:#888;padding:6px 2px;font-weight:800;font-size:11px;cursor:pointer;line-height:1.2}.bottom button.active{color:#facc15}
-.bottom .post-nav-btn{color:#000;background:linear-gradient(90deg,#facc15,#a3e635);border-radius:14px;margin:6px 4px;padding:8px 0;font-size:13px;font-weight:900}
-.avatar{width:82px;height:82px;border-radius:50%;background:#222;border:3px solid #facc15;display:flex;align-items:center;justify-content:center;font-size:34px;overflow:hidden;flex-shrink:0;cursor:pointer}.avatar img{width:100%;height:100%;object-fit:cover}
+.avatar{width:78px;height:78px;border-radius:50%;background:#222;border:2.5px solid #facc15;display:flex;align-items:center;justify-content:center;font-size:32px;overflow:hidden;flex-shrink:0;cursor:pointer}.avatar img{width:100%;height:100%;object-fit:cover}
 .avatar-sm{width:38px;height:38px;border-radius:50%;background:#222;border:2px solid #facc15;display:inline-flex;align-items:center;justify-content:center;font-size:16px;overflow:hidden;vertical-align:middle;flex-shrink:0;cursor:pointer}.avatar-sm img{width:100%;height:100%;object-fit:cover}
 .user-row{display:flex;gap:10px;align-items:center;padding:10px;border:1px solid #222;border-radius:12px;margin-bottom:8px;justify-content:space-between;background:#0d0d0d}
-.stats{display:flex;gap:8px;margin-top:12px}.stat{flex:1;background:#1a1a1a;border:1px solid #222;border-radius:12px;padding:10px 4px;text-align:center;min-width:0}.stat b{font-size:18px;color:#facc15;display:block}.stat span{font-size:11px;color:#888;display:block;white-space:nowrap}
+/* TIKTOK ARTIST PROFILE HEADER */
+.tt-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.tt-stats{display:flex;gap:18px;margin:12px 0;align-items:center}
+.tt-stat b{font-size:17px;color:#fff;display:block}.tt-stat span{font-size:12px;color:#888}
+.tt-actions{display:flex;gap:8px;margin:10px 0}.tt-actions button{margin:0;flex:1;padding:10px;border-radius:10px;font-weight:800;font-size:14px}
+.tt-sub-pill{display:inline-flex;align-items:center;gap:6px;background:#1a0f2e;border:1px solid #a855f7;color:#e9d5ff;padding:6px 12px;border-radius:10px;font-size:12px;font-weight:800;margin-top:6px;cursor:pointer}
+.tt-tabs{display:flex;border-top:1px solid #222;border-bottom:1px solid #222;margin-top:12px}
+.tt-tabs button{flex:1;background:none;border:none;color:#777;padding:11px;font-size:18px;cursor:pointer;border-bottom:2px solid transparent}
+.tt-tabs button.active{color:#fff;border-bottom-color:#facc15}
+/* TIKTOK SONG LIST ROW */
+.song-row{display:flex;gap:12px;align-items:center;padding:10px 4px;border-bottom:1px solid #1c1c1c}
+.song-cover{width:54px;height:54px;border-radius:8px;background:#222;object-fit:cover;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:22px;overflow:hidden;position:relative;cursor:pointer}
+.song-cover img{width:100%;height:100%;object-fit:cover}
+.song-play-dot{position:absolute;inset:0;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;font-size:16px}
+.song-info{flex:1;min-width:0}
+.song-title{font-weight:800;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.song-meta{font-size:12px;color:#888;margin-top:2px}
+.song-pin{display:inline-block;background:#222;color:#ccc;font-size:10px;padding:2px 6px;border-radius:4px;margin-left:4px}
+.song-acts{display:flex;gap:6px;align-items:center;flex-shrink:0}
+.song-icon-btn{background:none;border:none;color:#ccc;font-size:18px;cursor:pointer;padding:4px}
 .selected-box{background:#1a2a00;border:2px solid #facc15;border-radius:14px;padding:14px;margin-top:12px;display:none}
 .pkg{border:2px solid #333}.pkg.active{border-color:#facc15;background:#2a2a00}
 .story-row{display:flex;gap:10px;overflow-x:auto;padding:6px 2px;scrollbar-width:none}.story{width:62px;flex-shrink:0;text-align:center;cursor:pointer}.story-circle{width:54px;height:54px;border-radius:50%;border:2.5px solid #facc15;overflow:hidden;background:#222;display:flex;align-items:center;justify-content:center;margin:auto}.story-circle img{width:100%;height:100%;object-fit:cover}
@@ -38,13 +57,12 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 .channel-card{border:2px solid #a855f7;border-radius:14px;padding:14px;margin-bottom:12px;background:#150a20}
 .post{border:1px solid #222;border-radius:12px;overflow:hidden;margin-bottom:10px;background:#0f0f0f}
 .post img,.post video{width:100%;display:block}.post-body{padding:12px}
-.post-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:10px}
-.grid-tile{position:relative;aspect-ratio:3/4;background:#181818;overflow:hidden;cursor:pointer;border-radius:4px}
+.post-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:6px}
+.grid-tile{position:relative;aspect-ratio:3/4;background:#181818;overflow:hidden;cursor:pointer}
 .grid-tile img,.grid-tile video{width:100%;height:100%;object-fit:cover;display:block}
 .grid-tile .tile-txt{padding:8px;font-size:11px;color:#ddd;display:flex;align-items:center;justify-content:center;height:100%;text-align:center;background:#151515}
-.grid-badge{position:absolute;bottom:4px;left:5px;font-size:10px;font-weight:800;text-shadow:0 1px 4px #000}
-.grid-type{position:absolute;top:4px;right:5px;font-size:12px;text-shadow:0 1px 4px #000}
-.prof-tabs{display:flex;border-bottom:1px solid #222;margin-top:10px}.prof-tabs button{flex:1;background:none;border:none;color:#888;padding:10px;font-weight:800;font-size:13px;cursor:pointer;border-bottom:2px solid transparent}.prof-tabs button.active{color:#facc15;border-bottom-color:#facc15}
+.grid-badge{position:absolute;bottom:5px;left:6px;font-size:11px;font-weight:800;text-shadow:0 1px 4px #000}
+.grid-type{position:absolute;top:5px;right:6px;font-size:12px;text-shadow:0 1px 4px #000}
 .cam{position:fixed;inset:0;background:#000;z-index:300;display:none;flex-direction:column;touch-action:none}
 .cam video{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px}
 .cam-top{display:flex;justify-content:space-between;padding:14px;align-items:center;position:absolute;top:0;left:0;right:0;z-index:10}
@@ -86,8 +104,8 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 .spend-top{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:6px}
 .spend-tabs{display:flex;gap:4px;flex:1}.spend-tabs button{flex:1;padding:8px 4px;border-radius:10px;background:#111;color:#aaa;border:1px solid #2a2a2a;font-weight:900;font-size:12px;cursor:pointer}.spend-tabs button.active{background:#facc15;color:#000}
 .cat-strip{display:flex;gap:4px;overflow-x:auto;padding:4px 0;scrollbar-width:none}
-.spend-feed{height:calc(100vh - 220px);overflow-y:auto;scroll-snap-type:y mandatory;border-radius:16px;background:#000}
-.spend-item{height:calc(100vh - 220px);scroll-snap-align:start;position:relative;background:#000;overflow:hidden;border-radius:16px;margin-bottom:8px}
+.spend-feed{height:calc(100vh - 235px);overflow-y:auto;scroll-snap-type:y mandatory;border-radius:16px;background:#000}
+.spend-item{height:calc(100vh - 235px);scroll-snap-align:start;position:relative;background:#000;overflow:hidden;border-radius:16px;margin-bottom:8px}
 .spend-item img,.spend-item video{width:100%;height:100%;object-fit:cover;display:block}
 .spend-actions{position:absolute;right:10px;bottom:48px;display:flex;flex-direction:column;gap:10px;align-items:center;z-index:5}
 .spend-act{display:flex;flex-direction:column;align-items:center;background:rgba(0,0,0,.58);border-radius:30px;padding:6px;min-width:48px}
@@ -103,7 +121,7 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 .comment-sheet.open{display:flex}
 .comment-list{overflow-y:auto;padding:12px;flex:1}
 .comment-row{display:flex;gap:8px;padding:8px 0;border-bottom:1px solid #222}
-.full-modal{position:fixed;inset:0;background:#050505;z-index:600;display:none;overflow-y:auto;max-width:480px;margin:auto;padding-bottom:40px}
+.full-modal{position:fixed;inset:0;background:#050505;z-index:600;display:none;overflow-y:auto;max-width:480px;margin:auto;padding-bottom:60px}
 .full-modal.open{display:block}
 .edit-cover{height:130px;background:#222;background-size:cover;background-position:center;display:flex;align-items:flex-end;justify-content:center;padding-bottom:10px}
 .edit-avatar-wrap{text-align:center;margin-top:-40px}
@@ -131,6 +149,15 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
   </div>
 </div>
 
+<!-- TOP NAV BAR (Always clear above Powered by Netlify badge) -->
+<div class="nav-top" id="bottomNav" style="display:none">
+<button id="bSpend" class="active">🏠<br>Feed</button>
+<button id="bChannels">💜<br>Channel</button>
+<button class="post-nav-btn" onclick="openBanduCamera()">➕ Post</button>
+<button id="bInbox">💬<br>Inbox</button>
+<button id="bProfile">👤<br>Profile</button>
+</div>
+
 <div class="wrap">
 <div id="authCard" class="card">
 <h2 style="text-align:center;margin-top:4px">Welcome to BANDUCOINS</h2>
@@ -155,70 +182,79 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 
 <div id="main" class="hidden">
 
-<!-- PROFILE TAB -->
+<!-- TIKTOK-STYLE PROFILE TAB -->
 <div id="tab-profile">
-<div class="card">
-<div style="display:flex;gap:14px;align-items:center">
-<label class="avatar" id="avatarLabel"><span id="avatarEmoji">👤</span><img id="avatarImg" style="display:none"><input type="file" accept="image/*" style="display:none" id="avatarInput"></label>
-<div style="min-width:0">
-  <h2 id="displayName" style="word-break:break-word;margin:0 0 4px">@user <span id="verifiedBadge"></span></h2>
-  <p id="userPhone" style="color:#888;margin:0;font-size:13px"></p>
-  <p id="displayBio" style="color:#ccc;font-size:13px;margin:4px 0"></p>
-  <p id="verifyStatus" style="font-size:11px;color:#1da1f2;margin:2px 0"></p>
+<div class="card" style="padding:14px">
+  <div class="tt-head">
+    <div style="min-width:0;flex:1">
+      <h2 id="displayName" style="margin:0;font-size:21px;word-break:break-word">@user <span id="verifiedBadge"></span></h2>
+      <p style="color:#aaa;font-size:13px;margin:3px 0"><span id="displaySubHandle">@user</span> • <span id="displayType">Artist</span></p>
+      <p id="userPhone" style="color:#666;font-size:12px;margin:0"></p>
+    </div>
+    <label class="avatar" id="avatarLabel"><span id="avatarEmoji">👤</span><img id="avatarImg" style="display:none"><input type="file" accept="image/*" style="display:none" id="avatarInput"></label>
+  </div>
+
+  <div class="tt-stats">
+    <div class="tt-stat"><b id="statFollowing">0</b><span>Following</span></div>
+    <div class="tt-stat"><b id="statFollowers">0</b><span>Followers</span></div>
+    <div class="tt-stat"><b id="statTotalLikes">0</b><span>Likes</span></div>
+    <div class="tt-stat"><b id="statPosts">0</b><span>Posts</span></div>
+  </div>
+
+  <div class="tt-actions">
+    <button class="btn dark" id="editProfileBtn">Edit profile</button>
+    <button class="btn dark" onclick="shareMyProfile()">Share profile</button>
+    <button class="btn gold" style="flex:.7" onclick="toggleWalletDrawer()">🪙 Wallet</button>
+  </div>
+
+  <p id="displayBio" style="color:#ddd;font-size:13px;margin:6px 0 4px"></p>
   <p id="displayLocation" style="color:#888;font-size:12px;margin:2px 0"></p>
   <p id="displayWebsite" style="color:#a3e635;font-size:12px;margin:2px 0"></p>
-  <p id="displayType" style="color:#c084fc;font-size:12px;margin:2px 0"></p>
-</div>
-</div>
-<div class="stats">
-<div class="stat"><b id="statPosts">0</b><span>Posts</span></div>
-<div class="stat"><b id="statFollowers">0</b><span>Followers</span></div>
-<div class="stat"><b id="statFollowing">0</b><span>Following</span></div>
-</div>
-<div style="display:flex;gap:8px;margin-top:10px">
-<button class="btn dark" style="margin:0;font-size:13px" onclick="document.getElementById('avatarInput').click()">📸 Photo</button>
-<button class="btn gold" style="margin:0;font-size:13px" id="editProfileBtn">✏️ Edit Profile</button>
-</div>
-<p style="color:#a3e635;font-size:11px;margin:12px 0 2px">SPENDABLE BALANCE</p>
-<div class="big"><span id="balance">0</span> COINS</div>
-<div class="earn-box">
-<b style="color:#4ade80">💵 CREATOR EARNING BALANCE (Separate)</b><br>
-<span style="font-size:24px;font-weight:900;color:#4ade80" id="profileEarnCoins">0</span> EARNING COINS <small style="color:#ccc">(≈ <span id="profileEarnKsh">0.00</span> KSH)</small><br>
-<small style="color:#888">75% Live Gifts • 30% Artist Songs • Min withdraw: 10,000 coins</small>
-</div>
-<div style="background:#150a20;border:1px solid #a855f7;border-radius:12px;padding:10px;margin-top:8px"><b style="color:#c084fc">💜 SUBCOINS:</b> <span style="font-size:20px;font-weight:900;color:#c084fc" id="subBalance">0</span> <small style="color:#888">(1 Subcoin = 1 KSh • Channels)</small></div>
-<div style="background:#1a1500;border:1px solid #facc15;border-radius:12px;padding:10px;margin-top:8px;display:flex;justify-content:space-between;align-items:center">
-<div><small style="color:#888">🎁 REFERRAL CODE (+100 coins each)</small><br><b id="myRefCode" style="color:#facc15;font-size:15px">BANDU0000</b></div>
-<button class="btn gold small" onclick="copyRefCode()">📋 COPY</button>
-</div>
-<div style="display:flex;gap:8px;margin-top:8px">
-<button class="btn gold" style="margin:0;font-size:13px" id="goCoinsBtn">+ Buy Coins</button>
-<button class="btn purple" style="margin:0;font-size:13px" id="goChannelsBtn">💜 Channels</button>
-</div>
-<button class="btn dark small" style="width:100%;margin-top:8px" onclick="syncWalletFromServer(true)">🔄 REFRESH SERVER BALANCE</button>
-</div>
+  <p id="verifyStatus" style="font-size:11px;color:#1da1f2;margin:4px 0"></p>
+  <div class="tt-sub-pill" id="goChannelsBtn">💜 Subscription</div>
 
-<div class="card">
-<p style="color:#a3e635;font-size:12px;margin-top:0">📊 MY DASHBOARD - VERIFICATION &amp; PAYOUTS</p>
-<div class="dash">
-<div><b id="dashPosts">0</b><span>Total Posts</span></div>
-<div><b id="dashViews">0</b><span>Total Views</span></div>
-<div><b id="dashLikes">0</b><span>Total Likes</span></div>
-<div><b id="dashComments">0</b><span>Total Comments</span></div>
-<div><b id="dashShares">0</b><span>Total Shares</span></div>
-<div><b id="dashViewKsh">0 KSH</b><span>Extra 10M Payout</span></div>
-</div>
-<button class="btn green small" style="width:100%;margin-top:10px" onclick="claimViewsPayout()">💸 CLAIM VIEWS PAYOUT (KSH 20,000 / +10M Views)</button>
-</div>
+  <!-- COLLAPSIBLE WALLET & DASHBOARD DRAWER -->
+  <div id="walletDrawer" style="display:none;margin-top:12px;border-top:1px solid #222;padding-top:10px">
+    <p style="color:#a3e635;font-size:11px;margin:0">SPENDABLE BALANCE</p>
+    <div class="big"><span id="balance">0</span> COINS</div>
+    <div class="earn-box">
+      <b style="color:#4ade80">💵 CREATOR EARNING BALANCE (Separate)</b><br>
+      <span style="font-size:22px;font-weight:900;color:#4ade80" id="profileEarnCoins">0</span> EARNING COINS <small style="color:#ccc">(≈ <span id="profileEarnKsh">0.00</span> KSH)</small><br>
+      <small style="color:#888">75% Live Gifts • 30% Artist Songs • Min withdraw: 10,000 coins</small>
+    </div>
+    <div style="background:#150a20;border:1px solid #a855f7;border-radius:12px;padding:10px;margin-top:8px"><b style="color:#c084fc">💜 SUBCOINS:</b> <span style="font-size:18px;font-weight:900;color:#c084fc" id="subBalance">0</span> <small style="color:#888">(1 Subcoin = 1 KSh)</small></div>
+    <div style="background:#1a1500;border:1px solid #facc15;border-radius:12px;padding:10px;margin-top:8px;display:flex;justify-content:space-between;align-items:center">
+      <div><small style="color:#888">🎁 REFERRAL CODE (+100 coins each)</small><br><b id="myRefCode" style="color:#facc15;font-size:15px">BANDU0000</b></div>
+      <button class="btn gold small" onclick="copyRefCode()">📋 COPY</button>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <button class="btn gold" style="margin:0;font-size:13px" id="goCoinsBtn">+ Buy Coins</button>
+      <button class="btn dark" style="margin:0;font-size:13px" onclick="syncWalletFromServer(true)">🔄 Sync</button>
+    </div>
+    <div class="dash">
+      <div><b id="dashPosts">0</b><span>Total Posts</span></div>
+      <div><b id="dashViews">0</b><span>Total Views</span></div>
+      <div><b id="dashLikes">0</b><span>Total Likes</span></div>
+      <div><b id="dashComments">0</b><span>Total Comments</span></div>
+      <div><b id="dashShares">0</b><span>Total Shares</span></div>
+      <div><b id="dashViewKsh">0 KSH</b><span>Extra 10M Payout</span></div>
+    </div>
+    <button class="btn green small" style="width:100%;margin-top:10px" onclick="claimViewsPayout()">💸 CLAIM VIEWS PAYOUT (KSH 20,000 / +10M Views)</button>
+    <button class="btn dark" id="logoutBtn" style="margin-top:8px">LOGOUT</button>
+  </div>
 
-<div class="card" style="padding:12px">
-<div class="prof-tabs">
-<button id="pTabPosts" class="active" onclick="setProfileSubTab('posts')">🎞️ My Posts</button>
-<button id="pTabSaved" onclick="setProfileSubTab('saved')">🔖 Saved</button>
+  <!-- TIKTOK 3-ICON TABS: MUSIC | POSTS GRID | SAVED -->
+  <div class="tt-tabs">
+    <button id="pTabMusic" onclick="setProfileSubTab('music')">🎵</button>
+    <button id="pTabPosts" class="active" onclick="setProfileSubTab('posts')">▦</button>
+    <button id="pTabSaved" onclick="setProfileSubTab('saved')">🔖</button>
+  </div>
+  <div id="myMusicTabActions" style="display:none;padding:8px 0">
+    <button class="btn purple small" style="width:100%" onclick="openArtistSongUploadModal()">🎵 + Upload Official Artist Song (20k Followers)</button>
+  </div>
+  <div id="myPosts" class="post-grid"></div>
+  <div id="mySongsList" style="display:none"></div>
 </div>
-<div id="myPosts" class="post-grid"></div>
-</div>
-<button class="btn dark" id="logoutBtn">LOGOUT</button>
 </div>
 
 <!-- INBOX TAB -->
@@ -229,7 +265,7 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
   <button class="btn dark small" style="margin:0" onclick="loadUsersFromServer(true)">🔄</button>
 </div>
 <input id="inboxUserSearch" placeholder="🔍 Search anyone by @username or +254...">
-<p style="color:#888;font-size:11px;margin:6px 0 10px">Tap a person to view their profile, posts, follow them, or chat.</p>
+<p style="color:#888;font-size:11px;margin:6px 0 10px">Tap a person to view their profile, songs, posts, follow them, or chat.</p>
 <div id="inboxUsers"></div>
 </div>
 <div class="card hidden" id="chatCard">
@@ -355,41 +391,59 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 </div>
 </div>
 
-<!-- BOTTOM NAV -->
-<div class="bottom" id="bottomNav" style="display:none">
-<button id="bSpend" class="active">🏠<br>Feed</button>
-<button id="bChannels">💜<br>Channel</button>
-<button class="post-nav-btn" onclick="openBanduCamera()">➕<br>Post</button>
-<button id="bInbox">💬<br>Inbox</button>
-<button id="bProfile">👤<br>Profile</button>
+<!-- TIKTOK-STYLE PUBLIC PROFILE MODAL -->
+<div id="publicProfileModal" class="full-modal">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid #222;position:sticky;top:0;background:#050505;z-index:5">
+  <button class="btn dark small" style="margin:0" onclick="closePublicProfile()">←</button>
+  <b id="pubHeaderName">@user</b>
+  <button class="btn dark small" style="margin:0" onclick="sharePublicProfile()">↗️</button>
+</div>
+<div style="padding:14px">
+  <div class="tt-head">
+    <div style="min-width:0;flex:1">
+      <h2 id="pubName" style="margin:0;font-size:21px;word-break:break-word">@user</h2>
+      <p id="pubSubHandle" style="color:#aaa;font-size:13px;margin:3px 0">@user • Artist</p>
+    </div>
+    <div class="avatar" id="pubAvatar">👤</div>
+  </div>
+  <div class="tt-stats">
+    <div class="tt-stat"><b id="pubFollowingCount">0</b><span>Following</span></div>
+    <div class="tt-stat"><b id="pubFollowersCount">0</b><span>Followers</span></div>
+    <div class="tt-stat"><b id="pubLikesCount">0</b><span>Likes</span></div>
+    <div class="tt-stat"><b id="pubPostsCount">0</b><span>Posts</span></div>
+  </div>
+  <div class="tt-actions">
+    <button class="btn dark" id="pubMsgBtn" onclick="messagePublicUser()">Message</button>
+    <button class="btn gold" id="pubFollowBtn" onclick="toggleFollowPublic()">+ Follow</button>
+  </div>
+  <p id="pubBio" style="color:#ddd;font-size:13px;margin:6px 0 4px"></p>
+  <p id="pubMeta" style="color:#888;font-size:12px;margin:2px 0"></p>
+  <div class="tt-sub-pill" onclick="closePublicProfile();showTab('channels')">💜 Subscription</div>
+  <div class="tt-tabs">
+    <button id="pubTabMusic" onclick="setPublicSubTab('music')">🎵</button>
+    <button id="pubTabPosts" class="active" onclick="setPublicSubTab('posts')">▦</button>
+  </div>
+  <div id="pubPostsGrid" class="post-grid"></div>
+  <div id="pubSongsList" style="display:none"></div>
+</div>
 </div>
 
-<!-- PUBLIC PROFILE MODAL -->
-<div id="publicProfileModal" class="full-modal">
-<div style="display:flex;justify-content:space-between;align-items:center;padding:14px;border-bottom:1px solid #222;position:sticky;top:0;background:#050505;z-index:5">
-  <button class="btn dark small" style="margin:0" onclick="closePublicProfile()">← Back</button>
-  <b id="pubHeaderName">@user</b>
-  <span style="width:52px"></span>
-</div>
-<div id="pubCover" style="height:110px;background:#1a1a1a;background-size:cover;background-position:center"></div>
-<div style="padding:14px;margin-top:-42px">
-  <div style="display:flex;align-items:flex-end;justify-content:space-between">
-    <div class="avatar" id="pubAvatar" style="width:84px;height:84px">👤</div>
-    <div style="display:flex;gap:6px">
-      <button class="btn gold small" id="pubFollowBtn" onclick="toggleFollowPublic()">+ Follow</button>
-      <button class="btn dark small" id="pubMsgBtn" onclick="messagePublicUser()">💬 Message</button>
-    </div>
+<!-- UPLOAD ARTIST SONG MODAL (Opened from Profile 🎵 Tab) -->
+<div id="artistSongModal" class="full-modal" style="padding:16px">
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <h3 style="margin:0">🎵 Upload Artist Song</h3>
+    <button class="btn dark small" onclick="document.getElementById('artistSongModal').classList.remove('open')">✕</button>
   </div>
-  <h2 id="pubName" style="margin:10px 0 2px">@user</h2>
-  <p id="pubBio" style="color:#ccc;font-size:13px;margin:4px 0"></p>
-  <p id="pubMeta" style="color:#888;font-size:12px;margin:2px 0"></p>
-  <div class="stats">
-    <div class="stat"><b id="pubPostsCount">0</b><span>Posts</span></div>
-    <div class="stat"><b id="pubFollowersCount">0</b><span>Followers</span></div>
-    <div class="stat"><b id="pubFollowingCount">0</b><span>Following</span></div>
+  <div class="card" style="margin-top:12px">
+    <p style="font-size:12px;color:#ccc;margin-top:0">Requires <b>20,000 followers</b>. Supporters pay ~100 coins (3-min track) to post with your song, and you earn <b>30%</b> into your Earning Balance.</p>
+    <input id="artistSongTitle" placeholder="Song Title e.g. Komasava">
+    <input id="artistSongMins" type="number" value="3" min="1" max="10" placeholder="Length in mins (3 mins ≈ 100 coins)">
+    <label style="display:block;margin-top:10px;font-size:12px;color:#888">Cover Art (Optional)</label>
+    <input type="file" id="artistSongCover" accept="image/*" style="margin-top:4px">
+    <label style="display:block;margin-top:10px;font-size:12px;color:#888">Audio File (.mp3 / .m4a)</label>
+    <input type="file" id="artistAudioFile" accept="audio/*" style="margin-top:4px">
+    <button class="btn purple" onclick="uploadArtistSong()">🚀 PUBLISH TO MY 🎵 TAB</button>
   </div>
-  <div id="pubPostsGrid" class="post-grid" style="margin-top:14px"></div>
-</div>
 </div>
 
 <!-- SINGLE POST VIEWER MODAL -->
@@ -408,7 +462,7 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <div class="card">
 <p>• ✅ <b>Public Feed = Clean Only</b> (No porn/naked/bad content; those go to Channels only).</p>
 <p>• 🪙 <b>Watch / Download Video:</b> 1 coin (paid once per video, never charged twice!) • <b>Post:</b> 5 coins • <b>Share:</b> 1 coin (receiver free).</p>
-<p>• 🎵 <b>Artist Songs:</b> Creators with 20,000+ followers can upload tracks (~100 coins for 3-min track, earning 30%).</p>
+<p>• 🎵 <b>Artist Songs:</b> Creators with 20,000+ followers can upload tracks from their 🎵 profile tab (~100 coins for 3-min track, earning 30%).</p>
 <p>• 💜 <b>Channels:</b> 10,000 followers to create; 3 free posts; 2 Subcoins to watch.</p>
 <p>• 🔴 <b>LIVE:</b> WiFi/Data only; 75% of gifts (10–10,000) go to separate Earning Balance (`10,000 ≈ 444.45 KSH`).</p>
 <p>• ✓ <b>Payout Verify:</b> 50,000 followers + 10M views; every extra 10M views pays KSH 20,000.</p>
@@ -466,31 +520,22 @@ input,textarea,select{width:100%;padding:13px;background:#000;border:1px solid #
 <button class="btn dark" onclick="closePostSheet()">CANCEL</button>
 </div>
 
+<!-- CLEAN MUSIC PICKER SHEET (Only in Posting/Camera, no Artist box clutter) -->
 <div id="musicSheet" class="music-sheet">
-<div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">🎵 MUSIC &amp; ARTIST SONGS</h3><button class="btn dark small" onclick="closeMusicSheet()">✕ CLOSE</button></div>
-<p style="font-size:12px;color:#888">Audius Trending + Jamendo + Artist Uploads (Artists w/ 20k followers earn 30% when supporters post!).</p>
+<div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">🎵 PICK SOUND</h3><button class="btn dark small" onclick="closeMusicSheet()">✕ CLOSE</button></div>
 <p style="background:#1a2a00;padding:8px;border-radius:10px;font-size:12px">Selected: <b id="selectedMusicLabel" style="color:#facc15">No song</b> <button class="btn dark small" onclick="clearMusic()">Clear</button></p>
-<div style="border:1px solid #a855f7;border-radius:12px;padding:10px;margin-bottom:8px;background:#150a20">
-<b style="color:#c084fc">🎤 ARTIST UPLOAD (Requires 20,000 Followers)</b><br>
-<small style="color:#ccc">Supporters pay ~100 coins (3-min track) to post; Artist earns 30% into Earning Balance.</small>
-<input id="artistSongTitle" placeholder="Song Title e.g. Nairobi Nights">
-<input id="artistSongMins" type="number" value="3" min="1" max="10" placeholder="Length in mins (3 mins ≈ 100 coins)">
-<input type="file" id="artistAudioFile" accept="audio/*">
-<button class="btn purple small" style="width:100%" onclick="uploadArtistSong()">🚀 UPLOAD ARTIST SONG (20k Followers)</button>
-</div>
-<button class="btn dark small" style="width:100%" onclick="document.getElementById('localAudioInput').click()">📁 PICK LOCAL MP3 FROM MY PHONE (Personal)</button>
+<button class="btn dark small" style="width:100%" onclick="document.getElementById('localAudioInput').click()">📁 PICK MP3 FROM MY PHONE</button>
 <input type="file" id="localAudioInput" accept="audio/*" style="display:none">
-<input id="musicSearchInput" placeholder="🔍 Search Audius, Jamendo &amp; Artists...">
+<input id="musicSearchInput" placeholder="🔍 Search songs... e.g afrobeats, amapiano, gospel">
 <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">
 <button class="chip active" onclick="loadAudiusTrending('',this)">🔥 Trending</button>
-<button class="chip" onclick="loadArtistCatalog(this)">🎤 Bandu Artists</button>
 <button class="chip" onclick="loadAudiusTrending('Afrobeats',this)">🌍 Afrobeats</button>
 <button class="chip" onclick="loadAudiusTrending('Hip-Hop/Rap',this)">🎧 Hip-Hop</button>
 <button class="chip" onclick="quickMusic('amapiano',this)">🥁 Amapiano</button>
 <button class="chip" onclick="quickMusic('bongo',this)">🎶 Bongo</button>
 <button class="chip" onclick="quickMusic('gospel',this)">🙏 Gospel</button>
 </div>
-<button class="btn gold" id="musicSearchBtn">🔍 SEARCH ALL SONGS</button>
+<button class="btn gold" id="musicSearchBtn">🔍 SEARCH SONGS</button>
 <p id="musicMsg" style="text-align:center;color:#888;font-size:12px">Loading trending tracks...</p>
 <div id="musicResults"></div>
 <audio id="musicPreviewPlayer" controls style="width:100%;display:none;margin-top:8px"></audio>
@@ -636,15 +681,14 @@ var verifiedUsers=[]; try{verifiedUsers=JSON.parse(get("bandu_verified","[]"))}c
 var watchedChannelPosts=[]; try{watchedChannelPosts=JSON.parse(get("bandu_watched_ch","[]"))}catch(e){watchedChannelPosts=[]}
 var deletedPostKeys=[]; try{deletedPostKeys=JSON.parse(get("bandu_deleted_posts","[]"))}catch(e){deletedPostKeys=[]}
 
-var feedMode="foryou", profileSubTab="posts";
+var feedMode="foryou", profileSubTab="posts", publicSubTab="posts";
 var currentUser=get("bandu_phone",""), userName=get("bandu_name","@user"), avatarUrl=get("bandu_avatar",""), userBio=get("bandu_bio","");
 var userLocation=get("bandu_location","Eldoret, Kenya"), userWebsite=get("bandu_website","banducoins.com"), userType=get("bandu_type","Artist"), userCover=get("bandu_cover","");
 var currentCat="All", selectedCoins=450, selectedAmount=20, selectedType="coin", currentChatPhone="", currentPublicPhone="", tempPostUrl="", tempPostType="image";
 var camStream=null, camFacing='user', camLen=15, camMode='PHOTO', liveSeconds=0, liveInt=null, isLiveNow=false, liveLikes=0;
 var mediaRecorder=null, recordedChunks=[], isRecording=false, galleryFromCam=false;
 var currentCommentIndex=-1, beautyBoost=false, feedMuted=false, activeFeedObserver=null, _skipWalletPush=false, chatPollTimer=null;
-var serverUsersCache={};
-var watchedVideos={};
+var serverUsersCache={}, watchedVideos={};
 var savedPosts=[]; try{savedPosts=JSON.parse(get("bandu_saved","[]"))}catch(e){savedPosts=[]}
 
 function loadWatchedForUser(ph){
@@ -753,6 +797,21 @@ function isOwner(){ return currentUser==="+254798486530"; }
 function checkDailyReset(){
   var today=new Date().toDateString();
   if(dailyWithdrawDate!==today){ dailyWithdrawDate=today; dailyWithdrawn=0; set("bandu_daily_date",today); set("bandu_daily_withdrawn",0); }
+}
+function toggleWalletDrawer(){
+  var d=document.getElementById("walletDrawer");
+  if(d) d.style.display=(d.style.display==="none"||!d.style.display)?"block":"none";
+}
+function shareMyProfile(){
+  var text="Check out "+userName+" on BANDUCOINS! Referral code: "+genRefCode(currentUser);
+  if(navigator.share) navigator.share({title:"BANDUCOINS",text:text,url:location.href}).catch(function(){});
+  else { try{navigator.clipboard.writeText(text+" "+location.href); showToast("📋 Profile link copied!");}catch(e){showToast(text);} }
+}
+function sharePublicProfile(){
+  var u=getUserRecord(currentPublicPhone);
+  var text="Check out "+(u.name||currentPublicPhone)+" on BANDUCOINS!";
+  if(navigator.share) navigator.share({title:"BANDUCOINS",text:text,url:location.href}).catch(function(){});
+  else { try{navigator.clipboard.writeText(text+" "+location.href); showToast("📋 Profile link copied!");}catch(e){showToast(text);} }
 }
 function pushWalletToServer(){
   if(!currentUser) return;
@@ -868,8 +927,7 @@ async function loadUsersFromServer(manual){
   if(loadedAny){
     set("bandu_followers", JSON.stringify(myFollowers));
     set("bandu_following", JSON.stringify(following));
-    updateUI();
-    renderInbox();
+    updateUI(); renderInbox();
     if(manual) showToast("✅ Loaded "+Object.keys(serverUsersCache).length+" users");
   }
 }
@@ -916,13 +974,14 @@ function updateUI(){
   var sek=document.getElementById("subEarnKsh"); if(sek) sek.innerText=subEarnKsh.toLocaleString();
   var dwl=document.getElementById("dailyWithdrawnLbl"); if(dwl) dwl.innerText=dailyWithdrawn.toLocaleString();
   var ae=document.getElementById("appEarn"); if(ae) ae.innerText=appEarnings.toLocaleString();
-  var dn=document.getElementById("displayName"); if(dn) dn.innerHTML=esc(userName)+" "+verifiedMark(currentUser);
+  var dn=document.getElementById("displayName"); if(dn) dn.innerHTML=esc(userName.replace(/^@/,""))+" "+verifiedMark(currentUser);
+  var dsh=document.getElementById("displaySubHandle"); if(dsh) dsh.innerText=userName;
   var up=document.getElementById("userPhone"); if(up) up.innerText=currentUser;
   var rfc=document.getElementById("myRefCode"); if(rfc) rfc.innerText=genRefCode(currentUser);
   var db=document.getElementById("displayBio"); if(db) db.innerText=userBio;
   var dl=document.getElementById("displayLocation"); if(dl) dl.innerText=userLocation?("📍 "+userLocation):"";
   var dw=document.getElementById("displayWebsite"); if(dw) dw.innerText=userWebsite?("🔗 "+userWebsite):"";
-  var dt=document.getElementById("displayType"); if(dt) dt.innerText=userType?("⭐ "+userType):"";
+  var dt=document.getElementById("displayType"); if(dt) dt.innerText=userType||"Artist";
   var aImg=document.getElementById("avatarImg"), aEm=document.getElementById("avatarEmoji");
   if(aImg && aEm){
     if(avatarUrl){ aImg.src=avatarUrl; aImg.style.display="block"; aEm.style.display="none"; }
@@ -982,8 +1041,7 @@ function renderStories(){
 function markVideoWatched(p){
   var key=postKey(p);
   if(watchedVideos[key]) return;
-  watchedVideos[key]=1;
-  saveWatchedForUser();
+  watchedVideos[key]=1; saveWatchedForUser();
   if(currentUser){
     fetch("/.netlify/functions/social", {
       method:"POST", headers:{"Content-Type":"application/json"},
@@ -996,9 +1054,7 @@ function openStory(idx){
   var key=postKey(s);
   if(!watchedVideos[key]){
     if(coins<1){ showToast("Need 1 coin to watch story",true); return; }
-    coins-=1; s.views=(s.views||0)+1;
-    markVideoWatched(s);
-    saveAll(); showToast("🪙 -1 coin (Story Watch)");
+    coins-=1; s.views=(s.views||0)+1; markVideoWatched(s); saveAll(); showToast("🪙 -1 coin (Story Watch)");
     fetch("/.netlify/functions/social", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"postAction",op:"view",createdAt:s.createdAt,phone:s.phone})}).catch(function(){});
   }
   document.getElementById("storyAuthor").innerHTML=esc(s.user||s.phone)+" "+verifiedMark(s.phone);
@@ -1036,6 +1092,23 @@ function reuseSoundFromPost(realIdx){
   showToast("🎵 Reusing song: "+selectedMusic.name);
   openBanduCamera();
 }
+function useArtistSongDirect(songIdx){
+  var s=artistSongs[songIdx]; if(!s) return;
+  selectedMusic=s;
+  document.getElementById("selectedMusicLabel").innerText=s.name+" - "+s.artist+(s.fee>0?" ("+s.fee+" coins)":"");
+  document.getElementById("soundName").innerText=s.name.slice(0,16);
+  var ca=document.getElementById("camAudioPlayer");
+  if(ca && s.audio) ca.src=s.audio;
+  closePublicProfile();
+  showToast("🎵 Selected "+s.name+(s.fee>0?" ("+s.fee+" coins on post)":""));
+  openBanduCamera();
+}
+function previewArtistSong(songIdx){
+  var s=artistSongs[songIdx]; if(!s || !s.audio) return;
+  var fp=document.getElementById("feedMusicPlayer");
+  if(fp.src===s.audio && !fp.paused){ fp.pause(); showToast("⏸ Paused"); }
+  else { fp.src=s.audio; fp.play().catch(function(){}); showToast("▶ Playing "+s.name); }
+}
 function reuseFilterFromPost(filterId){
   var fi=FILTERS.findIndex(function(f){return f.id===filterId;});
   if(fi>=0){
@@ -1052,9 +1125,8 @@ function watchVideoPost(realIdx){
   var vid=document.getElementById("vid-"+realIdx), gate=document.getElementById("gate-"+realIdx);
   if(!watchedVideos[key]){
     if(coins<1){ showToast("Need 1 coin to watch video",true); return; }
-    coins-=1; p.views=(p.views||0)+1;
-    markVideoWatched(p);
-    saveAll(); showToast("🪙 -1 coin (Video unlocked permanently!)");
+    coins-=1; p.views=(p.views||0)+1; markVideoWatched(p); saveAll();
+    showToast("🪙 -1 coin (Video unlocked permanently!)");
     fetch("/.netlify/functions/social", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"postAction",op:"view",createdAt:p.createdAt,phone:p.phone})}).catch(function(){});
   }
   if(gate) gate.style.display="none";
@@ -1073,24 +1145,17 @@ function downloadPost(realIdx){
 async function deleteMyPost(realIdx){
   var p=myPosts[realIdx];
   if(!p) return;
-  if(p.phone!==currentUser){
-    showToast("❌ You can only delete your own post!",true);
-    return;
-  }
+  if(p.phone!==currentUser){ showToast("❌ You can only delete your own post!",true); return; }
   if(!confirm("Delete this post permanently?")) return;
   var key=postKey(p);
   if(deletedPostKeys.indexOf(key)<0) deletedPostKeys.push(key);
   myPosts.splice(realIdx,1);
-  saveAll();
-  closePostViewer();
-  renderStories(); renderFeed(); renderMyPosts();
+  saveAll(); closePostViewer(); renderStories(); renderFeed(); renderMyPosts();
   showToast("🗑️ Post deleted");
-
   fetch("/.netlify/functions/social", {
     method:"POST", headers:{"Content-Type":"application/json"},
     body:JSON.stringify({action:"postAction", op:"delete", createdAt:p.createdAt, phone:currentUser})
   }).catch(function(){});
-
   if(window._firebaseReady && window._db && p._serverId){
     try{ const {doc,deleteDoc}=window._firestore; await deleteDoc(doc(window._db,"posts",p._serverId)); }catch(e){}
   }
@@ -1180,11 +1245,27 @@ async function followUser(phone){
     openPublicProfile(phone);
   }
 }
+
+// PROFILE TABS: MUSIC (TikTok Artist Music List) | POSTS GRID | SAVED
 function setProfileSubTab(t){
   profileSubTab=t;
+  document.getElementById("pTabMusic").classList.toggle("active", t==="music");
   document.getElementById("pTabPosts").classList.toggle("active", t==="posts");
   document.getElementById("pTabSaved").classList.toggle("active", t==="saved");
+  document.getElementById("myMusicTabActions").style.display=(t==="music")?"block":"none";
+  document.getElementById("myPosts").style.display=(t==="music")?"none":"grid";
+  document.getElementById("mySongsList").style.display=(t==="music")?"block":"none";
   renderMyPosts();
+}
+function buildSongsListHtml(songsList, isOwn){
+  if(!songsList.length) return '<p style="color:#888;text-align:center;padding:24px 10px">No artist songs yet.'+(isOwn?' Tap above to upload (20,000 followers required).':'')+'</p>';
+  return songsList.map(function(s){
+    var sIdx=artistSongs.indexOf(s);
+    var usedCount=myPosts.filter(function(p){ return p.musicName===s.name || (p.music && p.music.indexOf(s.name)>=0); }).length;
+    var cov=s.cover?'<img src="'+s.cover+'">':'🎵';
+    var dur=String(Math.floor(s.mins||3)).padStart(2,"0")+":00";
+    return '<div class="song-row"><div class="song-cover" onclick="previewArtistSong('+sIdx+')">'+cov+'<div class="song-play-dot">▶</div></div><div class="song-info"><div class="song-title">'+esc(s.name)+'</div><div class="song-meta">Used in '+usedCount+' videos • '+(s.fee||100)+' 🪙</div><div class="song-meta">'+dur+(s.pinned?'<span class="song-pin">Pinned</span>':'')+'</div></div><div class="song-acts"><button class="song-icon-btn" onclick="useArtistSongDirect('+sIdx+')" title="Use Sound">➕</button></div></div>';
+  }).join("");
 }
 function buildPostGridHtml(postsList){
   if(!postsList.length) return '<p style="color:#888;grid-column:1/-1;text-align:center;padding:20px">No posts here yet.</p>';
@@ -1195,38 +1276,84 @@ function buildPostGridHtml(postsList){
     if(p.url && p.type==="video") inner='<video src="'+p.url+'" muted playsinline></video><span class="grid-type">🎬</span>';
     else if(p.url) inner='<img src="'+p.url+'">';
     else inner='<div class="tile-txt">'+esc((p.caption||"").slice(0,55))+'</div>';
-    return '<div class="grid-tile" onclick="openPostViewer('+realIdx+')">'+inner+'<span class="grid-badge">👁 '+(p.views||0)+'</span></div>';
+    return '<div class="grid-tile" onclick="openPostViewer('+realIdx+')">'+inner+'<span class="grid-badge">▶ '+(p.views||0)+'</span></div>';
   }).join("");
 }
 function renderMyPosts(){
-  var el=document.getElementById("myPosts"); if(!el) return;
+  var el=document.getElementById("myPosts"), songsEl=document.getElementById("mySongsList");
+  if(!el) return;
   var mine=myPosts.filter(function(p){ return p.phone===currentUser && deletedPostKeys.indexOf(postKey(p))<0; });
   document.getElementById("statPosts").innerText=mine.length;
   document.getElementById("dashPosts").innerText=mine.length;
   var likes=0, comments=0, shares=0, views=0;
   mine.forEach(function(p){ likes+=p.likes||0; comments+=(p.comments||[]).length; shares+=p.shares||0; views+=p.views||0; });
+  var stl=document.getElementById("statTotalLikes"); if(stl) stl.innerText=likes.toLocaleString();
   document.getElementById("dashViews").innerText=views.toLocaleString();
   document.getElementById("dashLikes").innerText=likes.toLocaleString();
   document.getElementById("dashComments").innerText=comments.toLocaleString();
   document.getElementById("dashShares").innerText=shares.toLocaleString();
   var extraMil=Math.max(0, Math.floor((views-10000000)/10000000) - claimedViewMillions);
   document.getElementById("dashViewKsh").innerText=(extraMil*20000).toLocaleString()+" KSH";
-  if(profileSubTab==="saved"){
+
+  if(profileSubTab==="music"){
+    var mySongs=artistSongs.filter(function(s){ return s.artistPhone===currentUser; });
+    if(songsEl) songsEl.innerHTML=buildSongsListHtml(mySongs, true);
+  } else if(profileSubTab==="saved"){
     var savedList=myPosts.filter(function(p){ return savedPosts.indexOf(postKey(p))>=0 && deletedPostKeys.indexOf(postKey(p))<0; });
     el.innerHTML=buildPostGridHtml(savedList);
   } else {
     el.innerHTML=buildPostGridHtml(mine);
   }
 }
+function openArtistSongUploadModal(){
+  var followers=getFollowersCount();
+  if(followers<20000){
+    showToast("🎤 Need 20,000 followers to upload Artist Songs (You have "+followers+")", true);
+    return;
+  }
+  document.getElementById("artistSongModal").classList.add("open");
+}
+function uploadArtistSong(){
+  var followers=getFollowersCount();
+  if(followers<20000){ showToast("🎤 Need 20,000 followers to upload Artist Songs (You have "+followers+")", true); return; }
+  var title=document.getElementById("artistSongTitle").value.trim();
+  var mins=parseFloat(document.getElementById("artistSongMins").value)||3;
+  var file=document.getElementById("artistAudioFile").files[0];
+  var coverFile=document.getElementById("artistSongCover").files[0];
+  if(!title || !file){ showToast("Enter song title and pick audio file",true); return; }
+  var fee=Math.max(30, Math.round((mins/3)*100));
+
+  function finishUpload(coverUrl){
+    var r=new FileReader();
+    r.onload=async function(ev){
+      var newSong={ id:Date.now().toString(), name:title, artist:userName, artistPhone:currentUser, mins:mins, fee:fee, cover:coverUrl||avatarUrl||"", audio:ev.target.result, source:"Bandu Artist", createdAt:Date.now() };
+      artistSongs.unshift(newSong);
+      if(window._firebaseReady && window._db && ev.target.result.length<800000){
+        try{ const {collection,addDoc}=window._firestore; await addDoc(collection(window._db,"artist_songs"), newSong); }catch(e){}
+      }
+      document.getElementById("artistSongTitle").value="";
+      document.getElementById("artistSongModal").classList.remove("open");
+      saveAll(); setProfileSubTab("music");
+      showToast("🎤 Published to your 🎵 tab! Supporters pay "+fee+" coins (You earn 30%)");
+    };
+    r.readAsDataURL(file);
+  }
+  if(coverFile){
+    var cr=new FileReader();
+    cr.onload=function(cev){ compressImage(cev.target.result, 240, 0.75, finishUpload); };
+    cr.readAsDataURL(coverFile);
+  } else {
+    finishUpload("");
+  }
+}
+
 function openPostViewer(realIdx){
   var p=myPosts[realIdx]; if(!p) return;
-  var key=postKey(p);
-  var isVideo=(p.type==="video");
+  var key=postKey(p), isVideo=(p.type==="video");
   if(isVideo && !watchedVideos[key]){
     if(coins<1){ showToast("Need 1 coin to watch this video",true); return; }
-    coins-=1; p.views=(p.views||0)+1;
-    markVideoWatched(p);
-    saveAll(); showToast("🪙 -1 coin (Video unlocked permanently!)");
+    coins-=1; p.views=(p.views||0)+1; markVideoWatched(p); saveAll();
+    showToast("🪙 -1 coin (Video unlocked permanently!)");
   }
   document.getElementById("pvAuthor").innerHTML=esc(p.user||p.phone)+" "+verifiedMark(p.phone);
   var media="";
@@ -1240,6 +1367,14 @@ function closePostViewer(){
   var v=document.querySelector("#pvBody video"); if(v) v.pause();
   document.getElementById("postViewerModal").classList.remove("open");
 }
+
+function setPublicSubTab(t){
+  publicSubTab=t;
+  document.getElementById("pubTabMusic").classList.toggle("active", t==="music");
+  document.getElementById("pubTabPosts").classList.toggle("active", t==="posts");
+  document.getElementById("pubPostsGrid").style.display=(t==="music")?"none":"grid";
+  document.getElementById("pubSongsList").style.display=(t==="music")?"block":"none";
+}
 async function openPublicProfile(ph){
   currentPublicPhone=ph;
   if(window._firebaseReady && window._db){
@@ -1249,22 +1384,29 @@ async function openPublicProfile(ph){
       if(snap.exists()) serverUsersCache[ph]=snap.data();
     }catch(e){}
   }
-  var u=getUserRecord(ph);
-  var isF=following.indexOf(ph)>=0;
-  document.getElementById("pubHeaderName").innerText=u.name||ph;
-  document.getElementById("pubName").innerHTML=esc(u.name||ph)+" "+verifiedMark(ph);
-  document.getElementById("pubBio").innerText=u.bio||"BANDUCOINS creator";
-  document.getElementById("pubMeta").innerText=(u.location?("📍 "+u.location+" • "):"")+(u.type||"Creator");
+  var u=getUserRecord(ph), isF=following.indexOf(ph)>=0;
+  var uname=u.name||ph;
+  document.getElementById("pubHeaderName").innerText=uname.replace(/^@/,"");
+  document.getElementById("pubName").innerHTML=esc(uname.replace(/^@/,""))+" "+verifiedMark(ph);
+  document.getElementById("pubSubHandle").innerText=uname+" • "+(u.type||"Artist");
+  document.getElementById("pubBio").innerText=u.bio||"";
+  document.getElementById("pubMeta").innerText=(u.location?("📍 "+u.location+" "):"")+(u.website?("🔗 "+u.website):"");
   document.getElementById("pubAvatar").innerHTML=u.avatar?'<img src="'+u.avatar+'">':'👤';
-  document.getElementById("pubCover").style.backgroundImage=u.cover?("url("+u.cover+")"):"none";
   var fBtn=document.getElementById("pubFollowBtn");
-  fBtn.innerText=isF?"✓ Following":"+ Follow";
-  fBtn.className="btn small "+(isF?"dark":"gold");
+  fBtn.innerText=isF?"Following":"+ Follow";
+  fBtn.className="btn "+(isF?"dark":"gold");
+
   var theirPosts=myPosts.filter(function(p){ return p.phone===ph && !p.isChannelOnly && !p.mature && deletedPostKeys.indexOf(postKey(p))<0; });
+  var totalLikes=0; theirPosts.forEach(function(p){ totalLikes+=(p.likes||0); });
   document.getElementById("pubPostsCount").innerText=theirPosts.length;
+  document.getElementById("pubLikesCount").innerText=totalLikes.toLocaleString();
   document.getElementById("pubFollowersCount").innerText=Array.isArray(u.followers)?u.followers.length:0;
   document.getElementById("pubFollowingCount").innerText=Array.isArray(u.following)?u.following.length:0;
   document.getElementById("pubPostsGrid").innerHTML=buildPostGridHtml(theirPosts);
+
+  var theirSongs=artistSongs.filter(function(s){ return s.artistPhone===ph; });
+  document.getElementById("pubSongsList").innerHTML=buildSongsListHtml(theirSongs, false);
+  setPublicSubTab("posts");
   document.getElementById("publicProfileModal").classList.add("open");
 }
 function closePublicProfile(){ document.getElementById("publicProfileModal").classList.remove("open"); }
@@ -1519,24 +1661,6 @@ function setMusicChipActive(btn){
   document.querySelectorAll("#musicSheet .chip").forEach(function(c){ c.classList.remove("active"); });
   if(btn) btn.classList.add("active");
 }
-function uploadArtistSong(){
-  var followers=getFollowersCount();
-  if(followers<20000){ showToast("🎤 Need 20,000 followers to upload Artist Songs (You have "+followers+")", true); return; }
-  var title=document.getElementById("artistSongTitle").value.trim(), mins=parseFloat(document.getElementById("artistSongMins").value)||3, file=document.getElementById("artistAudioFile").files[0];
-  if(!title || !file){ showToast("Enter song title and pick audio file",true); return; }
-  var fee=Math.max(30, Math.round((mins/3)*100)), r=new FileReader();
-  r.onload=function(ev){
-    artistSongs.unshift({ id:Date.now().toString(), name:title, artist:userName, artistPhone:currentUser, mins:mins, fee:fee, audio:ev.target.result, source:"Bandu Artist" });
-    document.getElementById("artistSongTitle").value=""; saveAll(); loadArtistCatalog();
-    showToast("🎤 Uploaded! Supporters pay "+fee+" coins (You earn 30% = "+Math.round(fee*0.30)+" coins)");
-  };
-  r.readAsDataURL(file);
-}
-function loadArtistCatalog(btn){
-  setMusicChipActive(btn);
-  if(!artistSongs.length){ document.getElementById("musicMsg").innerText="No artist songs uploaded yet (Requires 20k followers)."; document.getElementById("musicResults").innerHTML=""; return; }
-  renderMusicTracks(artistSongs, "Bandu Artists");
-}
 async function loadAudiusTrending(genre, btn){
   setMusicChipActive(btn);
   document.getElementById("musicMsg").innerText="Loading trending songs from Audius...";
@@ -1632,7 +1756,6 @@ async function saveEditFull(){
   closeEditFull(); showToast("✅ Profile Saved"); showTab("profile");
 }
 
-// CREATE ACCOUNT (Server-backed via social.js + Firestore + instant referral award to owner!)
 document.getElementById("createBtn").onclick=async function(){
   var ph=strictKePhone(document.getElementById("phone").value);
   var pw=document.getElementById("password").value;
@@ -1707,7 +1830,6 @@ document.getElementById("loginBtn").onclick=async function(){
       if(d.user) u=d.user;
     } else if(r.status===401){
       var errD=await r.json();
-      // Fallback for legacy local-only accounts created before server sync
       var localU=users.find(function(x){return x.phone===ph && (x.passHash===pwHash || x.pass===pw)});
       if(localU) u=localU;
       else { showToast(errD.error||"Wrong +254 phone or password",true); return; }
@@ -1839,7 +1961,6 @@ document.getElementById("postBtn").onclick=async function(){
     time:new Date().toLocaleString(),createdAt:Date.now(),likes:0,views:0,comments:[],likedBy:[],shares:0,isChannelOnly:false,mature:false,postType:type
   };
 
-  // Save to Netlify Blobs first so media becomes a fast URL & never disappears
   try{
     var sr=await fetch("/.netlify/functions/social", {
       method:"POST", headers:{"Content-Type":"application/json"},
@@ -2367,6 +2488,14 @@ async function loadFromServer(){
       const q=query(collection(window._db,"posts"), orderBy("createdAt","desc"));
       const snap=await getDocs(q);
       snap.forEach(function(d){ var p=d.data(); p._serverId=d.id; serverPosts.push(p); });
+
+      const sSnap=await getDocs(collection(window._db,"artist_songs"));
+      var srvSongs=[]; sSnap.forEach(function(d){ srvSongs.push(d.data()); });
+      if(srvSongs.length){
+        var allS=srvSongs.concat(artistSongs), sSeen={}, sMerged=[];
+        allS.forEach(function(s){ if(!sSeen[s.id]){ sSeen[s.id]=1; sMerged.push(s); } });
+        artistSongs=sMerged;
+      }
     }catch(e){}
   }
 
