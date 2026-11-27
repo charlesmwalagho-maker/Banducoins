@@ -25,6 +25,7 @@ exports.handler = async (event) => {
     const notifsStore = getStore("notifs");
     const livesStore = getStore("lives");
     const payoutsStore = getStore("payouts");
+    const songsStore = getStore("songs");
 
     if (event.httpMethod === "GET") {
       const q = event.queryStringParameters || {};
@@ -52,6 +53,11 @@ exports.handler = async (event) => {
         const now = Date.now();
         const clean = posts.map((p) => (p.createdAt && (now - p.createdAt) >= 86400000 && Array.isArray(p.viewedBy) && p.viewedBy.length) ? { ...p, viewedBy: [] } : p);
         return { statusCode: 200, headers: { ...cors, "Content-Type": "application/json" }, body: JSON.stringify(clean) };
+      }
+
+      if (action === "artistSongs") {
+        const songs = (await songsStore.get("catalog", { type: "json" })) || [];
+        return { statusCode: 200, headers: { ...cors, "Content-Type": "application/json" }, body: JSON.stringify(songs) };
       }
 
       if (action === "chat" && q.key) {
@@ -170,6 +176,23 @@ exports.handler = async (event) => {
         return { statusCode: 200, headers: cors, body: JSON.stringify({ ok: true }) };
       }
 
+      if (action === "artistSong") {
+        const song = body.song || {};
+        if (song.audio && String(song.audio).startsWith("data:")) {
+          const match = String(song.audio).match(/^data:([^;]+);base64,(.+)$/);
+          if (match) {
+            const sid = "s_" + Date.now() + "_" + Math.random().toString(36).slice(2, 7);
+            await mediaStore.setJSON(sid, { mime: match[1], data: match[2] });
+            song.audio = "/.netlify/functions/social?action=media&id=" + sid;
+          }
+        }
+        song.fee = 0; // Free to use in Add Music when posting
+        const songs = (await songsStore.get("catalog", { type: "json" })) || [];
+        songs.unshift(song);
+        await songsStore.setJSON("catalog", songs.slice(0, 200));
+        return { statusCode: 200, headers: { ...cors, "Content-Type": "application/json" }, body: JSON.stringify({ ok: true, song }) };
+      }
+
       if (action === "post") {
         const post = body.post || {};
         if (post.url && String(post.url).startsWith("data:")) {
@@ -230,7 +253,7 @@ exports.handler = async (event) => {
               if (!target.followRequests.includes(body.followerPhone)) target.followRequests.push(body.followerPhone);
               requested = true;
               const tNotifs = (await notifsStore.get(normWallet(target.phone), { type: "json" })) || [];
-              tNotifs.unshift({ from: body.followerPhone, text: "🔒 " + (me ? me.name : body.followerPhone) + " requested to follow you (Accept in Inbox)", type: "req", time: new Date().toLocaleString(), read: false });
+              tNotifs.unshift({ from: body.followerPhone, text: "🔒 " + (me ? me.name : body.followerPhone) + " requested to follow you", type: "req", time: new Date().toLocaleString(), read: false });
               await notifsStore.setJSON(normWallet(target.phone), tNotifs.slice(0, 50));
             } else {
               if (!target.followers.includes(body.followerPhone)) target.followers.push(body.followerPhone);
@@ -294,7 +317,12 @@ exports.handler = async (event) => {
       if (action === "liveStart") {
         let lives = (await livesStore.get("active", { type: "json" })) || [];
         lives = lives.filter((l) => l.phone !== body.phone);
-        lives.unshift({ phone: body.phone, name: body.name || body.phone, avatar: body.avatar || "", startedAt: Date.now(), updatedAt: Date.now(), likes: 0, comments: [], snapshot: body.snapshot || "" });
+        lives.unshift({
+          phone: body.phone, name: body.name || body.phone, avatar: body.avatar || "",
+          startedAt: Date.now(), updatedAt: Date.now(), likes: 0,
+          viewers: [], guests: [], comments: [{ user: "BANDU LIVE", text: "We're notifying your followers that you're LIVE!" }],
+          snapshot: body.snapshot || ""
+        });
         await livesStore.setJSON("active", lives.slice(0, 50));
         return { statusCode: 200, headers: cors, body: JSON.stringify({ ok: true }) };
       }
@@ -317,9 +345,25 @@ exports.handler = async (event) => {
         const lives = (await livesStore.get("active", { type: "json" })) || [];
         const l = lives.find((x) => x.phone === body.hostPhone);
         if (l) {
-          if (body.op === "like") l.likes = (l.likes || 0) + 1;
-          else if (body.op === "comment" && body.comment) {
-            if (!Array.isArray(l.comments)) l.comments = [];
+          if (!Array.isArray(l.viewers)) l.viewers = [];
+          if (!Array.isArray(l.comments)) l.comments = [];
+          if (!Array.isArray(l.guests)) l.guests = [];
+
+          if (body.op === "join" && body.viewerPhone) {
+            if (!l.viewers.find((v) => v.phone === body.viewerPhone)) {
+              l.viewers.unshift({ phone: body.viewerPhone, name: body.viewerName || body.viewerPhone, avatar: body.viewerAvatar || "" });
+              l.comments.push({ user: "👋", text: (body.viewerName || body.viewerPhone) + " joined" });
+              l.comments = l.comments.slice(-60);
+            }
+          } else if (body.op === "leave" && body.viewerPhone) {
+            l.viewers = l.viewers.filter((v) => v.phone !== body.viewerPhone);
+          } else if (body.op === "inviteGuest" && body.guestPhone) {
+            if (!l.guests.includes(body.guestPhone)) l.guests.push(body.guestPhone);
+            l.comments.push({ user: "🎙️", text: "Invited " + (body.guestName || body.guestPhone) + " as co-host!" });
+            l.comments = l.comments.slice(-60);
+          } else if (body.op === "like") {
+            l.likes = (l.likes || 0) + 1;
+          } else if (body.op === "comment" && body.comment) {
             l.comments.push(body.comment); l.comments = l.comments.slice(-60);
           } else if (body.op === "gift" && body.amount > 0) {
             const amt = Number(body.amount);
@@ -328,7 +372,6 @@ exports.handler = async (event) => {
             const hostWallet = (await walletsStore.get(hostKey, { type: "json" })) || { coins: 100, subcoins: 0, earningCoins: 0 };
             hostWallet.earningCoins = (hostWallet.earningCoins || 0) + streamerShare;
             await walletsStore.setJSON(hostKey, hostWallet);
-            if (!Array.isArray(l.comments)) l.comments = [];
             l.comments.push({ user: body.senderName || "Fan", text: "🎁 sent " + body.label + " (" + amt + " coins)!" });
             l.comments = l.comments.slice(-60);
           }
