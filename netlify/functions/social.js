@@ -26,6 +26,7 @@ exports.handler = async (event) => {
     const livesStore = getStore("lives");
     const payoutsStore = getStore("payouts");
     const songsStore = getStore("songs");
+    const channelsStore = getStore("channels");
 
     if (event.httpMethod === "GET") {
       const q = event.queryStringParameters || {};
@@ -44,8 +45,7 @@ exports.handler = async (event) => {
 
       if (action === "users") {
         const list = (await usersStore.get("all_users", { type: "json" })) || [];
-        const safe = list.map((u) => { const c = { ...u }; delete c.passHash; return c; });
-        return { statusCode: 200, headers: { ...cors, "Content-Type": "application/json" }, body: JSON.stringify(safe) };
+        return { statusCode: 200, headers: { ...cors, "Content-Type": "application/json" }, body: JSON.stringify(list.map((u) => { const c = { ...u }; delete c.passHash; return c; })) };
       }
 
       if (action === "posts") {
@@ -58,6 +58,12 @@ exports.handler = async (event) => {
       if (action === "artistSongs") {
         const songs = (await songsStore.get("catalog", { type: "json" })) || [];
         return { statusCode: 200, headers: { ...cors, "Content-Type": "application/json" }, body: JSON.stringify(songs) };
+      }
+
+      if (action === "channels") {
+        const chs = (await channelsStore.get("list", { type: "json" })) || [];
+        const cposts = (await channelsStore.get("posts", { type: "json" })) || [];
+        return { statusCode: 200, headers: { ...cors, "Content-Type": "application/json" }, body: JSON.stringify({ channels: chs, channelPosts: cposts }) };
       }
 
       if (action === "chat" && q.key) {
@@ -118,7 +124,6 @@ exports.handler = async (event) => {
             const refWallet = (await walletsStore.get(refKey, { type: "json" })) || { coins: 100, subcoins: 0, earningCoins: 0 };
             refWallet.coins = (refWallet.coins || 0) + 100;
             await walletsStore.setJSON(refKey, refWallet);
-
             const refNotifs = (await notifsStore.get(refKey, { type: "json" })) || [];
             refNotifs.unshift({ from: phone, text: "🎁 Referral Bonus: +100 coins! " + name + " joined using your code.", type: "ref", time: new Date().toLocaleString(), read: false });
             await notifsStore.setJSON(refKey, refNotifs.slice(0, 50));
@@ -128,7 +133,6 @@ exports.handler = async (event) => {
         allUsers.push(newUser);
         await usersStore.setJSON("all_users", allUsers);
         await walletsStore.setJSON(normWallet(phone), { coins: startCoins, subcoins: 0, earningCoins: 0 });
-
         const safeUser = { ...newUser }; delete safeUser.passHash;
         return { statusCode: 200, headers: { ...cors, "Content-Type": "application/json" }, body: JSON.stringify({ ok: true, user: safeUser, coins: startCoins, referralAwardedTo: referrerUser ? referrerUser.name : null }) };
       }
@@ -155,8 +159,7 @@ exports.handler = async (event) => {
           if (allUsers.find((u, i) => i !== idx && (u.usernameLower || "") === ul)) {
             return { statusCode: 409, headers: cors, body: JSON.stringify({ error: "Username already taken!" }) };
           }
-          allUsers[idx].name = body.name;
-          allUsers[idx].usernameLower = ul;
+          allUsers[idx].name = body.name; allUsers[idx].usernameLower = ul;
         }
         ["bio", "avatar", "cover", "location", "website", "type", "isPrivate"].forEach((k) => {
           if (body[k] !== undefined) allUsers[idx][k] = body[k];
@@ -186,11 +189,46 @@ exports.handler = async (event) => {
             song.audio = "/.netlify/functions/social?action=media&id=" + sid;
           }
         }
-        song.fee = 0; // Free to use in Add Music when posting
+        song.fee = 0;
         const songs = (await songsStore.get("catalog", { type: "json" })) || [];
         songs.unshift(song);
         await songsStore.setJSON("catalog", songs.slice(0, 200));
         return { statusCode: 200, headers: { ...cors, "Content-Type": "application/json" }, body: JSON.stringify({ ok: true, song }) };
+      }
+
+      if (action === "createChannel") {
+        const ch = body.channel || {};
+        const chs = (await channelsStore.get("list", { type: "json" })) || [];
+        chs.unshift(ch);
+        await channelsStore.setJSON("list", chs.slice(0, 100));
+        return { statusCode: 200, headers: { ...cors, "Content-Type": "application/json" }, body: JSON.stringify({ ok: true, channel: ch }) };
+      }
+
+      if (action === "subscribeChannel") {
+        const chs = (await channelsStore.get("list", { type: "json" })) || [];
+        const ch = chs.find((c) => c.id === body.channelId);
+        if (ch) {
+          if (!Array.isArray(ch.subscribers)) ch.subscribers = [];
+          if (!ch.subscribers.includes(body.phone)) ch.subscribers.push(body.phone);
+          await channelsStore.setJSON("list", chs);
+        }
+        return { statusCode: 200, headers: cors, body: JSON.stringify({ ok: true }) };
+      }
+
+      if (action === "channelPost") {
+        const cp = body.post || {};
+        if (cp.url && String(cp.url).startsWith("data:")) {
+          const match = String(cp.url).match(/^data:([^;]+);base64,(.+)$/);
+          if (match) {
+            const mid = "cm_" + Date.now() + "_" + Math.random().toString(36).slice(2, 7);
+            await mediaStore.setJSON(mid, { mime: match[1], data: match[2] });
+            cp.url = "/.netlify/functions/social?action=media&id=" + mid;
+          }
+        }
+        const cposts = (await channelsStore.get("posts", { type: "json" })) || [];
+        cposts.unshift(cp);
+        await channelsStore.setJSON("posts", cposts.slice(0, 200));
+        return { statusCode: 200, headers: { ...cors, "Content-Type": "application/json" }, body: JSON.stringify({ ok: true, post: cp }) };
       }
 
       if (action === "post") {
@@ -213,16 +251,13 @@ exports.handler = async (event) => {
       if (action === "postAction") {
         const posts = (await postsStore.get("feed", { type: "json" })) || [];
         if (body.op === "delete") {
-          const kept = posts.filter((x) => !(x.createdAt === body.createdAt && x.phone === body.phone));
-          await postsStore.setJSON("feed", kept);
+          await postsStore.setJSON("feed", posts.filter((x) => !(x.createdAt === body.createdAt && x.phone === body.phone)));
           return { statusCode: 200, headers: cors, body: JSON.stringify({ ok: true }) };
         }
         const p = posts.find((x) => x.createdAt === body.createdAt && x.phone === body.phone);
         if (p) {
-          if (body.op === "like") {
-            p.likes = body.likes; p.likedBy = body.likedBy;
-            if (Array.isArray(body.likedByUsers)) p.likedByUsers = body.likedByUsers;
-          } else if (body.op === "comment") p.comments = body.comments;
+          if (body.op === "like") { p.likes = body.likes; p.likedBy = body.likedBy; if (Array.isArray(body.likedByUsers)) p.likedByUsers = body.likedByUsers; }
+          else if (body.op === "comment") p.comments = body.comments;
           else if (body.op === "share") p.shares = body.shares;
           else if (body.op === "view") {
             p.views = (p.views || 0) + 1;
@@ -257,10 +292,7 @@ exports.handler = async (event) => {
               await notifsStore.setJSON(normWallet(target.phone), tNotifs.slice(0, 50));
             } else {
               if (!target.followers.includes(body.followerPhone)) target.followers.push(body.followerPhone);
-              if (me) {
-                if (!Array.isArray(me.following)) me.following = [];
-                if (!me.following.includes(body.targetPhone)) me.following.push(body.targetPhone);
-              }
+              if (me) { if (!Array.isArray(me.following)) me.following = []; if (!me.following.includes(body.targetPhone)) me.following.push(body.targetPhone); }
             }
           } else {
             target.followers = target.followers.filter((x) => x !== body.followerPhone);
@@ -298,11 +330,7 @@ exports.handler = async (event) => {
         const me = allUsers.find((u) => u.phone === body.phone);
         if (me) {
           if (!Array.isArray(me.watchedVideos)) me.watchedVideos = [];
-          if (!me.watchedVideos.includes(body.videoKey)) {
-            me.watchedVideos.push(body.videoKey);
-            if (me.watchedVideos.length > 500) me.watchedVideos = me.watchedVideos.slice(-500);
-            await usersStore.setJSON("all_users", allUsers);
-          }
+          if (!me.watchedVideos.includes(body.videoKey)) { me.watchedVideos.push(body.videoKey); if (me.watchedVideos.length > 500) me.watchedVideos = me.watchedVideos.slice(-500); await usersStore.setJSON("all_users", allUsers); }
         }
         return { statusCode: 200, headers: cors, body: JSON.stringify({ ok: true }) };
       }
@@ -320,7 +348,8 @@ exports.handler = async (event) => {
         lives.unshift({
           phone: body.phone, name: body.name || body.phone, avatar: body.avatar || "",
           startedAt: Date.now(), updatedAt: Date.now(), likes: 0,
-          viewers: [], guests: [], comments: [{ user: "BANDU LIVE", text: "We're notifying your followers that you're LIVE!" }],
+          viewers: [], invitedGuests: [], guestRequests: [], activeGuests: [],
+          comments: [{ user: "BANDU LIVE", text: "We're notifying your followers that you're LIVE!" }],
           snapshot: body.snapshot || ""
         });
         await livesStore.setJSON("active", lives.slice(0, 50));
@@ -347,7 +376,9 @@ exports.handler = async (event) => {
         if (l) {
           if (!Array.isArray(l.viewers)) l.viewers = [];
           if (!Array.isArray(l.comments)) l.comments = [];
-          if (!Array.isArray(l.guests)) l.guests = [];
+          if (!Array.isArray(l.invitedGuests)) l.invitedGuests = [];
+          if (!Array.isArray(l.guestRequests)) l.guestRequests = [];
+          if (!Array.isArray(l.activeGuests)) l.activeGuests = [];
 
           if (body.op === "join" && body.viewerPhone) {
             if (!l.viewers.find((v) => v.phone === body.viewerPhone)) {
@@ -357,9 +388,27 @@ exports.handler = async (event) => {
             }
           } else if (body.op === "leave" && body.viewerPhone) {
             l.viewers = l.viewers.filter((v) => v.phone !== body.viewerPhone);
+            l.activeGuests = l.activeGuests.filter((g) => g.phone !== body.viewerPhone);
           } else if (body.op === "inviteGuest" && body.guestPhone) {
-            if (!l.guests.includes(body.guestPhone)) l.guests.push(body.guestPhone);
-            l.comments.push({ user: "🎙️", text: "Invited " + (body.guestName || body.guestPhone) + " as co-host!" });
+            if (!l.invitedGuests.find((g) => g.phone === body.guestPhone)) l.invitedGuests.push({ phone: body.guestPhone, name: body.guestName || body.guestPhone });
+            l.comments.push({ user: "🎙️", text: "Invited " + (body.guestName || body.guestPhone) + " to join LIVE!" });
+            l.comments = l.comments.slice(-60);
+          } else if (body.op === "acceptInvite" && body.guestPhone) {
+            l.invitedGuests = l.invitedGuests.filter((g) => g.phone !== body.guestPhone);
+            if (!l.activeGuests.find((g) => g.phone === body.guestPhone)) l.activeGuests.push({ phone: body.guestPhone, name: body.guestName || body.guestPhone, avatar: body.guestAvatar || "" });
+            if (!l.viewers.find((v) => v.phone === body.guestPhone)) l.viewers.unshift({ phone: body.guestPhone, name: body.guestName || body.guestPhone, avatar: body.guestAvatar || "" });
+            l.comments.push({ user: "🎙️", text: (body.guestName || body.guestPhone) + " joined as Co-Host!" });
+            l.comments = l.comments.slice(-60);
+          } else if (body.op === "declineInvite" && body.guestPhone) {
+            l.invitedGuests = l.invitedGuests.filter((g) => g.phone !== body.guestPhone);
+          } else if (body.op === "requestGuest" && body.guestPhone) {
+            if (!l.guestRequests.find((g) => g.phone === body.guestPhone)) l.guestRequests.push({ phone: body.guestPhone, name: body.guestName || body.guestPhone });
+            l.comments.push({ user: "✋", text: (body.guestName || body.guestPhone) + " requested to join as guest" });
+            l.comments = l.comments.slice(-60);
+          } else if (body.op === "approveGuest" && body.guestPhone) {
+            l.guestRequests = l.guestRequests.filter((g) => g.phone !== body.guestPhone);
+            if (!l.activeGuests.find((g) => g.phone === body.guestPhone)) l.activeGuests.push({ phone: body.guestPhone, name: body.guestName || body.guestPhone });
+            l.comments.push({ user: "🎙️", text: (body.guestName || body.guestPhone) + " approved as Co-Host!" });
             l.comments = l.comments.slice(-60);
           } else if (body.op === "like") {
             l.likes = (l.likes || 0) + 1;
